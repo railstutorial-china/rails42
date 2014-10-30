@@ -27,7 +27,7 @@
                 <span class="sr-only">导航</span>
                 <i class="fa fa-bars"></i>
             </button>
-            <a href="http://railstutorial-china.org/#purchase" class="btn btn-warning navbar-btn visible-xs collapsed-purchase-btn">购买</a>
+            <a href="http://railstutorial-china.org/#purchase" id="navbar-purchase-xs" class="btn btn-warning navbar-btn visible-xs collapsed-purchase-btn">购买</a>
         </div>
         <nav class="collapse navbar-collapse book-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -35,7 +35,7 @@
                 <li class="active"><a href="http://railstutorial-china.org/read/" title="在线阅读">阅读</a></li>
                 <li><a href="http://railstutorial-china.org/blog/" title="最新消息">博客</a></li>
                 <li><a href="https://selfstore.io/products/189/topics" title="论坛">论坛</a></li>
-                <li class="hidden-xs"><div><a href="http://railstutorial-china.org/#purchase" class="btn btn-warning navbar-btn" title="购买电子书">购买</a></div></li>
+                <li class="hidden-xs"><div><a href="http://railstutorial-china.org/#purchase" id="navbar-purchase" class="btn btn-warning navbar-btn" title="购买电子书">购买</a></div></li>
             </ul>
         </nav>
     </div>
@@ -1593,6 +1593,12 @@ spring app <span class="p">|</span> sample_app <span class="p">|</span> started 
 
   ga('create', 'UA-56255794-2', 'auto');
   ga('send', 'pageview');
+  $('#navbar-purchase').on('click',function(){
+    ga('send', 'event', 'button', 'click', 'navbar purchase');
+  });
+  $('#navbar-purchase-xs').on('click',function(){
+    ga('send', 'event', 'button', 'click', 'navbar purchase xs');
+  });
 </script>
 
 </body>
