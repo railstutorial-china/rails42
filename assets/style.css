@@ -1,0 +1,246 @@
+/* Global */
+
+body {
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, sans-serif;
+}
+
+code {
+    padding: 0;
+    color: #000;
+    background: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+a.anchor{
+    display: block;
+    position: relative;
+    top: -55px;
+    visibility: hidden;
+}
+
+.green {
+  color: #228B22;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.red {
+  color: #F00;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.align-right {
+    text-align: right;
+}
+
+/* Header */
+
+.navbar-book {
+    background-color: rgba(255,255,255,.9);
+    border-color: #ccc;
+}
+
+.collapsed-purchase-btn {
+    position: relative;
+    float: right;
+    margin: 10px 10px 8px 0;
+}
+
+/* Content */
+
+.content {
+    padding: 90px 0 30px;
+}
+
+/* Heading */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, sans-serif;
+    font-weight: normal;
+    line-height: 1.3;
+}
+
+.content h1 {
+    border-bottom: 1px solid #888;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+section[data-type="sect1"] h1 {
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+/* TOC */
+
+nav[data-type="toc"] ol {
+    list-style-type: none;
+}
+
+/* Aside */
+
+div.sidebar {
+    border: 1px solid #ccc;
+    margin: 30px 0;
+    padding: 20px;
+}
+
+div.sidebar h5 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Figure */
+
+div.figure {
+    margin: 30px 0;
+}
+
+div.figure img {
+    display: block;
+    margin: 0 auto;
+}
+
+div.figcaption {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Table */
+
+table {
+    margin: 30px 0;
+    border-collapse: collapse;
+}
+
+thead+tbody {
+    border-bottom: 1px solid #000;
+}
+
+table caption {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+tr {
+    border-width: 0;
+}
+
+th {
+    font-size: 14px;
+    text-align: left;
+    margin-top: 0;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+th, td {
+    padding: 6px 12px;
+}
+
+tr {
+    border-bottom: 1px dotted #ccc;
+}
+
+td,
+table p {
+    font-size: 14px;
+}
+
+table p {
+    text-indent: 0;
+    margin: 0;
+}
+
+/* allow code in tables to wrap */
+td pre.programlisting,
+td pre.screen,
+td pre.literallayout,
+td code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Listing */
+
+div[data-type="listing"] {
+    margin: 30px 0;
+}
+
+div[data-type="listing"] h5 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+div[data-type="listing"] .source-file {
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.hll {
+    background-color: #ffc;
+}
+
+/* Navigation */
+
+.navi {
+    border-top: 1px solid #888;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/* Footnotes */
+
+.footnotes {
+    border-top: 3px double #888;
+    margin-top: 30px;
+    padding-top: 10px;
+}
+
+.footnotes li {
+    margin-bottom: 5px;
+}
+
+.footnotes li:target {
+    background-color: #ffc;
+}
+
+
+/* Footer */
+
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer a {
+    color: #fff;
+}
+
+.sns {
+    font-size: 20px;
+}
+
+
+/* Media queries */
+
+@media (max-width: 767px) {
+    .cover {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .box {
+        margin-bottom: 10px;
+    }
+
+    .section-title {
+        left: 15px;
+    }
+}
