@@ -179,6 +179,7 @@ div[data-type="listing"] h5 {
 div[data-type="listing"] .source-file {
     font-style: italic;
     margin-bottom: 5px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .hll {

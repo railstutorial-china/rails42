@@ -48,9 +48,9 @@
                 <article class="article">
                     <section data-type="chapter" id="from-zero-to-deploy">
 <h1><span class="title-label">第 1 章</span> 从零开始，完成一次部署</h1>
-<p>欢迎阅读《Ruby on Rails 教程：通过 Rails 学习 Web 开发》。本书的目的是教你如何开发 Web 应用，而我们选择的工具是流行的 <a href="http://rubyonrails.org">Ruby on Rails</a> Web 框架。如果你刚接触这一领域，本书会向你详细介绍 Web 应用开发的方方面面，包括 Ruby、Rails、HTML 和 CSS、数据库、版本控制、测试，以及部署的基本知识。学会这些知识足够为你赢得一份 Web 开发者的工作，或者还可以让你成为一名技术创业者。如果你已经了解 Web 开发，阅读本书能快速学会 Rails 框架的基础，包括 MVC 和 REST、生成器、迁移、路由，以及嵌入式 Ruby。不管怎样，读完本书之后，以你所掌握的知识，已经能够阅读讨论更高级话题的图书和博客，或者观看视频。这些都是旺盛的编程教学生态环境的一部分。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
-<p>本书采用一种综合性方法讲授 Web 开发，在学习的过程中我们要开发三个演示应用：第一个最简单，叫 <code>hello_app</code>（<a href="#the-first-application">1.3 节</a>）；第二个功能多一些，叫 <code>toy_app</code>（<a href="chapter2.html#a-toy-app">第 2 章</a>），第三个是真正的演示程序，叫 <code>sample_app</code>（<a href="chapter3.html#mostly-static-pages">第 3 章</a>到<a href="chapter12.html#following-users">第 12 章</a>）。从这三个应用的名字可以看出，书中开发的应用不限定于某种特定类型的网站。不过，最后一个演示应用有点儿类似于某个流行的<a href="https://twitter.com">社会化微博网站</a>（很巧，这个网站一开始也是使用 Rails 开发的）。本书的重点是介绍通用原则，所以不管你想开发什么样的 Web 应用，读完本书后，都能建立扎实的基础。</p>
-<p>人们经常会问，我要具备多少背景知识才能阅读本书学习 Web 开发。<a href="#prerequisites">1.1.1 节</a>对此做了详细分析。Web 开发是个具有挑战性的学科，对没有任何背景知识的初学者来说挑战更大。我最初为本书设定的阅读对象是已经具有一定编程和 Web 开发经验的开发者，但后来发现读者中有很多都刚开始接触开发。所以，现在你看到的本书第三版做出了很多努力，尽量降低入门 Rails 的门槛。</p>
+<p>欢迎阅读《Ruby on Rails 教程：通过 Rails 学习 Web 开发》。本书的目的是教你如何开发 Web 应用，而我们选择的工具是流行的 <a href="http://rubyonrails.org">Ruby on Rails</a> Web 框架。如果你刚接触这一领域，本书会向你详细介绍 Web 应用开发的方方面面，包括 Ruby、Rails、HTML 和 CSS、数据库、版本控制、测试，以及部署的基本知识。学会这些知识足够为你赢得一份 Web 开发者的工作，或者还可以让你成为一名技术创业者。如果你已经了解 Web 开发，阅读本书能快速学会 Rails 框架的基础，包括 MVC 和 REST、生成器、迁移、路由，以及嵌入式 Ruby。不管怎样，读完本书之后，以你所掌握的知识，已经能够阅读讨论更高级话题的图书和博客，或者观看视频。这些都是旺盛的编程教学生态圈的一部分。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
+<p>本书采用一种综合式方法讲授 Web 开发，在学习的过程中我们要开发三个演示应用：第一个最简单，叫 <code>hello_app</code>（<a href="#the-first-application">1.3 节</a>）；第二个功能多一些，叫 <code>toy_app</code>（<a href="chapter2.html#a-toy-app">第 2 章</a>），第三个是真正的演示程序，叫 <code>sample_app</code>（<a href="chapter3.html#mostly-static-pages">第 3 章</a>到<a href="chapter12.html#following-users">第 12 章</a>）。从这三个应用的名字可以看出，书中开发的应用不限定于某种特定类型的网站。不过，最后一个演示应用有点儿类似某个流行的<a href="https://twitter.com">社会化微博网站</a>（很巧，这个网站一开始也是使用 Rails 开发的）。本书的重点是介绍通用原则，所以不管你想开发什么样的 Web 应用，读完本书后，都能建立扎实的基础。</p>
+<p>人们经常会问，我要具备多少背景知识才能阅读本书学习 Web 开发。<a href="#prerequisites">1.1.1 节</a>对此做了详细分析。Web 开发是个具有挑战性的学科，对没有任何背景知识的初学者来说挑战更大。我最初为本书设定的阅读对象是已经具有一定编程和 Web 开发经验的开发者，但后来发现读者中有很多都刚开始接触开发。所以，现在你看到的本书第三版做出了很多努力，尽量降低了入门 Rails 的门槛。</p>
 <div data-type="sidebar" id="aside-barrier" class="sidebar">
 <h5>旁注 1.1：降低门槛</h5>
 <p>本书第三版采取了很多措施，降低入门 Rails 的门槛：</p>
@@ -78,23 +78,23 @@
 </div>
 <p>这第一章，我们要安装 Ruby on Rails 以及需要的所有软件，而且还要架设开发环境（<a href="#up-and-running">1.2 节</a>）。然后创建第一个 Rails 应用，<code>hello_app</code>。本书旨在介绍优秀的软件开发习惯，所以在创建第一个应用之后，我们会立即将它纳入版本控制系统 Git 中（<a href="#version-control-with-git">1.4 节</a>）。你可能不相信，在这一章，我们还要部署这个应用（<a href="#deploying">1.5 节</a>），把它放到外网上。</p>
 <p><a href="chapter2.html#a-toy-app">第 2 章</a>会创建第二个项目，演示 Rails 应用的一些基本操作。为了速度，我们会使用脚手架（<a href="#aside-scaffolding">旁注 1.2</a>）创建这个应用（名为 <code>toy_app</code>）。因为生成的代码很丑也很复杂，所以<a href="chapter2.html#a-toy-app">第 2 章</a>将集中精力在浏览器中，使用 URI（经常称为 URL）<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>和这个应用交互。</p>
-<p>本书剩下的章节将集中精力开发一个真实的大型演示应用（名为 <code>sample_app</code>），所有代码都从零开始编写。在开发这个应用的过程中，我们会用到模拟技术，“测试驱动开发”（Test-driven Development，简称 TDD）理念，以及“集成测试”（integration test）。<a href="#mostly-static-pages">第 3 章</a>创建静态页面，然后增加一些动态内容。<a href="#rails-flavored-ruby">第 4 章</a>则会简要的介绍一下 Rails 使用的 Ruby 程序语言。<a href="#filling-in-the-layout">第 5 章</a>到<a href="#account-activation-and-password-reset">第 10 章</a>将逐步完善这个应用的低层结构，包括网站的布局，用户数据模型，完整的注册和认证系统（含有账户激活和密码重设功能）。最后，<a href="#user-microposts">第 11 章</a>和<a href="#following-users">第 12 章</a>将添加微博和社交功能，最终开发出一个可以正常运行的演示网站。</p>
+<p>本书剩下的章节将集中精力开发一个真实的大型演示应用（名为 <code>sample_app</code>），所有代码都从零开始编写。在开发这个应用的过程中，我们会用到模拟技术，“测试驱动开发”（Test-driven Development，简称 TDD）理念，以及“集成测试”（integration test）。<a href="#mostly-static-pages">第 3 章</a>创建静态页面，然后增加一些动态内容。<a href="#rails-flavored-ruby">第 4 章</a>会简要介绍一下 Rails 使用的 Ruby 程序语言。<a href="#filling-in-the-layout">第 5 章</a>到<a href="#account-activation-and-password-reset">第 10 章</a>将逐步完善这个应用的低层结构，包括网站的布局，用户数据模型，完整的注册和认证系统（含有账户激活和密码重设功能）。最后，<a href="#user-microposts">第 11 章</a>和<a href="#following-users">第 12 章</a>将添加微博和社交功能，最终开发出一个可以正常运行的演示网站。</p>
 <div data-type="sidebar" id="aside-scaffolding" class="sidebar">
 <h5>旁注 1.2：脚手架——更快，更简单，更诱人</h5>
 <p>Rails 出现伊始就吸引了众多目光，特别是 Rails 创始人 David Heinemeier Hansson 录制的著名的“<a href="http://v.youku.com/v_show/id_XNzg5MjUwOTU2.html">15分钟开发一个博客程序</a>”视频。这个视频及其衍生版本是窥探 Rails 强大功能一种很好的方式，我推荐你看一下这些视频。不过事先提醒一下，这些视频中的演示能控制在 15 分钟以内，得益于一种叫做“脚手架”（scaffold）的功能，通过 Rails 命令 <code>generate scaffold</code> 生成大量的代码。</p>
-<p>写作本书时，我也想过使用脚手架，因为它<a href="http://en.wikipedia.org/wiki/Dark_side_(Star_Wars)">更快、更简单、更诱人</a>。不过脚手架生成的大量且复杂的代码，会让初学者困惑。虽然能学会脚手架的用法，但并不明白到底发生了什么事。使用脚手架，你只是一个脚本生成器的使用者，无法提升你对 Rails 的认识。</p>
+<p>写作本书时，我也想过使用脚手架，因为它<a href="http://en.wikipedia.org/wiki/Dark_side_(Star_Wars)">更快、更简单、更诱人</a>。不过脚手架生成的大量且复杂的代码会让初学者困惑。虽然能学会脚手架的用法，但并不明白到底发生了什么事。使用脚手架，你只是一个脚本生成器的使用者，无法提升你对 Rails 的认识。</p>
 <p>本书将采用一种不同的方式，虽然<a href="chapter2.html#a-toy-app">第 2 章</a>会用脚手架开发一个小型的玩具应用，但本书的核心是从<a href="#mostly-static-pages">第 3 章</a>起开发的演示应用。在开发这个演示应用的每个阶段，我们只会编写少量的代码，易于理解但又具有一定的挑战性。通过这一过程，最终你会对 Rails 有较为深刻的理解，而且能灵活运用，开发几乎任何类型的 Web 应用。</p>
 </div>
 <section data-type="sect1" id="introduction">
 <h1><span class="title-label">1.1.</span> 简介</h1>
-<p>Ruby on Rails（或者简称“Rails”）是一个 Web 开发框架，使用 Ruby 编程语言开发。自 2004 年出现之后，Rails 就迅速成为动态 Web 程序开发领域功能最强大、最受欢迎的框架之一。使用 Rails 的公司有很多，例如 <a href="http://airbnb.com/">Airbnb</a>、<a href="http://basecamp.com/">Basecamp</a>、<a href="http://disney.com">Disney</a>、<a href="http://github.com/">Github</a>、<a href="http://hulu.com/">Hulu</a>、<a href="http://kickstarter.com/">Kickstarter</a>、<a href="http://shopify.com/">Shopify</a>、<a href="http://twitter.com/">Twitter</a> 和 <a href="http://yellowpages.com/">Yellow Pages</a>。还有很多 Web 开发工作室专门从事 Rails 应用开发，例如 <a href="http://entp.com/">ENTP</a>、<a href="http://thoughtbot.com/">thoughtbot</a>、<a href="http://pivotallabs.com/">Pivotal Labs</a>、<a href="http://hashrocket.com/">Hashrocket</a> 和 <a href="http://www.happyfuncorp.com/">HappyFunCorp</a>。除此之外还有无数独立顾问，培训人员和项目承包商。</p>
+<p>Ruby on Rails（或者简称“Rails”）是一个 Web 开发框架，使用 Ruby 编程语言开发。自 2004 年出现之后，Rails 就迅速成为动态 Web 应用开发领域功能最强大、最受欢迎的框架之一。使用 Rails 的公司有很多，例如 <a href="http://airbnb.com/">Airbnb</a>、<a href="http://basecamp.com/">Basecamp</a>、<a href="http://disney.com">Disney</a>、<a href="http://github.com/">Github</a>、<a href="http://hulu.com/">Hulu</a>、<a href="http://kickstarter.com/">Kickstarter</a>、<a href="http://shopify.com/">Shopify</a>、<a href="http://twitter.com/">Twitter</a> 和 <a href="http://yellowpages.com/">Yellow Pages</a>。还有很多 Web 开发工作室专门从事 Rails 应用开发，例如 <a href="http://entp.com/">ENTP</a>、<a href="http://thoughtbot.com/">thoughtbot</a>、<a href="http://pivotallabs.com/">Pivotal Labs</a>、<a href="http://hashrocket.com/">Hashrocket</a> 和 <a href="http://www.happyfuncorp.com/">HappyFunCorp</a>。除此之外还有无数独立顾问，培训人员和项目承包商。</p>
 <p>Rails 为何如此成功呢？首先，Rails 完全开源，基于 <a href="http://www.opensource.org/licenses/mit-license.php">MIT 协议</a>发布，可以免费下载、使用。Rails 的成功很大程度上得益于它优雅而紧凑的设计。Rails 熟谙 Ruby 语言的可扩展性，开发了一套用于编写 Web 应用的“<a href="http://en.wikipedia.org/wiki/Domain_Specific_Language">领域特定语言</a>”（Domain-specific Language，简称 DSL）。所以 Web 编程中很多常见的任务，例如生成 HTML，创建数据模型和 URL 路由，在 Rails 中都很容易实现，最终得到的应用代码简洁而且可读性高。</p>
 <p>Rails 还会快速跟进 Web 开发领域最新的技术和框架设计方式。例如，Rails 是最早使用 REST 架构风格组织 Web 应用的框架之一（这个架构贯穿本书）。当其他框架开发出成功的新技术后，Rails 的创建者 <a href="http://loudthinking.com/">David Heinemeier Hansson</a> 及其<a href="http://rubyonrails.org/core">核心开发团队</a>会毫不犹豫的将其吸纳进来。或许最典型的例子是 Rails 和 Merb 两个项目的合并，从此 Rails 继承了 Merb 的模块化设计、稳定的 <a href="http://en.wikipedia.org/wiki/Application_programming_interface">API</a>，性能也得到了提升。</p>
 <p>最后一点，Rails 有一个活跃而多元化的社区。社区中有数以百计的开源项目<a href="http://contributors.rubyonrails.org/">贡献者</a>，以及与会者众多的<a href="http://railsconf.com/">开发者大会</a>，而且还开发了大量的 <a href="https://rubygems.org/">gem</a>（代码库，一个 gem 解决一个特定的问题，例如分页和图片上传），有很多内容丰富的博客，以及一些讨论组和 IRC 频道。有如此众多的 Rails 程序员也使得处理程序错误变得简单了：在谷歌中搜索错误消息，几乎总能找到一篇相关的博客文章或讨论组中的话题。</p>
 <section data-type="sect2" id="prerequisites">
 <h2><span class="title-label">1.1.1.</span> 预备知识</h2>
 <p>阅读本书不需要具备特定的预备知识。本书不仅介绍 Rails，还涉及底层的 Ruby 语言，Rails 默认使用的测试框架（MiniTest），Unix 命令行，<a href="http://en.wikipedia.org/wiki/HTML">HTML</a>、<a href="http://en.wikipedia.org/wiki/CSS">CSS</a>，少量的 <a href="http://en.wikipedia.org/wiki/JavaScript">JavaScript</a>，以及一点 <a href="http://en.wikipedia.org/wiki/SQL">SQL</a>。我们要掌握的知识很多，所以我一般建议阅读本书之前先具备一些 HTML 和编程知识。说是这么说，但也有相当数量的初学者使用本书从零开始学习 Web 开发，所以即便你的经验有限，我还是建议你读一下试试。如果你招架不住了，随时可以翻回这里，使用下面列出的某个资源，从头学起。多位读者告诉我，他们建议跟着教程做两遍，第一遍毕竟学到的知识有限，但再做第二遍就简单多了。</p>
-<p>学习 Rails 时经常有人问，要不要先学 Ruby。这个问题的答案取决于你个人的学习方式以及你所具有的编程经验。如果你希望较为系统的彻底学习，或者你以前从未编程过，那么先学 Ruby 或许更合适。学习 Ruby，我推荐阅读 Chris Pine 写的《<a href="http://pragprog.com/book/ltp2/learn-to-program">Learn to Program</a>》和 Peter Cooper 写的《<a href="http://book.douban.com/subject/3836123/">Ruby 入门</a>》。很多 Rails 开发初学者很想立马就开始开发 Web 应用，而不是在此之前读完一本介绍 Ruby 的书。如果你是这类人，我推荐你在 <a href="http://tryruby.org/">Try Ruby</a> 上学习一些简短的交互式教程，以便在阅读本书之前对 Ruby 有个大概的了解。如果你还是觉得本书太难，或许可以先看 Daniel Kehoe 写的《<a href="http://learn-rails.com/learn-ruby-on-rails.html">Learn Ruby on Rails</a>》，或者学习 <a href="https://onemonth.com">One Month Rails</a> 课程——它们更适合没有任何背景知识的初学者。</p>
+<p>学习 Rails 时经常有人问，要不要先学 Ruby。这个问题的答案取决于你个人的学习方式以及编程经验。如果你希望较为系统地彻底学习，或者你以前从未编程过，那么先学 Ruby 或许更合适。学习 Ruby，我推荐阅读 Chris Pine 写的《<a href="http://pragprog.com/book/ltp2/learn-to-program">Learn to Program</a>》和 Peter Cooper 写的《<a href="http://book.douban.com/subject/3836123/">Ruby 入门</a>》。很多 Rails 初学者很想立即开始开发 Web 应用，而不是在此之前读完一本介绍 Ruby 的书。如果你是这类人，我推荐你在 <a href="http://tryruby.org/">Try Ruby</a> 上学习一些简短的交互式教程，以便在阅读本书之前对 Ruby 有个大概的了解。如果你还是觉得本书太难，或许可以先看 Daniel Kehoe 写的《<a href="http://learn-rails.com/learn-ruby-on-rails.html">Learn Ruby on Rails</a>》，或者学习 <a href="https://onemonth.com">One Month Rails</a> 课程——它们更适合没有任何背景知识的初学者。</p>
 <p>不管你从哪里开始，读完本书后都应该可以学习 Rails 中高级知识了。以下是我推荐的一些学习资源：</p>
 <ul>
 <li>
@@ -119,7 +119,7 @@
 </section>
 <section data-type="sect2" id="conventions-in-this-book">
 <h2><span class="title-label">1.1.2.</span> 排版约定</h2>
-<p>本书使用的排版方式，很多都不用再做解释。本节我们说一下那些意义不是很清晰的排版。</p>
+<p>本书使用的排版方式，很多都不用再做解释。本节我要说一下那些意义不是很清晰的排版。</p>
 <p>书中很多代码清单用到了命令行命令。为了行文简便，所有命令都使用 Unix 风格命令行提示符（一个美元符号），例如：</p>
 <div data-type="listing">
 
@@ -159,6 +159,7 @@ hello, world!
 <p>为了行文简洁，我一般都会省略应用的路径，写成 <code>config/environments/production.rb</code>。</p>
 <p>本书经常需要显示一些来自其他程序（shell 命令，版本控制系统，Ruby 程序等）的输出。因为系统之间存在细微的差异，你看到的输出结果可能和书中显示的不完全一致，但是无需担心。而且，有些命令在某些操作系统中可能会导致错误，本书不会一一说明这些错误的解决方法，你可以在谷歌中搜索错误消息，自己尝试解决——这也是为现实中的软件开发做准备。如果你在阅读本书的过程中遇到了问题，我建议你看一下<a href="http://railstutorial.org#help">本书网站帮助区</a>中列出的资源。</p>
 <p>在这个教程中我们要测试 Rails 应用，所以最好知道某段代码能让测试组件失败（使用红色表示）还是通过（使用绿色表示）。为了方便，导致测试失败的代码使用“<strong class="red">RED</strong>”标记，能让测试通过的代码使用“<strong class="green">GREEN</strong>”标记。</p>
+<p>每一章都有一些练习，你可以自己决定要不要做，但推荐做。为了区分正文和练习，练习的解答不会和后续的内容混在一起。如果后面需要使用某个练习中的代码，我会在正文中指出来，并给出解答方法。</p>
 <p>最后，为了方便，本书使用两种排版方式，让代码清单更易理解。第一种，有些代码清单中包含一到多个高亮的代码行，如下所示：</p>
 <div data-type="listing">
 
@@ -169,8 +170,7 @@ hello, world!
 </span><span class="k">end</span>
 </pre></div>
 </div>
-<p>高亮的代码行一般用于标出这段代码清单中最重要的新代码，偶尔也用来表示当前代码清单和前一个代码清单的差异。</p>
-<p>第二种排版方式是，为了行文简洁，书中很多代码清单中都有竖排的点号，如下所示：</p>
+<p>高亮的代码行一般用于标出这段代码清单中最重要的新代码，偶尔也用来表示当前代码清单和前一个代码清单的差异。第二种，为了行文简洁，书中很多代码清单中都有竖排的点号，如下所示：</p>
 <div data-type="listing">
 
 
@@ -190,8 +190,8 @@ hello, world!
 <p>就算对经验丰富的 Rails 开发者来说，安装 Ruby、Rails，以及相关的所有软件，也要几经波折。这些问题是由环境的多样性导致的。不同的操作系统，版本号，文本编辑器的偏好设置和“集成开发环境”（Integrated Development Environment，简称 IDE）等，都会导致环境有所不同。如果你已经在本地电脑中配置好了开发环境，可以继续使用你的环境。但对于初学者，我更鼓励使用云端集成开发环境（<a href="#aside-barrier">旁注 1.1</a>中说过），这样可以避免安装和配置出现问题。云端 IDE 运行在普通的 Web 浏览器中，因此在不同的平台中表现一致，这对 Rails 开发一直很困难的操作系统（例如 Windows）来说尤其有用。如果你不怕挑战，仍想在本地开发环境中学习书中的教程，我建议你按照 <a href="http://installrails.com">InstallRails.com</a> 中的说明搭建环境。<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup></p>
 <section data-type="sect2" id="development-environment">
 <h2><span class="title-label">1.2.1.</span> 开发环境</h2>
-<p>不同的人有不同的喜好，每个 Rails 程序员都有一套自己的开发环境。为了避免问题复杂化，本书使用一个标准的云端开发环境，<a href="https://c9.io">Cloud9</a>。而且，为了第三版我还和 Cloud9 合作，专为本书量身打造了一个开发环境。这个开发环境预先安装好了 Rails 开发所需的大多数软件，包括 Ruby、RubyGems 和 Git（其实，唯有 Rails 要单独安装，而且这么做是有目的的，详情参见 <a href="#installing-rails">1.2.2 节</a>）。这个云端 IDE 还包含 Web 应用开发所需的三个基本组件：文本编辑器，文件系统浏览器，以及命令行终端（如<a href="#fig-ide-anatomy">图 1.1</a>）。云端 IDE 中的文本编辑器功能很多，其中一项是“在文件中查找”的全局搜索功能<sup>[<a id="fn-ref-5" href="#fn-5">5</a>]</sup>，我觉得这个功能对大型 Rails 项目来说是必须具备的。</p>
-<div id="fig-ide-anatomy" class="figure"><img src="images/chapter1/ide_anatomy.png" alt="ide anatomy" /><div class="figcaption"><span class="title-label">图 1.1：</span>这个云端 IDE 的界面布局</div></div>
+<p>不同的人有不同的喜好，每个 Rails 程序员都有一套自己的开发环境。为了避免问题复杂化，本书使用一个标准的云端开发环境，<a href="https://c9.io">Cloud9</a>。而且，为了第三版我还和 Cloud9 合作，专为本书量身打造了一个开发环境。这个开发环境预先安装好了 Rails 开发所需的大多数软件，包括 Ruby、RubyGems 和 Git（其实，唯有 Rails 要单独安装，而且这么做是有目的的，详情参见 <a href="#installing-rails">1.2.2 节</a>）。这个云端 IDE 还包含 Web 应用开发所需的三个基本组件：文本编辑器，文件系统浏览器，以及命令行终端（如<a href="#fig-ide-anatomy">图 1.1</a>）。云端 IDE 中的文本编辑器功能很多，其中一项是“在文件中查找”的全局搜索功能<sup>[<a id="fn-ref-5" href="#fn-5">5</a>]</sup>，我觉得这个功能对大型 Rails 项目来说是必备的。</p>
+<div id="fig-ide-anatomy" class="figure"><img src="images/chapter1/ide_anatomy.png" alt="ide anatomy" /><div class="figcaption"><span class="title-label">图 1.1：</span>云端 IDE 的界面布局</div></div>
 <p>这个云端开发环境的使用步骤如下：</p>
 <ol class="arabic">
 <li>
@@ -219,21 +219,21 @@ hello, world!
 </section>
 <section data-type="sect2" id="installing-rails">
 <h2><span class="title-label">1.2.2.</span> 安装 Rails</h2>
-<p>前一节创建的开发环境包含所有软件，但没有 Rails。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>为了安装 Rails，我们要使用包管理器 RubyGems 提供的 <code>gem</code> 命令，在命令行终端里输入<a href="#listing-installing-rails">代码清单 1.1</a> 所示的命令。</p>
+<p>前一节创建的开发环境包含所有软件，但没有 Rails。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>为了安装 Rails，我们要使用包管理器 RubyGems 提供的 <code>gem</code> 命令，在命令行终端里输入<a href="#listing-installing-rails">代码清单 1.1</a> 所示的命令。（如果在本地系统中开发，在终端窗口中输入这个命令；如果使用云端 IDE，在&lt;&lt;fig-ide-anatomy,图 1.1 中的“命令行终端”输入这个命令。）</p>
 <div id="listing-installing-rails" data-type="listing">
 <h5><span class="title-label">代码清单 1.1：</span>安装 Rails，指定版本</h5>
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span>gem install rails -v 4.2.0.beta2
+<div class="highlight language-sh"><pre><span class="nv">$ </span>gem install rails -v 4.2.0.beta4
 </pre></div>
 </div>
-<p><code>-v</code> 旗标的作用是指定安装哪个 Rails 版本。你使用的版本必须和我一样，这样学习这份教程的过程中，你我得到的结果才相同。</p>
+<p><code>-v</code> 旗标的作用是指定安装哪个 Rails 版本。你使用的版本必须和我一样，这样学习的过程中，你我得到的结果才相同。</p>
 </section>
 </section>
 <section data-type="sect1" id="the-first-application">
 <h1><span class="title-label">1.3.</span> 第一个应用</h1>
 <p>按照计算机编程领域<a href="http://www.catb.org/jargon/html/H/hello-world.html">长期沿用的传统</a>，第一个应用的目的是编写一个“hello, world”程序。具体说来，我们要创建一个简单的应用，在网页中显示字符串“hello, world!”，在开发环境（<a href="#hello-world">1.3.4 节</a>）和线上网站中（<a href="#deploying">1.5 节</a>）都是如此。</p>
-<p>Rails 应用一般都从 <code>rails new</code> 命令开始，这个命令会在你指定的文件夹中创建一个 Rails 应用骨架。如果没使用<a href="#development-environment">1.2.1 节</a>推荐的 Cloud9 IDE，首先你要新建一个文件夹，命名为 <code>workspace</code>（<a href="#listing-mkdir-rails-projects">代码清单 1.2</a>），然后进入这个文件夹。（代码清单 1.2 中使用了 Unix 命令 <code>cd</code> 和 <code>mkdir</code>，如果你不熟悉这些命令，可以阅读<a href="#aside-unix-commands">旁注 1.3</a>。）</p>
+<p>Rails 应用一般都从 <code>rails new</code> 命令开始，这个命令会在你指定的文件夹中创建一个 Rails 应用骨架。如果没使用<a href="#development-environment">1.2.1 节</a>推荐的 Cloud9 IDE，首先你要新建一个文件夹，命名为 <code>workspace</code>，然后进入这个文件夹，如<a href="#listing-mkdir-rails-projects">代码清单 1.2</a> 所示。（<a href="#listing-mkdir-rails-projects">代码清单 1.2</a> 中使用了 Unix 命令 <code>cd</code> 和 <code>mkdir</code>，如果你不熟悉这些命令，可以阅读<a href="#aside-unix-commands">旁注 1.3</a>。）</p>
 <div id="listing-mkdir-rails-projects" data-type="listing">
 <h5><span class="title-label">代码清单 1.2：</span>为 Rails 项目新建一个文件夹，命名为 <code>workspace</code>（在云端环境中不用这一步）</h5>
 
@@ -326,13 +326,13 @@ hello, world!
 </tr>
 </tbody>
 </table>
-<p>不管在本地环境，还是在云端 IDE 中，下一步都是使用<a href="#listing-rails-command">代码清单 1.3</a>中的命令创建第一个应用。注意，在这个代码清单中，我们明确指定了 Rails 版本（<code>4.2.0.beta2</code>）。这么做的目的是，确保使用<a href="#listing-installing-rails">代码清单 1.1</a>中安装的 Rails 版本来创建这个应用的文件夹结构。</p>
+<p>不管在本地环境，还是在云端 IDE 中，下一步都是使用<a href="#listing-rails-command">代码清单 1.3</a>中的命令创建第一个应用。注意，在这个代码清单中，我们明确指定了 Rails 版本（<code>4.2.0.beta4</code>）。这么做的目的是，确保使用<a href="#listing-installing-rails">代码清单 1.1</a>中安装的 Rails 版本来创建这个应用的文件夹结构。（执行<a href="#listing-rails-command">代码清单 1.3</a> 中的命令时，如果返回“Could not find ’railties”这样的错误，说明你没安装正确的 Rails 版本，再次确认你安装 Rails 时执行的命令和<a href="#listing-installing-rails">代码清单 1.1</a> 一模一样。）</p>
 <div id="listing-rails-command" data-type="listing">
 <h5><span class="title-label">代码清单 1.3：</span>执行 <code>rails new</code> 命令（明确指定版本号）</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span><span class="nb">cd</span> ~/workspace
-</span><span class="hll"><span class="nv">$ </span>rails _4.2.0.beta2_ new hello_app
+</span><span class="hll"><span class="nv">$ </span>rails _4.2.0.beta4_ new hello_app
 </span>      create
       create  README.rdoc
       create  Rakefile
@@ -369,14 +369,14 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 * bin/rails: spring inserted
 </pre></div>
 </div>
-<p>如代码清单 1.3 所示，执行 <code>rails new</code> 命令生成所有文件之后，会自动执行 <code>bundle install</code> 命令。我们会在 <a href="#bundler">1.3.1 节</a>中说明这个命令的作用。</p>
+<p>如代码清单 1.3 所示，执行 <code>rails new</code> 命令生成所有文件之后，会自动执行 <code>bundle install</code> 命令。我们会在 <a href="#bundler">1.3.1 节</a>说明这个命令的作用。</p>
 <p>留意一下 <code>rails new</code> 命令创建的文件和文件夹。这个标准的文件夹结构（如<a href="#fig-directory-structure-rails">图 1.4</a>）是 Rails 的众多优势之一——让你从零开始快速的创建一个可运行的简单应用。而且，所有 Rails 应用都使用这种文件夹结构，所以阅读他人的代码时很快就能理清头绪。这些文件的作用如<a href="#table-rails-directory-structure">表 1.2</a> 所示，在本书的后续内容中将介绍其中大多数文件和文件夹。从 <a href="#the-asset-pipeline">5.2.1 节</a>开始，我们将介绍 <code>app/assets</code> 文件夹，它是 Asset Pipeline 的一部分。Asset Pipeline 把组织、部署 CSS 和 JavaScript 等资源文件变得异常简单。</p>
 <div id="fig-directory-structure-rails" class="figure"><img src="images/chapter1/directory_structure_rails_3rd_edition.png" alt="directory structure rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.4：</span>新建 Rails 应用的文件夹结构</div></div>
 <table id="table-rails-directory-structure" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption><span class="title-label">表 1.2：</span>Rails 文件夹结构简介</caption>
 <colgroup>
-<col style="width: 50%;" />
-<col style="width: 50%;" />
+<col style="width: 30%;" />
+<col style="width: 70%;" />
 </colgroup>
 <thead>
 <tr>
@@ -423,7 +423,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>public/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">公共（例如浏览器）可访问的数据，例如错误页面</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">公共（例如浏览器）可访问的文件，例如错误页面</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/rails</code></p></td>
@@ -473,7 +473,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </table>
 <section data-type="sect2" id="bundler">
 <h2><span class="title-label">1.3.1.</span> Bundler</h2>
-<p>创建完一个新的 Rails 应用后，下一步是使用 Bundler 安装和包含该应用所需的 gem。在 <a href="#the-first-application">1.3 节</a>简单提到过，执行 <code>rails new</code> 命令时会自动运行 Bundler（通过 <code>bundle install</code> 命令）。不过这一节，我们要修改应用默认使用的 gem，然后再次运行 Bundler。首先，在文本编辑器中打开文件 <code>Gemfile</code>，虽然具体的版本号和内容的细节或许会有所不同，但大概与<a href="#fig-cloud9-gemfile">图 1.5</a> 和<a href="#listing-default-gemfile">代码清单 1.4</a> 差不多。（这个文件中的内容是 Ruby 代码，现在先不关心句法，<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会详细介绍 Ruby。）如果你没看到如图 1.5 所示的文件和文件夹，点击文件浏览器中的齿轮图标，然后选择“Refresh File Tree”（刷新文件树）。（如果没出现某个文件或文件夹，就可以刷新文件树。）</p>
+<p>创建完一个新的 Rails 应用后，下一步是使用 Bundler 安装和包含该应用所需的 gem。在 <a href="#the-first-application">1.3 节</a>简单提到过，执行 <code>rails new</code> 命令时会自动运行 Bundler（通过 <code>bundle install</code> 命令）。不过这一节，我们要修改应用默认使用的 gem，然后再次运行 Bundler。首先，在文本编辑器中打开文件 <code>Gemfile</code>，虽然具体的版本号和内容或许有所不同，但大概与<a href="#listing-default-gemfile">代码清单 1.4</a> 和<a href="#fig-cloud9-gemfile">图 1.5</a> 差不多。（这个文件中的内容是 Ruby 代码，现在先不关心句法，<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会详细介绍 Ruby。）如果你没看到如图 1.5 所示的文件和文件夹，点击文件浏览器中的齿轮图标，然后选择“Refresh File Tree”（刷新文件树）。（如果没出现某个文件或文件夹，就可以刷新文件树。）</p>
 <div id="listing-default-gemfile" data-type="listing">
 <h5><span class="title-label">代码清单 1.4：</span><code>hello_app</code> 中默认生成的 <code>Gemfile</code></h5>
 
@@ -482,7 +482,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 
 
 <span class="c1"># Bundle edge Rails instead: gem 'rails', github: 'rails/rails'</span>
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span> <span class="s1">'4.2.0.beta2'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span> <span class="s1">'4.2.0.beta4'</span>
 <span class="c1"># Use sqlite3 as the database for Active Record</span>
 <span class="n">gem</span> <span class="s1">'sqlite3'</span>
 <span class="c1"># Use SCSS for stylesheets</span>
@@ -531,7 +531,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <p>其中很多行代码都用 <code>#</code> 符号注释掉了，这些代码放在这是为了告诉你一些常用的 gem，也是为了展示 Bundler 的句法。现在，除了这些默认的 gem 之外，我们还不需要其他的 gem。</p>
-<p>如果没在 <code>gem</code> 指令中指定版本号，Bundler 会自动安装这个 gem 的最新版。下面就是一例：</p>
+<p>如果没在 <code>gem</code> 指令中指定版本号，Bundler 会自动最新版。下面就是一例：</p>
 <div data-type="listing">
 
 
@@ -553,22 +553,22 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <div id="fig-cloud9-gemfile" class="figure"><img src="images/chapter1/cloud9_gemfile.png" alt="cloud9 gemfile" /><div class="figcaption"><span class="title-label">图 1.5：</span>在文本编辑器中打开默认生成的 <code>Gemfile</code></div></div>
-<p>这行代码的意思是，安装版本号大于 <code>4.0.0</code>，但小于 <code>4.1</code> 的 <code>coffee-rails</code>。也就是说，<code>&gt;=</code> 符号的意思是始终安装最新版；<code>~&gt; 4.0.0</code> 的意思是只安装补丁版本变化的版本（例如从 <code>4.0.0</code> 到 <code>4.0.1</code>），而不安装次版本或主版本的更新（例如从 <code>4.0</code> 到 <code>4.1</code>）。不过，经验告诉我们，即使是补丁版本的升级也可能导致错误，所以在本教程中我们基本上会为所有的 gem 都指定精确的版本号。你可以使用任何 gem 的最新版本，还可以在 <code>Gemfile</code> 中使用 <code>~&gt;</code>（一般推荐有经验的用户使用），但事先提醒你，这可能会导致本教程开发的应用表现异常。</p>
-<p>修改<a href="#listing-default-gemfile">代码清单 1.4</a> 所示的 <code>Gemfile</code>，换用精确的版本号，得到的结果如<a href="#listing-gemfile-sqlite-version">代码清单 1.5</a> 所示。注意，借此机会我们还变动了 <code>sqlite3</code> 的位置，只在开发环境和测试环境（<a href="#debug-and-rails-environments">7.1.1 节</a>）中安装，以避免和 Heroku 所用的数据库冲突（<a href="#deploying">1.5 节</a>）。</p>
+<p>这行代码的意思是，安装版本号大于 <code>4.0.0</code>，但小于 <code>4.1</code> 的 <code>coffee-rails</code>。也就是说，<code>&gt;=</code> 符号的意思是始终安装最新版；<code>~&gt; 4.0.0</code> 的意思是只安装补丁版本号变化的版本（例如从 <code>4.0.0</code> 到 <code>4.0.1</code>），而不安装次版本或主版本的更新（例如从 <code>4.0</code> 到 <code>4.1</code>）。不过，经验告诉我们，即使是补丁版本的升级也可能导致错误，所以在本教程中我们基本上会为所有的 gem 都指定精确的版本号。你可以使用任何 gem 的最新版本，还可以在 <code>Gemfile</code> 中使用 <code>~&gt;</code>（一般推荐有经验的用户使用），但事先提醒你，这可能会导致本教程开发的应用表现异常。</p>
+<p>修改<a href="#listing-default-gemfile">代码清单 1.4</a> 中的 <code>Gemfile</code>，换用精确的版本号，得到的结果如<a href="#listing-gemfile-sqlite-version">代码清单 1.5</a> 所示。注意，借此机会我们还变动了 <code>sqlite3</code> 的位置，只在开发环境和测试环境（<a href="#debug-and-rails-environments">7.1.1 节</a>）中安装，避免和 Heroku 所用的数据库冲突（<a href="#deploying">1.5 节</a>）。</p>
 <div id="listing-gemfile-sqlite-version" data-type="listing">
 <h5><span class="title-label">代码清单 1.5：</span>每个 Ruby gem 都使用精确版本号的 <code>Gemfile</code></h5>
 
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.beta2'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.beta4'</span>
 <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.0.beta1'</span>
-<span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.1'</span>
+<span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
 <span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.0.1'</span>
-<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'3.1.2'</span>
+<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.0.beta2'</span>
 <span class="n">gem</span> <span class="s1">'turbolinks'</span><span class="p">,</span>           <span class="s1">'2.3.0'</span>
-<span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.1.3'</span>
-<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'1.0'</span>
+<span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.2.3'</span>
+<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'1.0.1'</span>
 <span class="n">gem</span> <span class="s1">'sdoc'</span><span class="p">,</span>                 <span class="s1">'0.4.0'</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:doc</span>
 
 <span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
@@ -622,7 +622,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </div>
 <p>不管使用哪种环境，我都建议你在另一个终端选项卡中执行 <code>rails server</code> 命令，这样你就可以继续在第一个选项卡中执行其他命令了，如<a href="#fig-new-terminal-tab">图 1.6</a> 和<a href="#fig-rails-server-new-tab">图 1.7</a> 所示。（如果你已经在第一个选项卡中启动了服务器，可以按 Ctrl-C 键关闭服务器。）在本地环境中，在浏览器中打开 <a href="http://localhost:3000/">http://localhost:3000/</a>；在云端 IDE 中，打开“Share”（分享）面板，点击“Application”后的地址即可打开应用（如<a href="#fig-share-workspace">图 1.8</a>）。在这两种环境中，显示的页面应该都和<a href="#fig-riding-rails">图 1.9</a> 类似。</p>
 <div id="fig-new-terminal-tab" class="figure"><img src="images/chapter1/new_terminal_tab.png" alt="new terminal tab" /><div class="figcaption"><span class="title-label">图 1.6：</span>再打开一个终端选项卡</div></div>
-<p>点击“About your application’s environment”可以查看应用程序的信息。你看到的版本号可能和我的不一样，但和<a href="#fig-riding-rails-environment">图 1.10</a> 差不多。当然了，从长远来看，我们不需要这个 Rails 默认页面，不过现在看到这个页面说明 Rails 可以正常运行了。我们会在<a href="#hello-world">1.3.4 节</a>删除这个页面，替换成我们自己写的首页。</p>
+<p>点击“About your application’s environment”可以查看应用的信息。你看到的版本号可能和我的不一样，但和<a href="#fig-riding-rails-environment">图 1.10</a> 差不多。当然了，从长远来看，我们不需要这个 Rails 默认页面，不过现在看到这个页面说明 Rails 可以正常运行了。我们会在<a href="#hello-world">1.3.4 节</a>删除这个页面，替换成我们自己写的首页。</p>
 <div id="fig-rails-server-new-tab" class="figure"><img src="images/chapter1/rails_server_new_tab.png" alt="rails server new tab" /><div class="figcaption"><span class="title-label">图 1.7：</span>在另一个选项卡中运行 Rails 服务器</div></div>
 <div id="fig-share-workspace" class="figure"><img src="images/chapter1/share_workspace.png" alt="share workspace" /><div class="figcaption"><span class="title-label">图 1.8：</span>分享运行在云端工作空间中的本地服务器</div></div>
 <div id="fig-riding-rails" class="figure"><img src="images/chapter1/riding_rails_3rd_edition.png" alt="riding rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.9：</span>执行 <code>rails server</code> 命令后看到的 Rails 默认页面</div></div>
@@ -633,19 +633,19 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <p>在初期阶段，概览一下 Rails 应用的工作方式（<a href="#fig-mvc">图 1.11</a>）多少会有些帮助。你可能已经注意到了，在 Rails 应用的标准文件夹结构中有一个文件夹叫 <code>app/</code>（<a href="#fig-directory-structure-rails">图 1.4</a>），其中有三个子文件夹：<code>models</code>、<code>views</code> 和 <code>controllers</code>。这暗示 Rails 采用了“模型-视图-控制器”（简称 MVC）架构模式，这种模式把“域逻辑”（domain logic，也叫“业务逻辑”（business logic））与图形用户界面相关的输入和表现逻辑强制分开。在 Web 应用中，“域逻辑”一般是“用户”、“文章”和“商品”等数据模型，GUI 则是浏览器中的网页。</p>
 <div id="fig-mvc" class="figure"><img src="images/chapter1/mvc_schematic.png" alt="mvc schematic" /><div class="figcaption"><span class="title-label">图 1.11：</span>MVC 架构图解</div></div>
 <p>和 Rails 应用交互时，浏览器发出一个请求（request），Web 服务器收到这个请求之后将其传给 Rails 应用的控制器，由控制器决定下一步该做什么。某些情况下，控制器会立即渲染视图（view），生成 HTML，然后发送给浏览器。对于动态网站来说，更常见的是控制器和模型（model）交互。模型是一个 Ruby 对象，表示网站中的一个元素（例如一个用户），并且负责和数据库通信。和模型交互后，控制器再渲染视图，并把生成的 HTML 返回给浏览器。</p>
-<p>如果你觉得这些内容有点抽象，不用担心，后面会经常讲到 MVC。在<a href="#hello-world">1.3.4 节</a>中，首次使用 MVC 架构编写应用；在 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>中，会以一个应用为例较为深入地讨论 MVC；在最后那个演示应用中会使用完整的 MVC 架构。从 <a href="chapter3.html#static-pages">3.2 节</a>开始，介绍控制器和视图；从 <a href="chapter6.html#user-model">6.1 节</a>开始，介绍模型；在 <a href="chapter7.html#a-users-resource">7.1.2 节</a>中则把这三部分放在一起使用。</p>
+<p>如果你觉得这些内容有点抽象，不用担心，后面会经常讲到 MVC。在<a href="#hello-world">1.3.4 节</a>中，首次使用 MVC 架构编写应用；在 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>中，会以一个应用为例较为深入地讨论 MVC；在最后那个演示应用中会使用完整的 MVC 架构。从 <a href="chapter3.html#static-pages">3.2 节</a>开始，介绍控制器和视图；从 <a href="chapter6.html#user-model">6.1 节</a>开始，介绍模型；<a href="chapter7.html#a-users-resource">7.1.2 节</a>则把这三部分放在一起使用。</p>
 </section>
 <section data-type="sect2" id="hello-world">
 <h2><span class="title-label">1.3.4.</span> Hello, world!</h2>
 <p>接下来我们要对这个使用 MVC 框架开发的第一个应用做些小改动——添加一个控制器动作，渲染字符串“hello, world!”。（从 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>开始会更深入的介绍控制器动作。）这一节的目的是，使用显示“hello, world!”的页面替换 Rails 默认的首页（<a href="#fig-riding-rails">图 1.9</a>）。</p>
-<p>从“控制器动作”这个名字可以看出，动作在控制器中定义。我们在 <code>ApplicationController</code> 中定义这个动作，并将其命名为 <code>hello</code>。其实，现在我们的应用只有 <code>ApplicationController</code> 这一个控制器。执行下面的命令可以验证这一点（从 <a href="chapter2.html#a-toy-app">第 2 章</a>开始，我们会自己创建控制器。）：</p>
+<p>从“控制器动作”这个名字可以看出，动作在控制器中定义。我们要在 <code>ApplicationController</code> 中定义这个动作，并将其命名为 <code>hello</code>。其实，现在我们的应用只有 <code>ApplicationController</code> 这一个控制器。执行下面的命令可以验证这一点（从 <a href="chapter2.html#a-toy-app">第 2 章</a>开始，我们会创建自己的控制器。）：</p>
 <div data-type="listing">
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>ls app/controllers/*_controller.rb
 </pre></div>
 </div>
-<p><code>hello</code> 动作的定义体如<a href="#listing-hello-action">代码清单 1.8</a> 所示，它使用 <code>render</code> 函数返回文本“hello, world!”。（现在先不管 Ruby 的句法，<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会详细介绍。）</p>
+<p><code>hello</code> 动作的定义体如<a href="#listing-hello-action">代码清单 1.8</a> 所示，调用 <code>render</code> 函数返回文本“hello, world!”。（现在先不管 Ruby 的句法，<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会详细介绍。）</p>
 <div id="listing-hello-action" data-type="listing">
 <h5><span class="title-label">代码清单 1.8：</span>在 <code>ApplicationController</code> 中添加 <code>hello</code> 动作</h5>
 
@@ -662,8 +662,8 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>定义好返回所需字符串的动作之后，我们要告诉 Rails 使用这个动作，不再显示默认页面（<a href="#fig-riding-rails-environment">图 1.10</a>）。为此，我们要修改 Rails 路由。路由在控制器之前（<a href="#fig-mvc">图 1.11</a>），决定浏览器发给应用的请求由哪个动作处理。（简单起见，<a href="#fig-mvc">图 1.11</a> 中省略了路由，从 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>开始会详细介绍路由。）具体而言，我们要修改默认的首页，也就是根路由。这个路由决定根 URL 显示哪个页面。根 URL 是 http://www.example.com/ 形式，所以一般简化使用 /（斜线）表示。</p>
-<p>如<a href="#listing-default-root-route">代码清单 1.9</a> 所示，Rails 应用的路由文件（<code>config/routes.rb</code>）中有一行注释，说明如何编写根路由。其中，“welcome”是控制器名，“index”是这个控制器中的动作名。去掉这行前面的 <code>#</code> 号，解除注释，这样根路由就可定义了，然后再把内容替换成<a href="#listing-hello-root-route">代码清单 1.10</a> 中的代码，告诉 Rails，把根路由交给 <code>ApplicationController</code> 中的 <code>hello</code> 动作处理。（在 <a href="#conventions-in-this-book">1.1.2 节</a>说过，竖排的点号表示省略的代码，不要直接复制。）</p>
+<p>定义好返回所需字符串的动作之后，我们要告诉 Rails 使用这个动作，不再显示默认的首页（<a href="#fig-riding-rails-environment">图 1.10</a>）。为此，我们要修改 Rails 路由。路由在控制器之前（<a href="#fig-mvc">图 1.11</a>），决定浏览器发给应用的请求由哪个动作处理。（简单起见，<a href="#fig-mvc">图 1.11</a> 中省略了路由，从 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>开始会详细介绍路由。）具体而言，我们要修改默认的首页，也就是根路由。这个路由决定根 URL 显示哪个页面。根 URL 是 http://www.example.com/ 这种形式，所以一般简化使用 /（斜线）表示。</p>
+<p>如<a href="#listing-default-root-route">代码清单 1.9</a> 所示，Rails 应用的路由文件（<code>config/routes.rb</code>）中有一行注释，说明如何编写根路由。其中，“welcome”是控制器名，“index”是这个控制器中的动作名。去掉这行前面的 <code>#</code> 号，解除注释，这样根路由就可以定义了，然后再把内容替换成<a href="#listing-hello-root-route">代码清单 1.10</a> 中的代码，告诉 Rails 把根路由交给 <code>ApplicationController</code> 中的 <code>hello</code> 动作处理。（在 <a href="#conventions-in-this-book">1.1.2 节</a>说过，竖排的点号表示省略的代码，不要直接复制。）</p>
 <div id="listing-default-root-route" data-type="listing">
 <h5><span class="title-label">代码清单 1.9：</span>生成的默认根路由（在注释中）</h5>
 
@@ -698,7 +698,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>有了<a href="#listing-hello-action">代码清单 1.8</a> 和<a href="#listing-hello-root-route">代码清单 1.10</a> 中的代码，根路由就会按照我们的要求显示“hello, world!”了（<a href="#fig-hello-world-hello-app">图 1.12</a>）。</p>
+<p>有了<a href="#listing-hello-action">代码清单 1.8</a> 和<a href="#listing-hello-root-route">代码清单 1.10</a> 中的代码，根路由就会按照我们的要求显示“hello, world!”了，如<a href="#fig-hello-world-hello-app">图 1.12</a> 所示。</p>
 <div id="fig-hello-world-hello-app" class="figure"><img src="images/chapter1/hello_world_hello_app.png" alt="hello world hello app" /><div class="figcaption"><span class="title-label">图 1.12：</span>在浏览器中查看显示“hello, world!”的页面</div></div>
 </section>
 </section>
@@ -721,7 +721,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <span class="nv">$ </span>git config --global alias.co checkout
 </pre></div>
 </div>
-<p>注意，在 Git 配置中设定的名字和电子邮件地址会在所有公开的仓库中显示。（第四个设置是可选的，如果设置了，就可以使用 <code>co</code> 代替 <code>checkout</code> 命令。为了最大程度上兼容没有设置 <code>co</code> 的系统，本书仍将继续使用全名 <code>checkout</code>，不过在现实中我基本都用 <code>git co</code>。）</p>
+<p>注意，在 Git 配置中设定的名字和电子邮件地址会在所有公开的仓库中显示。（前两个设置必须做。第三个设置是为了向前兼容未来的 Git 版本。第四个设置是可选的，如果设置了，就可以使用 <code>co</code> 代替 <code>checkout</code> 命令。为了最大程度上兼容没有设置 <code>co</code> 的系统，本书仍将继续使用全名 <code>checkout</code>，不过在现实中我基本都用 <code>git co</code>。）</p>
 </section>
 <section data-type="sect3" id="first-time-repository-setup">
 <h3>第一次使用仓库前要做的设置</h3>
@@ -740,8 +740,8 @@ Initialized empty Git repository in /home/ubuntu/workspace/hello_app/.git/
 <div class="highlight language-sh"><pre><span class="nv">$ </span>git add -A
 </pre></div>
 </div>
-<p>这个命令会把当前目录中的所有文件都放到仓库中，但是匹配特殊文件 <code>.gitignore</code> 中模式的文件除外。<code>rails new</code> 命令会自动生成一个适用于 Rails 项目的 <code>.gitignore</code> 文件，而且你还可以添加其他的模式，详情参见《<a href="http://git-scm.com/book/zh/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93">Pro Git</a>》。（若想在 Cloud9 中查看 <code>.gitignore</code> 文件，点击文件浏览器中的齿轮图标，然后选中“Show Hidden Files”（显示隐藏文件）。）</p>
-<p>加入仓库的文件一开始位于暂存区，这一区用于存放待提交的内容。执行 <code>status</code> 命令可以查看暂存区中有哪些文件：</p>
+<p>这个命令会把当前目录中的所有文件都放到仓库中，但是匹配特殊文件 <code>.gitignore</code> 中模式的文件除外。<code>rails new</code> 命令会自动生成一个适用于 Rails 项目的 <code>.gitignore</code> 文件，而且你还可以添加其他模式。<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
+<p>加入仓库的文件一开始位于“暂存区”（staging area），这一区用于存放待提交的内容。执行 <code>status</code> 命令可以查看暂存区中有哪些文件：</p>
 <div data-type="listing">
 
 
@@ -776,7 +776,7 @@ Changes to be committed:
 </pre></div>
 </div>
 <p>旗标 <code>-m</code> 的意思是为这次提交添加一个说明。如果没指定 <code>-m</code> 旗标，Git 会打开系统默认使用的编辑器，让你在其中输入说明。（本书所有的示例都会使用 <code>-m</code> 旗标。）</p>
-<p>有一点很重要要注意：Git 提交只发生在本地，也就是说只在执行提交操作的设备中存储内容。<a href="#branch-edit-commit-merge">1.4.4 节</a>会介绍如何把改动推送（使用 <code>git push</code>）到远程仓库中。</p>
+<p>有一点很重要要注意：Git 提交只发生在本地，也就是说只在执行提交操作的设备中存储内容。<a href="#branch-edit-commit-merge">1.4.4 节</a>会介绍如何把改动推送（使用 <code>git push</code> 命令）到远程仓库中。</p>
 <p>顺便说一下，可以使用 <code>log</code> 命令查看提交的历史：</p>
 <div data-type="listing">
 
@@ -842,7 +842,7 @@ application_controller.rb  concerns/
 <h5>旁注 1.4：GitHub 和 Bitbucket</h5>
 <p>目前，托管 Git 仓库最受欢迎的网站是 GitHub 和 Bitbucket。这两个网站有很多相似之处：都可托管仓库，也可以协作，而且浏览和搜索仓库很方便。但二者之间有个重要的区别（对本书而言）：GitHub 为开源项目提供无限量的免费仓库，但私有仓库收费；而 Bitbucket 提供了无限量的私有仓库，仅当协作者超过一定数量时才收费。所以，选择哪个网站，取决于具体的需求。</p>
 <p>本书前几版使用 GitHub，因为它对开源项目来说有很多好用的功能，但我越来越关注安全，所以推荐所有 Web 应用都放在私有仓库中。因为 Web 应用的仓库中可能包含潜在的敏感信息，例如密钥和密码，可能会威胁到使用这份代码的网站的安全。当然，这类信息也有安全的处理方法，但是容易出错，而且需要很多专业知识。</p>
-<p>本书开发的演示应用可以安全地公开，但这只是特例，不能推广。因此，为了尽量提高安全性，我们不能冒险，还是默认就使用私有仓库保险。既然 GitHub 对私有仓库收费，而 Bitbucket 提供了不限量的免费私有仓库，就我们的需求来说，Bitbucket 比 Github 更合适。</p>
+<p>本书开发的演示应用可以安全地公开，但这只是特例，不能推广。因此，为了尽量提高安全，我们不能冒险，还是默认就使用私有仓库保险。既然 GitHub 对私有仓库收费，而 Bitbucket 提供了不限量的免费私有仓库，就我们的需求来说，Bitbucket 比 Github 更合适。</p>
 </div>
 <p>Bitbucket 的使用方法很简单：</p>
 <ol class="arabic">
@@ -850,14 +850,13 @@ application_controller.rb  concerns/
 <p>如果没有账户，先<a href="https://bitbucket.org/account/signup/">注册一个 Bitbucket 账户</a>；</p>
 </li>
 <li>
-<p>把<a href="https://en.wikipedia.org/wiki/Public-key_cryptography">公钥</a>复制到剪切板。远端 IDE 用户可以使用 <code>cat</code> 命令查看公钥，如<a href="#listing-cat-public-key">代码清单 1.11</a> 所示，然后再选择公钥复制。如果你在自己的系统中，执行<a href="#listing-cat-public-key">代码清单 1.11</a> 中的命令后没有输出，请参照“<a href="https://confluence.atlassian.com/display/BITBUCKET/How+to+install+a+public+key+on+your+Bitbucket+account;jsessionid=C5CF09B1641344FE876045B35D720C94.node1">如何在你的 Bitbucket 账户中设定公钥</a>”；</p>
+<p>把<a href="https://en.wikipedia.org/wiki/Public-key_cryptography">公钥</a>复制到剪切板。云端 IDE 用户可以使用 <code>cat</code> 命令查看公钥，如<a href="#listing-cat-public-key">代码清单 1.11</a> 所示，然后选中公钥，复制。如果你在自己的系统中，执行<a href="#listing-cat-public-key">代码清单 1.11</a> 中的命令后没有输出，请参照“<a href="https://confluence.atlassian.com/display/BITBUCKET/How+to+install+a+public+key+on+your+Bitbucket+account;jsessionid=C5CF09B1641344FE876045B35D720C94.node1">如何在你的 Bitbucket 账户中设定公钥</a>”；</p>
 </li>
 <li>
 <p>点击右上角的头像，选择“Manage account”（管理账户），然后点击“SSH keys”（SSH 密钥），如<a href="#fig-add-public-key">图 1.13</a> 所示。</p>
 </li>
 </ol>
 <div id="fig-add-public-key" class="figure"><img src="images/chapter1/add_public_key.png" alt="add public key" /><div class="figcaption"><span class="title-label">图 1.13：</span>添加 SSH 公钥</div></div>
-<div id="fig-create_first_repository" class="figure"><img src="images/chapter1/create_first_repository_bitbucket.png" alt="create first repository bitbucket" /><div class="figcaption"><span class="title-label">图 1.14：</span>在 Bitbucket 中创建存放这个应用的仓库</div></div>
 <div id="listing-cat-public-key" data-type="listing">
 <h5><span class="title-label">代码清单 1.11：</span>使用 <code>cat</code> 命令打印公钥</h5>
 
@@ -871,7 +870,7 @@ application_controller.rb  concerns/
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>git remote add origin git@bitbucket.org:&lt;username&gt;/hello_app.git
-<span class="nv">$ </span>git push -u origin --all <span class="c"># pushes up the repo and its refs for the first time</span>
+<span class="nv">$ </span>git push -u origin --all <span class="c"># 第一次推送仓库</span>
 </pre></div>
 </div>
 <p>这段代码的意思是，先告诉 Git，你想添加 Bitbucket，作为这个仓库的源，然后再把仓库推送到这个远端的源。（别管 <code>-u</code> 旗标的意思，如果好奇，可以搜索“git set upstream”。）当然了，你要把 <code>&lt;username&gt;</code> 换成你自己的用户名。例如，我运行的命令是：</p>
@@ -882,12 +881,13 @@ application_controller.rb  concerns/
 </pre></div>
 </div>
 <p>推送完毕后，在 Bitbucket 中会显示一个 <code>hello_app</code> 仓库的页面。在这个页面中可以浏览文件、查看完整的提交信息，除此之外还有很多其他功能（如<a href="#fig-bitbucket-repository-page">图 1.15</a> 所示）。</p>
+<div id="fig-create_first_repository" class="figure"><img src="images/chapter1/create_first_repository_bitbucket.png" alt="create first repository bitbucket" /><div class="figcaption"><span class="title-label">图 1.14：</span>在 Bitbucket 中创建存放这个应用的仓库</div></div>
 <div id="fig-bitbucket-repository-page" class="figure"><img src="images/chapter1/bitbucket_repository_page.png" alt="bitbucket repository page" /><div class="figcaption"><span class="title-label">图 1.15：</span>一个 Bitbucket 仓库的页面</div></div>
 </section>
 <section data-type="sect2" id="branch-edit-commit-merge">
 <h2><span class="title-label">1.4.4.</span> 分支，编辑，提交，合并</h2>
-<p>如果你跟着 <a href="#bitbucket">1.4.3 节</a>中的步骤做，可能注意到了，Bitbucket 没有自动识别仓库中的 <code>README.rdoc</code> 文件，而在仓库的首页提醒没有 README（<a href="#fig-bitbucket-no-readme">图 1.16</a>）。这说明 <code>rdoc</code> 格式不常见，所以 Bitbucket 不支持。其实，我以及我认识的几乎所有人都使用 Markdown 格式。这一节，我们要把 <code>README.rdoc</code> 文件改成 <code>README.md</code>，顺便还要在其中添加一些针对本书的内容。在这个过程中，我们将首次演示我推荐在 Git 中使用的工作流程，即“分支，编辑，提交，合并”。<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
-<div id="fig-bitbucket-no-readme" class="figure"><img src="images/chapter1/bitbucket_no_readme.png" alt="bitbucket no readme" /><div class="figcaption"><span class="title-label">图 1.16：</span>Bitbucket 提示没有 README</div></div>
+<p>如果你跟着 <a href="#bitbucket">1.4.3 节</a>中的步骤做，可能注意到了，Bitbucket 没有自动识别仓库中的 <code>README.rdoc</code> 文件，而在仓库的首页提醒没有 README 文件，如<a href="#fig-bitbucket-no-readme">图 1.16</a> 所示。这说明 <code>rdoc</code> 格式不常见，所以 Bitbucket 不支持。其实，我以及我认识的几乎所有人都使用 Markdown 格式。这一节，我们要把 <code>README.rdoc</code> 文件改成 <code>README.md</code>，顺便还要在其中添加一些针对本书的内容。在这个过程中，我们将首次演示我推荐在 Git 中使用的工作流程，即“分支，编辑，提交，合并”。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup></p>
+<div id="fig-bitbucket-no-readme" class="figure"><img src="images/chapter1/bitbucket_no_readme.png" alt="bitbucket no readme" /><div class="figcaption"><span class="title-label">图 1.16：</span>Bitbucket 提示没有 README 文件</div></div>
 <section data-type="sect3" id="branch">
 <h3>分支</h3>
 <p>Git 中的分支功能很强大。分支是对仓库的高效复制，在分支中所做的改动（或许是实验性质的）不会影响父级文件。大多数情况下，父级仓库是 <code>master</code> 分支。我们可以使用 <code>checkout</code> 命令，并指定 <code>-b</code> 旗标，创建一个新“主题分支”（topic branch）：</p>
@@ -902,12 +902,12 @@ application_controller.rb  concerns/
 </pre></div>
 </div>
 <p>其中，第二个命令 <code>git branch</code> 的作用是列出所有本地分支。星号（<code>*</code>）表示当前所在的分支。注意，<code>git checkout -b modify-README</code> 命令先创建一个新分支，然后再切换到这个新分支——<code>modify-README</code> 分支前面的星号证明了这一点。（如果你在 <a href="#version-control-with-git">1.4 节</a>中设置了别名 <code>co</code>，就要使用 <code>git co -b modify-README</code>。）</p>
-<p>只有多个开发者协作开发一个项目时，才能看出分支的全部价值。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup>如果只有一个开发者，分支也有作用。一般情况下，要把主题分支的改动和主分支隔离开，这样即便搞砸了，随时都可以切换到主分支，然后删除主题分支，丢掉改动。本节末尾会介绍具体做法。</p>
+<p>只有多个开发者协作开发一个项目时，才能看出分支的全部价值。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup>如果只有一个开发者，分支也有作用。一般情况下，要把主题分支的改动和主分支隔离开，这样即便搞砸了，随时都可以切换到主分支，然后删除主题分支，丢掉改动。本节末尾会介绍具体做法。</p>
 <p>顺便说一下，像这种小改动，我一般不会新建分支。现在我这么做是为了让你养成好习惯。</p>
 </section>
 <section data-type="sect3" id="edit">
 <h3>编辑</h3>
-<p>创建主题分支后，我们要编辑 README 文件，让其更好地描述我们的项目。较之默认的 RDoc 格式，我更喜欢 <a href="http://daringfireball.net/projects/markdown/">Markdown 标记语言</a>。如果文件扩展名是 <code>.md</code>，Bitbucket 会自动排版。首先，使用 Git 提供的 Unix <code>mv</code> 命令修改文件名：</p>
+<p>创建主题分支后，我们要编辑 README 文件，让其更好地描述我们的项目。较之默认的 RDoc 格式，我更喜欢 <a href="http://daringfireball.net/projects/markdown/">Markdown 标记语言</a>。如果文件扩展名是 <code>.md</code>，Bitbucket 会自动排版其中的内容。首先，使用 Git 提供的 Unix <code>mv</code> 命令修改文件名：</p>
 <div data-type="listing">
 
 
@@ -957,7 +957,7 @@ delete mode <span class="m">100644</span> README.rdoc
 create mode <span class="m">100644</span> README.md
 </pre></div>
 </div>
-<p>使用 <code>-a</code> 旗标一定要小心。千万别误用了 <code>-a</code> 旗标。如果上次提交之后项目中添加了新文件，应该使用 <code>git add -A</code>，先告诉 Git 新增了文件。</p>
+<p>使用 <code>-a</code> 旗标一定要小心，千万别误用了。如果上次提交之后项目中添加了新文件，应该使用 <code>git add -A</code>，先告诉 Git 新增了文件。</p>
 <p>注意，我们使用现在时（严格来说是祈使语气）编写提交消息。Git 把提交当做一系列补丁，在这种情况下，说明现在做了什么比说明过去做了什么要更合理。而且这种用法和 Git 命令生成的提交信息相配。详情参阅《<a href="https://github.com/blog/926-shiny-new-commit-styles">Shiny new commit styles</a>》。</p>
 </section>
 <section data-type="sect3" id="merge">
@@ -978,7 +978,7 @@ delete mode <span class="m">100644</span> README.rdoc
 create mode <span class="m">100644</span> README.md
 </pre></div>
 </div>
-<p>注意，Git 命令的输出中经常会出现类似 <code>34f06b7</code> 的字符，这是 Git 内部对仓库的指代。你得到的输出结果不会和我的一模一样，但大致相同。</p>
+<p>注意，Git 命令的输出中经常会出现 <code>34f06b7</code> 这样的字符串，这是 Git 内部对仓库的指代。你得到的输出结果不会和我的一模一样，但大致相同。</p>
 <p>合并之后，我们可以清理一下分支——如果不用这个主题分支了，可以使用 <code>git branch -d</code> 命令将其删除：</p>
 <div data-type="listing">
 
@@ -1005,26 +1005,26 @@ create mode <span class="m">100644</span> README.md
 </section>
 <section data-type="sect3" id="push">
 <h3>推送</h3>
-<p>我们已经更新了 <code>README</code> 文件，现在可以把改动推送到 Bitbucket，看看改动的结果。之前我们已经推送过一次（<a href="#bitbucket">1.4.3 节</a>），在大多数系统中我们都可以省略 <code>origin master</code>，直接运行 <code>git push</code>：</p>
+<p>我们已经更新了 <code>README</code> 文件，现在可以把改动推送到 Bitbucket，看看改动的效果。之前我们已经推送过一次（<a href="#bitbucket">1.4.3 节</a>），在大多数系统中都可以省略 <code>origin master</code>，直接执行 <code>git push</code>：</p>
 <div data-type="listing">
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>git push
 </pre></div>
 </div>
-<p>正如在 <a href="#edit">1.4.4.2 节</a>中所说，Bitbucket 对使用 Markdown 编写的文件做了精美排版（如<a href="#fig-new-readme">图 1.17</a> 所示）。</p>
+<p>正如前面所说，Bitbucket 对使用 Markdown 编写的文件做了精美排版，如<a href="#fig-new-readme">图 1.17</a> 所示。</p>
 <div id="fig-new-readme" class="figure"><img src="images/chapter1/new_readme_bitbucket.png" alt="new readme bitbucket" /><div class="figcaption"><span class="title-label">图 1.17：</span>使用 Markdown 格式重写的 <code>README</code> 文件</div></div>
 </section>
 </section>
 </section>
 <section data-type="sect1" id="deploying">
 <h1><span class="title-label">1.5.</span> 部署</h1>
-<p>即使现在还处在早期阶段，我们还是要把（几乎没什么内容）的 Rails 应用部署到生产环境。这一步可做可不做，不过在开发过程中尽早且频繁地部署，可以尽早发现开发中的问题。在开发环境中花费大量精力之后再部署，往往会在发布时遇到严重的集成问题。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup></p>
-<p>以前，部署 Rails 应用是件痛苦的事。但最近几年，Rails 开发生态系统不断成熟，已经出现很多好的解决方案了，包括使用 <a href="http://www.modrails.com/">Phusion Passenger</a>（Apache 和 Nginx <sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup> Web 服务器的一个模块）的共享主机和虚拟私有服务器，<a href="http://engineyard.com/">Engine Yard</a> 和 <a href="http://railsmachine.com/">Rails Machine</a> 这种提供全方位部署服务的公司，以及 <a href="http://cloud.engineyard.com/">Engine Yard Cloud</a>、<a href="https://ninefold.com/">Ninefold</a> 和 <a href="http://heroku.com/">Heroku</a> 这种云部署服务。</p>
-<p>我最喜欢使用 Heroku 部署 Rails 应用。Heroku 专门用于部署 Rails 和其他 Web 应用，部署 Rails 应用的过程异常简单——只要源码纳入了 Git 版本控制系统就好。（这也是为什么要按照 <a href="#version-control-with-git">1.4 节</a>中介绍的步骤设置 Git。如果你还没有照着做，现在赶紧做吧。）本节下面的内容专门介绍如何把我们的第一个应用部署到 Heroku 中。其中一些操作相对高级，如果没有完全理解也不要紧。本节的重点是把应用部署到线上环境中。</p>
+<p>即使现在还处在早期阶段，我们还是要把（几乎没什么内容）的 Rails 应用部署到生产环境。这一步可做可不做，不过在开发过程中尽早且频繁地部署，可以尽早发现开发中的问题。在开发环境中花费大量精力之后再部署，往往会在发布时遇到严重的集成问题。<sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup></p>
+<p>以前，部署 Rails 应用是件痛苦的事。但最近几年，Rails 开发生态系统不断成熟，已经出现很多好的解决方案了，包括使用 <a href="http://www.modrails.com/">Phusion Passenger</a>（Apache 和 Nginx <sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup> Web 服务器的一个模块）的共享主机和虚拟私有服务器，<a href="http://engineyard.com/">Engine Yard</a> 和 <a href="http://railsmachine.com/">Rails Machine</a> 这种提供全方位部署服务的公司，以及 <a href="http://cloud.engineyard.com/">Engine Yard Cloud</a>、<a href="https://ninefold.com/">Ninefold</a> 和 <a href="http://heroku.com/">Heroku</a> 这种云部署服务。</p>
+<p>我最喜欢使用 Heroku 部署 Rails 应用。Heroku 专门用于部署 Rails 和其他 Web 应用，部署 Rails 应用的过程异常简单——只要源码纳入了 Git 版本控制系统就好。（这也是为什么要按照 <a href="#version-control-with-git">1.4 节</a>介绍的步骤设置 Git。如果你还没有照着做，现在赶紧做吧。）本节下面的内容专门介绍如何把我们的第一个应用部署到 Heroku 中。其中一些操作相对高级，如果没有完全理解也不要紧。本节的重点是把应用部署到线上环境中。</p>
 <section data-type="sect2" id="heroku-setup">
 <h2><span class="title-label">1.5.1.</span> 搭建 Heroku 部署环境</h2>
-<p>Heroku 使用 <a href="http://www.postgresql.org/">PostgreSQL</a><sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup>，所以我们要把 <code>pg</code> 加入生产组，这样 Rails 才能和 PostgreSQL 通信：<sup>[<a id="fn-ref-15" href="#fn-15">15</a>]</sup></p>
+<p>Heroku 使用 <a href="http://www.postgresql.org/">PostgreSQL</a><sup>[<a id="fn-ref-15" href="#fn-15">15</a>]</sup> 数据库，所以我们要把 <code>pg</code> 加入生产组，这样 Rails 才能和 PostgreSQL 通信：<sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -1041,14 +1041,14 @@ create mode <span class="m">100644</span> README.md
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.beta2'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.beta4'</span>
 <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.0.beta1'</span>
-<span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.1'</span>
+<span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
 <span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.0.1'</span>
-<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'3.1.2'</span>
+<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.0.beta2'</span>
 <span class="n">gem</span> <span class="s1">'turbolinks'</span><span class="p">,</span>           <span class="s1">'2.3.0'</span>
-<span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.1.3'</span>
-<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'1.0'</span>
+<span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.2.3'</span>
+<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'1.0.1'</span>
 <span class="n">gem</span> <span class="s1">'sdoc'</span><span class="p">,</span>                 <span class="s1">'0.4.0'</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:doc</span>
 
 <span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
@@ -1094,7 +1094,7 @@ create mode <span class="m">100644</span> README.md
 <span class="nv">$ </span>heroku keys:add
 </pre></div>
 </div>
-<p>最后，执行 <code>heroku create</code> 命令，在 Heroku 的服务器中创建一个文件夹，用于存放演示应用（<a href="#listing-heroku-create">代码清单 1.15</a>）。</p>
+<p>最后，执行 <code>heroku create</code> 命令，在 Heroku 的服务器中创建一个文件夹，用于存放演示应用，如<a href="#listing-heroku-create">代码清单 1.15</a> 所示。</p>
 <div id="listing-heroku-create" data-type="listing">
 <h5><span class="title-label">代码清单 1.15：</span>在 Heroku 中创建一个新应用</h5>
 
@@ -1105,7 +1105,7 @@ http://damp-fortress-5769.herokuapp.com/ <span class="p">|</span> git@heroku.com
 Git remote heroku added
 </pre></div>
 </div>
-<p><code>heroku</code> 命令会为你的应用程序指派一个二级域名，立马即可生效。当然，现在还看不到内容，我们开始部署吧。</p>
+<p><code>heroku</code> 命令会为你的应用分配一个二级域名，立即生效。当然，现在还看不到内容，我们开始部署吧。</p>
 </section>
 <section data-type="sect2" id="heroku-deployment-step-one">
 <h2><span class="title-label">1.5.2.</span> Heroku 部署第一步</h2>
@@ -1120,7 +1120,7 @@ Git remote heroku added
 </section>
 <section data-type="sect2" id="heroku-deployment-step-two">
 <h2><span class="title-label">1.5.3.</span> Heroku 部署第二步</h2>
-<p>其实没有第二步了。我们已经完成部署了。现在可以通过 <code>heroku create</code> 命令给出的地址（参见<a href="#listing-heroku_create">代码清单 1.15</a>，如果没用云端 IDE，在本地可以执行 <code>heroku open</code> 命令）查看刚刚部署的应用，如<a href="#fig-heroku-app">图 1.18</a> 所示。看到的页面和<a href="#fig-hello-world-hello-app">图 1.12</a> 一样，但是现在这个应用运行在生产环境中。</p>
+<p>其实没有第二步了。我们已经完成部署了。现在可以通过 <code>heroku create</code> 命令给出的地址（参见<a href="#listing-heroku-create">代码清单 1.15</a>，如果没用云端 IDE，在本地可以执行 <code>heroku open</code> 命令）查看刚刚部署的应用，如<a href="#fig-heroku-app">图 1.18</a> 所示。看到的页面和<a href="#fig-hello-world-hello-app">图 1.12</a> 一样，但是现在这个应用运行在生产环境中。</p>
 <div id="fig-heroku-app" class="figure"><img src="images/chapter1/heroku_app_hello_world.png" alt="heroku app hello world" /><div class="figcaption"><span class="title-label">图 1.18：</span>运行在 Heroku 中的第一个应用</div></div>
 </section>
 <section data-type="sect2" id="heroku-commands">
@@ -1148,7 +1148,7 @@ jhyicevg.herokuapp.com
 <div class="highlight language-ruby"><pre><span class="p">(</span><span class="s1">'a'</span><span class="o">.</span><span class="n">.</span><span class="s1">'z'</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">shuffle</span><span class="o">[</span><span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="mi">7</span><span class="o">].</span><span class="n">join</span>
 </pre></div>
 </div>
-<p>除了支持二级域名，Heroku 还支持自定义域名。其实<a href="http://railstutorial.org/">本书的网站</a><sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup>就放在 Heroku 中。如果你阅读的是在线版，现在就在浏览一个托管于 Heroku 中的网站。在 <a href="http://devcenter.heroku.com/">Heroku 文档</a>中可以查看更多关于自定义域名的信息以及 Heroku 相关的其他话题。</p>
+<p>除了支持二级域名，Heroku 还支持自定义域名。其实<a href="http://railstutorial.org/">本书的网站</a><sup>[<a id="fn-ref-17" href="#fn-17">17</a>]</sup>就放在 Heroku 中。如果你阅读的是在线版，现在就在浏览一个托管于 Heroku 中的网站。在 <a href="http://devcenter.heroku.com/">Heroku 文档</a>中可以查看更多关于自定义域名的信息以及 Heroku 相关的其他话题。</p>
 </section>
 </section>
 <section data-type="sect1" id="beginning-conclusion">
@@ -1159,7 +1159,7 @@ jhyicevg.herokuapp.com
 <a href="http://railstutorial-china.org/" class="bare">http://railstutorial-china.org/</a></p>
 <p>建议你加入 <a href="http://www.railstutorial.org/#email">Rails 教程邮件列表</a>，以便及时收到本书重要的更新和优惠码。</p>
 <section data-type="sect2" id="beginning-what-we-learned-in-this-chapter">
-<h2><span class="title-label">1.6.1.</span> 读过这一章学到了什么</h2>
+<h2><span class="title-label">1.6.1.</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>Ruby on Rails 是一个使用 Ruby 编程语言开发的 Web 开发框架；</p>
@@ -1186,7 +1186,7 @@ jhyicevg.herokuapp.com
 <h1><span class="title-label">1.7.</span> 练习</h1>
 <ol class="arabic">
 <li>
-<p>把 <code>hello</code> 动作（<a href="#listing-hello-action">代码清单 1.8</a>）中的“hello, world!”改成“hola, mundo!”。加分项：使用倒置的感叹号（例如“¡Hola, mundo!”中的第一个字符），证明 Rails 支持非 <a href="http://es.wikipedia.org/wiki/ASCII">ASCII</a> 字符。<sup>[<a id="fn-ref-17" href="#fn-17">17</a>]</sup>结果如<a href="#fig-hola-mundo">图 1.19</a> 所示。</p>
+<p>把 <code>hello</code> 动作（<a href="#listing-hello-action">代码清单 1.8</a>）中的“hello, world!”改成“hola, mundo!”。加分项：使用倒置的感叹号（例如“¡Hola, mundo!”中的第一个字符），证明 Rails 支持非 <a href="http://es.wikipedia.org/wiki/ASCII">ASCII</a> 字符。<sup>[<a id="fn-ref-18" href="#fn-18">18</a>]</sup>结果如<a href="#fig-hola-mundo">图 1.19</a> 所示。</p>
 </li>
 <li>
 <p>按照编写 <code>hello</code> 动作的方式（<a href="#listing-hello-action">代码清单 1.8</a>），再添加一个动作，命名为 <code>goodbye</code>，渲染文本“goodbye, world!”。然后修改路由文件（<a href="#listing-hello-root-route">代码清单 1.10</a>），把根路由改成 <code>goodbye</code>。结果如<a href="#fig-goodbye-world">图 1.20</a> 所示。</p>
@@ -1222,14 +1222,15 @@ jhyicevg.herokuapp.com
 <li id="fn-7">如<a href="chapter3.html#table-shortcuts">表 3.1</a>所示，可以省略 <code>install</code>，因为 <code>bundle</code> 是 <code>bundle install</code> 的别名。 <a href="#fn-ref-7">&#8617;</a></li>
 <li id="fn-8">一般情况下，网站使用 80 端口，但这个端口需要特别的权限。所以，为了方便，开发服务器最好使用没有限制的大数端口。 <a href="#fn-ref-8">&#8617;</a></li>
 <li id="fn-9">译者注：中文版在线阅读地址：<a href="http://git-scm.com/book/zh">http://git-scm.com/book/zh</a>。也可以阅读译者制作的电子书：<a href="https://selfstore.io/products/46">https://selfstore.io/products/46</a>。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">如果想形象化的查看 Git 仓库，可以使用 Atlassian 开发的应用 <a href="http://www.sourcetreeapp.com/:">SourceTree</a>。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">详情参阅《Pro Git》书中“<a href="http://git-scm.com/book/zh/Git-%E5%88%86%E6%94%AF">Git 分支</a>”一章。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">如果你担心不小心公开了应用，可以参照 <a href="#heroku-commands">1.5.4 节</a>中的做法。不过对本书开发应用来说，这份担心是多余的。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">读作“Engine X” <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">读作 post-gres-cue-ell，经常简称 Postgres。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">一般来说，开发环境和生产环境尽量要一致，包括使用相同的数据库。但在本书中，本地一直使用 SQLite，生产环境则使用 PostgreSQL。详情参见 <a href="chapter3.html#sample-app-setup">3.1 节</a>。 <a href="#fn-ref-15">&#8617;</a></li>
-<li id="fn-16">英文原版的网站托管在 Heroku 中，你现在阅读的中文版托管在 Github Pages 中，地址是 <a href="http://railstutorial-china.org%E3%80%82" class="bare">http://railstutorial-china.org。</a> <a href="#fn-ref-16">&#8617;</a></li>
-<li id="fn-17">在你的编辑器中可能会显示一个消息，提示“invalid multibyte character”（无效的多字节字符），别去管它。如果你想让这个消息消失，可以<a href="http://lmgtfy.com/?q=invalid+multibyte+character">在谷歌中搜索这个错误消息</a>。 <a href="#fn-ref-17">&#8617;</a></li>
+<li id="fn-10">本书基本不会修改这个文件，不过 <a href="chapter3.html#advanced-testing-setup">3.7 节</a>的高级测试配置中演示了如何修改。 <a href="#fn-ref-10">&#8617;</a></li>
+<li id="fn-11">如果想形象化的查看 Git 仓库，可以使用 Atlassian 开发的应用 <a href="http://www.sourcetreeapp.com/:">SourceTree</a>。 <a href="#fn-ref-11">&#8617;</a></li>
+<li id="fn-12">详情参阅《Pro Git》书中“<a href="http://git-scm.com/book/zh/Git-%E5%88%86%E6%94%AF">Git 分支</a>”一章。 <a href="#fn-ref-12">&#8617;</a></li>
+<li id="fn-13">如果你担心不小心公开了应用，可以参照 <a href="#heroku-commands">1.5.4 节</a>中的做法。不过对本书开发应用来说，这份担心是多余的。 <a href="#fn-ref-13">&#8617;</a></li>
+<li id="fn-14">读作“Engine X”。 <a href="#fn-ref-14">&#8617;</a></li>
+<li id="fn-15">读作 post-gres-cue-ell，经常简称 Postgres。 <a href="#fn-ref-15">&#8617;</a></li>
+<li id="fn-16">一般来说，开发环境和生产环境要尽量一致，包括使用相同的数据库。但在本书中，本地一直使用 SQLite，生产环境则使用 PostgreSQL。详情参见 <a href="chapter3.html#sample-app-setup">3.1 节</a>。 <a href="#fn-ref-16">&#8617;</a></li>
+<li id="fn-17">英文原版的网站托管在 Heroku 中，你现在阅读的中文版托管在 Github Pages 中，地址是 <a href="http://railstutorial-china.org%E3%80%82" class="bare">http://railstutorial-china.org。</a> <a href="#fn-ref-17">&#8617;</a></li>
+<li id="fn-18">在你的编辑器中可能会显示一个消息，提示“invalid multibyte character”（无效的多字节字符），别去管它。如果你想让这个消息消失，可以<a href="http://lmgtfy.com/?q=invalid+multibyte+character">在谷歌中搜索这个错误消息</a>。 <a href="#fn-ref-18">&#8617;</a></li>
 </ol>
 </div>
             </div>
