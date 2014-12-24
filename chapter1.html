@@ -219,12 +219,12 @@ hello, world!
 </section>
 <section data-type="sect2" id="installing-rails">
 <h2><span class="title-label">1.2.2.</span> 安装 Rails</h2>
-<p>前一节创建的开发环境包含所有软件，但没有 Rails。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>为了安装 Rails，我们要使用包管理器 RubyGems 提供的 <code>gem</code> 命令，在命令行终端里输入<a href="#listing-installing-rails">代码清单 1.1</a> 所示的命令。（如果在本地系统中开发，在终端窗口中输入这个命令；如果使用云端 IDE，在&lt;&lt;fig-ide-anatomy,图 1.1 中的“命令行终端”输入这个命令。）</p>
+<p>前一节创建的开发环境包含所有软件，但没有 Rails。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>为了安装 Rails，我们要使用包管理器 RubyGems 提供的 <code>gem</code> 命令，在命令行终端里输入<a href="#listing-installing-rails">代码清单 1.1</a> 所示的命令。（如果在本地系统中开发，在终端窗口中输入这个命令；如果使用云端 IDE，在<a href="#fig-ide-anatomy">图 1.1</a> 中的“命令行终端”输入这个命令。）</p>
 <div id="listing-installing-rails" data-type="listing">
 <h5><span class="title-label">代码清单 1.1：</span>安装 Rails，指定版本</h5>
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span>gem install rails -v 4.2.0.beta4
+<div class="highlight language-sh"><pre><span class="nv">$ </span>gem install rails -v 4.2.0.rc1
 </pre></div>
 </div>
 <p><code>-v</code> 旗标的作用是指定安装哪个 Rails 版本。你使用的版本必须和我一样，这样学习的过程中，你我得到的结果才相同。</p>
@@ -326,13 +326,13 @@ hello, world!
 </tr>
 </tbody>
 </table>
-<p>不管在本地环境，还是在云端 IDE 中，下一步都是使用<a href="#listing-rails-command">代码清单 1.3</a>中的命令创建第一个应用。注意，在这个代码清单中，我们明确指定了 Rails 版本（<code>4.2.0.beta4</code>）。这么做的目的是，确保使用<a href="#listing-installing-rails">代码清单 1.1</a>中安装的 Rails 版本来创建这个应用的文件夹结构。（执行<a href="#listing-rails-command">代码清单 1.3</a> 中的命令时，如果返回“Could not find ’railties”这样的错误，说明你没安装正确的 Rails 版本，再次确认你安装 Rails 时执行的命令和<a href="#listing-installing-rails">代码清单 1.1</a> 一模一样。）</p>
+<p>不管在本地环境，还是在云端 IDE 中，下一步都是使用<a href="#listing-rails-command">代码清单 1.3</a>中的命令创建第一个应用。注意，在这个代码清单中，我们明确指定了 Rails 版本（<code>4.2.0.rc1</code>）。这么做的目的是，确保使用<a href="#listing-installing-rails">代码清单 1.1</a>中安装的 Rails 版本来创建这个应用的文件夹结构。（执行<a href="#listing-rails-command">代码清单 1.3</a> 中的命令时，如果返回“Could not find ’railties”这样的错误，说明你没安装正确的 Rails 版本，再次确认你安装 Rails 时执行的命令和<a href="#listing-installing-rails">代码清单 1.1</a> 一模一样。）</p>
 <div id="listing-rails-command" data-type="listing">
 <h5><span class="title-label">代码清单 1.3：</span>执行 <code>rails new</code> 命令（明确指定版本号）</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span><span class="nb">cd</span> ~/workspace
-</span><span class="hll"><span class="nv">$ </span>rails _4.2.0.beta4_ new hello_app
+</span><span class="hll"><span class="nv">$ </span>rails _4.2.0.rc1_ new hello_app
 </span>      create
       create  README.rdoc
       create  Rakefile
@@ -480,9 +480,8 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-
 <span class="c1"># Bundle edge Rails instead: gem 'rails', github: 'rails/rails'</span>
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span> <span class="s1">'4.2.0.beta4'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span> <span class="s1">'4.2.0.rc1'</span>
 <span class="c1"># Use sqlite3 as the database for Active Record</span>
 <span class="n">gem</span> <span class="s1">'sqlite3'</span>
 <span class="c1"># Use SCSS for stylesheets</span>
@@ -506,9 +505,6 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 
 <span class="c1"># Use ActiveModel has_secure_password</span>
 <span class="c1"># gem 'bcrypt', '~&gt; 3.1.7'</span>
-
-<span class="c1"># Use Rails Html Sanitizer for HTML sanitization</span>
-<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'~&gt; 1.0'</span>
 
 <span class="c1"># Use Unicorn as the app server</span>
 <span class="c1"># gem 'unicorn'</span>
@@ -561,14 +557,13 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.beta4'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.rc1'</span>
 <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.0.beta1'</span>
 <span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
-<span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.0.1'</span>
+<span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.1.0'</span>
 <span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.0.beta2'</span>
 <span class="n">gem</span> <span class="s1">'turbolinks'</span><span class="p">,</span>           <span class="s1">'2.3.0'</span>
 <span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.2.3'</span>
-<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'1.0.1'</span>
 <span class="n">gem</span> <span class="s1">'sdoc'</span><span class="p">,</span>                 <span class="s1">'0.4.0'</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:doc</span>
 
 <span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
@@ -705,7 +700,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <section data-type="sect1" id="version-control-with-git">
 <h1><span class="title-label">1.4.</span> 使用 Git 做版本控制</h1>
 <p>我们已经开发了一个可以运行的 Rails 应用，接下来要花点时间来做一件事。虽然这件事不是必须的，但是经验丰富的软件开发者都认为这是最基本的事情，即把应用的源代码纳入版本控制。版本控制系统可以跟踪项目中代码的变化，便于和他人协作，如果出现问题（例如不小心删除了文件）还可以回滚到以前的版本。每个专业级软件开发者都应该学习使用版本控制系统。</p>
-<p>版本控制系统种类很多，Rails 社区基本都使用 <a href="http://git-scm.com/">Git</a>。Git 由 Linus Torvalds 开发，最初目的是存储 Linux 内核代码。Git 相关的知识很多，本书只会介绍一些皮毛。网络上有很多免费的资料，我特别推荐 Scott Chacon 写的《<a href="http://git-scm.com/book">Pro Git</a>》。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>之所以推强烈推荐使用 Git 做版本控制，不仅因为 Rails 社区都在用，还因为使用 Git 分享代码更简单（<a href="#bitbucket">1.4.3 节</a>），而且也便于应用的部署（<a href="#deploying">1.5 节</a>）。</p>
+<p>版本控制系统种类很多，Rails 社区基本都使用 <a href="http://git-scm.com/">Git</a>。Git 由 Linus Torvalds 开发，最初目的是存储 Linux 内核代码。Git 相关的知识很多，本书只会介绍一些皮毛。网络上有很多免费的资料，我特别推荐 Scott Chacon 写的《<a href="http://git-scm.com/book">Pro Git</a>》。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>之所以强烈推荐使用 Git 做版本控制，不仅因为 Rails 社区都在用，还因为使用 Git 分享代码更简单（<a href="#bitbucket">1.4.3 节</a>），而且也便于应用的部署（<a href="#deploying">1.5 节</a>）。</p>
 <section data-type="sect2" id="installation-and-setup">
 <h2><span class="title-label">1.4.1.</span> 安装和设置</h2>
 <p><a href="#development-environment">1.2.1 节</a>推荐使用的云端 IDE 默认已经集成 Git，不用再安装。如果你没使用云端 IDE，可以参照 <a href="http://installrails.com/">InstallRails.com</a> 中的说明，在自己的系统中安装 Git。</p>
@@ -1041,14 +1036,13 @@ create mode <span class="m">100644</span> README.md
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.beta4'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0.rc1'</span>
 <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.0.beta1'</span>
 <span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
-<span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.0.1'</span>
+<span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.1.0'</span>
 <span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.0.beta2'</span>
 <span class="n">gem</span> <span class="s1">'turbolinks'</span><span class="p">,</span>           <span class="s1">'2.3.0'</span>
 <span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.2.3'</span>
-<span class="n">gem</span> <span class="s1">'rails-html-sanitizer'</span><span class="p">,</span> <span class="s1">'1.0.1'</span>
 <span class="n">gem</span> <span class="s1">'sdoc'</span><span class="p">,</span>                 <span class="s1">'0.4.0'</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:doc</span>
 
 <span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
