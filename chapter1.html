@@ -191,7 +191,7 @@ hello, world!
 <section data-type="sect2" id="development-environment">
 <h2><span class="title-label">1.2.1.</span> 开发环境</h2>
 <p>不同的人有不同的喜好，每个 Rails 程序员都有一套自己的开发环境。为了避免问题复杂化，本书使用一个标准的云端开发环境，<a href="https://c9.io">Cloud9</a>。而且，为了第三版我还和 Cloud9 合作，专为本书量身打造了一个开发环境。这个开发环境预先安装好了 Rails 开发所需的大多数软件，包括 Ruby、RubyGems 和 Git（其实，唯有 Rails 要单独安装，而且这么做是有目的的，详情参见 <a href="#installing-rails">1.2.2 节</a>）。这个云端 IDE 还包含 Web 应用开发所需的三个基本组件：文本编辑器，文件系统浏览器，以及命令行终端（如<a href="#fig-ide-anatomy">图 1.1</a>）。云端 IDE 中的文本编辑器功能很多，其中一项是“在文件中查找”的全局搜索功能<sup>[<a id="fn-ref-5" href="#fn-5">5</a>]</sup>，我觉得这个功能对大型 Rails 项目来说是必备的。</p>
-<div id="fig-ide-anatomy" class="figure"><img src="images/chapter1/ide_anatomy.png" alt="ide anatomy" /><div class="figcaption"><span class="title-label">图 1.1：</span>云端 IDE 的界面布局</div></div>
+<div id="fig-ide-anatomy" class="figure"><img src="images/chapter1/ide_anatomy.png" alt="ide anatomy" /><div class="figcaption"><span class="title-label">图 1.1</span>：云端 IDE 的界面布局</div></div>
 <p>这个云端开发环境的使用步骤如下：</p>
 <ol class="arabic">
 <li>
@@ -213,15 +213,15 @@ hello, world!
 <p>Cloud9 配置工作空间完成后，选择这个工作空间，然后点击“Start editing”（开始编辑）。</p>
 </li>
 </ol>
-<div id="fig-cloud9-new-workspace" class="figure"><img src="images/chapter1/cloud9_new_workspace.png" alt="cloud9 new workspace" /><div class="figcaption"><span class="title-label">图 1.2：</span>在 Cloud9 中新建一个工作空间</div></div>
+<div id="fig-cloud9-new-workspace" class="figure"><img src="images/chapter1/cloud9_new_workspace.png" alt="cloud9 new workspace" /><div class="figcaption"><span class="title-label">图 1.2</span>：在 Cloud9 中新建一个工作空间</div></div>
 <p>因为使用两个空格缩进几乎是 Ruby 圈通用的约定，所以我建议你修改编辑器的配置，把默认的四个空格改为两个。配置方法是，点击右上角的齿轮图标，然后选择“Code Editor (Ace)”（Ace 代码编辑器），编辑“Soft Tabs”（软制表符）设置，如<a href="#fig-cloud9-two-spaces">图 1.3</a> 所示。（注意，修改设置后立即生效，无需点击“Save”按钮。）</p>
-<div id="fig-cloud9-two-spaces" class="figure"><img src="images/chapter1/cloud9_two_spaces.png" alt="cloud9 two spaces" /><div class="figcaption"><span class="title-label">图 1.3：</span>让 Cloud9 使用两个空格缩进</div></div>
+<div id="fig-cloud9-two-spaces" class="figure"><img src="images/chapter1/cloud9_two_spaces.png" alt="cloud9 two spaces" /><div class="figcaption"><span class="title-label">图 1.3</span>：让 Cloud9 使用两个空格缩进</div></div>
 </section>
 <section data-type="sect2" id="installing-rails">
 <h2><span class="title-label">1.2.2.</span> 安装 Rails</h2>
 <p>前一节创建的开发环境包含所有软件，但没有 Rails。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>为了安装 Rails，我们要使用包管理器 RubyGems 提供的 <code>gem</code> 命令，在命令行终端里输入<a href="#listing-installing-rails">代码清单 1.1</a> 所示的命令。（如果在本地系统中开发，在终端窗口中输入这个命令；如果使用云端 IDE，在<a href="#fig-ide-anatomy">图 1.1</a> 中的“命令行终端”输入这个命令。）</p>
 <div id="listing-installing-rails" data-type="listing">
-<h5><span class="title-label">代码清单 1.1：</span>安装 Rails，指定版本</h5>
+<h5><span class="title-label">代码清单 1.1</span>：安装 Rails，指定版本</h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>gem install rails -v 4.2.0
@@ -235,7 +235,7 @@ hello, world!
 <p>按照计算机编程领域<a href="http://www.catb.org/jargon/html/H/hello-world.html">长期沿用的传统</a>，第一个应用的目的是编写一个“hello, world”程序。具体说来，我们要创建一个简单的应用，在网页中显示字符串“hello, world!”，在开发环境（<a href="#hello-world">1.3.4 节</a>）和线上网站中（<a href="#deploying">1.5 节</a>）都是如此。</p>
 <p>Rails 应用一般都从 <code>rails new</code> 命令开始，这个命令会在你指定的文件夹中创建一个 Rails 应用骨架。如果没使用<a href="#development-environment">1.2.1 节</a>推荐的 Cloud9 IDE，首先你要新建一个文件夹，命名为 <code>workspace</code>，然后进入这个文件夹，如<a href="#listing-mkdir-rails-projects">代码清单 1.2</a> 所示。（<a href="#listing-mkdir-rails-projects">代码清单 1.2</a> 中使用了 Unix 命令 <code>cd</code> 和 <code>mkdir</code>，如果你不熟悉这些命令，可以阅读<a href="#aside-unix-commands">旁注 1.3</a>。）</p>
 <div id="listing-mkdir-rails-projects" data-type="listing">
-<h5><span class="title-label">代码清单 1.2：</span>为 Rails 项目新建一个文件夹，命名为 <code>workspace</code>（在云端环境中不用这一步）</h5>
+<h5><span class="title-label">代码清单 1.2</span>：为 Rails 项目新建一个文件夹，命名为 <code>workspace</code>（在云端环境中不用这一步）</h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span><span class="nb">cd</span>                  <span class="c"># 进入家目录</span>
@@ -250,7 +250,7 @@ hello, world!
 <p>这是一门很深的学问，但在本书中只会用到一些最常用的 Unix 命令行命令，如<a href="#table-unix-commands">表 1.1</a>所示。若想更深入地学习 Unix 命令行，请阅读 Mark Bates 写的《<a href="http://conqueringthecommandline.com/">Conquering the Command Line</a>》（可以<a href="http://conqueringthecommandline.com/book">免费在线阅读</a>，也可以<a href="http://conqueringthecommandline.com/#pricing">购买电子书和视频</a>）。</p>
 </div>
 <table id="table-unix-commands" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 1.1：</span>一些常用的 Unix 命令</caption>
+<caption><span class="title-label">表 1.1</span>：一些常用的 Unix 命令</caption>
 <colgroup>
 <col style="width: 33%;" />
 <col style="width: 33%;" />
@@ -328,7 +328,7 @@ hello, world!
 </table>
 <p>不管在本地环境，还是在云端 IDE 中，下一步都是使用<a href="#listing-rails-command">代码清单 1.3</a>中的命令创建第一个应用。注意，在这个代码清单中，我们明确指定了 Rails 版本（<code>4.2.0</code>）。这么做的目的是，确保使用<a href="#listing-installing-rails">代码清单 1.1</a>中安装的 Rails 版本来创建这个应用的文件夹结构。（执行<a href="#listing-rails-command">代码清单 1.3</a> 中的命令时，如果返回“Could not find ’railties”这样的错误，说明你没安装正确的 Rails 版本，再次确认你安装 Rails 时执行的命令和<a href="#listing-installing-rails">代码清单 1.1</a> 一模一样。）</p>
 <div id="listing-rails-command" data-type="listing">
-<h5><span class="title-label">代码清单 1.3：</span>执行 <code>rails new</code> 命令（明确指定版本号）</h5>
+<h5><span class="title-label">代码清单 1.3</span>：执行 <code>rails new</code> 命令（明确指定版本号）</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span><span class="nb">cd</span> ~/workspace
@@ -371,9 +371,9 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </div>
 <p>如代码清单 1.3 所示，执行 <code>rails new</code> 命令生成所有文件之后，会自动执行 <code>bundle install</code> 命令。我们会在 <a href="#bundler">1.3.1 节</a>说明这个命令的作用。</p>
 <p>留意一下 <code>rails new</code> 命令创建的文件和文件夹。这个标准的文件夹结构（如<a href="#fig-directory-structure-rails">图 1.4</a>）是 Rails 的众多优势之一——让你从零开始快速的创建一个可运行的简单应用。而且，所有 Rails 应用都使用这种文件夹结构，所以阅读他人的代码时很快就能理清头绪。这些文件的作用如<a href="#table-rails-directory-structure">表 1.2</a> 所示，在本书的后续内容中将介绍其中大多数文件和文件夹。从 <a href="#the-asset-pipeline">5.2.1 节</a>开始，我们将介绍 <code>app/assets</code> 文件夹，它是 Asset Pipeline 的一部分。Asset Pipeline 把组织、部署 CSS 和 JavaScript 等资源文件变得异常简单。</p>
-<div id="fig-directory-structure-rails" class="figure"><img src="images/chapter1/directory_structure_rails_3rd_edition.png" alt="directory structure rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.4：</span>新建 Rails 应用的文件夹结构</div></div>
+<div id="fig-directory-structure-rails" class="figure"><img src="images/chapter1/directory_structure_rails_3rd_edition.png" alt="directory structure rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.4</span>：新建 Rails 应用的文件夹结构</div></div>
 <table id="table-rails-directory-structure" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 1.2：</span>Rails 文件夹结构简介</caption>
+<caption><span class="title-label">表 1.2</span>：Rails 文件夹结构简介</caption>
 <colgroup>
 <col style="width: 30%;" />
 <col style="width: 70%;" />
@@ -475,7 +475,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <h2><span class="title-label">1.3.1.</span> Bundler</h2>
 <p>创建完一个新的 Rails 应用后，下一步是使用 Bundler 安装和包含该应用所需的 gem。在 <a href="#the-first-application">1.3 节</a>简单提到过，执行 <code>rails new</code> 命令时会自动运行 Bundler（通过 <code>bundle install</code> 命令）。不过这一节，我们要修改应用默认使用的 gem，然后再次运行 Bundler。首先，在文本编辑器中打开文件 <code>Gemfile</code>，虽然具体的版本号和内容或许有所不同，但大概与<a href="#listing-default-gemfile">代码清单 1.4</a> 和<a href="#fig-cloud9-gemfile">图 1.5</a> 差不多。（这个文件中的内容是 Ruby 代码，现在先不关心句法，<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会详细介绍 Ruby。）如果你没看到如图 1.5 所示的文件和文件夹，点击文件浏览器中的齿轮图标，然后选择“Refresh File Tree”（刷新文件树）。（如果没出现某个文件或文件夹，就可以刷新文件树。）</p>
 <div id="listing-default-gemfile" data-type="listing">
-<h5><span class="title-label">代码清单 1.4：</span><code>hello_app</code> 中默认生成的 <code>Gemfile</code></h5>
+<h5><span class="title-label">代码清单 1.4</span>：<code>hello_app</code> 中默认生成的 <code>Gemfile</code></h5>
 
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
@@ -485,7 +485,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <span class="c1"># Use sqlite3 as the database for Active Record</span>
 <span class="n">gem</span> <span class="s1">'sqlite3'</span>
 <span class="c1"># Use SCSS for stylesheets</span>
-<span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span> <span class="s1">'~&gt; 5.0.0.beta1'</span>
+<span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span> <span class="s1">'~&gt; 5.0'</span>
 <span class="c1"># Use Uglifier as compressor for JavaScript assets</span>
 <span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span> <span class="s1">'&gt;= 1.3.0'</span>
 <span class="c1"># Use CoffeeScript for .js.coffee assets and views</span>
@@ -548,20 +548,20 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <div class="highlight language-ruby"><pre><span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span> <span class="s1">'~&gt; 4.0.0'</span>
 </pre></div>
 </div>
-<div id="fig-cloud9-gemfile" class="figure"><img src="images/chapter1/cloud9_gemfile.png" alt="cloud9 gemfile" /><div class="figcaption"><span class="title-label">图 1.5：</span>在文本编辑器中打开默认生成的 <code>Gemfile</code></div></div>
+<div id="fig-cloud9-gemfile" class="figure"><img src="images/chapter1/cloud9_gemfile.png" alt="cloud9 gemfile" /><div class="figcaption"><span class="title-label">图 1.5</span>：在文本编辑器中打开默认生成的 <code>Gemfile</code></div></div>
 <p>这行代码的意思是，安装版本号大于 <code>4.0.0</code>，但小于 <code>4.1</code> 的 <code>coffee-rails</code>。也就是说，<code>&gt;=</code> 符号的意思是始终安装最新版；<code>~&gt; 4.0.0</code> 的意思是只安装补丁版本号变化的版本（例如从 <code>4.0.0</code> 到 <code>4.0.1</code>），而不安装次版本或主版本的更新（例如从 <code>4.0</code> 到 <code>4.1</code>）。不过，经验告诉我们，即使是补丁版本的升级也可能导致错误，所以在本教程中我们基本上会为所有的 gem 都指定精确的版本号。你可以使用任何 gem 的最新版本，还可以在 <code>Gemfile</code> 中使用 <code>~&gt;</code>（一般推荐有经验的用户使用），但事先提醒你，这可能会导致本教程开发的应用表现异常。</p>
 <p>修改<a href="#listing-default-gemfile">代码清单 1.4</a> 中的 <code>Gemfile</code>，换用精确的版本号，得到的结果如<a href="#listing-gemfile-sqlite-version">代码清单 1.5</a> 所示。注意，借此机会我们还变动了 <code>sqlite3</code> 的位置，只在开发环境和测试环境（<a href="#debug-and-rails-environments">7.1.1 节</a>）中安装，避免和 Heroku 所用的数据库冲突（<a href="#deploying">1.5 节</a>）。</p>
 <div id="listing-gemfile-sqlite-version" data-type="listing">
-<h5><span class="title-label">代码清单 1.5：</span>每个 Ruby gem 都使用精确版本号的 <code>Gemfile</code></h5>
+<h5><span class="title-label">代码清单 1.5</span>：每个 Ruby gem 都使用精确版本号的 <code>Gemfile</code></h5>
 
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
 <span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0'</span>
-<span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.0.beta1'</span>
+<span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.2'</span>
 <span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
 <span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.1.0'</span>
-<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.0.beta2'</span>
+<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.3'</span>
 <span class="n">gem</span> <span class="s1">'turbolinks'</span><span class="p">,</span>           <span class="s1">'2.3.0'</span>
 <span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.2.3'</span>
 <span class="n">gem</span> <span class="s1">'sdoc'</span><span class="p">,</span>                 <span class="s1">'0.4.0'</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:doc</span>
@@ -590,9 +590,9 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </section>
 <section data-type="sect2" id="rails-server">
 <h2><span class="title-label">1.3.2.</span> <code>rails server</code></h2>
-<p>运行完 <a href="#the-first-application">1.3 节</a>中的 <code>rails new</code> 命令和 <a href="#bundler">1.3.1 节</a> 中的 <code>bundle install</code> 命令之后，我们的应用就可以运行了，但是怎么运行呢？Rails 自带了一个命令行程序（或叫脚本），可以运行一个本地服务器，协助我们的开发工作。这个命令具体怎么执行，取决于你使用的环境：在本地系统中，直接执行 <code>rails server</code> 命令就行（<a href="#listing-local-server">代码清单 1.6</a>）；而在 Cloud9 中，还要指定绑定的 IP 地址和<a href="http://en.wikipedia.org/wiki/TCP_and_UDP_port">端口号</a>，告诉 Rails 服务器外界可以通过哪个地址访问应用（<a href="#listing-cloud-server">代码清单 1.7</a>）。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup>（Cloud9 使用特殊的环境变量 <code>$IP</code> 和 <code>$PORT</code> 动态指定 IP 地址和端口号。如果想查看这两个环境变量的值，可以在命令行中输入 <code>echo $IP</code> 和 <code>echo $PORT</code>。）</p>
+<p>运行完 <a href="#the-first-application">1.3 节</a>中的 <code>rails new</code> 命令和 <a href="#bundler">1.3.1 节</a> 中的 <code>bundle install</code> 命令之后，我们的应用就可以运行了，但是怎么运行呢？Rails 自带了一个命令行程序（或叫脚本），可以运行一个本地服务器，协助我们的开发工作。这个命令具体怎么执行，取决于你使用的环境：在本地系统中，直接执行 <code>rails server</code> 命令就行（<a href="#listing-local-server">代码清单 1.6</a>）；而在 Cloud9 中，还要指定绑定的 IP 地址和<a href="http://en.wikipedia.org/wiki/TCP_and_UDP_port">端口号</a>，告诉 Rails 服务器外界可以通过哪个地址访问应用（<a href="#listing-cloud-server">代码清单 1.7</a>）。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup>（Cloud9 使用特殊的环境变量 <code>$IP</code> 和 <code>$PORT</code> 动态指定 IP 地址和端口号。如果想查看这两个环境变量的值，可以在命令行中输入 <code>echo $IP</code> 和 <code>echo $PORT</code>。）如果系统提示缺少 JavaScript 运行时，访问 <a href="https://github.com/sstephenson/execjs">execjs 在 GitHub 中的项目主页</a>，查看解决方法。我非常推荐安装 <a href="http://nodejs.org/">Node.js</a>。</p>
 <div id="listing-local-server" data-type="listing">
-<h5><span class="title-label">代码清单 1.6：</span>在本地设备中运行 Rails 服务器</h5>
+<h5><span class="title-label">代码清单 1.6</span>：在本地设备中运行 Rails 服务器</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span><span class="nb">cd</span> ~/workspace/hello_app/
@@ -604,7 +604,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <div id="listing-cloud-server" data-type="listing">
-<h5><span class="title-label">代码清单 1.7：</span>在云端 IDE 中运行 Rails 服务器</h5>
+<h5><span class="title-label">代码清单 1.7</span>：在云端 IDE 中运行 Rails 服务器</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span><span class="nb">cd</span> ~/workspace/hello_app/
@@ -616,17 +616,17 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <p>不管使用哪种环境，我都建议你在另一个终端选项卡中执行 <code>rails server</code> 命令，这样你就可以继续在第一个选项卡中执行其他命令了，如<a href="#fig-new-terminal-tab">图 1.6</a> 和<a href="#fig-rails-server-new-tab">图 1.7</a> 所示。（如果你已经在第一个选项卡中启动了服务器，可以按 Ctrl-C 键关闭服务器。）在本地环境中，在浏览器中打开 <a href="http://localhost:3000/">http://localhost:3000/</a>；在云端 IDE 中，打开“Share”（分享）面板，点击“Application”后的地址即可打开应用（如<a href="#fig-share-workspace">图 1.8</a>）。在这两种环境中，显示的页面应该都和<a href="#fig-riding-rails">图 1.9</a> 类似。</p>
-<div id="fig-new-terminal-tab" class="figure"><img src="images/chapter1/new_terminal_tab.png" alt="new terminal tab" /><div class="figcaption"><span class="title-label">图 1.6：</span>再打开一个终端选项卡</div></div>
+<div id="fig-new-terminal-tab" class="figure"><img src="images/chapter1/new_terminal_tab.png" alt="new terminal tab" /><div class="figcaption"><span class="title-label">图 1.6</span>：再打开一个终端选项卡</div></div>
 <p>点击“About your application’s environment”可以查看应用的信息。你看到的版本号可能和我的不一样，但和<a href="#fig-riding-rails-environment">图 1.10</a> 差不多。当然了，从长远来看，我们不需要这个 Rails 默认页面，不过现在看到这个页面说明 Rails 可以正常运行了。我们会在<a href="#hello-world">1.3.4 节</a>删除这个页面，替换成我们自己写的首页。</p>
-<div id="fig-rails-server-new-tab" class="figure"><img src="images/chapter1/rails_server_new_tab.png" alt="rails server new tab" /><div class="figcaption"><span class="title-label">图 1.7：</span>在另一个选项卡中运行 Rails 服务器</div></div>
-<div id="fig-share-workspace" class="figure"><img src="images/chapter1/share_workspace.png" alt="share workspace" /><div class="figcaption"><span class="title-label">图 1.8：</span>分享运行在云端工作空间中的本地服务器</div></div>
-<div id="fig-riding-rails" class="figure"><img src="images/chapter1/riding_rails_3rd_edition.png" alt="riding rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.9：</span>执行 <code>rails server</code> 命令后看到的 Rails 默认页面</div></div>
-<div id="fig-riding-rails-environment" class="figure"><img src="images/chapter1/riding_rails_environment_3rd_edition.png" alt="riding rails environment 3rd edition" /><div class="figcaption"><span class="title-label">图 1.10：</span>默认页面中显示应用的环境信息</div></div>
+<div id="fig-rails-server-new-tab" class="figure"><img src="images/chapter1/rails_server_new_tab.png" alt="rails server new tab" /><div class="figcaption"><span class="title-label">图 1.7</span>：在另一个选项卡中运行 Rails 服务器</div></div>
+<div id="fig-share-workspace" class="figure"><img src="images/chapter1/share_workspace.png" alt="share workspace" /><div class="figcaption"><span class="title-label">图 1.8</span>：分享运行在云端工作空间中的本地服务器</div></div>
+<div id="fig-riding-rails" class="figure"><img src="images/chapter1/riding_rails_3rd_edition.png" alt="riding rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.9</span>：执行 <code>rails server</code> 命令后看到的 Rails 默认页面</div></div>
+<div id="fig-riding-rails-environment" class="figure"><img src="images/chapter1/riding_rails_environment_3rd_edition.png" alt="riding rails environment 3rd edition" /><div class="figcaption"><span class="title-label">图 1.10</span>：默认页面中显示应用的环境信息</div></div>
 </section>
 <section data-type="sect2" id="model-view-controller">
 <h2><span class="title-label">1.3.3.</span> 模型-视图-控制器</h2>
 <p>在初期阶段，概览一下 Rails 应用的工作方式（<a href="#fig-mvc">图 1.11</a>）多少会有些帮助。你可能已经注意到了，在 Rails 应用的标准文件夹结构中有一个文件夹叫 <code>app/</code>（<a href="#fig-directory-structure-rails">图 1.4</a>），其中有三个子文件夹：<code>models</code>、<code>views</code> 和 <code>controllers</code>。这暗示 Rails 采用了“模型-视图-控制器”（简称 MVC）架构模式，这种模式把“域逻辑”（domain logic，也叫“业务逻辑”（business logic））与图形用户界面相关的输入和表现逻辑强制分开。在 Web 应用中，“域逻辑”一般是“用户”、“文章”和“商品”等数据模型，GUI 则是浏览器中的网页。</p>
-<div id="fig-mvc" class="figure"><img src="images/chapter1/mvc_schematic.png" alt="mvc schematic" /><div class="figcaption"><span class="title-label">图 1.11：</span>MVC 架构图解</div></div>
+<div id="fig-mvc" class="figure"><img src="images/chapter1/mvc_schematic.png" alt="mvc schematic" /><div class="figcaption"><span class="title-label">图 1.11</span>：MVC 架构图解</div></div>
 <p>和 Rails 应用交互时，浏览器发出一个请求（request），Web 服务器收到这个请求之后将其传给 Rails 应用的控制器，由控制器决定下一步该做什么。某些情况下，控制器会立即渲染视图（view），生成 HTML，然后发送给浏览器。对于动态网站来说，更常见的是控制器和模型（model）交互。模型是一个 Ruby 对象，表示网站中的一个元素（例如一个用户），并且负责和数据库通信。和模型交互后，控制器再渲染视图，并把生成的 HTML 返回给浏览器。</p>
 <p>如果你觉得这些内容有点抽象，不用担心，后面会经常讲到 MVC。在<a href="#hello-world">1.3.4 节</a>中，首次使用 MVC 架构编写应用；在 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>中，会以一个应用为例较为深入地讨论 MVC；在最后那个演示应用中会使用完整的 MVC 架构。从 <a href="chapter3.html#static-pages">3.2 节</a>开始，介绍控制器和视图；从 <a href="chapter6.html#user-model">6.1 节</a>开始，介绍模型；<a href="chapter7.html#a-users-resource">7.1.2 节</a>则把这三部分放在一起使用。</p>
 </section>
@@ -642,7 +642,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </div>
 <p><code>hello</code> 动作的定义体如<a href="#listing-hello-action">代码清单 1.8</a> 所示，调用 <code>render</code> 函数返回文本“hello, world!”。（现在先不管 Ruby 的句法，<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会详细介绍。）</p>
 <div id="listing-hello-action" data-type="listing">
-<h5><span class="title-label">代码清单 1.8：</span>在 <code>ApplicationController</code> 中添加 <code>hello</code> 动作</h5>
+<h5><span class="title-label">代码清单 1.8</span>：在 <code>ApplicationController</code> 中添加 <code>hello</code> 动作</h5>
 
 <div class="source-file">app/controllers/application_controller.rb</div>
 
@@ -660,7 +660,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <p>定义好返回所需字符串的动作之后，我们要告诉 Rails 使用这个动作，不再显示默认的首页（<a href="#fig-riding-rails-environment">图 1.10</a>）。为此，我们要修改 Rails 路由。路由在控制器之前（<a href="#fig-mvc">图 1.11</a>），决定浏览器发给应用的请求由哪个动作处理。（简单起见，<a href="#fig-mvc">图 1.11</a> 中省略了路由，从 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>开始会详细介绍路由。）具体而言，我们要修改默认的首页，也就是根路由。这个路由决定根 URL 显示哪个页面。根 URL 是 http://www.example.com/ 这种形式，所以一般简化使用 /（斜线）表示。</p>
 <p>如<a href="#listing-default-root-route">代码清单 1.9</a> 所示，Rails 应用的路由文件（<code>config/routes.rb</code>）中有一行注释，说明如何编写根路由。其中，“welcome”是控制器名，“index”是这个控制器中的动作名。去掉这行前面的 <code>#</code> 号，解除注释，这样根路由就可以定义了，然后再把内容替换成<a href="#listing-hello-root-route">代码清单 1.10</a> 中的代码，告诉 Rails 把根路由交给 <code>ApplicationController</code> 中的 <code>hello</code> 动作处理。（在 <a href="#conventions-in-this-book">1.1.2 节</a>说过，竖排的点号表示省略的代码，不要直接复制。）</p>
 <div id="listing-default-root-route" data-type="listing">
-<h5><span class="title-label">代码清单 1.9：</span>生成的默认根路由（在注释中）</h5>
+<h5><span class="title-label">代码清单 1.9</span>：生成的默认根路由（在注释中）</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -677,7 +677,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <div id="listing-hello-root-route" data-type="listing">
-<h5><span class="title-label">代码清单 1.10：</span>设定根路由</h5>
+<h5><span class="title-label">代码清单 1.10</span>：设定根路由</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -694,7 +694,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <p>有了<a href="#listing-hello-action">代码清单 1.8</a> 和<a href="#listing-hello-root-route">代码清单 1.10</a> 中的代码，根路由就会按照我们的要求显示“hello, world!”了，如<a href="#fig-hello-world-hello-app">图 1.12</a> 所示。</p>
-<div id="fig-hello-world-hello-app" class="figure"><img src="images/chapter1/hello_world_hello_app.png" alt="hello world hello app" /><div class="figcaption"><span class="title-label">图 1.12：</span>在浏览器中查看显示“hello, world!”的页面</div></div>
+<div id="fig-hello-world-hello-app" class="figure"><img src="images/chapter1/hello_world_hello_app.png" alt="hello world hello app" /><div class="figcaption"><span class="title-label">图 1.12</span>：在浏览器中查看显示“hello, world!”的页面</div></div>
 </section>
 </section>
 <section data-type="sect1" id="version-control-with-git">
@@ -851,9 +851,9 @@ application_controller.rb  concerns/
 <p>点击右上角的头像，选择“Manage account”（管理账户），然后点击“SSH keys”（SSH 密钥），如<a href="#fig-add-public-key">图 1.13</a> 所示。</p>
 </li>
 </ol>
-<div id="fig-add-public-key" class="figure"><img src="images/chapter1/add_public_key.png" alt="add public key" /><div class="figcaption"><span class="title-label">图 1.13：</span>添加 SSH 公钥</div></div>
+<div id="fig-add-public-key" class="figure"><img src="images/chapter1/add_public_key.png" alt="add public key" /><div class="figcaption"><span class="title-label">图 1.13</span>：添加 SSH 公钥</div></div>
 <div id="listing-cat-public-key" data-type="listing">
-<h5><span class="title-label">代码清单 1.11：</span>使用 <code>cat</code> 命令打印公钥</h5>
+<h5><span class="title-label">代码清单 1.11</span>：使用 <code>cat</code> 命令打印公钥</h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>cat ~/.ssh/id_rsa.pub
@@ -861,7 +861,7 @@ application_controller.rb  concerns/
 </div>
 <p>添加公钥之后，点击“Create”（创建）按钮，<a href="https://bitbucket.org/repo/create">新建一个仓库</a>，如<a href="#fig-create_first_repository">图 1.14</a> 所示。填写项目的信息时，记得要选中“This is a private repository”（这是私有仓库）。填完后点击“Create repository”（创建仓库）按钮，然后按照“Command line &gt; I have an existing project”（命令行 &gt; 现有项目）下面的说明操作，如<a href="#listing-bitbucket-add-push">代码清单 1.12</a> 所示。（如果与代码清单 1.12 不同，可能是公钥没正确添加，我建议你再试一次。）推送仓库时，如果询问“Are you sure you want to continue connecting (yes/no)?”（确定继续连接吗？），输入“yes”。</p>
 <div id="listing-bitbucket-add-push" data-type="listing">
-<h5><span class="title-label">代码清单 1.12：</span>添加 Bitbucket，然后推送仓库</h5>
+<h5><span class="title-label">代码清单 1.12</span>：添加 Bitbucket，然后推送仓库</h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>git remote add origin git@bitbucket.org:&lt;username&gt;/hello_app.git
@@ -876,13 +876,13 @@ application_controller.rb  concerns/
 </pre></div>
 </div>
 <p>推送完毕后，在 Bitbucket 中会显示一个 <code>hello_app</code> 仓库的页面。在这个页面中可以浏览文件、查看完整的提交信息，除此之外还有很多其他功能（如<a href="#fig-bitbucket-repository-page">图 1.15</a> 所示）。</p>
-<div id="fig-create_first_repository" class="figure"><img src="images/chapter1/create_first_repository_bitbucket.png" alt="create first repository bitbucket" /><div class="figcaption"><span class="title-label">图 1.14：</span>在 Bitbucket 中创建存放这个应用的仓库</div></div>
-<div id="fig-bitbucket-repository-page" class="figure"><img src="images/chapter1/bitbucket_repository_page.png" alt="bitbucket repository page" /><div class="figcaption"><span class="title-label">图 1.15：</span>一个 Bitbucket 仓库的页面</div></div>
+<div id="fig-create_first_repository" class="figure"><img src="images/chapter1/create_first_repository_bitbucket.png" alt="create first repository bitbucket" /><div class="figcaption"><span class="title-label">图 1.14</span>：在 Bitbucket 中创建存放这个应用的仓库</div></div>
+<div id="fig-bitbucket-repository-page" class="figure"><img src="images/chapter1/bitbucket_repository_page.png" alt="bitbucket repository page" /><div class="figcaption"><span class="title-label">图 1.15</span>：一个 Bitbucket 仓库的页面</div></div>
 </section>
 <section data-type="sect2" id="branch-edit-commit-merge">
 <h2><span class="title-label">1.4.4.</span> 分支，编辑，提交，合并</h2>
 <p>如果你跟着 <a href="#bitbucket">1.4.3 节</a>中的步骤做，可能注意到了，Bitbucket 没有自动识别仓库中的 <code>README.rdoc</code> 文件，而在仓库的首页提醒没有 README 文件，如<a href="#fig-bitbucket-no-readme">图 1.16</a> 所示。这说明 <code>rdoc</code> 格式不常见，所以 Bitbucket 不支持。其实，我以及我认识的几乎所有人都使用 Markdown 格式。这一节，我们要把 <code>README.rdoc</code> 文件改成 <code>README.md</code>，顺便还要在其中添加一些针对本书的内容。在这个过程中，我们将首次演示我推荐在 Git 中使用的工作流程，即“分支，编辑，提交，合并”。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup></p>
-<div id="fig-bitbucket-no-readme" class="figure"><img src="images/chapter1/bitbucket_no_readme.png" alt="bitbucket no readme" /><div class="figcaption"><span class="title-label">图 1.16：</span>Bitbucket 提示没有 README 文件</div></div>
+<div id="fig-bitbucket-no-readme" class="figure"><img src="images/chapter1/bitbucket_no_readme.png" alt="bitbucket no readme" /><div class="figcaption"><span class="title-label">图 1.16</span>：Bitbucket 提示没有 README 文件</div></div>
 <section data-type="sect3" id="branch">
 <h3>分支</h3>
 <p>Git 中的分支功能很强大。分支是对仓库的高效复制，在分支中所做的改动（或许是实验性质的）不会影响父级文件。大多数情况下，父级仓库是 <code>master</code> 分支。我们可以使用 <code>checkout</code> 命令，并指定 <code>-b</code> 旗标，创建一个新“主题分支”（topic branch）：</p>
@@ -911,7 +911,7 @@ application_controller.rb  concerns/
 </div>
 <p>然后把<a href="#listing-new-readme">代码清单 1.13</a> 中的内容写入 <code>README.md</code>。</p>
 <div id="listing-new-readme" data-type="listing">
-<h5><span class="title-label">代码清单 1.13：</span>新 <code>README</code> 文件，<code>README.md</code></h5>
+<h5><span class="title-label">代码清单 1.13</span>：新 <code>README</code> 文件，<code>README.md</code></h5>
 
 
 <div class="highlight language-text"><pre># Ruby on Rails Tutorial: "hello, world!"
@@ -1008,7 +1008,7 @@ create mode <span class="m">100644</span> README.md
 </pre></div>
 </div>
 <p>正如前面所说，Bitbucket 对使用 Markdown 编写的文件做了精美排版，如<a href="#fig-new-readme">图 1.17</a> 所示。</p>
-<div id="fig-new-readme" class="figure"><img src="images/chapter1/new_readme_bitbucket.png" alt="new readme bitbucket" /><div class="figcaption"><span class="title-label">图 1.17：</span>使用 Markdown 格式重写的 <code>README</code> 文件</div></div>
+<div id="fig-new-readme" class="figure"><img src="images/chapter1/new_readme_bitbucket.png" alt="new readme bitbucket" /><div class="figcaption"><span class="title-label">图 1.17</span>：使用 Markdown 格式重写的 <code>README</code> 文件</div></div>
 </section>
 </section>
 </section>
@@ -1031,16 +1031,16 @@ create mode <span class="m">100644</span> README.md
 </div>
 <p>注意，我们还添加了 <code>rails_12factor</code>，Heroku 使用这个 gem 伺服静态资源，例如图片和样式表。最终得到的 <code>Gemfile</code> 如<a href="#listing-gemfile-pg-gem">代码清单 1.14</a> 所示。</p>
 <div id="listing-gemfile-pg-gem" data-type="listing">
-<h5><span class="title-label">代码清单 1.14：</span>增加 gem 后的 <code>Gemfile</code></h5>
+<h5><span class="title-label">代码清单 1.14</span>：增加 gem 后的 <code>Gemfile</code></h5>
 
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
 <span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0'</span>
-<span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.0.beta1'</span>
+<span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.2'</span>
 <span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
 <span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.1.0'</span>
-<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.0.beta2'</span>
+<span class="n">gem</span> <span class="s1">'jquery-rails'</span><span class="p">,</span>         <span class="s1">'4.0.3'</span>
 <span class="n">gem</span> <span class="s1">'turbolinks'</span><span class="p">,</span>           <span class="s1">'2.3.0'</span>
 <span class="n">gem</span> <span class="s1">'jbuilder'</span><span class="p">,</span>             <span class="s1">'2.2.3'</span>
 <span class="n">gem</span> <span class="s1">'sdoc'</span><span class="p">,</span>                 <span class="s1">'0.4.0'</span><span class="p">,</span> <span class="ss">group</span><span class="p">:</span> <span class="ss">:doc</span>
@@ -1090,7 +1090,7 @@ create mode <span class="m">100644</span> README.md
 </div>
 <p>最后，执行 <code>heroku create</code> 命令，在 Heroku 的服务器中创建一个文件夹，用于存放演示应用，如<a href="#listing-heroku-create">代码清单 1.15</a> 所示。</p>
 <div id="listing-heroku-create" data-type="listing">
-<h5><span class="title-label">代码清单 1.15：</span>在 Heroku 中创建一个新应用</h5>
+<h5><span class="title-label">代码清单 1.15</span>：在 Heroku 中创建一个新应用</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span>heroku create
@@ -1115,7 +1115,7 @@ Git remote heroku added
 <section data-type="sect2" id="heroku-deployment-step-two">
 <h2><span class="title-label">1.5.3.</span> Heroku 部署第二步</h2>
 <p>其实没有第二步了。我们已经完成部署了。现在可以通过 <code>heroku create</code> 命令给出的地址（参见<a href="#listing-heroku-create">代码清单 1.15</a>，如果没用云端 IDE，在本地可以执行 <code>heroku open</code> 命令）查看刚刚部署的应用，如<a href="#fig-heroku-app">图 1.18</a> 所示。看到的页面和<a href="#fig-hello-world-hello-app">图 1.12</a> 一样，但是现在这个应用运行在生产环境中。</p>
-<div id="fig-heroku-app" class="figure"><img src="images/chapter1/heroku_app_hello_world.png" alt="heroku app hello world" /><div class="figcaption"><span class="title-label">图 1.18：</span>运行在 Heroku 中的第一个应用</div></div>
+<div id="fig-heroku-app" class="figure"><img src="images/chapter1/heroku_app_hello_world.png" alt="heroku app hello world" /><div class="figcaption"><span class="title-label">图 1.18</span>：运行在 Heroku 中的第一个应用</div></div>
 </section>
 <section data-type="sect2" id="heroku-commands">
 <h2><span class="title-label">1.5.4.</span> Heroku 命令</h2>
@@ -1186,8 +1186,8 @@ jhyicevg.herokuapp.com
 <p>按照编写 <code>hello</code> 动作的方式（<a href="#listing-hello-action">代码清单 1.8</a>），再添加一个动作，命名为 <code>goodbye</code>，渲染文本“goodbye, world!”。然后修改路由文件（<a href="#listing-hello-root-route">代码清单 1.10</a>），把根路由改成 <code>goodbye</code>。结果如<a href="#fig-goodbye-world">图 1.20</a> 所示。</p>
 </li>
 </ol>
-<div id="fig-hola-mundo" class="figure"><img src="images/chapter1/hola_mundo.png" alt="hola mundo" /><div class="figcaption"><span class="title-label">图 1.19：</span>修改 <code>hello</code> 动作，显示文本“¡Hola, mundo!”</div></div>
-<div id="fig-goodbye-world" class="figure"><img src="images/chapter1/goodbye_world.png" alt="goodbye world" /><div class="figcaption"><span class="title-label">图 1.20：</span>修改根路由，显示文本“goodbye, world!”</div></div>
+<div id="fig-hola-mundo" class="figure"><img src="images/chapter1/hola_mundo.png" alt="hola mundo" /><div class="figcaption"><span class="title-label">图 1.19</span>：修改 <code>hello</code> 动作，显示文本“¡Hola, mundo!”</div></div>
+<div id="fig-goodbye-world" class="figure"><img src="images/chapter1/goodbye_world.png" alt="goodbye world" /><div class="figcaption"><span class="title-label">图 1.20</span>：修改根路由，显示文本“goodbye, world!”</div></div>
 </section>
 </section>
                 </article>

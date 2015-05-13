@@ -54,7 +54,7 @@
 <p>从前一章得知，即使完全不懂 Ruby 语言，我们也可以创建 Rails 应用的骨架，以及编写测试。我们依赖于书中提供的测试代码，得到错误信息，然后让测试组件通过。但是我们不能总是这样，所以这一章暂时不讲网站开发，而要正视我们的短肋——Ruby 语言。</p>
 <p>前一章末尾我们修改了几乎是静态内容的页面，让它们使用 Rails 布局，去除视图中的重复。我们使用的布局如<a href="#listing-application-layout-redux">代码清单 4.1</a> 所示（和<a href="chapter3.html#listing-application-layout">代码清单 3.32</a> 一样）。</p>
 <div id="listing-application-layout-redux" data-type="listing">
-<h5><span class="title-label">代码清单 4.1：</span>演示应用的网站布局</h5>
+<h5><span class="title-label">代码清单 4.1</span>：演示应用的网站布局</h5>
 
 <div class="source-file">app/views/layouts/application.html.erb</div>
 
@@ -112,7 +112,7 @@
 <p>标题中有公共部分，但前面还显示了竖线。</p>
 <p>为了解决这个问题，我们要自定义一个辅助方法，命名为 <code>full_title</code>。如果视图中没有定义页面的标题，<code>full_title</code> 返回标题的公共部分，即“Ruby on Rails Tutorial Sample App”；如果定义了，则在变动部分后面加上一个竖线，如<a href="#listing-title-helper">代码清单 4.2</a> 所示。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
 <div id="listing-title-helper" data-type="listing">
-<h5><span class="title-label">代码清单 4.2：</span>定义 <code>full_title</code> 辅助方法</h5>
+<h5><span class="title-label">代码清单 4.2</span>：定义 <code>full_title</code> 辅助方法</h5>
 
 <div class="source-file">app/helpers/application_helper.rb</div>
 
@@ -124,7 +124,7 @@
     <span class="k">if</span> <span class="n">page_title</span><span class="o">.</span><span class="n">empty?</span>
       <span class="n">base_title</span>
     <span class="k">else</span>
-      <span class="s2">"</span><span class="si">#{</span><span class="n">page_title</span><span class="si">}</span><span class="s2"> | </span><span class="si">#{</span><span class="n">base_title</span><span class="si">}</span><span class="s2">"</span>
+      <span class="n">page_title</span> <span class="o">+</span> <span class="s2">" | "</span> <span class="o">+</span> <span class="n">base_title</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
@@ -146,7 +146,7 @@
 </div>
 <p>如<a href="#listing-application-layout-full-title">代码清单 4.3</a> 所示。</p>
 <div id="listing-application-layout-full-title" data-type="listing">
-<h5><span class="title-label">代码清单 4.3：</span>使用 <code>full_title</code> 辅助方法的网站布局 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 4.3</span>：使用 <code>full_title</code> 辅助方法的网站布局 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/views/layouts/application.html.erb</div>
 
@@ -165,9 +165,9 @@
 <span class="x">&lt;/html&gt;</span>
 </pre></div>
 </div>
-<p>为了让这个辅助方法起作用，我们要在首页的视图中把不必要的单词“Home”删掉，只保留标题的公共部分。首先，我们要修改测试代码，如<a href="#listing-home-base-title-spec">代码清单 4.4</a> 所示，确认标题中没有 <code>"Home"</code>。（注意，如果你做了前一章的练习，按照<a href="chapter3.html#listing-base-title-test">代码清单 3.38</a> 修改了测试，现在要把定义 <code>@base_title</code> 变量的 <code>setup</code> 方法删掉。）</p>
+<p>为了让这个辅助方法起作用，我们要在首页的视图中把不必要的单词“Home”删掉，只保留标题的公共部分。首先，我们要修改测试代码，如<a href="#listing-home-base-title-spec">代码清单 4.4</a> 所示，确认标题中没有 <code>"Home"</code>。</p>
 <div id="listing-home-base-title-spec" data-type="listing">
-<h5><span class="title-label">代码清单 4.4：</span>修改首页的标题测试 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 4.4</span>：修改首页的标题测试 <span class="red">RED</span></h5>
 
 <div class="source-file">test/controllers/static_pages_controller_test.rb</div>
 
@@ -196,7 +196,7 @@
 </div>
 <p>我们要运行测试组件，确认有一个测试失败：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 4.5：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 4.5</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -205,7 +205,7 @@
 </div>
 <p>为了让测试通过，我们要把首页视图中的 <code>provide</code> 那行删除，如<a href="#listing-home-page-base-title">代码清单 4.6</a> 所示。</p>
 <div id="listing-home-page-base-title" data-type="listing">
-<h5><span class="title-label">代码清单 4.6：</span>没定义页面标题的首页视图 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 4.6</span>：没定义页面标题的首页视图 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/views/static_pages/home.html.erb</div>
 
@@ -219,14 +219,14 @@
 </div>
 <p>现在测试应该可以通过了：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 4.7：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 4.7</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
 </pre></div>
 </div>
 <p>（注意，之前运行 <code>rake test</code> 时都显示了通过和失败测试的数量，为了行文简洁，从这以后都会省略这些数据。）</p>
-<p>和引入应用的样式表那行代码一样，<a href="#listing-title-helper">代码清单 4.2</a> 的内容对有经验的 Rails 开发者来说也很简单，但其中很多重要的 Ruby 知识：模块，方法定义，可选的方法参数，注释，本地变量赋值，布尔值，流程控制，字符串插值和返回值。本章会一一介绍这些知识。</p>
+<p>和引入应用的样式表那行代码一样，<a href="#listing-title-helper">代码清单 4.2</a> 的内容对有经验的 Rails 开发者来说也很简单，但其中很多重要的 Ruby 知识：模块，方法定义，可选的方法参数，注释，本地变量赋值，布尔值，流程控制，字符串拼接和返回值。本章会一一介绍这些知识。</p>
 </section>
 <section data-type="sect1" id="strings-and-methods">
 <h1><span class="title-label">4.2.</span> 字符串和方法</h1>
@@ -240,7 +240,7 @@
 </div>
 <p><a href="#listing-irbrc">代码清单 4.8</a> 中的内容作用是简化 irb 提示符，以及禁用一些烦人的自动缩进行为。</p>
 <div id="listing-irbrc" data-type="listing">
-<h5><span class="title-label">代码清单 4.8：</span>添加一些 irb 配置</h5>
+<h5><span class="title-label">代码清单 4.8</span>：添加一些 irb 配置</h5>
 
 <div class="source-file">~/.irbrc</div>
 
@@ -585,7 +585,7 @@
 <h2><span class="title-label">4.2.5.</span> 回顾标题的辅助方法</h2>
 <p>下面我们来理解一下<a href="#listing-title-helper">代码清单 4.2</a> 中的 <code>full_title</code> 辅助方法，<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>在其中加上注解之后如<a href="#listing-annotated-title-helper">代码清单 4.9</a> 所示：</p>
 <div id="listing-annotated-title-helper" data-type="listing">
-<h5><span class="title-label">代码清单 4.9：</span>注解 <code>full_title</code> 方法</h5>
+<h5><span class="title-label">代码清单 4.9</span>：注解 <code>full_title</code> 方法</h5>
 
 <div class="source-file">app/helpers/application_helper.rb</div>
 
@@ -597,13 +597,13 @@
     <span class="k">if</span> <span class="n">page_title</span><span class="o">.</span><span class="n">empty?</span>                              <span class="c1"># 布尔测试</span>
       <span class="n">base_title</span>                                      <span class="c1"># 隐式返回值</span>
     <span class="k">else</span>
-      <span class="s2">"</span><span class="si">#{</span><span class="n">page_title</span><span class="si">}</span><span class="s2"> | </span><span class="si">#{</span><span class="n">base_title</span><span class="si">}</span><span class="s2">"</span>                 <span class="c1"># 字符串插值</span>
+      <span class="n">page_title</span> <span class="o">+</span> <span class="s2">" | "</span> <span class="o">+</span> <span class="n">base_title</span>                 <span class="c1"># 字符串拼接</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>方法定义、变量赋值、布尔测试、流程控制和字符串插值——组合在一起定义了一个可以在网站布局中使用的辅助方法。这里还有一个知识点——<code>module ApplicationHelper</code>：模块为我们提供了一种把相关方法组织在一起的方式，我们可以使用 <code>include</code> 把模块插入其他的类中。编写普通的 Ruby 程序时，你要自己定义一个模块，然后再显式将其引入类中，但是辅助方法所在的模块会由 Rails 为我们引入，结果是，<code>full_title</code> 方法<a href="http://catb.org/jargon/html/A/automagically.html">自动</a>可在所有视图中使用。</p>
+<p>方法定义、变量赋值、布尔测试、流程控制和字符串拼接<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup>——组合在一起定义了一个可以在网站布局中使用的辅助方法。这里还有一个知识点——<code>module ApplicationHelper</code>：模块为我们提供了一种把相关方法组织在一起的方式，我们可以使用 <code>include</code> 把模块插入其他的类中。编写普通的 Ruby 程序时，你要自己定义一个模块，然后再显式将其引入类中，但是辅助方法所在的模块会由 Rails 为我们引入，结果是，<code>full_title</code> 方法<a href="http://catb.org/jargon/html/A/automagically.html">自动</a>可在所有视图中使用。</p>
 </section>
 </section>
 <section data-type="sect1" id="other-data-structures">
@@ -644,7 +644,7 @@
 <span class="go">=&gt; 17</span>
 </pre></div>
 </div>
-<p>我们看到，Ruby 使用方括号获取数组中的元素。除了方括号之外，Ruby 还为一些经常需要获取的元素提供了别名：<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup></p>
+<p>我们看到，Ruby 使用方括号获取数组中的元素。除了方括号之外，Ruby 还为一些经常需要获取的元素提供了别名：<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -832,7 +832,7 @@
 </pre></div>
 </div>
 <p>上面的代码用 <code>number</code> 代替了 <code>i</code>，我想告诉你的是，变量名可以使用任何值。</p>
-<p>除非你已经有了一些编程知识，否则对块的理解是没有捷径的。你要做的是多看，看多了就会习惯这种用法。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup>幸好人类擅长从实例中归纳出一般性。下面是一些例子，其中几个用到了 <code>map</code> 方法：</p>
+<p>除非你已经有了一些编程知识，否则对块的理解是没有捷径的。你要做的是多看，看多了就会习惯这种用法。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>幸好人类擅长从实例中归纳出一般性。下面是一些例子，其中几个用到了 <code>map</code> 方法：</p>
 <div data-type="listing">
 
 
@@ -916,7 +916,7 @@
 <span class="go">=&gt; {"last_name"=&gt;"Hartl", "first_name"=&gt;"Michael"}</span>
 </pre></div>
 </div>
-<p>哈希通过一对花括号中包含一些键值对的形式表示，如果只有一对花括号而没有键值对（<code>{}</code>）就是一个空哈希。注意，哈希中的花括号和块中的花括号不是一个概念。（是的，这可能会让你困惑。）哈希虽然和数组类似，但二者却有一个很重要的区别：哈希中的元素没有特定的顺序。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>如果顺序很重要的话就要使用数组。</p>
+<p>哈希通过一对花括号中包含一些键值对的形式表示，如果只有一对花括号而没有键值对（<code>{}</code>）就是一个空哈希。注意，哈希中的花括号和块中的花括号不是一个概念。（是的，这可能会让你困惑。）哈希虽然和数组类似，但二者却有一个很重要的区别：哈希中的元素没有特定的顺序。<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup>如果顺序很重要的话就要使用数组。</p>
 <p>通过方括号的形式每次定义一个元素的方式不太敏捷，使用 <code>⇒</code> 分隔的键值对这种字面量形式定义哈希要简洁得多：</p>
 <div data-type="listing">
 
@@ -926,7 +926,7 @@
 </pre></div>
 </div>
 <p>在上面的代码中我用到了一个 Ruby 句法约定，在左花括号后面和右花括号前面加入了一个空格，不过控制台会忽略这些空格。（不要问我为什么这些空格是约定俗成的，或许是某个 Ruby 编程大牛喜欢这种形式，然后约定就产生了。）</p>
-<p>目前为止哈希的键都使用字符串，在 Rails 中用“符号”（Symbol）当键很常见。符号看起来有点儿像字符串，只不过没有包含在一对引号中，而是在前面加一个冒号。例如，<code>:name</code> 就是一个符号。你可以把符号看成没有约束的字符串：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
+<p>目前为止哈希的键都使用字符串，在 Rails 中用“符号”（Symbol）当键很常见。符号看起来有点儿像字符串，只不过没有包含在一对引号中，而是在前面加一个冒号。例如，<code>:name</code> 就是一个符号。你可以把符号看成没有约束的字符串：<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -986,7 +986,7 @@
 <p>这种形式更好地沿袭了其他语言（例如 JavaScript）中哈希的表示方式，在 Rails 社区中也越来越受欢迎。这两种方式现在都在使用，所以你要能识别它们。可是，新句法有点让人困惑，因为 <code>:name</code> 本身是一种数据类型（符号），但 <code>name:</code> 却没有意义。不过在哈希字面量中，<code>:name ⇒</code> 和 <code>name:</code> 作用一样。因此，<code>{ :name ⇒ "Michael Hartl" }</code> 和 <code>{ name: "Michael Hartl" }</code> 是等效的。如果要表示符号，只能使用 <code>:name</code>（冒号在前面）。</p>
 <p>哈希中元素的值可以是任何对象，甚至是另一个哈希，如<a href="#listing-nested-hashes">代码清单 4.10</a> 所示。</p>
 <div id="listing-nested-hashes" data-type="listing">
-<h5><span class="title-label">代码清单 4.10：</span>嵌套哈希</h5>
+<h5><span class="title-label">代码清单 4.10</span>：嵌套哈希</h5>
 
 
 <div class="highlight language-irb"><pre><span class="gp">&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>        <span class="c1"># 定义一个名为 params（parameters 的简称）的哈希</span>
@@ -1034,7 +1034,7 @@
 <span class="go">"It worked!"</span>
 </pre></div>
 </div>
-<p>顺便说一下，因为使用 <code>inspect</code> 打印对象的方式经常使用，为此还有一个专门的快捷方式，<code>p</code> 方法：<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup></p>
+<p>顺便说一下，因为使用 <code>inspect</code> 打印对象的方式经常使用，为此还有一个专门的快捷方式，<code>p</code> 方法：<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -1105,7 +1105,7 @@
                                    <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span>
 </pre></div>
 </div>
-<p>因为在这种情况下，Ruby 不关心有没有换行。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup>我之所以把代码写成两行，是要保证每行代码不超过 80 个字符。<sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup></p>
+<p>因为在这种情况下，Ruby 不关心有没有换行。<sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup>我之所以把代码写成两行，是要保证每行代码不超过 80 个字符。<sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup></p>
 <p>所以，下面这段代码</p>
 <div data-type="listing">
 
@@ -1116,7 +1116,7 @@
 </div>
 <p>调用了 <code>stylesheet_link_tag</code> 函数，并且传入两个参数：一个是字符串，指明样式表的路径；另一个是哈希，包含两个元素，第一个指明媒介类型，第二个启用 Rails 4.0 中添加的 <a href="https://github.com/rails/turbolinks">Turbolink</a> 功能。因为使用的是 <code>&lt;%= %&gt;</code>，函数的执行结果会通过 ERb 插入模板中。如果在浏览器中查看网页的源码，会看到引入样式表所用的 HTML，如<a href="#listing-scss-source">代码清单 4.11</a> 所示。（你可能会在 CSS 的文件名后看到额外的字符，例如 <code>?body=1</code>。这是 Rails 加入的，确保修改 CSS 后浏览器会重新加载。）</p>
 <div id="listing-scss-source" data-type="listing">
-<h5><span class="title-label">代码清单 4.11：</span>引入 CSS 的代码生成的 HTML</h5>
+<h5><span class="title-label">代码清单 4.11</span>：引入 CSS 的代码生成的 HTML</h5>
 
 
 <div class="highlight language-html"><pre><span class="nt">&lt;link</span> <span class="na">data-turbolinks-track=</span><span class="s">"true"</span> <span class="na">href=</span><span class="s">"/assets/application.css"</span> <span class="na">media=</span><span class="s">"all"</span>
@@ -1142,7 +1142,7 @@
 </pre></div>
 </div>
 <p>我们看到，字符串可以响应 <code>class</code> 方法，返回值是字符串所属的类。</p>
-<p>除了使用字面构造方法之外，我们还可以使用等价的“具名构造方法”（named constructor），即在类名上调用 <code>new</code> 方法：<sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup></p>
+<p>除了使用字面构造方法之外，我们还可以使用等价的“具名构造方法”（named constructor），即在类名上调用 <code>new</code> 方法：<sup>[<a id="fn-ref-15" href="#fn-15">15</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -1198,7 +1198,7 @@
 </pre></div>
 </div>
 <p>这个继承关系如<a href="#fig-string-inheritance-ruby-1-9">图 4.1</a> 所示。可以看到，<code>String</code> 的父类是 <code>Object</code>，<code>Object</code> 的父类是 <code>BasicObject</code>，但是 <code>BasicObject</code> 就没有父类了。这样的关系对每个 Ruby 对象都适用：只要在类的继承关系上往上多走几层，就会发现 Ruby 中的每个类最终都继承自 <code>BasicObject</code>，而它本身没有父类。这就是“Ruby 中一切皆对象”技术层面上的意义。</p>
-<div id="fig-string-inheritance-ruby-1-9" class="figure"><img src="images/chapter4/string_inheritance_ruby_1_9.png" alt="string inheritance ruby 1 9" /><div class="figcaption"><span class="title-label">图 4.1：</span><code>String</code> 类的继承关系</div></div>
+<div id="fig-string-inheritance-ruby-1-9" class="figure"><img src="images/chapter4/string_inheritance_ruby_1_9.png" alt="string inheritance ruby 1 9" /><div class="figcaption"><span class="title-label">图 4.1</span>：<code>String</code> 类的继承关系</div></div>
 <p>要想更深入地理解类，最好的方法是自己动手编写一个类。我们来定义一个名为 <code>Word</code> 的类，其中有一个名为 <code>palindrome?</code> 方法，如果单词顺读和反读都一样就返回 <code>true</code>：</p>
 <div data-type="listing">
 
@@ -1225,7 +1225,7 @@
 </div>
 <p>如果你觉得这个例子有点大题小做，很好，我的目的达到了。定义一个新类，可是只创建一个接受一个字符串作为参数的方法，这么做很古怪。既然单词是字符串，让 <code>Word</code> 继承 <code>String</code> 不就行了，如<a href="#listing-word-class">代码清单 4.12</a> 所示。（你要退出控制台，然后再在控制台中输入这写代码，这样才能把之前的 <code>Word</code> 定义清除掉。）</p>
 <div id="listing-word-class" data-type="listing">
-<h5><span class="title-label">代码清单 4.12：</span>在控制台中定义 <code>Word</code> 类</h5>
+<h5><span class="title-label">代码清单 4.12</span>：在控制台中定义 <code>Word</code> 类</h5>
 
 
 <div class="highlight language-irb"><pre><span class="gp">&gt;&gt; </span><span class="k">class</span> <span class="nc">Word</span> <span class="o">&lt;</span> <span class="nb">String</span>             <span class="c1"># Word 继承自 String</span>
@@ -1262,8 +1262,8 @@
 </pre></div>
 </div>
 <p>这个继承关系如<a href="#fig-word-inheritance-ruby-1-9">图 4.2</a> 所示。</p>
-<div id="fig-word-inheritance-ruby-1-9" class="figure"><img src="images/chapter4/word_inheritance_ruby_1_9.png" alt="word inheritance ruby 1 9" /><div class="figcaption"><span class="title-label">图 4.2：</span><a href="#listing-word-class">代码清单 4.12</a> 中定义的 <code>Word</code> 类（非内置类）的继承关系</div></div>
-<p>注意，在<a href="#listing-word-class">代码清单 4.12</a> 中检查单词和单词的反转是否相同时，要在 <code>Word</code> 类中引用这个单词。在 Ruby 中使用 <code>self</code> 关键字<sup>[<a id="fn-ref-15" href="#fn-15">15</a>]</sup>引用：在 <code>Word</code> 类中，<code>self</code> 代表的就是对象本身。所以我们可以使用</p>
+<div id="fig-word-inheritance-ruby-1-9" class="figure"><img src="images/chapter4/word_inheritance_ruby_1_9.png" alt="word inheritance ruby 1 9" /><div class="figcaption"><span class="title-label">图 4.2</span>：<a href="#listing-word-class">代码清单 4.12</a> 中定义的 <code>Word</code> 类（非内置类）的继承关系</div></div>
+<p>注意，在<a href="#listing-word-class">代码清单 4.12</a> 中检查单词和单词的反转是否相同时，要在 <code>Word</code> 类中引用这个单词。在 Ruby 中使用 <code>self</code> 关键字<sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup>引用：在 <code>Word</code> 类中，<code>self</code> 代表的就是对象本身。所以我们可以使用</p>
 <div data-type="listing">
 
 
@@ -1333,7 +1333,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>你现在可以理解，至少有点能理解，这些代码的意思了：<code>StaticPagesController</code> 是一个类，继承自 <code>ApplicationController</code>，其中有三个方法，分别是 <code>home</code>、<code>help</code> 和 <code>about</code>。因为 Rails 控制台会加载本地的 Rails 环境，所以我们可以在控制台中创建一个控制器，查看一下它的继承关系：<sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup></p>
+<p>你现在可以理解，至少有点能理解，这些代码的意思了：<code>StaticPagesController</code> 是一个类，继承自 <code>ApplicationController</code>，其中有三个方法，分别是 <code>home</code>、<code>help</code> 和 <code>about</code>。因为 Rails 控制台会加载本地的 Rails 环境，所以我们可以在控制台中创建一个控制器，查看一下它的继承关系：<sup>[<a id="fn-ref-17" href="#fn-17">17</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -1365,14 +1365,14 @@
 <p><code>home</code> 动作的返回值为 <code>nil</code>，因为它是空的。</p>
 <p>注意，动作没有返回值，或至少没返回真正需要的值。如我们在<a href="chapter3.html#mostly-static-pages">第 3 章</a>看到的，<code>home</code> 动作的目的是渲染网页，而不是返回一个值。但是，我记得没在任何地方调用过 <code>StaticPagesController.new</code>，到底怎么回事呢？</p>
 <p>原因在于，Rails 是用 Ruby 编写的，但 Rails 不是 Ruby。有些 Rails 类就像普通的 Ruby 类一样，不过也有些则得益于 Rails 的强大功能。Rails 是单独的一门学问，应该和 Ruby 分开学习和理解。</p>
-<div id="fig-static-pages-controller-inheritance" class="figure"><img src="images/chapter4/static_pages_controller_inheritance.png" alt="static pages controller inheritance" /><div class="figcaption"><span class="title-label">图 4.3：</span>静态页面控制器的类继承关系</div></div>
+<div id="fig-static-pages-controller-inheritance" class="figure"><img src="images/chapter4/static_pages_controller_inheritance.png" alt="static pages controller inheritance" /><div class="figcaption"><span class="title-label">图 4.3</span>：静态页面控制器的类继承关系</div></div>
 </section>
 <section data-type="sect2" id="a-user-class">
 <h2><span class="title-label">4.4.5.</span> 用户类</h2>
 <p>我们要自己定义一个类，结束对 Ruby 的介绍。这个类名为 <code>User</code>，目的是实现 <a href="chapter6.html#modeling-users">第 6 章</a>用到的用户模型。</p>
 <p>到目前为止，我们都在控制台中定义类，这样很快捷，但也有点不爽。现在我们要在应用的根目录中创建一个名为 <code>example_user.rb</code> 的文件，然后写入<a href="#listing-example-user">代码清单 4.13</a> 中的内容。</p>
 <div id="listing-example-user" data-type="listing">
-<h5><span class="title-label">代码清单 4.13：</span>定义 <code>User</code> 类</h5>
+<h5><span class="title-label">代码清单 4.13</span>：定义 <code>User</code> 类</h5>
 
 <div class="source-file">example_user.rb</div>
 
@@ -1531,7 +1531,7 @@
 </pre></div>
 </div>
 <div id="listing-string-shuffle" data-type="listing">
-<h5><span class="title-label">代码清单 4.14：</span>打乱字符串函数的骨架</h5>
+<h5><span class="title-label">代码清单 4.14</span>：打乱字符串函数的骨架</h5>
 
 
 <div class="highlight language-irb"><pre><span class="gp">&gt;&gt; </span><span class="k">def</span> <span class="nf">string_shuffle</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -1542,7 +1542,7 @@
 </pre></div>
 </div>
 <div id="listing-string-shuffle-two" data-type="listing">
-<h5><span class="title-label">代码清单 4.15：</span>添加到 <code>String</code> 类中的 <code>shuffle</code> 方法骨架</h5>
+<h5><span class="title-label">代码清单 4.15</span>：添加到 <code>String</code> 类中的 <code>shuffle</code> 方法骨架</h5>
 
 
 <div class="highlight language-irb"><pre><span class="gp">&gt;&gt; </span><span class="k">class</span> <span class="nc">String</span>
@@ -1579,16 +1579,17 @@
 <li id="fn-4">熟悉 Perl 或 PHP 的编程人员，可以把这个功能与自动插值美元符号开头的变量相对应，例如 <code>"foo $bar"</code>。 <a href="#fn-ref-4">&#8617;</a></li>
 <li id="fn-5">很抱歉，本章在“函数”和“方法”两个称呼之间随意变换。在 Ruby 中这二者是同一个概念：所有方法都是函数，所有函数也都是方法，因为一切皆对象。 <a href="#fn-ref-5">&#8617;</a></li>
 <li id="fn-6">其实还有一个地方我们不理解，那就是 Rails 是怎么把这些联系在一起的：把 URL 映射到动作上，让 <code>full_title</code> 辅助方法可以在视图中使用，等等。这是个很有意思的话题，我建议你以后好好了解一下。不过使用 Rails 并不需要完全了解 Rails 的运作机理。（若想深入了解 Rails，我推荐阅读 Obie Fernandez 写的《The Rails 4 Way》。） <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">这段代码中使用的 <code>second</code> 方法不是 Ruby 定义的，而是 Rails 添加的。在这里可以使用这个方法是因为，Rails 控制台会自动加载 Rails 对 Ruby 的扩展。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">块是闭包（closure），知道这一点对资深编程人员可能会有些帮助。闭包是一种匿名函数，其中附带了一些数据。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">在 Ruby 1.9 及以后的版本中，其实会按照元素输入时的顺序保存哈希，不过依赖特定的顺序显然是不明智的。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">没有约束的好处是，符号很容易进行比较，字符串要按照字母一个一个的比较，而符号只需比较一次。这就使得符号成为哈希键的最佳选择。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">其实有些细微差别，<code>p</code> 返回打印的对象，而 <code>puts</code> 始终返回 <code>nil</code>。感谢读者 Katarzyna Siwek 指出这一点。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">换行符在一行的结尾处，开始新的一行。在代码中，换行符用 <code>\n</code> 表示。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">数列数会让你发疯的，所以很多文本编辑器都提供了一个视觉标识。例如，如果再看一下<a href="chapter1.html#fig-cloud9-gemfile">图 1.5</a> 的话，会发现右边有一条细线，它可以帮助你把一行代码控制在 80 个字符以内。云端 IDE 默认会显示这条竖线。如果使用 TextMate，可以在如下菜单中找到这个功能：View &gt; Wrap Column &gt; 78。在 Sublime Text 中是：View &gt; Ruler &gt; 78，或：View &gt; Ruler &gt; 80。 <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">返回值可能由于 Ruby 版本的不同而有所不同。这个例子假设你使用的是 Ruby 1.9.3 或以上版本。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">关于 Ruby 类和 <code>self</code> 关键字，请阅读 <a href="http://railstips.org/">RailsTips</a> 中的《<a href="http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/">Class and Instance Variables in Ruby</a>》一文。 <a href="#fn-ref-15">&#8617;</a></li>
-<li id="fn-16">你没必要知道继承关系中每个类的作用。我也不知道它们都是干什么的，而我从 2005 年就开始使用 Ruby on Rails 了。这可能意味着以下两个问题中的一个：第一，我是个废柴；第二，不需要知道所有内部知识也能成为熟练的 Rails 开发者。我们当然都希望是第二点。 <a href="#fn-ref-16">&#8617;</a></li>
+<li id="fn-7">这里你可能想使用字符串插值，起始本书前几版使用的都是插值，但 <code>provide</code> 方法会把字符串转换成 <code>SafeBuffer</code> 对象，而不是普通的字符串。插入视图模板的 HTML 会过度转义，把“Help’s on the way”转换成“Help&amp;#39;s on the way”。（感谢读者 Jeremy Fleischman 指出这个小问题。） <a href="#fn-ref-7">&#8617;</a></li>
+<li id="fn-8">这段代码中使用的 <code>second</code> 方法不是 Ruby 定义的，而是 Rails 添加的。在这里可以使用这个方法是因为，Rails 控制台会自动加载 Rails 对 Ruby 的扩展。 <a href="#fn-ref-8">&#8617;</a></li>
+<li id="fn-9">块是闭包（closure），知道这一点对资深编程人员可能会有些帮助。闭包是一种匿名函数，其中附带了一些数据。 <a href="#fn-ref-9">&#8617;</a></li>
+<li id="fn-10">在 Ruby 1.9 及以后的版本中，其实会按照元素输入时的顺序保存哈希，不过依赖特定的顺序显然是不明智的。 <a href="#fn-ref-10">&#8617;</a></li>
+<li id="fn-11">没有约束的好处是，符号很容易进行比较，字符串要按照字母一个一个的比较，而符号只需比较一次。这就使得符号成为哈希键的最佳选择。 <a href="#fn-ref-11">&#8617;</a></li>
+<li id="fn-12">其实有些细微差别，<code>p</code> 返回打印的对象，而 <code>puts</code> 始终返回 <code>nil</code>。感谢读者 Katarzyna Siwek 指出这一点。 <a href="#fn-ref-12">&#8617;</a></li>
+<li id="fn-13">换行符在一行的结尾处，开始新的一行。在代码中，换行符用 <code>\n</code> 表示。 <a href="#fn-ref-13">&#8617;</a></li>
+<li id="fn-14">数列数会让你发疯的，所以很多文本编辑器都提供了一个视觉标识。例如，如果再看一下<a href="chapter1.html#fig-cloud9-gemfile">图 1.5</a> 的话，会发现右边有一条细线，它可以帮助你把一行代码控制在 80 个字符以内。云端 IDE 默认会显示这条竖线。如果使用 TextMate，可以在如下菜单中找到这个功能：View &gt; Wrap Column &gt; 78。在 Sublime Text 中是：View &gt; Ruler &gt; 78，或：View &gt; Ruler &gt; 80。 <a href="#fn-ref-14">&#8617;</a></li>
+<li id="fn-15">返回值可能由于 Ruby 版本的不同而有所不同。这个例子假设你使用的是 Ruby 1.9.3 或以上版本。 <a href="#fn-ref-15">&#8617;</a></li>
+<li id="fn-16">关于 Ruby 类和 <code>self</code> 关键字，请阅读 <a href="http://railstips.org/">RailsTips</a> 中的《<a href="http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/">Class and Instance Variables in Ruby</a>》一文。 <a href="#fn-ref-16">&#8617;</a></li>
+<li id="fn-17">你没必要知道继承关系中每个类的作用。我也不知道它们都是干什么的，而我从 2005 年就开始使用 Ruby on Rails 了。这可能意味着以下两个问题中的一个：第一，我是个废柴；第二，不需要知道所有内部知识也能成为熟练的 Rails 开发者。我们当然都希望是第二点。 <a href="#fn-ref-17">&#8617;</a></li>
 </ol>
 </div>
             </div>

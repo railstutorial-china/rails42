@@ -54,7 +54,7 @@
 <h1><span class="title-label">5.1.</span> 添加一些结构</h1>
 <p>本书介绍 Web 开发而不是 Web 设计，不过在一个看起来很简陋的应用中开发会让人提不起劲，所以本节要向布局中添加一些结构，再加入一些 CSS 实现基本的样式。除了使用自定义的 CSS 之外，我们还会使用由 Twitter 开发的开源 Web 设计框架 <a href="http://getbootstrap.com/">Bootstrap</a>。我们会按照一定的方式组织代码——当布局文件中的内容变多以后，使用局部视图清理。</p>
 <p>开发 Web 应用时，尽早对用户界面有个统筹安排往往会对你有所帮助。在本书后续内容中，我会经常使用网页构思图（mockup）（在 Web 领域经常称之为“线框图”），展示应用最终外观的草图。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>本章大部分内容都在开发 <a href="chapter3.html#static-pages">3.2 节</a>编写的静态页面，我们要在页面中加入一个网站 LOGO、导航条和网站底部。这些页面中最重要的是“首页”，它的构思图如<a href="#fig-home-page-mockup">图 5.1</a> 所示，<a href="#fig-site-with-footer">图 5.7</a> 是最终实现的效果。你会发现二者之间的某些细节有所不同，例如，在最终实现的页面中我们加入了一个 Rails LOGO——这没什么关系，因为构思图没必要画出每个细节。</p>
-<div id="fig-home-page-mockup" class="figure"><img src="images/chapter5/home_page_mockup_3rd_edition.png" alt="home page mockup 3rd edition" /><div class="figcaption"><span class="title-label">图 5.1：</span>演示应用首页的构思图</div></div>
+<div id="fig-home-page-mockup" class="figure"><img src="images/chapter5/home_page_mockup_3rd_edition.png" alt="home page mockup 3rd edition" /><div class="figcaption"><span class="title-label">图 5.1</span>：演示应用首页的构思图</div></div>
 <p>和之前一样，如果使用 Git 做版本控制，现在最好创建一个新分支：</p>
 <div data-type="listing">
 
@@ -68,7 +68,7 @@
 <p>在应用中添加链接和样式之前，我们先来修改网站的布局文件 <code>application.html.erb</code>（上一次见到是在<a href="chapter4.html#listing-application-layout-full-title">代码清单 4.3</a> 中），添加一些 HTML 结构。我们要添加一些区域，一些 CSS 类，以及导航条。布局文件的完整内容参见<a href="#listing-layout-new-structure">代码清单 5.1</a>，
 对各部分的说明紧跟其后。如果你迫不及待想看到结果，请看<a href="#fig-layout-no-logo-or-custom-css">图 5.2</a>。（注意：结果（还）不是很让人满意。）</p>
 <div id="listing-layout-new-structure" data-type="listing">
-<h5><span class="title-label">代码清单 5.1：</span>添加一些结构后的网站布局文件</h5>
+<h5><span class="title-label">代码清单 5.1</span>：添加一些结构后的网站布局文件</h5>
 
 <div class="source-file">app/views/layouts/application.html.erb</div>
 
@@ -90,7 +90,7 @@
 <span class="x">      &lt;div class="container"&gt;</span>
 <span class="x">        </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">        &lt;nav&gt;</span>
-<span class="x">          &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">          &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="x">            &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">            &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">            &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
@@ -105,7 +105,7 @@
 <span class="x">&lt;/html&gt;</span>
 </pre></div>
 </div>
-<p>我们从上往下看一下这段代码中新添加的元素。<a href="chapter3.html#testing-titles">3.4.1 节</a>简单介绍过，Rails 默认使用 HTML5（如 <code>&lt;!DOCTYPE html&gt;</code> 所示）。因为 HTML5 标准还很新，有些浏览器（特别是旧版 IE 浏览器）还没有完全支持，所以我们加载了一些 JavaScript 代码（称作“<a href="http://code.google.com/p/html5shim/">HTML5 shim</a>”）来解决这个问题：</p>
+<p>我们从上往下看一下这段代码中新添加的元素。<a href="chapter3.html#testing-titles">3.4.1 节</a>简单介绍过，Rails 默认使用 HTML5（如 <code>&lt;!DOCTYPE html&gt;</code> 所示）。因为 HTML5 标准还很新，有些浏览器（特别是旧版 IE 浏览器）还没有完全支持，所以我们加载了一些 JavaScript 代码（称作“<a href="https://github.com/aFarkas/html5shiv">HTML5 shim</a>”）来解决这个问题：</p>
 <div data-type="listing">
 
 
@@ -131,7 +131,7 @@
 <span class="x">  &lt;div class="container"&gt;</span>
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">    &lt;nav&gt;</span>
-<span class="x">      &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">      &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
@@ -163,7 +163,7 @@
 
 <div class="highlight language-erb"><pre><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">&lt;nav&gt;</span>
-<span class="x">  &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">  &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="x">    &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">    &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">    &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
@@ -177,7 +177,7 @@
 
 
 <div class="highlight language-erb"><pre><span class="x">&lt;nav&gt;</span>
-<span class="x">  &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">  &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="x">    &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">    &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">    &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
@@ -185,12 +185,12 @@
 <span class="x">&lt;/nav&gt;</span>
 </pre></div>
 </div>
-<p><code>nav</code> 标签以前是不需要的，它的目的是明确表明这些链接是导航。<code>ul</code> 标签中的 <code>nav</code>、<code>navbar-nav</code> 和 <code>pull-right</code> 三个类在 Bootstrap 中有特殊的意义，<a href="#bootstrap-and-custom-css">5.1.2 节</a>引入 Bootstrap 的 CSS 之后会自动实现特殊的样式。在浏览器中审查导航元素，你会发现 Rails 处理布局文件并执行其中的 ERb 代码后，生成的列表如下所示：<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup></p>
+<p><code>nav</code> 标签以前是不需要的，它的目的是明确表明这些链接是导航。<code>ul</code> 标签中的 <code>nav</code>、<code>navbar-nav</code> 和 <code>navbar-right</code> 三个类在 Bootstrap 中有特殊的意义，<a href="#bootstrap-and-custom-css">5.1.2 节</a>引入 Bootstrap 的 CSS 之后会自动实现特殊的样式。在浏览器中审查导航元素，你会发现 Rails 处理布局文件并执行其中的 ERb 代码后，生成的列表如下所示：<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup></p>
 <div data-type="listing">
 
 
 <div class="highlight language-html"><pre><span class="nt">&lt;nav&gt;</span>
-  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav pull-right"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav navbar-right"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
     <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Help<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
     <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Log in<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
@@ -211,7 +211,7 @@
 <p>和之前一样，<code>container</code> 类在 Bootstrap 中有特殊意义。<a href="chapter3.html#layouts-and-embedded-ruby">3.4.3 节</a>已经介绍过，<code>yield</code> 会把各页面中的内容插入网站的布局中。</p>
 <p>除了网站的底部（<a href="#partials">5.1.3 节</a>会添加）之外，布局现在完成了。访问“首页”就能看到结果。为了利用后面添加的样式，我们要在 <code>home.html.erb</code> 视图中添加一些额外元素，如<a href="#listing-signup-button">代码清单 5.2</a> 所示。</p>
 <div id="listing-signup-button" data-type="listing">
-<h5><span class="title-label">代码清单 5.2：</span>“首页”视图，包含一个到注册页面的链接</h5>
+<h5><span class="title-label">代码清单 5.2</span>：“首页”视图，包含一个到注册页面的链接</h5>
 
 <div class="source-file">app/views/static_pages/home.html.erb</div>
 
@@ -256,7 +256,7 @@
 </pre></div>
 </div>
 <p>其中，字符串 <code>9308b8f92fea4c19a3a0d8385b494526</code>（在你的系统中得到的字符串可能不一样）由 Rails 添加，目的是确保文件名的唯一性，如果文件变化了，让浏览器重新加载文件（而不是从缓存中读取）。注意，<code>src</code> 属性中并没有 <code>images</code>，使用的是静态文件（图片，JavaScript，CSS 等）共用的 <code>assets</code> 文件夹。在服务器中，Rails 会把 <code>assets</code> 文件夹中的图片和 <code>app/assets/images</code> 文件夹中的文件对应起来。这么做是为了让浏览器觉得所有静态文件都在同一个文件夹中，有利于快速伺服。<code>alt</code> 属性的内容会在图片无法加载时显示，例如在针对视觉障碍人士的屏幕阅读器中。</p>
-<div id="fig-layout-no-logo-or-custom-css" class="figure"><img src="images/chapter5/layout_no_logo_or_custom_css_bootstrap_3rd_edition.png" alt="layout no logo or custom css bootstrap 3rd edition" /><div class="figcaption"><span class="title-label">图 5.2：</span>还没添加 CSS 的首页</div></div>
+<div id="fig-layout-no-logo-or-custom-css" class="figure"><img src="images/chapter5/layout_no_logo_or_custom_css_bootstrap_3rd_edition.png" alt="layout no logo or custom css bootstrap 3rd edition" /><div class="figcaption"><span class="title-label">图 5.2</span>：还没添加 CSS 的首页</div></div>
 <p>现在我们终于可以看到劳动的果实了，如<a href="#fig-layout-no-logo-or-custom-css">图 5.2</a> 所示。你可能会说，这并不很美观啊。或许吧。不过也可以小小的高兴一下，因为我们为 HTML 结构指定了合适的类，可以用来添加 CSS。</p>
 </section>
 <section data-type="sect2" id="bootstrap-and-custom-css">
@@ -264,7 +264,7 @@
 <p>前一节我们为很多 HTML 元素指定了 CSS 类，这样我们就可以使用 CSS 灵活的构建布局了。如前所述，其中很多类在 Bootstrap 中都有特殊的意义。Bootstrap 是 Twitter 开发的框架，可以方便地把精美的 Web 设计和用户界面元素添加到使用 HTML5 开发的应用中。本节，我们会结合 Bootstrap 和一些自定义的 CSS 为演示应用添加一些样式。</p>
 <p>首先，我们要安装 Bootstrap。在 Rails 应用中可以使用 <code>bootstrap-sass</code> 这个 gem，如<a href="#listing-bootstrap-sass">代码清单 5.3</a> 所示。Bootstrap 框架本身使用 <a href="http://lesscss.org/">LESS</a> 编写动态样式表，而 Rails 的 Asset Pipeline 默认支持的是（非常类似的）Sass 语言。<code>bootstrap-sass</code> 会把 LESS 转换成 Sass，而且让 Bootstrap 中所有必要的文件都可以在当前应用中使用。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup></p>
 <div id="listing-bootstrap-sass" data-type="listing">
-<h5><span class="title-label">代码清单 5.3：</span>把 <code>bootstrap-sass</code> 添加到 <code>Gemfile</code> 中</h5>
+<h5><span class="title-label">代码清单 5.3</span>：把 <code>bootstrap-sass</code> 添加到 <code>Gemfile</code> 中</h5>
 
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
@@ -293,7 +293,7 @@
 <p>（使用 <a href="chapter3.html#green">3.3.3 节</a>用过的 <code>touch</code> 命令，你也可以使用其他方式。）其中文件夹的名字和文件扩展名都很重要。<code>app/assets/stylesheets/</code> 文件夹是 Asset Pipeline 的一部分，其中所有的样式表都会引入 <code>application.css</code> 文件。文件名 <code>custom.css.scss</code> 中包含 <code>.css</code>，说明这是 CSS 文件，<code>.scss</code> 扩展名则说明这是“Sassy CSS”文件，Asset Pipeline 会使用 Sass 处理其中的内容。（<a href="#syntactically-awesome-stylesheets">5.2.2 节</a>才会使用 Sass，不过加入这个扩展名才能发挥 <code>bootstrap-sass</code> gem 的作用。）</p>
 <p>在这个 CSS 文件中，我们可以使用 <code>@import</code> 函数引入 Bootstrap（以及相关的 Sprockets 工具），如<a href="#listing-bootstrap-css">代码清单 5.4</a> 所示。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
 <div id="listing-bootstrap-css" data-type="listing">
-<h5><span class="title-label">代码清单 5.4：</span>添加 Bootstrap 的 CSS</h5>
+<h5><span class="title-label">代码清单 5.4</span>：添加 Bootstrap 的 CSS</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -302,10 +302,10 @@
 </pre></div>
 </div>
 <p>这两行代码会引入整个 Bootstrap CSS 框架。然后重启 Web 服务器（先按 Ctrl-C 键，然后执行 <code>rails server</code> 命令），让这些改动生效，效果如<a href="#fig-sample-app-only-bootstrap">图 5.3</a> 所示。文本的位置还不合适，LOGO 也没有任何样式，不过颜色搭配和注册按钮看起来都不错。</p>
-<div id="fig-sample-app-only-bootstrap" class="figure"><img src="images/chapter5/sample_app_only_bootstrap_3rd_edition.png" alt="sample app only bootstrap 3rd edition" /><div class="figcaption"><span class="title-label">图 5.3：</span>使用 Bootstrap CSS 后的演示应用</div></div>
+<div id="fig-sample-app-only-bootstrap" class="figure"><img src="images/chapter5/sample_app_only_bootstrap_3rd_edition.png" alt="sample app only bootstrap 3rd edition" /><div class="figcaption"><span class="title-label">图 5.3</span>：使用 Bootstrap CSS 后的演示应用</div></div>
 <p>下面我们要加入一些整站都会用到的 CSS，用来样式化网站布局和各个页面，如<a href="#listing-universal-css">代码清单 5.5</a> 所示。效果如<a href="#fig-sample-app-universal">图 5.4</a> 所示。代码清单 5.5 中定义了很多样式规则。为了说明 CSS 规则的作用，经常会加入一些 CSS 注释，放在 <code>/* ... */</code> 中。</p>
 <div id="listing-universal-css" data-type="listing">
-<h5><span class="title-label">代码清单 5.5：</span>添加全站使用的 CSS</h5>
+<h5><span class="title-label">代码清单 5.5</span>：添加全站使用的 CSS</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -313,10 +313,6 @@
 <span class="k">@import</span> <span class="s2">"bootstrap"</span><span class="p">;</span>
 
 <span class="cm">/* universal */</span>
-
-<span class="nt">html</span> <span class="p">{</span>
-  <span class="na">overflow-y</span><span class="o">:</span> <span class="no">scroll</span><span class="p">;</span>
-<span class="p">}</span>
 
 <span class="nt">body</span> <span class="p">{</span>
   <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
@@ -339,7 +335,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div id="fig-sample-app-universal" class="figure"><img src="images/chapter5/sample_app_universal_3rd_edition.png" alt="sample app universal 3rd edition" /><div class="figcaption"><span class="title-label">图 5.4：</span>添加一些留白以及其他全局样式</div></div>
+<div id="fig-sample-app-universal" class="figure"><img src="images/chapter5/sample_app_universal_3rd_edition.png" alt="sample app universal 3rd edition" /><div class="figcaption"><span class="title-label">图 5.4</span>：添加一些留白以及其他全局样式</div></div>
 <p>注意，<a href="#listing-universal-css">代码清单 5.5</a> 中的 CSS 格式都是统一的。一般来说，CSS 规则通过类、ID、HTML 标签或者三者结合在一起来指代目标，然后在后面跟着一些样式声明。例如：</p>
 <div data-type="listing">
 
@@ -361,7 +357,7 @@
 <p>把 <code>.center</code> 类的样式定义为 <code>text-align: center;</code>。<code>.center</code> 中的点号说明这个规则是样式化一个类。（在<a href="#listing-logo-css">代码清单 5.7</a> 中会看到，<code>#</code> 样式化一个 ID。）这个规则的意思是，任何类为 <code>.center</code> 的标签（例如 <code>div</code>），其中包含的内容都会在页面中居中显示。（<a href="#listing-signup-button">代码清单 5.2</a> 中有用到这个类。）</p>
 <p>虽然 Bootstrap 中包含了很精美的文字排版样式，我们还是要为文字的外观添加一些自定义的规则，如<a href="#listing-typography-css">代码清单 5.6</a> 所示。（并不是所有样式都用于“首页”，但所有规则都会在这个演示应用的某个地方用到。）效果如<a href="#fig-sample-app-typography">图 5.5</a> 所示。</p>
 <div id="listing-typography-css" data-type="listing">
-<h5><span class="title-label">代码清单 5.6：</span>添加一些精美的文字排版样式</h5>
+<h5><span class="title-label">代码清单 5.6</span>：添加一些精美的文字排版样式</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -398,10 +394,10 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div id="fig-sample-app-typography" class="figure"><img src="images/chapter5/sample_app_typography_3rd_edition.png" alt="sample app typography 3rd edition" /><div class="figcaption"><span class="title-label">图 5.5：</span>添加一些排版样式</div></div>
+<div id="fig-sample-app-typography" class="figure"><img src="images/chapter5/sample_app_typography_3rd_edition.png" alt="sample app typography 3rd edition" /><div class="figcaption"><span class="title-label">图 5.5</span>：添加一些排版样式</div></div>
 <p>最后，我们还要为只包含文本“sample app”的网站 LOGO 添加一些样式。<a href="#listing-logo-css">代码清单 5.7</a> 中的 CSS 会把文字变成全大写字母，还修改了文字大小、颜色和位置。（我们使用的是 ID，因为我们希望 LOGO 在页面中只出现一次，不过也可以使用类。）</p>
 <div id="listing-logo-css" data-type="listing">
-<h5><span class="title-label">代码清单 5.7：</span>添加网站 LOGO 的样式</h5>
+<h5><span class="title-label">代码清单 5.7</span>：添加网站 LOGO 的样式</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -430,13 +426,13 @@
 </pre></div>
 </div>
 <p>其中，<code>color: #fff;</code> 会把 LOGO 文字的颜色变成白色。HTML 中的颜色代码由 3 组 16 进制数组成，分别代表三原色中的红绿蓝。<code>#ffffff</code> 是 3 种颜色都为最大值的情况，表示纯白色。<code>#fff</code> 是 <code>#ffffff</code> 的简写形式。CSS 标准为很多常用的 HTML 颜色定义了别名，例如 <code>white</code> 代表 <code>#fff</code>。添加<a href="#listing-logo-css">代码清单 5.7</a> 中的样式后，效果如<a href="#fig-sample-app-logo">图 5.6</a> 所示。</p>
-<div id="fig-sample-app-logo" class="figure"><img src="images/chapter5/sample_app_logo_3rd_edition.png" alt="sample app logo 3rd edition" /><div class="figcaption"><span class="title-label">图 5.6：</span>添加 LOGO 样式后的演示应用</div></div>
+<div id="fig-sample-app-logo" class="figure"><img src="images/chapter5/sample_app_logo_3rd_edition.png" alt="sample app logo 3rd edition" /><div class="figcaption"><span class="title-label">图 5.6</span>：添加 LOGO 样式后的演示应用</div></div>
 </section>
 <section data-type="sect2" id="partials">
 <h2><span class="title-label">5.1.3.</span> 局部视图</h2>
 <p>虽然<a href="#listing-layout-new-structure">代码清单 5.1</a> 中的布局达到了目的，但其中的内容看起来有点混乱。HTML shim 就占用了三行，而且使用了只针对 IE 的奇怪句法，如果能把它打包放在一个单独的地方就好了。头部的 HTML 自成一个逻辑单元，所以也可以把这部分打包放在某个地方。在 Rails 中我们可以使用“局部视图”实现这种想法。先来看一下定义了局部视图之后的布局文件。如<a href="#listing-layout-with-partials">代码清单 5.8</a> 所示。</p>
 <div id="listing-layout-with-partials" data-type="listing">
-<h5><span class="title-label">代码清单 5.8：</span>把 HTML shim 和头部放到局部视图之后的网站布局</h5>
+<h5><span class="title-label">代码清单 5.8</span>：把 HTML shim 和头部放到局部视图之后的网站布局</h5>
 
 <div class="source-file">app/views/layouts/application.html.erb</div>
 
@@ -469,7 +465,7 @@
 <p>这行代码会寻找一个名为 <code>app/views/layouts/_shim.html.erb</code> 的文件，执行其中的代码，然后把结果插入视图。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>（回顾一下，执行 Ruby 表达式并将结果插入模板中要使用 <code>&lt;%= …​ %&gt;</code>。）注意，文件名 <code>_shim.html.erb</code> 的开头是个下划线，这是局部视图的命名约定，可以在目录中快速定位所有局部视图。</p>
 <p>当然，若要局部视图起作用，我们要写入相应的内容。HTML shim 局部视图只包含三行代码，如<a href="#listing-stylesheets-partial">代码清单 5.9</a> 所示。</p>
 <div id="listing-stylesheets-partial" data-type="listing">
-<h5><span class="title-label">代码清单 5.9：</span>HTML shim 局部视图</h5>
+<h5><span class="title-label">代码清单 5.9</span>：HTML shim 局部视图</h5>
 
 <div class="source-file">app/views/layouts/_shim.html.erb</div>
 
@@ -481,7 +477,7 @@
 </div>
 <p>类似地，我们可以把头部的内容移入局部视图，如<a href="#listing-header-partial">代码清单 5.10</a> 所示，然后再次调用 <code>render</code> 把这个局部视图插入布局中。（一般都要在文本编辑器中手动创建局部视图对应的文件。）</p>
 <div id="listing-header-partial" data-type="listing">
-<h5><span class="title-label">代码清单 5.10：</span>网站头部的局部视图</h5>
+<h5><span class="title-label">代码清单 5.10</span>：网站头部的局部视图</h5>
 
 <div class="source-file">app/views/layouts/_header.html.erb</div>
 
@@ -489,7 +485,7 @@
 <span class="x">  &lt;div class="container"&gt;</span>
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="s1">'#'</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">    &lt;nav&gt;</span>
-<span class="x">      &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">      &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>   <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
@@ -501,7 +497,7 @@
 </div>
 <p>现在我们已经知道怎么创建局部视图了，让我们来加入和头部对应的网站底部吧。你或许已经猜到了，我们会把这个局部视图命名为 <code>_footer.html.erb</code>，放在布局文件夹中，如<a href="#listing-footer-partial">代码清单 5.11</a> 所示。<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
 <div id="listing-footer-partial" data-type="listing">
-<h5><span class="title-label">代码清单 5.11：</span>网站底部的局部视图</h5>
+<h5><span class="title-label">代码清单 5.11</span>：网站底部的局部视图</h5>
 
 <div class="source-file">app/views/layouts/_footer.html.erb</div>
 
@@ -523,7 +519,7 @@
 <p>和头部类似，在底部我们使用 <code>link_to</code> 创建到“关于”页面和“联系”页面的链接，地址先使用占位符 <code>#</code>。（和 <code>header</code> 一样，<code>footer</code> 也是 HTML5 新增加的标签。）</p>
 <p>按照 HTML shim 和头部局部视图的方式，我们也可以在布局视图中渲染底部局部视图，如<a href="#listing-layout-with-footer">代码清单 5.12</a> 所示。</p>
 <div id="listing-layout-with-footer" data-type="listing">
-<h5><span class="title-label">代码清单 5.12：</span>添加底部局部视图后的网站布局</h5>
+<h5><span class="title-label">代码清单 5.12</span>：添加底部局部视图后的网站布局</h5>
 
 <div class="source-file">app/views/layouts/application.html.erb</div>
 
@@ -548,9 +544,9 @@
 </pre></div>
 </div>
 <p>当然，如果没有样式的话，底部还很丑。底部的样式参见<a href="#listing-footer-css">代码清单 5.13</a>，效果如<a href="#fig-site-with-footer">图 5.7</a> 所示。</p>
-<div id="fig-site-with-footer" class="figure"><img src="images/chapter5/site_with_footer_bootstrap_3rd_edition.png" alt="site with footer bootstrap 3rd edition" /><div class="figcaption"><span class="title-label">图 5.7：</span>添加底部后的首页</div></div>
+<div id="fig-site-with-footer" class="figure"><img src="images/chapter5/site_with_footer_bootstrap_3rd_edition.png" alt="site with footer bootstrap 3rd edition" /><div class="figcaption"><span class="title-label">图 5.7</span>：添加底部后的首页</div></div>
 <div id="listing-footer-css" data-type="listing">
-<h5><span class="title-label">代码清单 5.13：</span>添加网站底部的 CSS</h5>
+<h5><span class="title-label">代码清单 5.13</span>：添加网站底部的 CSS</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -638,7 +634,7 @@ images/ javascripts/ stylesheets/
 <h3>清单文件</h3>
 <p>把资源文件放在适当的文件夹中之后，要通过清单文件告诉 Rails 怎么把它们合并成一个文件（通过 <a href="https://github.com/sstephenson/sprockets">Sprockets</a> gem 实现，而且只能合并 CSS 和 JavaScript 文件，不会合并图片）。举个例子，我们来看一下应用默认的样式表清单文件，如<a href="#listing-app-css-manifest">代码清单 5.14</a> 所示。</p>
 <div id="listing-app-css-manifest" data-type="listing">
-<h5><span class="title-label">代码清单 5.14：</span>应用的样式表清单文件</h5>
+<h5><span class="title-label">代码清单 5.14</span>：应用的样式表清单文件</h5>
 
 <div class="source-file">app/assets/stylesheets/application.css</div>
 
@@ -876,7 +872,7 @@ images/ javascripts/ stylesheets/
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>因为像 <code>$light-gray</code> 这样的变量名比 <code>#999</code> 意思更明确，所以把不重复使用的值定义成变量往往也是很有用的。其实，Bootstrap 框架定义了很多颜色变量，<a href="http://getbootstrap.com/customize/#less-variables">Bootstrap 文档中有这些变量的 Less 形式</a>。这个页面中的变量使用 Less 句法，而不是 Sass，不过 <code>bootstrap-sass</code> gem 为我们提供了对应的 Sass 形式。二者之间的对应关系也不难猜测，Less 使用 <code>@</code> 符号定义变量，而 Sass 使用 <code>$</code> 符号。在 Bootstrap 文档中我们看到已经为淡灰色定义了变量：</p>
+<p>因为像 <code>$light-gray</code> 这样的变量名比 <code>#777</code> 意思更明确，所以把不重复使用的值定义成变量往往也是很有用的。其实，Bootstrap 框架定义了很多颜色变量，<a href="http://getbootstrap.com/customize/#less-variables">Bootstrap 文档中有这些变量的 Less 形式</a>。这个页面中的变量使用 Less 句法，而不是 Sass，不过 <code>bootstrap-sass</code> gem 为我们提供了对应的 Sass 形式。二者之间的对应关系也不难猜测，Less 使用 <code>@</code> 符号定义变量，而 Sass 使用 <code>$</code> 符号。在 Bootstrap 文档中我们看到已经为淡灰色定义了变量：</p>
 <div data-type="listing">
 
 
@@ -906,7 +902,7 @@ images/ javascripts/ stylesheets/
 </div>
 <p>使用 Sass 提供的嵌套和变量功能改写应用的整个样式表后得到的代码如<a href="#listing-refactored-scss">代码清单 5.15</a> 所示。这段代码使用了 Sass 变量（参照 Bootstrap Less 变量页面）和内置的颜色名称（例如，<code>white</code> 代表 <code>#fff</code>）。特别注意一下 <code>footer</code> 标签样式的明显改进。</p>
 <div id="listing-refactored-scss" data-type="listing">
-<h5><span class="title-label">代码清单 5.15：</span>使用嵌套和变量改写后的 SCSS 文件</h5>
+<h5><span class="title-label">代码清单 5.15</span>：使用嵌套和变量改写后的 SCSS 文件</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -918,10 +914,6 @@ images/ javascripts/ stylesheets/
 <span class="nv">$gray-medium-light</span><span class="o">:</span> <span class="mh">#eaeaea</span><span class="p">;</span>
 
 <span class="cm">/* universal */</span>
-
-<span class="nt">html</span> <span class="p">{</span>
-  <span class="na">overflow-y</span><span class="o">:</span> <span class="no">scroll</span><span class="p">;</span>
-<span class="p">}</span>
 
 <span class="nt">body</span> <span class="p">{</span>
   <span class="na">padding-top</span><span class="o">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
@@ -1037,7 +1029,7 @@ images/ javascripts/ stylesheets/
 <p>使用这种方式，代码的意图更明确，而且也更灵活，如果修改了 <code>about_path</code> 对应的 URL，其他使用 <code>about_path</code> 的地方都会自动使用新的 URL。</p>
 <p>我们计划添加的链接如<a href="#table-url-mapping">表 5.1</a> 所示，表中还列出了 URL 和路由的对应关系。第一个路由在 <a href="chapter3.html#setting-the-root-route">3.4.4 节</a>已经设定，本章结束时，我们会定义好除最后一个之外的所有路由。最后一个路由在<a href="chapter8.html#log-in-log-out">第 8 章</a>定义。</p>
 <table id="table-url-mapping" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 5.1：</span>网站中链接的路由和 URL 地址的映射关系</caption>
+<caption><span class="title-label">表 5.1</span>：网站中链接的路由和 URL 地址的映射关系</caption>
 <colgroup>
 <col style="width: 33%;" />
 <col style="width: 33%;" />
@@ -1087,7 +1079,7 @@ images/ javascripts/ stylesheets/
 <h2><span class="title-label">5.3.1.</span> “联系”页面</h2>
 <p>继续之前，我们要先添加一个“联系”页面（<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习题），测试如<a href="#listing-contact-page-test">代码清单 5.16</a> 所示，形式和<a href="chapter3.html#listing-title-tests">代码清单 3.22</a> 差不多。（如果你做了<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习，测试中可能会使用 <code>@base_title</code> 变量，你可以在<a href="#listing-contact-page-test">代码清单 5.16</a> 中使用。）</p>
 <div id="listing-contact-page-test" data-type="listing">
-<h5><span class="title-label">代码清单 5.16：</span>“联系”页面的测试 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 5.16</span>：“联系”页面的测试 <span class="red">RED</span></h5>
 
 <div class="source-file">test/controllers/static_pages_controller_test.rb</div>
 
@@ -1123,7 +1115,7 @@ images/ javascripts/ stylesheets/
 </div>
 <p>现在，<a href="#listing-contact-page-test">代码清单 5.16</a> 中的测试应该失败：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 5.17：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 5.17</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1131,7 +1123,7 @@ images/ javascripts/ stylesheets/
 </div>
 <p>我们按照 <a href="chapter3.html#getting-started-with-testing">3.3 节</a>的做法添加“联系”页面：首先更新路由（<a href="#listing-contact-route">代码清单 5.18</a>），然后在静态页面控制器中添加一个 <code>contact</code> 动作（<a href="#listing-contact-action">代码清单 5.19</a>），最后创建“联系”页面的视图（<a href="#listing-contact-view">代码清单 5.20</a>）。</p>
 <div id="listing-contact-route" data-type="listing">
-<h5><span class="title-label">代码清单 5.18：</span>添加“联系”页面的路由 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 5.18</span>：添加“联系”页面的路由 <span class="red">RED</span></h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -1144,7 +1136,7 @@ images/ javascripts/ stylesheets/
 </pre></div>
 </div>
 <div id="listing-contact-action" data-type="listing">
-<h5><span class="title-label">代码清单 5.19：</span>添加“联系”页面的动作 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 5.19</span>：添加“联系”页面的动作 <span class="red">RED</span></h5>
 
 <div class="source-file">app/controllers/static_pages_controller.rb</div>
 
@@ -1158,7 +1150,7 @@ images/ javascripts/ stylesheets/
 </pre></div>
 </div>
 <div id="listing-contact-view" data-type="listing">
-<h5><span class="title-label">代码清单 5.20：</span>“联系”页面的视图 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 5.20</span>：“联系”页面的视图 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/views/static_pages/contact.html.erb</div>
 
@@ -1172,7 +1164,7 @@ images/ javascripts/ stylesheets/
 </div>
 <p>现在，确认测试可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 5.21：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 5.21</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1236,7 +1228,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 <p>按照同样的方式修改其他静态页面的路由，把<a href="#listing-contact-route">代码清单 5.18</a> 中的内容改成<a href="#listing-static-page-routes">代码清单 5.22</a>。</p>
 <div id="listing-static-page-routes" data-type="listing">
-<h5><span class="title-label">代码清单 5.22：</span>静态页面的路由</h5>
+<h5><span class="title-label">代码清单 5.22</span>：静态页面的路由</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -1268,7 +1260,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <p>以此类推。</p>
 <p>我们先来修改头部局部视图 <code>_header.html.erb</code>，其中有指向首页和“帮助”页面的链接。同时，我们还要按照通用约定，把 LOGO 指向首页。修改后的视图如<a href="#listing-header-partial-links">代码清单 5.23</a> 所示。</p>
 <div id="listing-header-partial-links" data-type="listing">
-<h5><span class="title-label">代码清单 5.23：</span>修改头部局部视图中的链接</h5>
+<h5><span class="title-label">代码清单 5.23</span>：修改头部局部视图中的链接</h5>
 
 <div class="source-file">app/views/layouts/_header.html.erb</div>
 
@@ -1276,7 +1268,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <span class="x">  &lt;div class="container"&gt;</span>
 <span class="hll"><span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="n">root_path</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span><span class="x"></span>
 </span><span class="x">    &lt;nav&gt;</span>
-<span class="x">      &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">      &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="hll"><span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span>    <span class="n">root_path</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 </span><span class="hll"><span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span>    <span class="n">help_path</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 </span><span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Log in"</span><span class="p">,</span> <span class="s1">'#'</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
@@ -1289,7 +1281,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <p><a href="chapter8.html#log-in-log-out">第 8 章</a>才会为“注册”页面设置具名路由，所以现在还用占位符 <code>#</code>。</p>
 <p>还有一个包含链接的文件是底部局部视图 <code>_footer.html.erb</code>，有指向“关于”页面和“联系”页面的链接。修改后如<a href="#listing-footer-partial-links">代码清单 5.24</a> 所示。</p>
 <div id="listing-footer-partial-links" data-type="listing">
-<h5><span class="title-label">代码清单 5.24：</span>修改底部局部视图中的链接</h5>
+<h5><span class="title-label">代码清单 5.24</span>：修改底部局部视图中的链接</h5>
 
 <div class="source-file">app/views/layouts/_footer.html.erb</div>
 
@@ -1309,7 +1301,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <p>如此一来，<a href="chapter3.html#mostly-static-pages">第 3 章</a>创建的所有静态页面都添加到布局中了。以“关于”页面为例，访问 <a href="http://localhost:3000/about">/about</a> 会打开网站的“关于”页面，如<a href="#fig-about-page">图 5.8</a> 所示。</p>
-<div id="fig-about-page" class="figure"><img src="images/chapter5/about_page_styled_3rd_edition.png" alt="about page styled 3rd edition" /><div class="figcaption"><span class="title-label">图 5.8：</span><a href="http://localhost:3000/about">/about</a> 地址上的“关于”页面</div></div>
+<div id="fig-about-page" class="figure"><img src="images/chapter5/about_page_styled_3rd_edition.png" alt="about page styled 3rd edition" /><div class="figcaption"><span class="title-label">图 5.8</span>：<a href="http://localhost:3000/about">/about</a> 地址上的“关于”页面</div></div>
 </section>
 <section data-type="sect2" id="layout-link-tests">
 <h2><span class="title-label">5.3.4.</span> 布局中链接的测试</h2>
@@ -1337,7 +1329,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </ol>
 <p>使用 Rails 集成测试把上述步骤转换成代码，如<a href="#listing-layout-links-test">代码清单 5.25</a> 所示。其中 <code>assert_template</code> 方法检查首页是否使用正确的视图渲染。<sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup></p>
 <div id="listing-layout-links-test" data-type="listing">
-<h5><span class="title-label">代码清单 5.25：</span>测试布局中的链接 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 5.25</span>：测试布局中的链接 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/site_layout_test.rb</div>
 
@@ -1380,7 +1372,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <p>以此确认<a href="#listing-header-partial-links">代码清单 5.23</a> 中定义的两个首页链接都存在。</p>
 <p><code>assert_select</code> 的更多用法参见<a href="#table-assert-select">表 5.2</a>。虽然 <code>assert_select</code> 的用法很灵活，功能很强大（还有很多表中没介绍的用法），但经验告诉我们，最好只测试不会经常变动的 HTML 元素（例如布局中的链接）。</p>
 <table id="table-assert-select" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 5.2：</span><code>assert_select</code> 的一些用法</caption>
+<caption><span class="title-label">表 5.2</span>：<code>assert_select</code> 的一些用法</caption>
 <colgroup>
 <col style="width: 50%;" />
 <col style="width: 50%;" />
@@ -1424,7 +1416,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </table>
 <p>我们使用下面的 Rake 任务只运行集成测试，检查<a href="#listing-layout-links-test">代码清单 5.25</a> 中的测试是否能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 5.26：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 5.26</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>:integration
@@ -1432,7 +1424,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 <p>如果一切顺利，你应该再运行整个测试组件，确保所有测试都能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 5.27：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 5.27</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1448,7 +1440,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <h2><span class="title-label">5.4.1.</span> 用户控制器</h2>
 <p>我们在 <a href="chapter3.html#static-pages">3.2 节</a>创建了第一个控制器——静态页面控制器。现在要创建第二个，用户控制器。和之前一样，我们使用 <code>generate</code> 命令创建所需的控制器骨架，包含用户注册页面所需的动作。遵照 Rails 使用的 REST 架构约定，我们把这个动作命名为 <code>new</code>，把 <code>new</code> 作为参数传给 <code>generate</code> 命令就可以自动创建这个动作，如<a href="#listing-generate-users-controller">代码清单 5.28</a> 所示。</p>
 <div id="listing-generate-users-controller" data-type="listing">
-<h5><span class="title-label">代码清单 5.28：</span>生成用户控制器（包含 <code>new</code> 动作）</h5>
+<h5><span class="title-label">代码清单 5.28</span>：生成用户控制器（包含 <code>new</code> 动作）</h5>
 
 
 <div class="highlight language-sh"><pre><span class="hll"><span class="nv">$ </span>rails generate controller Users new
@@ -1472,14 +1464,14 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 <p>上述命令会创建用户控制器，以及其中的 <code>new</code> 动作（<a href="#listing-initial-users-controller">代码清单 5.30</a>）和一个占位视图（<a href="#listing-initial-new-action">代码清单 5.31</a>）。除此之外还会为新建用户页面生成一个简单的测试（<a href="#listing-user-new-test">代码清单 5.32</a>），这个测试现在可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 5.29：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 5.29</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
 </pre></div>
 </div>
 <div id="listing-initial-users-controller" data-type="listing">
-<h5><span class="title-label">代码清单 5.30：</span>默认生成的用户控制器，包含 <code>new</code> 动作</h5>
+<h5><span class="title-label">代码清单 5.30</span>：默认生成的用户控制器，包含 <code>new</code> 动作</h5>
 
 <div class="source-file">app/controllers/users_controller.rb</div>
 
@@ -1492,7 +1484,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <div id="listing-initial-new-action" data-type="listing">
-<h5><span class="title-label">代码清单 5.31：</span>默认生成的 <code>new</code> 动作视图</h5>
+<h5><span class="title-label">代码清单 5.31</span>：默认生成的 <code>new</code> 动作视图</h5>
 
 <div class="source-file">app/views/users/new.html.erb</div>
 
@@ -1501,7 +1493,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <div id="listing-user-new-test" data-type="listing">
-<h5><span class="title-label">代码清单 5.32：</span>新建用户页面的测试 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 5.32</span>：新建用户页面的测试 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/controllers/users_controller_test.rb</div>
 
@@ -1521,7 +1513,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <h2><span class="title-label">5.4.2.</span> “注册”页面的 URL</h2>
 <p>有了前一节生成的代码，现在就可以通过 /users/new 访问新建用户页面。但是参照<a href="#table-url-mapping">表 5.1</a>，我们希望这个页面的 URL 是 <code>/signup</code>。为此，我们要参照<a href="#listing-static-page-routes">代码清单 5.22</a> 的做法，为“注册”页面添加规则 <code>get '/signup'</code>，如<a href="#listing-signup-route">代码清单 5.33</a> 所示。</p>
 <div id="listing-signup-route" data-type="listing">
-<h5><span class="title-label">代码清单 5.33：</span>“注册”页面的路由</h5>
+<h5><span class="title-label">代码清单 5.33</span>：“注册”页面的路由</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -1536,7 +1528,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 <p>然后使用具名路由让首页中的按钮指向正确的地址。和其他路由一样，添加 <code>get 'signup'</code> 后会得到具名路由 <code>signup_path</code>。我们在<a href="#listing-home-page-signup-link">代码清单 5.34</a> 中使用这个具名路由。针对“注册”页面的测试留作<a href="#filling-in-the-layout-exercises">练习</a>。</p>
 <div id="listing-home-page-signup-link" data-type="listing">
-<h5><span class="title-label">代码清单 5.34：</span>使用按钮链接到“注册”页面</h5>
+<h5><span class="title-label">代码清单 5.34</span>：使用按钮链接到“注册”页面</h5>
 
 <div class="source-file">app/views/static_pages/home.html.erb</div>
 
@@ -1558,7 +1550,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 <p>最后，编写“注册”页面的临时视图，如<a href="#listing-initial-signup-page">代码清单 5.35</a> 所示。</p>
 <div id="listing-initial-signup-page" data-type="listing">
-<h5><span class="title-label">代码清单 5.35：</span>“注册”页面的临时视图</h5>
+<h5><span class="title-label">代码清单 5.35</span>：“注册”页面的临时视图</h5>
 
 <div class="source-file">app/views/users/new.html.erb</div>
 
@@ -1568,7 +1560,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <p>现在，我们暂别链接和具名路由，到<a href="chapter8.html#log-in-log-out">第 8 章</a>再添加“登录”页面的路由。新创建的用户注册页面如<a href="#fig-new-signup-page">图 5.9</a> 所示。</p>
-<div id="fig-new-signup-page" class="figure"><img src="images/chapter5/new_signup_page_3rd_edition.png" alt="new signup page 3rd edition" /><div class="figcaption"><span class="title-label">图 5.9：</span><a href="http://localhost:3000/signup">/signup</a> 地址上的“注册”页面</div></div>
+<div id="fig-new-signup-page" class="figure"><img src="images/chapter5/new_signup_page_3rd_edition.png" alt="new signup page 3rd edition" /><div class="figcaption"><span class="title-label">图 5.9</span>：<a href="http://localhost:3000/signup">/signup</a> 地址上的“注册”页面</div></div>
 </section>
 </section>
 <section data-type="sect1" id="filling-in-the-layout-conclusion">
@@ -1600,7 +1592,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <p>部署完成后应该在生产服务器中有一个可以正常运行的演示应用，如<a href="#fig-layout-production">图 5.10</a> 所示。</p>
-<div id="fig-layout-production" class="figure"><img src="images/chapter5/layout_production.png" alt="layout production" /><div class="figcaption"><span class="title-label">图 5.10：</span>运行在生产环境中的演示应用</div></div>
+<div id="fig-layout-production" class="figure"><img src="images/chapter5/layout_production.png" alt="layout production" /><div class="figcaption"><span class="title-label">图 5.10</span>：运行在生产环境中的演示应用</div></div>
 <section data-type="sect2" id="filling-in-the-layout-learned">
 <h2><span class="title-label">5.5.1.</span> 读完本章学到了什么</h2>
 <ul>
@@ -1643,7 +1635,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </li>
 </ol>
 <div id="listing-test-helper-application-helper" data-type="listing">
-<h5><span class="title-label">代码清单 5.36：</span>在测试中引入应用的辅助方法</h5>
+<h5><span class="title-label">代码清单 5.36</span>：在测试中引入应用的辅助方法</h5>
 
 <div class="source-file">test/test_helper.rb</div>
 
@@ -1661,7 +1653,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <div id="listing-layout-links-test-signup-full-title-helper" data-type="listing">
-<h5><span class="title-label">代码清单 5.37：</span>在测试中使用 <code>full_title</code> 辅助方法 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 5.37</span>：在测试中使用 <code>full_title</code> 辅助方法 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/site_layout_test.rb</div>
 
@@ -1683,7 +1675,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </pre></div>
 </div>
 <div id="listing-full-title-helper-tests" data-type="listing">
-<h5><span class="title-label">代码清单 5.38：</span>测试 <code>full_title</code> 辅助方法</h5>
+<h5><span class="title-label">代码清单 5.38</span>：测试 <code>full_title</code> 辅助方法</h5>
 
 <div class="source-file">test/helpers/application_helper_test.rb</div>
 

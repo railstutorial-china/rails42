@@ -72,7 +72,7 @@
 </ol>
 <p>因为与密码和记忆令牌类似，实现账户激活（以及密码重设）功能时可以继续使用前面的很多方法，包括 <code>User.digest</code>、<code>User.new_token</code> 和修改过的 <code>user.authenticated?</code>。这几个功能（包括 <a href="#password-reset">10.2 节</a>要实现的密码重设）之间的对比，如<a href="#table-password-token-digest">表 10.1</a> 所示。我们会在 <a href="#activating-the-account">10.1.3 节</a>定义可用于表中所有情况的通用版 <code>authenticated?</code> 方法。</p>
 <table id="table-password-token-digest" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 10.1：</span>登录，记住状态，账户激活和密码重设之间的对比</caption>
+<caption><span class="title-label">表 10.1</span>：登录，记住状态，账户激活和密码重设之间的对比</caption>
 <colgroup>
 <col style="width: 15%;" />
 <col style="width: 20%;" />
@@ -128,7 +128,7 @@
 <div data-type="listing">
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span>rails generate controller AccountActivations
+<div class="highlight language-sh"><pre><span class="nv">$ </span>rails generate controller AccountActivations --no-test-framework
 </pre></div>
 </div>
 <p>我们需要使用下面的方法生成一个 URL，放在激活邮件中：</p>
@@ -140,7 +140,7 @@
 </div>
 <p>因此，我们需要为 <code>edit</code> 动作设定一个具名路由——通过<a href="#listing-account-activations-route">代码清单 10.1</a> 中高亮显示的那行 <code>resources</code> 实现。</p>
 <div id="listing-account-activations-route" data-type="listing">
-<h5><span class="title-label">代码清单 10.1：</span>添加账户激活所需的资源路由</h5>
+<h5><span class="title-label">代码清单 10.1</span>：添加账户激活所需的资源路由</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -180,7 +180,7 @@
 </pre></div>
 </div>
 <p>最后，我们还要记录激活的日期和时间，虽然本书用不到，但说不定以后需要使用。完整的数据模型如<a href="#fig-user-model-account-activation">图 10.1</a> 所示。</p>
-<div id="fig-user-model-account-activation" class="figure"><img src="images/chapter10/user_model_account_activation.png" alt="user model account activation" /><div class="figcaption"><span class="title-label">图 10.1：</span>添加账户激活相关属性后的用户模型</div></div>
+<div id="fig-user-model-account-activation" class="figure"><img src="images/chapter10/user_model_account_activation.png" alt="user model account activation" /><div class="figcaption"><span class="title-label">图 10.1</span>：添加账户激活相关属性后的用户模型</div></div>
 <p>下面的命令生成一个迁移，添加这些属性。我们在命令行中指定了要添加的三个属性：</p>
 <div data-type="listing">
 
@@ -191,7 +191,7 @@
 </div>
 <p>和 <code>admin</code> 属性一样（<a href="chapter9.html#listing-admin-migration">代码清单 9.50</a>），我们要把 <code>activated</code> 属性的默认值设为 <code>false</code>，如<a href="#listing-add-activation-to-users-migration">代码清单 10.2</a> 所示。</p>
 <div id="listing-add-activation-to-users-migration" data-type="listing">
-<h5><span class="title-label">代码清单 10.2：</span>添加账户激活所需属性的迁移</h5>
+<h5><span class="title-label">代码清单 10.2</span>：添加账户激活所需属性的迁移</h5>
 
 <div class="source-file">db/migrate/[timestamp]_add_activation_to_users.rb</div>
 
@@ -260,7 +260,7 @@
 <p>二者之间的主要区别是，<code>remember</code> 方法中使用的是 <code>update_attribute</code>。因为，创建记忆令牌和摘要时，用户已经存在于数据库中了，而 <code>before_create</code> 回调在创建用户之前执行。有了这个回调，使用 <code>User.new</code> 新建用户后（例如用户注册后，参见<a href="chapter7.html#listing-create-action-strong-parameters">代码清单 7.17</a>），会自动赋值 <code>activation_token</code> 和 <code>activation_digest</code> 属性，而且因为 <code>activation_digest</code> 对应数据库中的一个列（<a href="#fig-user-model-account-activation">图 10.1</a>），所以保存用户时会自动把属性的值存入数据库。</p>
 <p>综上所述，用户模型如<a href="#listing-user-model-activation-code">代码清单 10.3</a> 所示。因为激活令牌是虚拟属性，所以我们又添加了一个 <code>attr_accessor</code>。注意，我们还把电子邮件地址转换成小写的回调改成了方法引用形式。</p>
 <div id="listing-user-model-activation-code" data-type="listing">
-<h5><span class="title-label">代码清单 10.3：</span>在用户模型中添加账户激活相关的代码 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.3</span>：在用户模型中添加账户激活相关的代码 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -289,7 +289,7 @@
 </div>
 <p>在继续之前，我们还要修改种子数据，把示例用户和测试用户设为已激活，如<a href="#listing-seed-users-activated">代码清单 10.4</a> 和 <a href="#listing-fixture-users-activated">10.5</a> 所示。（<code>Time.zone.now</code> 是 Rails 提供的辅助方法，基于服务器使用的时区，返回当前时间戳。）</p>
 <div id="listing-seed-users-activated" data-type="listing">
-<h5><span class="title-label">代码清单 10.4：</span>激活种子数据中的用户</h5>
+<h5><span class="title-label">代码清单 10.4</span>：激活种子数据中的用户</h5>
 
 <div class="source-file">db/seeds.rb</div>
 
@@ -315,7 +315,7 @@
 </pre></div>
 </div>
 <div id="listing-fixture-users-activated" data-type="listing">
-<h5><span class="title-label">代码清单 10.5：</span>激活固件中的用户</h5>
+<h5><span class="title-label">代码清单 10.5</span>：激活固件中的用户</h5>
 
 <div class="source-file">test/fixtures/users.yml</div>
 
@@ -380,7 +380,7 @@
 <p>我们使用这个命令生成了所需的 <code>account_activation</code> 方法，以及 <a href="#password-reset">10.2 节</a>要使用的 <code>password_reset</code> 方法。</p>
 <p>生成邮件程序时，Rails 还为每个邮件程序生成了两个视图模板，一个用于纯文本邮件，一个用于 HTML 邮件。账户激活邮件程序的两个视图如<a href="#listing-generated-account-activation-view-text">代码清单 10.6</a> 和 <a href="#listing-generated-account-activation-view-html">10.7</a> 所示。</p>
 <div id="listing-generated-account-activation-view-text" data-type="listing">
-<h5><span class="title-label">代码清单 10.6：</span>生成的账户激活邮件视图，纯文本格式</h5>
+<h5><span class="title-label">代码清单 10.6</span>：生成的账户激活邮件视图，纯文本格式</h5>
 
 <div class="source-file">app/views/user_mailer/account_activation.text.erb</div>
 
@@ -390,7 +390,7 @@
 </pre></div>
 </div>
 <div id="listing-generated-account-activation-view-html" data-type="listing">
-<h5><span class="title-label">代码清单 10.7：</span>生成的账户激活邮件视图，HTML 格式</h5>
+<h5><span class="title-label">代码清单 10.7</span>：生成的账户激活邮件视图，HTML 格式</h5>
 
 <div class="source-file">app/views/user_mailer/account_activation.html.erb</div>
 
@@ -401,15 +401,25 @@
 <span class="x">&lt;/p&gt;</span>
 </pre></div>
 </div>
-<p>我们看一下生成的邮件程序，了解它是如何工作的，如<a href="#listing-generated-user-mailer">代码清单 10.8</a> 所示。可以看到，有一个两个邮件程序共用的 <code>form</code> 地址（发件人），而且各方法中都有一个收件人地址。在生成的代码中还有一个实例变量 <code>@greeting</code>，这个变量可在邮件程序的视图中使用，就像控制器中的实例变量可以在普通的视图中使用一样。</p>
+<p>我们看一下生成的邮件程序，了解它是如何工作的，如<a href="#listing-generated-application-mailer">代码清单 10.8</a> 和<a href="#listing-generated-user-mailer">代码清单 10.9</a>所示。代码<a href="#listing-generated-application-mailer">代码清单 10.8</a> 设置了一个默认的发件人地址（<code>from</code>），整个应用中的全部邮件程序都会使用这个地址。（这个代码清单还设置了各种邮件格式使用的布局。本书不会讨论邮件的布局，生成的 HTML 和纯文本格式邮件布局在 <code>app/views/layouts</code> 文件夹中。）<a href="#listing-generated-user-mailer">代码清单 10.9</a> 中的每个方法中都设置了收件人地址。在生成的代码中还有一个实例变量 <code>@greeting</code>，这个变量可在邮件程序的视图中使用，就像控制器中的实例变量可以在普通的视图中使用一样。</p>
+<div id="listing-generated-application-mailer" data-type="listing">
+<h5><span class="title-label">代码清单 10.8</span>：生成的 <code>ApplicationMailer</code></h5>
+
+<div class="source-file">app/mailers/application_mailer.rb</div>
+
+<div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">ApplicationMailer</span> <span class="o">&lt;</span> <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">default</span> <span class="ss">from</span><span class="p">:</span> <span class="s2">"from@example.com"</span>
+  <span class="n">layout</span> <span class="s1">'mailer'</span>
+<span class="k">end</span>
+</pre></div>
+</div>
 <div id="listing-generated-user-mailer" data-type="listing">
-<h5><span class="title-label">代码清单 10.8：</span>生成的 <code>UserMailer</code></h5>
+<h5><span class="title-label">代码清单 10.9</span>：生成的 <code>UserMailer</code></h5>
 
 <div class="source-file">app/mailers/user_mailer.rb</div>
 
 <div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">UserMailer</span> <span class="o">&lt;</span> <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span>
-<span class="hll">  <span class="n">default</span> <span class="ss">from</span><span class="p">:</span> <span class="s2">"from@example.com"</span>
-</span>
+
   <span class="c1"># Subject can be set in your I18n file at config/locales/en.yml</span>
   <span class="c1"># with the following lookup:</span>
   <span class="c1">#</span>
@@ -434,20 +444,29 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>为了发送激活邮件，我们要创建一个实例变量，其值是用户对象，以便在视图中使用，然后把邮件发给 <code>user.email</code>。如<a href="#listing-mail-account-activation">代码清单 10.9</a> 所示，<code>mail</code> 方法还可以接受 <code>subject</code> 参数，指定邮件的主题。</p>
+<p>为了发送激活邮件，我们首先要修改生成的模板，如<a href="#listing-application-mailer">代码清单 10.10</a> 所示。然后要创建一个实例变量，其值是用户对象，以便在视图中使用，然后把邮件发给 <code>user.email</code>。如<a href="#listing-mail-account-activation">代码清单 10.11</a> 所示，<code>mail</code> 方法还可以接受 <code>subject</code> 参数，指定邮件的主题。</p>
+<div id="listing-application-mailer" data-type="listing">
+<h5><span class="title-label">代码清单 10.10</span>：在 <code>ApplicationMailer</code> 中设定默认的发件人地址</h5>
+
+
+<div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">ApplicationMailer</span> <span class="o">&lt;</span> <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">default</span> <span class="ss">from</span><span class="p">:</span> <span class="s2">"noreply@example.com"</span>
+  <span class="n">layout</span> <span class="s1">'mailer'</span>
+<span class="k">end</span>
+</pre></div>
+</div>
 <div id="listing-mail-account-activation" data-type="listing">
-<h5><span class="title-label">代码清单 10.9：</span>发送账户激活链接</h5>
+<h5><span class="title-label">代码清单 10.11</span>：发送账户激活链接</h5>
 
 <div class="source-file">app/mailers/user_mailer.rb</div>
 
-<div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">UserMailer</span> <span class="o">&lt;</span> <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span>
-<span class="hll">  <span class="n">default</span> <span class="ss">from</span><span class="p">:</span> <span class="s2">"noreply@example.com"</span>
-</span>
-  <span class="k">def</span> <span class="nf">account_activation</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-<span class="hll">    <span class="vi">@user</span> <span class="o">=</span> <span class="n">user</span>
-</span><span class="hll">    <span class="n">mail</span> <span class="ss">to</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="ss">subject</span><span class="p">:</span> <span class="s2">"Account activation"</span>
-</span>  <span class="k">end</span>
+<div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">UserMailer</span> <span class="o">&lt;</span> <span class="no">ApplicationMailer</span>
 
+<span class="hll">  <span class="k">def</span> <span class="nf">account_activation</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span class="hll">    <span class="vi">@user</span> <span class="o">=</span> <span class="n">user</span>
+</span><span class="hll">    <span class="n">mail</span> <span class="ss">to</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="ss">subject</span><span class="p">:</span> <span class="s2">"Account activation"</span>
+</span><span class="hll">  <span class="k">end</span>
+</span>
   <span class="k">def</span> <span class="nf">password_reset</span>
     <span class="vi">@greeting</span> <span class="o">=</span> <span class="s2">"Hi"</span>
 
@@ -493,9 +512,9 @@
 </pre></div>
 </div>
 <p>使用这种方式设定查询参数，Rails 会自动转义所有特殊字符。而且，在控制器中会自动反转义电子邮件地址，通过 <code>params[:email]</code> 可以获取电子邮件地址。</p>
-<p>定义好实例变量 <code>@user</code> 之后（<a href="#listing-mail-account-activation">代码清单 10.9</a>），我们可以使用 <code>edit</code> 动作的具名路由和嵌入式 Ruby 创建所需的链接了，如<a href="#listing-account-activation-view-text">代码清单 10.10</a> 和 <a href="#listing-account-activation-view-html">10.11</a> 所示。注意，在<a href="#listing-account-activation-view-html">代码清单 10.11</a> 中，我们使用 <code>link_to</code> 方法创建有效的链接。</p>
+<p>定义好实例变量 <code>@user</code> 之后（<a href="#listing-mail-account-activation">代码清单 10.11</a>），我们可以使用 <code>edit</code> 动作的具名路由和嵌入式 Ruby 创建所需的链接了，如<a href="#listing-account-activation-view-text">代码清单 10.12</a> 和 <a href="#listing-account-activation-view-html">10.13</a> 所示。注意，在<a href="#listing-account-activation-view-html">代码清单 10.13</a> 中，我们使用 <code>link_to</code> 方法创建有效的链接。</p>
 <div id="listing-account-activation-view-text" data-type="listing">
-<h5><span class="title-label">代码清单 10.10：</span>账户激活邮件的纯文本视图</h5>
+<h5><span class="title-label">代码清单 10.12</span>：账户激活邮件的纯文本视图</h5>
 
 <div class="source-file">app/views/user_mailer/account_activation.text.erb</div>
 
@@ -507,7 +526,7 @@
 </pre></div>
 </div>
 <div id="listing-account-activation-view-html" data-type="listing">
-<h5><span class="title-label">代码清单 10.11：</span>账户激活邮件的 HTML 视图</h5>
+<h5><span class="title-label">代码清单 10.13</span>：账户激活邮件的 HTML 视图</h5>
 
 <div class="source-file">app/views/user_mailer/account_activation.html.erb</div>
 
@@ -523,9 +542,9 @@
                                                     <span class="ss">email</span><span class="p">:</span> <span class="vi">@user</span><span class="o">.</span><span class="n">email</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 </div>
-<p>若想查看这两个邮件视图的效果，我们可以使用邮件预览功能。Rails 提供了一些特殊的 URL，用来预览邮件。首先，我们要在应用的开发环境中添加一些设置，如<a href="#listing-development-email-settings">代码清单 10.12</a> 所示。</p>
+<p>若想查看这两个邮件视图的效果，我们可以使用邮件预览功能。Rails 提供了一些特殊的 URL，用来预览邮件。首先，我们要在应用的开发环境中添加一些设置，如<a href="#listing-development-email-settings">代码清单 10.14</a> 所示。</p>
 <div id="listing-development-email-settings" data-type="listing">
-<h5><span class="title-label">代码清单 10.12：</span>开发环境中的邮件设置</h5>
+<h5><span class="title-label">代码清单 10.14</span>：开发环境中的邮件设置</h5>
 
 <div class="source-file">config/environments/development.rb</div>
 
@@ -543,7 +562,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p><a href="#listing-development-email-settings">代码清单 10.12</a> 中设置的主机地址是 <code>'example.com'</code>，你应该使用你的开发环境的主机地址。例如，在我的系统中，可以使用下面的地址（包括云端 IDE 和本地服务器）：</p>
+<p><a href="#listing-development-email-settings">代码清单 10.14</a> 中设置的主机地址是 <code>'example.com'</code>，你应该使用你的开发环境的主机地址。例如，在我的系统中，可以使用下面的地址（包括云端 IDE 和本地服务器）：</p>
 <div data-type="listing">
 
 
@@ -551,9 +570,9 @@
 <span class="n">host</span> <span class="o">=</span> <span class="s1">'localhost:3000'</span>                     <span class="c1"># 本地主机</span>
 </pre></div>
 </div>
-<p>然后重启开发服务器，让<a href="#listing-development-email-settings">代码清单 10.12</a> 中的设置生效。接下来，我们要修改邮件程序的预览文件。生成邮件程序时已经自动生成了这个文件，如<a href="#listing-generated-user-mailer-previews">代码清单 10.13</a> 所示。</p>
+<p>然后重启开发服务器，让<a href="#listing-development-email-settings">代码清单 10.14</a> 中的设置生效。接下来，我们要修改邮件程序的预览文件。生成邮件程序时已经自动生成了这个文件，如<a href="#listing-generated-user-mailer-previews">代码清单 10.15</a> 所示。</p>
 <div id="listing-generated-user-mailer-previews" data-type="listing">
-<h5><span class="title-label">代码清单 10.13：</span>生成的邮件预览程序</h5>
+<h5><span class="title-label">代码清单 10.15</span>：生成的邮件预览程序</h5>
 
 <div class="source-file">test/mailers/previews/user_mailer_preview.rb</div>
 
@@ -575,9 +594,9 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>因为<a href="#listing-mail-account-activation">代码清单 10.9</a> 中定义的 <code>account_activation</code> 方法需要一个有效的用户作为参数，所以<a href="#listing-generated-user-mailer-previews">代码清单 10.13</a> 中的代码现在还不能使用。为了解决这个问题，我们要定义 <code>user</code> 变量，把开发数据库中的第一个用户赋值给它，然后作为参数传给 <code>UserMailer.account_activation</code>，如<a href="#listing-account-activation-preview">代码清单 10.14</a> 所示。注意，在这段代码中，我们还给 <code>user.activation_token</code> 赋了值，因为<a href="#listing-account-activation-view-text">代码清单 10.10</a> 和 <a href="#listing-account-activation-view-html">10.11</a> 中的模板要使用账户激活令牌。（<code>activation_token</code> 是虚拟属性，所以数据库中的用户并没有激活令牌。）</p>
+<p>因为<a href="#listing-mail-account-activation">代码清单 10.11</a> 中定义的 <code>account_activation</code> 方法需要一个有效的用户作为参数，所以<a href="#listing-generated-user-mailer-previews">代码清单 10.15</a> 中的代码现在还不能使用。为了解决这个问题，我们要定义 <code>user</code> 变量，把开发数据库中的第一个用户赋值给它，然后作为参数传给 <code>UserMailer.account_activation</code>，如<a href="#listing-account-activation-preview">代码清单 10.16</a> 所示。注意，在这段代码中，我们还给 <code>user.activation_token</code> 赋了值，因为<a href="#listing-account-activation-view-text">代码清单 10.12</a> 和 <a href="#listing-account-activation-view-html">10.13</a> 中的模板要使用账户激活令牌。（<code>activation_token</code> 是虚拟属性，所以数据库中的用户并没有激活令牌。）</p>
 <div id="listing-account-activation-preview" data-type="listing">
-<h5><span class="title-label">代码清单 10.14：</span>预览账户激活邮件所需的方法</h5>
+<h5><span class="title-label">代码清单 10.16</span>：预览账户激活邮件所需的方法</h5>
 
 <div class="source-file">test/mailers/previews/user_mailer_preview.rb</div>
 
@@ -601,11 +620,11 @@
 </pre></div>
 </div>
 <p>这样修改之后，我们就可以访问注释中提示的 URL 预览账户激活邮件了。（如果使用云端 IDE，要把 <code>localhost:3000</code> 换成相应的 URL。）HTML 和纯文本邮件分别如<a href="#fig-account-activation-html-preview">图 10.2</a> 和 <a href="#fig-account-activation-text-preview">10.3</a> 所示。</p>
-<div id="fig-account-activation-html-preview" class="figure"><img src="images/chapter10/account_activation_html_preview.png" alt="account activation html preview" /><div class="figcaption"><span class="title-label">图 10.2：</span>预览 HTML 格式的账户激活邮件</div></div>
-<div id="fig-account-activation-text-preview" class="figure"><img src="images/chapter10/account_activation_text_preview.png" alt="account activation text preview" /><div class="figcaption"><span class="title-label">图 10.3：</span>预览纯文本格式的账户激活邮件</div></div>
-<p>最后，我们要编写一些测试，再次确认邮件的内容。这并不难，因为 Rails 生成了一些有用的测试示例，如<a href="#listing-generated-user-mailer-test">代码清单 10.15</a> 所示。</p>
+<div id="fig-account-activation-html-preview" class="figure"><img src="images/chapter10/account_activation_html_preview.png" alt="account activation html preview" /><div class="figcaption"><span class="title-label">图 10.2</span>：预览 HTML 格式的账户激活邮件</div></div>
+<div id="fig-account-activation-text-preview" class="figure"><img src="images/chapter10/account_activation_text_preview.png" alt="account activation text preview" /><div class="figcaption"><span class="title-label">图 10.3</span>：预览纯文本格式的账户激活邮件</div></div>
+<p>最后，我们要编写一些测试，再次确认邮件的内容。这并不难，因为 Rails 生成了一些有用的测试示例，如<a href="#listing-generated-user-mailer-test">代码清单 10.17</a> 所示。</p>
 <div id="listing-generated-user-mailer-test" data-type="listing">
-<h5><span class="title-label">代码清单 10.15：</span>Rails 生成的 <code>UserMailer</code> 测试</h5>
+<h5><span class="title-label">代码清单 10.17</span>：Rails 生成的 <code>UserMailer</code> 测试</h5>
 
 <div class="source-file">test/mailers/user_mailer_test.rb</div>
 
@@ -631,7 +650,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p><a href="#listing-generated-user-mailer-test">代码清单 10.15</a> 中使用了强大的 <code>assert_match</code> 方法。这个方法既可以匹配字符串，也可以匹配正则表达式：</p>
+<p><a href="#listing-generated-user-mailer-test">代码清单 10.17</a> 中使用了强大的 <code>assert_match</code> 方法。这个方法既可以匹配字符串，也可以匹配正则表达式：</p>
 <div data-type="listing">
 
 
@@ -641,9 +660,9 @@
 <span class="n">assert_match</span> <span class="sr">/\w+/</span><span class="p">,</span> <span class="s1">'$#!*+@'</span>      <span class="c1"># false</span>
 </pre></div>
 </div>
-<p><a href="#listing-real-account-activation-test">代码清单 10.16</a> 使用 <code>assert_match</code> 检查邮件正文中是否有用户的名字、激活令牌和转义后的电子邮件地址。注意，转义用户电子邮件地址使用的方法是 <code>CGI::escape(user.email)</code>。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup></p>
+<p><a href="#listing-real-account-activation-test">代码清单 10.18</a> 使用 <code>assert_match</code> 检查邮件正文中是否有用户的名字、激活令牌和转义后的电子邮件地址。注意，转义用户电子邮件地址使用的方法是 <code>CGI::escape(user.email)</code>。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup>（其实还有第三种方法，<code>ERB::Util</code> 中的 <a href="http://apidock.com/ruby/ERB/Util/url_encode"><code>url_encode</code> 方法</a>有同样的效果。）</p>
 <div id="listing-real-account-activation-test" data-type="listing">
-<h5><span class="title-label">代码清单 10.16：</span>测试现在这个邮件程序 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 10.18</span>：测试现在这个邮件程序 <span class="red">RED</span></h5>
 
 <div class="source-file">test/mailers/user_mailer_test.rb</div>
 
@@ -665,10 +684,10 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>注意，我们在<a href="#listing-real-account-activation-test">代码清单 10.16</a> 中为用户固件指定了激活令牌，因为固件中没有虚拟属性。</p>
-<p>为了让这个测试通过，我们要修改测试环境的配置，设定正确的主机地址，如<a href="#listing-test-domain-host">代码清单 10.17</a> 所示。</p>
+<p>注意，我们在<a href="#listing-real-account-activation-test">代码清单 10.18</a> 中为用户固件指定了激活令牌，因为固件中没有虚拟属性。</p>
+<p>为了让这个测试通过，我们要修改测试环境的配置，设定正确的主机地址，如<a href="#listing-test-domain-host">代码清单 10.19</a> 所示。</p>
 <div id="listing-test-domain-host" data-type="listing">
-<h5><span class="title-label">代码清单 10.17：</span>设定测试环境的主机地址</h5>
+<h5><span class="title-label">代码清单 10.19</span>：设定测试环境的主机地址</h5>
 
 <div class="source-file">config/environments/test.rb</div>
 
@@ -686,15 +705,15 @@
 </div>
 <p>现在，邮件程序的测试应该可以通过了：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.18：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 10.20</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>:mailers
 </pre></div>
 </div>
-<p>若要在我们的应用中使用这个邮件程序，只需在处理用户注册的 <code>create</code> 动作中添加几行代码，如<a href="#listing-user-signup-with-account-activation">代码清单 10.19</a> 所示。注意，<a href="#listing-user-signup-with-account-activation">代码清单 10.19</a> 修改了注册后的重定向地址。之前，我们把用户重定向到资料页面（<a href="chapter7.html#successful-signups">7.4 节</a>），可是现在需要先激活，再转向这个页面就不合理了，所以把重定向地址改成了根地址。</p>
+<p>若要在我们的应用中使用这个邮件程序，只需在处理用户注册的 <code>create</code> 动作中添加几行代码，如<a href="#listing-user-signup-with-account-activation">代码清单 10.21</a> 所示。注意，<a href="#listing-user-signup-with-account-activation">代码清单 10.21</a> 修改了注册后的重定向地址。之前，我们把用户重定向到资料页面（<a href="chapter7.html#successful-signups">7.4 节</a>），可是现在需要先激活，再转向这个页面就不合理了，所以把重定向地址改成了根地址。</p>
 <div id="listing-user-signup-with-account-activation" data-type="listing">
-<h5><span class="title-label">代码清单 10.19：</span>在注册过程中添加账户激活 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 10.21</span>：在注册过程中添加账户激活 <span class="red">RED</span></h5>
 
 <div class="source-file">app/controllers/users_controller.rb</div>
 
@@ -718,9 +737,9 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>因为现在重定向到根地址而不是资料页面，而且不会像之前那样自动登入用户，所以测试组件无法通过，不过应用能按照我们设计的方式运行。我们暂时把导致失败的测试注释掉，如<a href="#listing-comment-out-failing-tests">代码清单 10.20</a> 所示。我们会在 <a href="#activation-test-and-refactoring">10.1.4 节</a>去掉注释，并且为账户激活编写能通过的测试。</p>
+<p>因为现在重定向到根地址而不是资料页面，而且不会像之前那样自动登入用户，所以测试组件无法通过，不过应用能按照我们设计的方式运行。我们暂时把导致失败的测试注释掉，如<a href="#listing-comment-out-failing-tests">代码清单 10.22</a> 所示。我们会在 <a href="#activation-test-and-refactoring">10.1.4 节</a>去掉注释，并且为账户激活编写能通过的测试。</p>
 <div id="listing-comment-out-failing-tests" data-type="listing">
-<h5><span class="title-label">代码清单 10.20：</span>临时注释掉失败的测试 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.22</span>：临时注释掉失败的测试 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_signup_test.rb</div>
 
@@ -755,9 +774,9 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>如果现在注册，重定向后显示的页面如<a href="#fig-redirected-not-activated">图 10.4</a> 所示，而且会生成一封邮件，如<a href="#listing-account-activation-email">代码清单 10.21</a> 所示。注意，在开发环境中并不会真发送邮件，不过能在服务器的日志中看到（可能要往上滚动才能看到）。<a href="#email-in-production">10.3 节</a>会介绍如何在生产环境中发送邮件。</p>
+<p>如果现在注册，重定向后显示的页面如<a href="#fig-redirected-not-activated">图 10.4</a> 所示，而且会生成一封邮件，如<a href="#listing-account-activation-email">代码清单 10.23</a> 所示。注意，在开发环境中并不会真发送邮件，不过能在服务器的日志中看到（可能要往上滚动才能看到）。<a href="#email-in-production">10.3 节</a>会介绍如何在生产环境中发送邮件。</p>
 <div id="listing-account-activation-email" data-type="listing">
-<h5><span class="title-label">代码清单 10.21：</span>在服务器日志中看到的账户激活邮件</h5>
+<h5><span class="title-label">代码清单 10.23</span>：在服务器日志中看到的账户激活邮件</h5>
 
 
 <div class="highlight language-text"><pre>Sent mail to michael@michaelhartl.com (931.6ms)
@@ -802,11 +821,11 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 ----==_mimepart_5407704656b50_61d3fd1914f4cd02996a--
 </pre></div>
 </div>
-<div id="fig-redirected-not-activated" class="figure"><img src="images/chapter10/redirected_not_activated.png" alt="redirected not activated" /><div class="figcaption"><span class="title-label">图 10.4：</span>注册后显示的首页，有一个提醒激活的消息</div></div>
+<div id="fig-redirected-not-activated" class="figure"><img src="images/chapter10/redirected_not_activated.png" alt="redirected not activated" /><div class="figcaption"><span class="title-label">图 10.4</span>：注册后显示的首页，有一个提醒激活的消息</div></div>
 </section>
 <section data-type="sect2" id="activating-the-account">
 <h2><span class="title-label">10.1.3.</span> 激活账户</h2>
-<p>现在可以正确生成电子邮件了（<a href="#listing-account-activation-email">代码清单 10.21</a>），接下来我们要编写 <code>AccountActivationsController</code> 中的 <code>edit</code> 动作，激活用户。<a href="#account-activation-mailer-method">10.1.2 节</a>说过，激活令牌和电子邮件地址可以分别通过 <code>params[:id]</code> 和 <code>params[:email]</code> 获取。参照密码（<a href="chapter8.html#listing-find-authenticate-user">代码清单 8.5</a>）和记忆令牌（<a href="chapter8.html#listing-persistent-current-user">代码清单 8.36</a>）的实现方式，我们计划使用下面的代码查找和认证用户：</p>
+<p>现在可以正确生成电子邮件了（<a href="#listing-account-activation-email">代码清单 10.23</a>），接下来我们要编写 <code>AccountActivationsController</code> 中的 <code>edit</code> 动作，激活用户。<a href="#account-activation-mailer-method">10.1.2 节</a>说过，激活令牌和电子邮件地址可以分别通过 <code>params[:id]</code> 和 <code>params[:email]</code> 获取。参照密码（<a href="chapter8.html#listing-find-authenticate-user">代码清单 8.5</a>）和记忆令牌（<a href="chapter8.html#listing-persistent-current-user">代码清单 8.36</a>）的实现方式，我们计划使用下面的代码查找和认证用户：</p>
 <div data-type="listing">
 
 
@@ -905,9 +924,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 <div class="highlight language-ruby"><pre><span class="n">user</span><span class="o">.</span><span class="n">authenticated?</span><span class="p">(</span><span class="ss">:remember</span><span class="p">,</span> <span class="n">remember_token</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>把修改后的 <code>authenticated?</code> 方法写入用户模型，如<a href="#listing-generalized-authenticated-p">代码清单 10.22</a> 所示。</p>
+<p>把修改后的 <code>authenticated?</code> 方法写入用户模型，如<a href="#listing-generalized-authenticated-p">代码清单 10.24</a> 所示。</p>
 <div id="listing-generalized-authenticated-p" data-type="listing">
-<h5><span class="title-label">代码清单 10.22：</span>用途更广的 <code>authenticated?</code> 方法 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 10.24</span>：用途更广的 <code>authenticated?</code> 方法 <span class="red">RED</span></h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -927,17 +946,17 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>如<a href="#listing-generalized-authenticated-p">代码清单 10.22</a> 的标题所示，测试组件无法通过：</p>
+<p>如<a href="#listing-generalized-authenticated-p">代码清单 10.24</a> 的标题所示，测试组件无法通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.23：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 10.25</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
 </pre></div>
 </div>
-<p>失败的原因是，<code>current_user</code> 方法（<a href="chapter8.html#listing-persistent-current-user">代码清单 8.36</a>）和摘要为 <code>nil</code> 的测试（<a href="chapter8.html#listing-test-authenticated-invalid-token">代码清单 8.43</a>）使用的都是旧版 <code>authenticated?</code>，期望传入的是一个参数而不是两个。因此，我们只需修改这两个地方，换用修改后的 <code>authenticated?</code> 方法就能解决这个问题，如<a href="#listing-generalized-current-user">代码清单 10.24</a> 和 <a href="#listing-test-authenticated-invalid-token-updated">10.25</a> 所示。</p>
+<p>失败的原因是，<code>current_user</code> 方法（<a href="chapter8.html#listing-persistent-current-user">代码清单 8.36</a>）和摘要为 <code>nil</code> 的测试（<a href="chapter8.html#listing-test-authenticated-invalid-token">代码清单 8.43</a>）使用的都是旧版 <code>authenticated?</code>，期望传入的是一个参数而不是两个。因此，我们只需修改这两个地方，换用修改后的 <code>authenticated?</code> 方法就能解决这个问题，如<a href="#listing-generalized-current-user">代码清单 10.26</a> 和 <a href="#listing-test-authenticated-invalid-token-updated">10.27</a> 所示。</p>
 <div id="listing-generalized-current-user" data-type="listing">
-<h5><span class="title-label">代码清单 10.24：</span>在 <code>current_user</code> 中使用修改后的 <code>authenticated?</code> 方法 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.26</span>：在 <code>current_user</code> 中使用修改后的 <code>authenticated?</code> 方法 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -964,7 +983,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 </pre></div>
 </div>
 <div id="listing-test-authenticated-invalid-token-updated" data-type="listing">
-<h5><span class="title-label">代码清单 10.25：</span>在 <code>UserTest</code> 中使用修改后的 <code>authenticated?</code> 方法 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.27</span>：在 <code>UserTest</code> 中使用修改后的 <code>authenticated?</code> 方法 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/models/user_test.rb</div>
 
@@ -987,14 +1006,14 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 </div>
 <p>修改后，测试应该可以通过了：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.26：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 10.28</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
 </pre></div>
 </div>
 <p>没有坚实的测试组件做后盾，像这样的重构很容易出错，所以我们才要在 <a href="chapter8.html#login-with-remembering">8.4.2 节</a>和 <a href="chapter8.html#remember-tests">8.4.6 节</a>排除万难编写测试。</p>
-<p>有了<a href="#listing-generalized-authenticated-p">代码清单 10.22</a> 中定义的 <code>authenticated?</code> 方法，现在我们可以编写 <code>edit</code> 动作，认证 <code>params</code> 哈希中电子邮件地址对应的用户了。我们要使用的判断条件如下所示：</p>
+<p>有了<a href="#listing-generalized-authenticated-p">代码清单 10.24</a> 中定义的 <code>authenticated?</code> 方法，现在我们可以编写 <code>edit</code> 动作，认证 <code>params</code> 哈希中电子邮件地址对应的用户了。我们要使用的判断条件如下所示：</p>
 <div data-type="listing">
 
 
@@ -1010,9 +1029,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 <span class="n">user</span><span class="o">.</span><span class="n">update_attribute</span><span class="p">(</span><span class="ss">:activated_at</span><span class="p">,</span> <span class="no">Time</span><span class="o">.</span><span class="n">zone</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>据此，写出的 <code>edit</code> 动作如<a href="#listing-account-activation-edit-action">代码清单 10.27</a> 所示。注意，在<a href="#listing-account-activation-edit-action">代码清单 10.27</a> 中我们还处理了激活令牌无效的情况。这种情况很少发生，但处理起来也很容易，直接重定向到根地址即可。</p>
+<p>据此，写出的 <code>edit</code> 动作如<a href="#listing-account-activation-edit-action">代码清单 10.29</a> 所示。注意，在<a href="#listing-account-activation-edit-action">代码清单 10.29</a> 中我们还处理了激活令牌无效的情况。这种情况很少发生，但处理起来也很容易，直接重定向到根地址即可。</p>
 <div id="listing-account-activation-edit-action" data-type="listing">
-<h5><span class="title-label">代码清单 10.27：</span>在 <code>edit</code> 动作中激活账户</h5>
+<h5><span class="title-label">代码清单 10.29</span>：在 <code>edit</code> 动作中激活账户</h5>
 
 <div class="source-file">app/controllers/account_activations_controller.rb</div>
 
@@ -1034,7 +1053,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>然后，复制粘贴<a href="#listing-account-activation-email">代码清单 10.21</a> 中的地址，应该就可以激活对应的用户了。例如，在我的系统中，我访问的地址是：</p>
+<p>然后，复制粘贴<a href="#listing-account-activation-email">代码清单 10.23</a> 中的地址，应该就可以激活对应的用户了。例如，在我的系统中，我访问的地址是：</p>
 <div data-type="listing">
 
 
@@ -1043,10 +1062,10 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <p>然后会看到如<a href="#fig-activated-user">图 10.5</a> 所示的页面。</p>
-<div id="fig-activated-user" class="figure"><img src="images/chapter10/activated_user.png" alt="activated user" /><div class="figcaption"><span class="title-label">图 10.5：</span>成功激活后显示的资料页面</div></div>
-<p>当然，现在激活用户后没有什么实际效果，因为我们还没修改用户登录的方式。为了让账户激活有实际意义，只能允许已经激活的用户登录，即 <code>user.activated?</code> 返回 <code>true</code> 时才能像之前那样登录，否则重定向到根地址，并且显示一个提醒消息（<a href="#fig-not-activated-warning">图 10.6</a>），如<a href="#listing-preventing-unactivated-logins">代码清单 10.28</a> 所示。</p>
+<div id="fig-activated-user" class="figure"><img src="images/chapter10/activated_user.png" alt="activated user" /><div class="figcaption"><span class="title-label">图 10.5</span>：成功激活后显示的资料页面</div></div>
+<p>当然，现在激活用户后没有什么实际效果，因为我们还没修改用户登录的方式。为了让账户激活有实际意义，只能允许已经激活的用户登录，即 <code>user.activated?</code> 返回 <code>true</code> 时才能像之前那样登录，否则重定向到根地址，并且显示一个提醒消息（<a href="#fig-not-activated-warning">图 10.6</a>），如<a href="#listing-preventing-unactivated-logins">代码清单 10.30</a> 所示。</p>
 <div id="listing-preventing-unactivated-logins" data-type="listing">
-<h5><span class="title-label">代码清单 10.28：</span>禁止未激活的用户登录</h5>
+<h5><span class="title-label">代码清单 10.30</span>：禁止未激活的用户登录</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -1081,14 +1100,14 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="k">end</span>
 </pre></div>
 </div>
-<div id="fig-not-activated-warning" class="figure"><img src="images/chapter10/not_activated_warning.png" alt="not activated warning" /><div class="figcaption"><span class="title-label">图 10.6：</span>未激活用户试图登录后看到的提醒消息</div></div>
+<div id="fig-not-activated-warning" class="figure"><img src="images/chapter10/not_activated_warning.png" alt="not activated warning" /><div class="figcaption"><span class="title-label">图 10.6</span>：未激活用户试图登录后看到的提醒消息</div></div>
 <p>至此，激活用户的功能基本完成了，不过还有个地方可以改进。（可以改进的是，不显示未激活的用户。这个改进留作<a href="#account-activation-and-password-reset-exercises">练习</a>。）<a href="#activation-test-and-refactoring">10.1.4 节</a>会编写一些测试，再做一些重构，完成整个功能。</p>
 </section>
 <section data-type="sect2" id="activation-test-and-refactoring">
 <h2><span class="title-label">10.1.4.</span> 测试和重构</h2>
-<p>本节，我们要为账户激活功能添加一些集成测试。我们已经为提交有效信息的注册过程编写了测试，所以我们要把这个测试添加到 <a href="chapter7.html#a-test-for-valid-submission">7.4.4 节</a>编写的测试中（<a href="chapter7.html#listing-a-test-for-valid-submission">代码清单 7.26</a>）。在测试中，我们要添加好多步，不过意图都很明确，看看你是否能理解<a href="#listing-signup-with-account-activation-test">代码清单 10.29</a> 中的测试。</p>
+<p>本节，我们要为账户激活功能添加一些集成测试。我们已经为提交有效信息的注册过程编写了测试，所以我们要把这个测试添加到 <a href="chapter7.html#a-test-for-valid-submission">7.4.4 节</a>编写的测试中（<a href="chapter7.html#listing-a-test-for-valid-submission">代码清单 7.26</a>）。在测试中，我们要添加好多步，不过意图都很明确，看看你是否能理解<a href="#listing-signup-with-account-activation-test">代码清单 10.31</a> 中的测试。</p>
 <div id="listing-signup-with-account-activation-test" data-type="listing">
-<h5><span class="title-label">代码清单 10.29：</span>在用户注册的测试文件中添加账户激活的测试 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.31</span>：在用户注册的测试文件中添加账户激活的测试 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_signup_test.rb</div>
 
@@ -1150,18 +1169,18 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <div class="highlight language-ruby"><pre><span class="n">assert_equal</span> <span class="mi">1</span><span class="p">,</span> <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">deliveries</span><span class="o">.</span><span class="n">size</span>
 </pre></div>
 </div>
-<p>这行代码确认只发送了一封邮件。<code>deliveries</code> 是一个数组，会统计所有发出的邮件，所以我们要在 <code>setup</code> 方法中把它清空，以防其他测试发送了邮件（<a href="#password-reset-test">10.2.5 节</a>就会这么做）。<a href="#listing-signup-with-account-activation-test">代码清单 10.29</a> 还第一次在本书正文中使用了 <code>assigns</code> 方法。<a href="chapter8.html#log-in-log-out-exercises">第 8 章的练习</a>中说过，<code>assigns</code> 的作用是获取相应动作中的实例变量。例如，用户控制器的 <code>create</code> 动作中定义了一个 <code>@user</code> 变量，那么我们可以在测试中使用 <code>assigns(:user)</code> 获取这个变量的值。最后，注意，<a href="#listing-signup-with-account-activation-test">代码清单 10.29</a> 把<a href="#listing-comment-out-failing-tests">代码清单 10.20</a> 中的注释去掉了。</p>
+<p>这行代码确认只发送了一封邮件。<code>deliveries</code> 是一个数组，会统计所有发出的邮件，所以我们要在 <code>setup</code> 方法中把它清空，以防其他测试发送了邮件（<a href="#password-reset-test">10.2.5 节</a>就会这么做）。<a href="#listing-signup-with-account-activation-test">代码清单 10.31</a> 还第一次在本书正文中使用了 <code>assigns</code> 方法。<a href="chapter8.html#log-in-log-out-exercises">第 8 章的练习</a>中说过，<code>assigns</code> 的作用是获取相应动作中的实例变量。例如，用户控制器的 <code>create</code> 动作中定义了一个 <code>@user</code> 变量，那么我们可以在测试中使用 <code>assigns(:user)</code> 获取这个变量的值。最后，注意，<a href="#listing-signup-with-account-activation-test">代码清单 10.31</a> 把<a href="#listing-comment-out-failing-tests">代码清单 10.22</a> 中的注释去掉了。</p>
 <p>现在，测试组件应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.30：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 10.32</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
 </pre></div>
 </div>
-<p>有了<a href="#listing-signup-with-account-activation-test">代码清单 10.29</a> 中的测试做后盾，接下来我们可以稍微重构一下了：把处理用户的代码从控制器中移出，放入模型。我们会定义一个 <code>activate</code> 方法，用来更新用户激活相关的属性；还要定义一个 <code>send_activation_email</code> 方法，发送激活邮件。这两个方法的定义如<a href="#listing-user-activation-methods">代码清单 10.31</a> 所示，重构后的应用代码如<a href="#listing-user-signup-refactored">代码清单 10.32</a> 和 <a href="#listing-account-activation-refactored">10.33</a> 所示。</p>
+<p>有了<a href="#listing-signup-with-account-activation-test">代码清单 10.31</a> 中的测试做后盾，接下来我们可以稍微重构一下了：把处理用户的代码从控制器中移出，放入模型。我们会定义一个 <code>activate</code> 方法，用来更新用户激活相关的属性；还要定义一个 <code>send_activation_email</code> 方法，发送激活邮件。这两个方法的定义如<a href="#listing-user-activation-methods">代码清单 10.33</a> 所示，重构后的应用代码如<a href="#listing-user-signup-refactored">代码清单 10.34</a> 和 <a href="#listing-account-activation-refactored">10.35</a> 所示。</p>
 <div id="listing-user-activation-methods" data-type="listing">
-<h5><span class="title-label">代码清单 10.31：</span>在用户模型中添加账户激活相关的方法</h5>
+<h5><span class="title-label">代码清单 10.33</span>：在用户模型中添加账户激活相关的方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1188,7 +1207,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <div id="listing-user-signup-refactored" data-type="listing">
-<h5><span class="title-label">代码清单 10.32：</span>通过用户模型对象发送邮件</h5>
+<h5><span class="title-label">代码清单 10.34</span>：通过用户模型对象发送邮件</h5>
 
 <div class="source-file">app/controllers/users_controller.rb</div>
 
@@ -1213,7 +1232,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <div id="listing-account-activation-refactored" data-type="listing">
-<h5><span class="title-label">代码清单 10.33：</span>通过用户模型对象激活账户</h5>
+<h5><span class="title-label">代码清单 10.35</span>：通过用户模型对象激活账户</h5>
 
 <div class="source-file">app/controllers/account_activations_controller.rb</div>
 
@@ -1234,7 +1253,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>注意，在<a href="#listing-user-activation-methods">代码清单 10.31</a> 中没有使用 <code>user</code>。如果还像之前那样写就会出错，因为用户模型中没有这个变量：</p>
+<p>注意，在<a href="#listing-user-activation-methods">代码清单 10.33</a> 中没有使用 <code>user</code>。如果还像之前那样写就会出错，因为用户模型中没有这个变量：</p>
 <div data-type="listing">
 
 
@@ -1254,7 +1273,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </div>
 <p>就算是简单的重构，也可能忽略这些细节，不过好的测试组件能捕获这些问题。现在，测试组件应该仍能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.34：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 10.36</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1274,11 +1293,11 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <h1><span class="title-label">10.2.</span> 密码重设</h1>
 <p>完成账户激活功能后（从而确认了用户的电子邮件地址可用），我们要处理一种常见的问题：用户忘记密码。我们会看到，密码重设的很多步骤和账户激活类似，所以这里会用到 <a href="#account-activation">10.1 节</a>学到的知识。不过，开头不一样，和账户激活功能不同的是，密码重设要修改一个视图，还要创建两个表单（处理电子邮件地址提交和设定新密码）。</p>
 <p>编写代码之前，我们先构思要实现的重设密码步骤。首先，我们要在演示应用的登录表单中添加“Forgot Password”（忘记密码）链接，如<a href="#fig-login-forgot-password-mockup">图 10.7</a> 所示。</p>
-<div id="fig-login-forgot-password-mockup" class="figure"><img src="images/chapter10/login_forgot_password_mockup.png" alt="login forgot password mockup" /><div class="figcaption"><span class="title-label">图 10.7：</span>“Forgot Password”链接的构思图</div></div>
+<div id="fig-login-forgot-password-mockup" class="figure"><img src="images/chapter10/login_forgot_password_mockup.png" alt="login forgot password mockup" /><div class="figcaption"><span class="title-label">图 10.7</span>：“Forgot Password”链接的构思图</div></div>
 <p>点击“Forgot Password”链接后打开一个页面，这个页面中有一个表单，要求输入电子邮件地址，提交后向这个地址发送一封包含密码重设链接的邮件，如<a href="#fig-forgot-password-form-mockup">图 10.8</a> 所示。</p>
-<div id="fig-forgot-password-form-mockup" class="figure"><img src="images/chapter10/forgot_password_form_mockup.png" alt="forgot password form mockup" /><div class="figcaption"><span class="title-label">图 10.8：</span>“Forgot Password”表单的构思图</div></div>
+<div id="fig-forgot-password-form-mockup" class="figure"><img src="images/chapter10/forgot_password_form_mockup.png" alt="forgot password form mockup" /><div class="figcaption"><span class="title-label">图 10.8</span>：“Forgot Password”表单的构思图</div></div>
 <p>点击密码重设链接会打开一个表单，用户在这个表单中重设密码（还要填写密码确认），如<a href="#fig-reset-password-form-mockup">图 10.9</a> 所示。</p>
-<div id="fig-reset-password-form-mockup" class="figure"><img src="images/chapter10/reset_password_form_mockup.png" alt="reset password form mockup" /><div class="figcaption"><span class="title-label">图 10.9：</span>重设密码表单的构思图</div></div>
+<div id="fig-reset-password-form-mockup" class="figure"><img src="images/chapter10/reset_password_form_mockup.png" alt="reset password form mockup" /><div class="figcaption"><span class="title-label">图 10.9</span>：重设密码表单的构思图</div></div>
 <p>和账户激活一样，我们要把“密码重设”看做一个资源，每个重设密码操作都有一个重设令牌和对应的摘要。主要的步骤如下：</p>
 <ol class="arabic">
 <li>
@@ -1307,9 +1326,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <p>注意，我们指定了不生成测试的参数，因为我们不需要控制器测试（和 <a href="#activation-test-and-refactoring">10.1.4 节</a>一样，要使用集成测试），所以最好不生成。</p>
-<p>我们需要两个表单，一个请求重设密码（<a href="#fig-forgot-password-form-mockup">图 10.8</a>），一个修改用户模型中的密码（<a href="#fig-reset-password-form-mockup">图 10.9</a>），所以需要为 <code>new</code>、<code>create</code>、<code>edit</code> 和 <code>update</code> 四个动作制定路由——通过<a href="#listing-password-resets-resource">代码清单 10.35</a> 中高亮显示的那行 <code>resources</code> 规则实现。</p>
+<p>我们需要两个表单，一个请求重设密码（<a href="#fig-forgot-password-form-mockup">图 10.8</a>），一个修改用户模型中的密码（<a href="#fig-reset-password-form-mockup">图 10.9</a>），所以需要为 <code>new</code>、<code>create</code>、<code>edit</code> 和 <code>update</code> 四个动作制定路由——通过<a href="#listing-password-resets-resource">代码清单 10.37</a> 中高亮显示的那行 <code>resources</code> 规则实现。</p>
 <div id="listing-password-resets-resource" data-type="listing">
-<h5><span class="title-label">代码清单 10.35：</span>添加“密码重设”资源的路由</h5>
+<h5><span class="title-label">代码清单 10.37</span>：添加“密码重设”资源的路由</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -1330,7 +1349,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </div>
 <p>添加这个规则后，得到了<a href="#table-restful-password-resets">表 10.2</a> 中的 REST 路由。</p>
 <table id="table-restful-password-resets" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 10.2：</span>定义“密码重设”资源后得到的 REST 路由</caption>
+<caption><span class="title-label">表 10.2</span>：定义“密码重设”资源后得到的 REST 路由</caption>
 <colgroup>
 <col style="width: 25%;" />
 <col style="width: 25%;" />
@@ -1379,9 +1398,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <div class="highlight language-ruby"><pre><span class="n">new_password_reset_path</span>
 </pre></div>
 </div>
-<p>把这个链接添加到登录表单，如<a href="#listing-log-in-password-reset">代码清单 10.36</a> 所示。添加后的效果如<a href="#fig-forgot-password-link">图 10.10</a> 所示。</p>
+<p>把这个链接添加到登录表单，如<a href="#listing-log-in-password-reset">代码清单 10.38</a> 所示。添加后的效果如<a href="#fig-forgot-password-link">图 10.10</a> 所示。</p>
 <div id="listing-log-in-password-reset" data-type="listing">
-<h5><span class="title-label">代码清单 10.36：</span>添加打开忘记密码表单的链接</h5>
+<h5><span class="title-label">代码清单 10.38</span>：添加打开忘记密码表单的链接</h5>
 
 <div class="source-file">app/views/sessions/new.html.erb</div>
 
@@ -1393,7 +1412,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="ss">:session</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">login_path</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="hll"><span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"(forgot password)"</span><span class="p">,</span> <span class="n">new_password_reset_path</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -1412,10 +1431,10 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">&lt;/div&gt;</span>
 </pre></div>
 </div>
-<div id="fig-forgot-password-link" class="figure"><img src="images/chapter10/forgot_password_link.png" alt="forgot password link" /><div class="figcaption"><span class="title-label">图 10.10：</span>添加“Forgot Password”链接后的登录页面</div></div>
+<div id="fig-forgot-password-link" class="figure"><img src="images/chapter10/forgot_password_link.png" alt="forgot password link" /><div class="figcaption"><span class="title-label">图 10.10</span>：添加“Forgot Password”链接后的登录页面</div></div>
 <p>密码重设所需的数据模型和账户激活的类似（<a href="#fig-user-model-account-activation">图 10.1</a>）。参照“记住我”功能（<a href="chapter8.html#remember-me">8.4 节</a>）和账户激活功能（<a href="#account-activation">10.1 节</a>），密码重设需要一个虚拟的重设令牌属性，在重设密码的邮件中使用，以及一个重设摘要属性，用来取回用户。
 如果存储未哈希的令牌，能访问数据库的攻击者就能发送一封重设密码邮件给用户，然后使用令牌和邮件地址访问对应的密码重设链接，从而获得账户控制权。因此，必须存储令牌的摘要。为了进一步保障安全，我们还计划过几个小时后让重设链接失效，所以要记录重设邮件发送的时间。据此，我们要添加两个属性：<code>reset_digest</code> 和 <code>reset_sent_at</code>，如<a href="#fig-user-model-password-reset">图 10.11</a> 所示。</p>
-<div id="fig-user-model-password-reset" class="figure"><img src="images/chapter10/user_model_password_reset.png" alt="user model password reset" /><div class="figcaption"><span class="title-label">图 10.11：</span>添加密码重设相关属性后的用户模型</div></div>
+<div id="fig-user-model-password-reset" class="figure"><img src="images/chapter10/user_model_password_reset.png" alt="user model password reset" /><div class="figcaption"><span class="title-label">图 10.11</span>：添加密码重设相关属性后的用户模型</div></div>
 <p>执行下面的命令，创建添加这两个属性的迁移：</p>
 <div data-type="listing">
 
@@ -1434,9 +1453,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </section>
 <section data-type="sect2" id="password-resets-controller-and-form">
 <h2><span class="title-label">10.2.2.</span> 控制器和表单</h2>
-<p>我们要参照前面为没有模型的资源编写表单的方法，即创建新会话的登录表单（<a href="chapter8.html#listing-login-form">代码清单 8.2</a>），编写请求重设密码的表单。为了便于参考，我们再把这个表单列出来，如<a href="#listing-login-form-redux">代码清单 10.37</a> 所示。</p>
+<p>我们要参照前面为没有模型的资源编写表单的方法，即创建新会话的登录表单（<a href="chapter8.html#listing-login-form">代码清单 8.2</a>），编写请求重设密码的表单。为了便于参考，我们再把这个表单列出来，如<a href="#listing-login-form-redux">代码清单 10.39</a> 所示。</p>
 <div id="listing-login-form-redux" data-type="listing">
-<h5><span class="title-label">代码清单 10.37：</span>登录表单的代码</h5>
+<h5><span class="title-label">代码清单 10.39</span>：登录表单的代码</h5>
 
 <div class="source-file">app/views/sessions/new.html.erb</div>
 
@@ -1448,7 +1467,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="ss">:session</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">login_path</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -1466,9 +1485,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">&lt;/div&gt;</span>
 </pre></div>
 </div>
-<p>请求重设密码的表单和<a href="#listing-login-form-redux">代码清单 10.37</a> 有很多共通之处，最大的区别是，<code>form_for</code> 中的资源和地址不一样，而且也没有密码字段。请求重设密码的表单如<a href="#listing-new-password-reset">代码清单 10.38</a> 所示，渲染的结果如<a href="#fig-forgot-password-form">图 10.12</a> 所示。</p>
+<p>请求重设密码的表单和<a href="#listing-login-form-redux">代码清单 10.39</a> 有很多共通之处，最大的区别是，<code>form_for</code> 中的资源和地址不一样，而且也没有密码字段。请求重设密码的表单如<a href="#listing-new-password-reset">代码清单 10.40</a> 所示，渲染的结果如<a href="#fig-forgot-password-form">图 10.12</a> 所示。</p>
 <div id="listing-new-password-reset" data-type="listing">
-<h5><span class="title-label">代码清单 10.38：</span>请求重设密码页面的视图</h5>
+<h5><span class="title-label">代码清单 10.40</span>：请求重设密码页面的视图</h5>
 
 <div class="source-file">app/views/password_resets/new.html.erb</div>
 
@@ -1479,7 +1498,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">  &lt;div class="col-md-6 col-md-offset-3"&gt;</span>
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="ss">:password_reset</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">password_resets_path</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"Submit"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary"</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">    </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -1487,10 +1506,10 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">&lt;/div&gt;</span>
 </pre></div>
 </div>
-<div id="fig-forgot-password-form" class="figure"><img src="images/chapter10/forgot_password_form.png" alt="forgot password form" /><div class="figcaption"><span class="title-label">图 10.12：</span>“Forgot Password”表单</div></div>
-<p>提交<a href="#fig-forgot-password-form">图 10.12</a> 中的表单后，我们要通过电子邮件地址查找用户，更新这个用户的 <code>reset_token</code>、<code>reset_digest</code> 和 <code>reset_sent_at</code> 属性，然后重定向到根地址，并显示一个闪现消息。和登录一样（<a href="chapter8.html#listing-correct-login-failure">代码清单 8.9</a>），如果提交的数据无效，我们要重新渲染这个页面，并且显示一个 <code>flash.now</code> 消息。据此，写出的 <code>create</code> 动作如<a href="#listing-create-password-reset">代码清单 10.39</a> 所示。</p>
+<div id="fig-forgot-password-form" class="figure"><img src="images/chapter10/forgot_password_form.png" alt="forgot password form" /><div class="figcaption"><span class="title-label">图 10.12</span>：“Forgot Password”表单</div></div>
+<p>提交<a href="#fig-forgot-password-form">图 10.12</a> 中的表单后，我们要通过电子邮件地址查找用户，更新这个用户的 <code>reset_token</code>、<code>reset_digest</code> 和 <code>reset_sent_at</code> 属性，然后重定向到根地址，并显示一个闪现消息。和登录一样（<a href="chapter8.html#listing-correct-login-failure">代码清单 8.9</a>），如果提交的数据无效，我们要重新渲染这个页面，并且显示一个 <code>flash.now</code> 消息。据此，写出的 <code>create</code> 动作如<a href="#listing-create-password-reset">代码清单 10.41</a> 所示。</p>
 <div id="listing-create-password-reset" data-type="listing">
-<h5><span class="title-label">代码清单 10.39：</span><code>PasswordResetsController</code> 的 <code>create</code> 动作</h5>
+<h5><span class="title-label">代码清单 10.41</span>：<code>PasswordResetsController</code> 的 <code>create</code> 动作</h5>
 
 <div class="source-file">app/controllers/password_resets_controller.rb</div>
 
@@ -1517,9 +1536,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>然后要在用户模型中定义 <code>create_reset_digest</code> 方法，如<a href="#listing-user-model-password-reset">代码清单 10.40</a> 所示。</p>
+<p>然后要在用户模型中定义 <code>create_reset_digest</code> 方法，如<a href="#listing-user-model-password-reset">代码清单 10.42</a> 所示。</p>
 <div id="listing-user-model-password-reset" data-type="listing">
-<h5><span class="title-label">代码清单 10.40：</span>在用户模型中添加重设密码所需的方法</h5>
+<h5><span class="title-label">代码清单 10.42</span>：在用户模型中添加重设密码所需的方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1569,24 +1588,24 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <p>如<a href="#fig-invalid-email-password-reset">图 10.13</a> 所示，提交无效电子邮件地址时，应用的表现正常。为了让提交有效地址时应用也能正常运行，我们要定义发送密码重设邮件的方法，这一步会在 <a href="#password-reset-mailer-method">10.2.3 节</a>完成。</p>
-<div id="fig-invalid-email-password-reset" class="figure"><img src="images/chapter10/invalid_email_password_reset.png" alt="invalid email password reset" /><div class="figcaption"><span class="title-label">图 10.13：</span>提交无效电子邮件地址后显示的“Forgot Password”表单</div></div>
+<div id="fig-invalid-email-password-reset" class="figure"><img src="images/chapter10/invalid_email_password_reset.png" alt="invalid email password reset" /><div class="figcaption"><span class="title-label">图 10.13</span>：提交无效电子邮件地址后显示的“Forgot Password”表单</div></div>
 </section>
 <section data-type="sect2" id="password-reset-mailer-method">
 <h2><span class="title-label">10.2.3.</span> 邮件程序</h2>
-<p><a href="#listing-user-model-password-reset">代码清单 10.40</a> 中发送密码重设邮件的代码是：</p>
+<p><a href="#listing-user-model-password-reset">代码清单 10.42</a> 中发送密码重设邮件的代码是：</p>
 <div data-type="listing">
 
 
 <div class="highlight language-ruby"><pre><span class="no">UserMailer</span><span class="o">.</span><span class="n">password_reset</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span><span class="o">.</span><span class="n">deliver_now</span>
 </pre></div>
 </div>
-<p>让这个邮件程序运作起来所需的代码几乎和 <a href="#account-activation-mailer-method">10.1.2 节</a>的账户激活邮件程序一样。我们首先在 <code>UserMailer</code> 中定义 <code>password_reset</code> 方法（<a href="#listing-mail-password-reset">代码清单 10.41</a>），然后再编写邮件的纯文本视图（<a href="#listing-password-reset-text">代码清单 10.42</a>）和 HTML 视图（<a href="#listing-password-reset-html">代码清单 10.43</a>）。</p>
+<p>让这个邮件程序运作起来所需的代码几乎和 <a href="#account-activation-mailer-method">10.1.2 节</a>的账户激活邮件程序一样。我们首先在 <code>UserMailer</code> 中定义 <code>password_reset</code> 方法（<a href="#listing-mail-password-reset">代码清单 10.43</a>），然后再编写邮件的纯文本视图（<a href="#listing-password-reset-text">代码清单 10.44</a>）和 HTML 视图（<a href="#listing-password-reset-html">代码清单 10.45</a>）。</p>
 <div id="listing-mail-password-reset" data-type="listing">
-<h5><span class="title-label">代码清单 10.41：</span>发送密码重设链接</h5>
+<h5><span class="title-label">代码清单 10.43</span>：发送密码重设链接</h5>
 
 <div class="source-file">app/mailers/user_mailer.rb</div>
 
-<div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">UserMailer</span> <span class="o">&lt;</span> <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span>
+<div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">UserMailer</span> <span class="o">&lt;</span> <span class="no">ApplicationMailer</span>
   <span class="n">default</span> <span class="ss">from</span><span class="p">:</span> <span class="s2">"noreply@example.com"</span>
 
   <span class="k">def</span> <span class="nf">account_activation</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
@@ -1602,7 +1621,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <div id="listing-password-reset-text" data-type="listing">
-<h5><span class="title-label">代码清单 10.42：</span>密码重设邮件的纯文本视图</h5>
+<h5><span class="title-label">代码清单 10.44</span>：密码重设邮件的纯文本视图</h5>
 
 <div class="source-file">app/views/user_mailer/password_reset.text.erb</div>
 
@@ -1617,7 +1636,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <div id="listing-password-reset-html" data-type="listing">
-<h5><span class="title-label">代码清单 10.43：</span>密码重设邮件的 HTML 视图</h5>
+<h5><span class="title-label">代码清单 10.45</span>：密码重设邮件的 HTML 视图</h5>
 
 <div class="source-file">app/views/user_mailer/password_reset.html.erb</div>
 
@@ -1637,9 +1656,9 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <span class="x">&lt;/p&gt;</span>
 </pre></div>
 </div>
-<p>和账户激活邮件一样（<a href="#account-activation-mailer-method">10.1.2 节</a>），我们可以使用 Rails 提供的邮件预览程序预览密码重设邮件。参照<a href="#listing-account-activation-preview">代码清单 10.14</a>，密码重设的邮件预览程序如<a href="#listing-password-reset-preview">代码清单 10.44</a> 所示。</p>
+<p>和账户激活邮件一样（<a href="#account-activation-mailer-method">10.1.2 节</a>），我们可以使用 Rails 提供的邮件预览程序预览密码重设邮件。参照<a href="#listing-account-activation-preview">代码清单 10.16</a>，密码重设的邮件预览程序如<a href="#listing-password-reset-preview">代码清单 10.46</a> 所示。</p>
 <div id="listing-password-reset-preview" data-type="listing">
-<h5><span class="title-label">代码清单 10.44：</span>预览密码重设邮件所需的方法</h5>
+<h5><span class="title-label">代码清单 10.46</span>：预览密码重设邮件所需的方法</h5>
 
 <div class="source-file">test/mailers/previews/user_mailer_preview.rb</div>
 
@@ -1665,11 +1684,11 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </pre></div>
 </div>
 <p>然后就可以预览密码重设邮件了，HTML 格式和纯文本格式分别如<a href="#fig-password-reset-html-preview">图 10.14</a> 和 <a href="#fig-password-reset-text-preview">10.15</a> 所示。</p>
-<div id="fig-password-reset-html-preview" class="figure"><img src="images/chapter10/password_reset_html_preview.png" alt="password reset html preview" /><div class="figcaption"><span class="title-label">图 10.14：</span>预览 HTML 格式的密码重设邮件</div></div>
-<div id="fig-password-reset-text-preview" class="figure"><img src="images/chapter10/password_reset_text_preview.png" alt="password reset text preview" /><div class="figcaption"><span class="title-label">图 10.15：</span>预览纯文本格式的密码重设邮件</div></div>
-<p>参照账户激活邮件程序的测试（<a href="#listing-real-account-activation-test">代码清单 10.16</a>），密码重设邮件程序的测试如<a href="#listing-password-reset-mailer-test">代码清单 10.45</a> 所示。注意，我们要创建密码重设令牌，以便在视图中使用。这一点和激活令牌不一样，激活令牌使用 <code>before_create</code> 回调创建（<a href="#listing-user-model-activation-code">代码清单 10.3</a>），但是密码重设令牌只会在用户成功提交“Forgot Password”表单后创建。在集成测试中很容易创建密码重设令牌（参见<a href="#listing-password-reset-integration-test">代码清单 10.52</a>），但在邮件程序的测试中必须手动创建。</p>
+<div id="fig-password-reset-html-preview" class="figure"><img src="images/chapter10/password_reset_html_preview.png" alt="password reset html preview" /><div class="figcaption"><span class="title-label">图 10.14</span>：预览 HTML 格式的密码重设邮件</div></div>
+<div id="fig-password-reset-text-preview" class="figure"><img src="images/chapter10/password_reset_text_preview.png" alt="password reset text preview" /><div class="figcaption"><span class="title-label">图 10.15</span>：预览纯文本格式的密码重设邮件</div></div>
+<p>参照账户激活邮件程序的测试（<a href="#listing-real-account-activation-test">代码清单 10.18</a>），密码重设邮件程序的测试如<a href="#listing-password-reset-mailer-test">代码清单 10.47</a> 所示。注意，我们要创建密码重设令牌，以便在视图中使用。这一点和激活令牌不一样，激活令牌使用 <code>before_create</code> 回调创建（<a href="#listing-user-model-activation-code">代码清单 10.3</a>），但是密码重设令牌只会在用户成功提交“Forgot Password”表单后创建。在集成测试中很容易创建密码重设令牌（参见<a href="#listing-password-reset-integration-test">代码清单 10.54</a>），但在邮件程序的测试中必须手动创建。</p>
 <div id="listing-password-reset-mailer-test" data-type="listing">
-<h5><span class="title-label">代码清单 10.45：</span>添加密码重设邮件程序的测试 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.47</span>：添加密码重设邮件程序的测试 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/mailers/user_mailer_test.rb</div>
 
@@ -1704,16 +1723,16 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </div>
 <p>现在，测试组件应该能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.46：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 10.48</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
 </pre></div>
 </div>
-<p>有了<a href="#listing-mail-password-reset">代码清单 10.41</a>、<a href="#listing-password-reset-text">10.42</a> 和 <a href="#listing-password-reset-html">10.43</a> 之后，提交有效电子邮件地址后显示的页面如<a href="#fig-valid-email-password-reset">图 10.16</a> 所示。服务器日志中记录的邮件类似于<a href="#listing-password-reset-email">代码清单 10.47</a>。</p>
-<div id="fig-valid-email-password-reset" class="figure"><img src="images/chapter10/valid_email_password_reset.png" alt="valid email password reset" /><div class="figcaption"><span class="title-label">图 10.16：</span>提交有效电子邮件地址后显示的页面</div></div>
+<p>有了<a href="#listing-mail-password-reset">代码清单 10.43</a>、<a href="#listing-password-reset-text">10.44</a> 和 <a href="#listing-password-reset-html">10.45</a> 之后，提交有效电子邮件地址后显示的页面如<a href="#fig-valid-email-password-reset">图 10.16</a> 所示。服务器日志中记录的邮件类似于<a href="#listing-password-reset-email">代码清单 10.49</a>。</p>
+<div id="fig-valid-email-password-reset" class="figure"><img src="images/chapter10/valid_email_password_reset.png" alt="valid email password reset" /><div class="figcaption"><span class="title-label">图 10.16</span>：提交有效电子邮件地址后显示的页面</div></div>
 <div id="listing-password-reset-email" data-type="listing">
-<h5><span class="title-label">代码清单 10.47：</span>服务器日志中记录的一封密码重设邮件</h5>
+<h5><span class="title-label">代码清单 10.49</span>：服务器日志中记录的一封密码重设邮件</h5>
 
 
 <div class="highlight language-text"><pre>Sent mail to michael@michaelhartl.com (66.8ms)
@@ -1775,9 +1794,9 @@ your password will stay as it is.
 <div class="highlight language-text"><pre>http://example.com/password_resets/3BdBrXeQZSWqFIDRN8cxHA/edit?email=foo%40bar.com
 </pre></div>
 </div>
-<p>这个表单的目的和编辑用户资料的表单（<a href="chapter9.html#listing-user-edit-view">代码清单 9.2</a>）类似，不过现在只需更新密码和密码确认字段。而且处理起来有点复杂，因为我们希望通过电子邮件地址查找用户，也就是说，在 <code>edit</code> 动作和 <code>update</code> 动作中都需要使用邮件地址。在 <code>edit</code> 动作中可以轻易的获取邮件地址，因为链接中有。可是提交表单后，邮件地址就没有了。为了解决这个问题，我们可以使用一个“隐藏字段”，把这个字段的值设为邮件地址（不会显示），和表单中的其他数据一起提交给 <code>update</code> 动作，如<a href="#listing-password-reset-form">代码清单 10.48</a> 所示。</p>
+<p>这个表单的目的和编辑用户资料的表单（<a href="chapter9.html#listing-user-edit-view">代码清单 9.2</a>）类似，不过现在只需更新密码和密码确认字段。而且处理起来有点复杂，因为我们希望通过电子邮件地址查找用户，也就是说，在 <code>edit</code> 动作和 <code>update</code> 动作中都需要使用邮件地址。在 <code>edit</code> 动作中可以轻易的获取邮件地址，因为链接中有。可是提交表单后，邮件地址就没有了。为了解决这个问题，我们可以使用一个“隐藏字段”，把这个字段的值设为邮件地址（不会显示），和表单中的其他数据一起提交给 <code>update</code> 动作，如<a href="#listing-password-reset-form">代码清单 10.50</a> 所示。</p>
 <div id="listing-password-reset-form" data-type="listing">
-<h5><span class="title-label">代码清单 10.48：</span>重设密码的表单</h5>
+<h5><span class="title-label">代码清单 10.50</span>：重设密码的表单</h5>
 
 <div class="source-file">app/views/password_resets/edit.html.erb</div>
 
@@ -1803,7 +1822,7 @@ your password will stay as it is.
 <span class="x">&lt;/div&gt;</span>
 </pre></div>
 </div>
-<p>注意，在<a href="#listing-password-reset-form">代码清单 10.48</a> 中，使用的表单字段辅助方法是</p>
+<p>注意，在<a href="#listing-password-reset-form">代码清单 10.50</a> 中，使用的表单字段辅助方法是</p>
 <div data-type="listing">
 
 
@@ -1817,9 +1836,9 @@ your password will stay as it is.
 
 </div>
 <p>因为在重设密码的链接中，邮件地址在 <code>params[:email]</code> 中，如果使用后者，就会把邮件地址放入 <code>params[:user][:email]</code> 中。</p>
-<p>为了正确渲染这个表单，我们要在 <code>PasswordResetsController</code> 的 <code>edit</code> 控制器中定义 <code>@user</code> 变量。和账户激活一样（<a href="#listing-account-activation-edit-action">代码清单 10.27</a>），我们要找到 <code>params[:email]</code> 中电子邮件地址对应的用户，确认这个用户已经激活，然后使用<a href="#listing-generalized-authenticated-p">代码清单 10.22</a> 中的 <code>authenticated?</code> 方法认证 <code>params[:id]</code> 中的令牌。因为在 <code>edit</code> 和 <code>update</code> 动作中都要使用 <code>@user</code>，所以我们要把查找用户和认证令牌的代码写入一个事前过滤器中，如<a href="#listing-password-reset-edit-action">代码清单 10.49</a> 所示。</p>
+<p>为了正确渲染这个表单，我们要在 <code>PasswordResetsController</code> 的 <code>edit</code> 控制器中定义 <code>@user</code> 变量。和账户激活一样（<a href="#listing-account-activation-edit-action">代码清单 10.29</a>），我们要找到 <code>params[:email]</code> 中电子邮件地址对应的用户，确认这个用户已经激活，然后使用<a href="#listing-generalized-authenticated-p">代码清单 10.24</a> 中的 <code>authenticated?</code> 方法认证 <code>params[:id]</code> 中的令牌。因为在 <code>edit</code> 和 <code>update</code> 动作中都要使用 <code>@user</code>，所以我们要把查找用户和认证令牌的代码写入一个事前过滤器中，如<a href="#listing-password-reset-edit-action">代码清单 10.51</a> 所示。</p>
 <div id="listing-password-reset-edit-action" data-type="listing">
-<h5><span class="title-label">代码清单 10.49：</span>重设密码的 <code>edit</code> 动作</h5>
+<h5><span class="title-label">代码清单 10.51</span>：重设密码的 <code>edit</code> 动作</h5>
 
 <div class="source-file">app/controllers/password_resets_controller.rb</div>
 
@@ -1848,12 +1867,12 @@ your password will stay as it is.
 <span class="k">end</span>
 </pre></div>
 </div>
-<p><a href="#listing-password-reset-edit-action">代码清单 10.49</a> 中的 <code>authenticated?(:reset, params[:id])</code>，<a href="#listing-generalized-current-user">代码清单 10.24</a> 中的 <code>authenticated?(:remember, cookies[:remember_token])</code>，以及<a href="#listing-account-activation-edit-action">代码清单 10.27</a> 中的 <code>authenticated?(:activation, params[:id])</code>，就是<a href="#table-password-token-digest">表 10.1</a> 中 <code>authenticated?</code> 方法的三个用例。</p>
-<p>现在，点击<a href="#listing-password-reset-email">代码清单 10.47</a> 中的链接后，会显示密码重设表单，如<a href="#fig-password-reset-form">图 10.17</a> 所示。</p>
-<div id="fig-password-reset-form" class="figure"><img src="images/chapter10/password_reset_form.png" alt="password reset form" /><div class="figcaption"><span class="title-label">图 10.17：</span>密码重设表单</div></div>
-<p><code>edit</code> 动作对应的 <code>update</code> 动作要考虑四种情况：密码重设超时失效，重设成功，密码无效导致的重设失败，密码和密码确认为空值时导致的密码重设失败（此时看起来像是成功了）。前三种情况对应<a href="#listing-password-reset-update-action">代码清单 10.50</a> 中外层 <code>if</code> 语句的三个分支。因为这个表单会修改 Active Record 模型（用户模型），所以我们可以使用共用的局部视图渲染错误消息。密码和密码确认都为空值的情况比较特殊，因为用户模型的验证允许出现这种情况（参见<a href="chapter9.html#listing-allow-blank-password">代码清单 9.10</a>），所以要特别处理，显示一个闪现消息。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
+<p><a href="#listing-password-reset-edit-action">代码清单 10.51</a> 中的 <code>authenticated?(:reset, params[:id])</code>，<a href="#listing-generalized-current-user">代码清单 10.26</a> 中的 <code>authenticated?(:remember, cookies[:remember_token])</code>，以及<a href="#listing-account-activation-edit-action">代码清单 10.29</a> 中的 <code>authenticated?(:activation, params[:id])</code>，就是<a href="#table-password-token-digest">表 10.1</a> 中 <code>authenticated?</code> 方法的三个用例。</p>
+<p>现在，点击<a href="#listing-password-reset-email">代码清单 10.49</a> 中的链接后，会显示密码重设表单，如<a href="#fig-password-reset-form">图 10.17</a> 所示。</p>
+<div id="fig-password-reset-form" class="figure"><img src="images/chapter10/password_reset_form.png" alt="password reset form" /><div class="figcaption"><span class="title-label">图 10.17</span>：密码重设表单</div></div>
+<p><code>edit</code> 动作对应的 <code>update</code> 动作要考虑四种情况：密码重设超时失效，重设成功，密码无效导致的重设失败，密码和密码确认为空值时导致的密码重设失败（此时看起来像是成功了）。前三种情况对应<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中外层 <code>if</code> 语句的三个分支。因为这个表单会修改 Active Record 模型（用户模型），所以我们可以使用共用的局部视图渲染错误消息。密码为空值的情况比较特殊，因为用户模型的验证允许出现这种情况（参见<a href="chapter9.html#listing-allow-blank-password">代码清单 9.10</a>），所以要特别处理，显示一个闪现消息。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
 <div id="listing-password-reset-update-action" data-type="listing">
-<h5><span class="title-label">代码清单 10.50：</span>重设密码的 <code>update</code> 动作</h5>
+<h5><span class="title-label">代码清单 10.52</span>：重设密码的 <code>update</code> 动作</h5>
 
 <div class="source-file">app/controllers/password_resets_controller.rb</div>
 
@@ -1882,8 +1901,8 @@ your password will stay as it is.
   <span class="k">end</span>
 
   <span class="k">def</span> <span class="nf">update</span>
-<span class="hll">    <span class="k">if</span> <span class="n">both_passwords_blank?</span>
-</span>      <span class="n">flash</span><span class="o">.</span><span class="n">now</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password/confirmation can't be blank"</span>
+<span class="hll">    <span class="k">if</span> <span class="n">password_blank?</span>
+</span>      <span class="n">flash</span><span class="o">.</span><span class="n">now</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password can't be blank"</span>
       <span class="n">render</span> <span class="s1">'edit'</span>
 <span class="hll">    <span class="k">elsif</span> <span class="vi">@user</span><span class="o">.</span><span class="n">update_attributes</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
 </span>      <span class="n">log_in</span> <span class="vi">@user</span>
@@ -1900,10 +1919,9 @@ your password will stay as it is.
 <span class="hll">      <span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span>
 </span>    <span class="k">end</span>
 
-    <span class="c1"># 如果密码和密码确认都为空，返回 true</span>
-    <span class="k">def</span> <span class="nf">both_passwords_blank?</span>
-<span class="hll">      <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:password</span><span class="o">].</span><span class="n">blank?</span> <span class="o">&amp;&amp;</span>
-</span><span class="hll">      <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:password_confirmation</span><span class="o">].</span><span class="n">blank?</span>
+    <span class="c1"># 如果密码为空，返回 true</span>
+    <span class="k">def</span> <span class="nf">password_blank?</span>
+<span class="hll">      <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:password</span><span class="o">].</span><span class="n">blank?</span>
 </span>    <span class="k">end</span>
 
     <span class="c1"># 事前过滤器</span>
@@ -1922,12 +1940,12 @@ your password will stay as it is.
 
     <span class="c1"># 检查重设令牌是否过期</span>
     <span class="k">def</span> <span class="nf">check_expiration</span>
-<span class="hll">      <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">password_reset_expired?</span>
-</span><span class="hll">        <span class="n">flash</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password reset has expired."</span>
+      <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">password_reset_expired?</span>
+<span class="hll">        <span class="n">flash</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password reset has expired."</span>
 </span><span class="hll">        <span class="n">redirect_to</span> <span class="n">new_password_reset_url</span>
 </span><span class="hll">      <span class="k">end</span>
-</span>    <span class="k">end</span>
-<span class="k">end</span>
+</span><span class="hll">    <span class="k">end</span>
+</span><span class="k">end</span>
 </pre></div>
 </div>
 <p>我们把密码重设是否超时失效交给用户模型判断：</p>
@@ -1945,9 +1963,9 @@ your password will stay as it is.
 </pre></div>
 </div>
 <p>如果你把 <code>&lt;</code> 当成小于号，读成“密码重设邮件发出少于两小时”就错了，和想表达的意思正好相反。
-这里，最好把 <code>&lt;</code> 理解成“超过”，读成“密码重设邮件已经发出超过两小时”，这才是我们想表达的意思。<code>password_reset_expired?</code> 方法的定义如<a href="#listing-user-model-password-reset-expired">代码清单 10.51</a> 所示。（对这个比较算式的证明参见 <a href="#proof-of-expiration-comparison">10.6 节</a>。）</p>
+这里，最好把 <code>&lt;</code> 理解成“超过”，读成“密码重设邮件已经发出超过两小时”，这才是我们想表达的意思。<code>password_reset_expired?</code> 方法的定义如<a href="#listing-user-model-password-reset-expired">代码清单 10.53</a> 所示。（对这个比较算式的证明参见 <a href="#proof-of-expiration-comparison">10.6 节</a>。）</p>
 <div id="listing-user-model-password-reset-expired" data-type="listing">
-<h5><span class="title-label">代码清单 10.51：</span>在用户模型中定义 <code>password_reset_expired?</code> 方法</h5>
+<h5><span class="title-label">代码清单 10.53</span>：在用户模型中定义 <code>password_reset_expired?</code> 方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1967,13 +1985,13 @@ your password will stay as it is.
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>现在，<a href="#listing-password-reset-update-action">代码清单 10.50</a> 中的 <code>update</code> 动作可以使用了。密码重设失败和成功后显示的页面分别如<a href="#fig-password-reset-failure">图 10.18</a> 和 <a href="#fig-password-reset-success">10.19</a> 所示。（稍等一会，<a href="#account-activation-and-password-reset-exercises">10.5 节</a>中有一题，为第三个分支编写测试。）</p>
-<div id="fig-password-reset-failure" class="figure"><img src="images/chapter10/password_reset_failure.png" alt="password reset failure" /><div class="figcaption"><span class="title-label">图 10.18：</span>密码重设失败</div></div>
-<div id="fig-password-reset-success" class="figure"><img src="images/chapter10/password_reset_success.png" alt="password reset success" /><div class="figcaption"><span class="title-label">图 10.19：</span>密码重设成功</div></div>
+<p>现在，<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中的 <code>update</code> 动作可以使用了。密码重设失败和成功后显示的页面分别如<a href="#fig-password-reset-failure">图 10.18</a> 和 <a href="#fig-password-reset-success">10.19</a> 所示。（稍等一会，<a href="#account-activation-and-password-reset-exercises">10.5 节</a>中有一题，为第三个分支编写测试。）</p>
+<div id="fig-password-reset-failure" class="figure"><img src="images/chapter10/password_reset_failure.png" alt="password reset failure" /><div class="figcaption"><span class="title-label">图 10.18</span>：密码重设失败</div></div>
+<div id="fig-password-reset-success" class="figure"><img src="images/chapter10/password_reset_success.png" alt="password reset success" /><div class="figcaption"><span class="title-label">图 10.19</span>：密码重设成功</div></div>
 </section>
 <section data-type="sect2" id="password-reset-test">
 <h2><span class="title-label">10.2.5.</span> 测试</h2>
-<p>本节，我们要编写一个集成测试，覆盖<a href="#listing-password-reset-update-action">代码清单 10.50</a> 中的两个分支：重设失败和重设成功。（前面说过，第三个分支的测试留作练习。）首先，为重设密码生成一个测试文件：</p>
+<p>本节，我们要编写一个集成测试，覆盖<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中的两个分支：重设失败和重设成功。（前面说过，第三个分支的测试留作练习。）首先，为重设密码生成一个测试文件：</p>
 <div data-type="listing">
 
 
@@ -1982,9 +2000,9 @@ your password will stay as it is.
       create    <span class="nb">test</span>/integration/password_resets_test.rb
 </pre></div>
 </div>
-<p>这个测试的步骤大致和<a href="#listing-signup-with-account-activation-test">代码清单 10.29</a> 中的账户激活测试差不多，不过开头有点不同。首先访问“Forgot Password”表单，分别提交有效和无效的电子邮件地址，电子邮件地址有效时要创建密码重设令牌，并且发送重设邮件。然后，访问邮件中的链接，分别提交无效和有效的密码，验证各自的表现是否正确。最终写出的测试如<a href="#listing-password-reset-integration-test">代码清单 10.52</a> 所示。这是一个不错的练习，可以锻炼阅读代码的能力。</p>
+<p>这个测试的步骤大致和<a href="#listing-signup-with-account-activation-test">代码清单 10.31</a> 中的账户激活测试差不多，不过开头有点不同。首先访问“Forgot Password”表单，分别提交有效和无效的电子邮件地址，电子邮件地址有效时要创建密码重设令牌，并且发送重设邮件。然后，访问邮件中的链接，分别提交无效和有效的密码，验证各自的表现是否正确。最终写出的测试如<a href="#listing-password-reset-integration-test">代码清单 10.54</a> 所示。这是一个不错的练习，可以锻炼阅读代码的能力。</p>
 <div id="listing-password-reset-integration-test" data-type="listing">
-<h5><span class="title-label">代码清单 10.52：</span>密码重设的集成测试</h5>
+<h5><span class="title-label">代码清单 10.54</span>：密码重设的集成测试</h5>
 
 <div class="source-file">test/integration/password_resets_test.rb</div>
 
@@ -2032,11 +2050,11 @@ your password will stay as it is.
           <span class="ss">user</span><span class="p">:</span> <span class="p">{</span> <span class="ss">password</span><span class="p">:</span>              <span class="s2">"foobaz"</span><span class="p">,</span>
                   <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">"barquux"</span> <span class="p">}</span>
     <span class="n">assert_select</span> <span class="s1">'div#error_explanation'</span>
-    <span class="c1"># 密码和密码确认都为空值</span>
+    <span class="c1"># 密码为空值</span>
     <span class="n">patch</span> <span class="n">password_reset_path</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">reset_token</span><span class="p">),</span>
           <span class="ss">email</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
           <span class="ss">user</span><span class="p">:</span> <span class="p">{</span> <span class="ss">password</span><span class="p">:</span>              <span class="s2">"  "</span><span class="p">,</span>
-                  <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">"  "</span> <span class="p">}</span>
+                  <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">"foobar"</span> <span class="p">}</span>
     <span class="n">assert_not</span> <span class="n">flash</span><span class="o">.</span><span class="n">empty?</span>
     <span class="n">assert_template</span> <span class="s1">'password_resets/edit'</span>
     <span class="c1"># 密码和密码确认有效</span>
@@ -2051,7 +2069,7 @@ your password will stay as it is.
 <span class="k">end</span>
 </pre></div>
 </div>
-<p><a href="#listing-password-reset-integration-test">代码清单 10.52</a> 中的大多数用法前面都见过，但是针对 <code>input</code> 标签的测试有点陌生：</p>
+<p><a href="#listing-password-reset-integration-test">代码清单 10.54</a> 中的大多数用法前面都见过，但是针对 <code>input</code> 标签的测试有点陌生：</p>
 <div data-type="listing">
 
 
@@ -2067,7 +2085,7 @@ your password will stay as it is.
 </div>
 <p>现在，测试组件应该能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 10.53：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 10.55</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -2082,12 +2100,12 @@ your password will stay as it is.
 <div data-type="listing">
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span>heroku addons:add sendgrid:starter
+<div class="highlight language-sh"><pre><span class="nv">$ </span>heroku addons:create sendgrid:starter
 </pre></div>
 </div>
-<p>为了让应用使用 SendGrid 发送邮件，我们要配置生产环境的 <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a> 设置，而且还要定义一个 <code>host</code> 变量，设置生产环境中网站的地址，如<a href="#listing-sendgrid-config">代码清单 10.54</a> 所示。</p>
+<p>为了让应用使用 SendGrid 发送邮件，我们要配置生产环境的 <a href="https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol">SMTP</a> 设置，而且还要定义一个 <code>host</code> 变量，设置生产环境中网站的地址，如<a href="#listing-sendgrid-config">代码清单 10.56</a> 所示。</p>
 <div id="listing-sendgrid-config" data-type="listing">
-<h5><span class="title-label">代码清单 10.54：</span>配置应用在生产环境中使用 SendGrid</h5>
+<h5><span class="title-label">代码清单 10.56</span>：配置应用在生产环境中使用 SendGrid</h5>
 
 <div class="source-file">config/environments/production.rb</div>
 
@@ -2114,7 +2132,7 @@ your password will stay as it is.
 <span class="k">end</span>
 </pre></div>
 </div>
-<p><a href="#listing-sendgrid-config">代码清单 10.54</a> 中设置了 SendGrid 账户的用户名（<code>user_name</code>）和密码（<code>password</code>），但是注意，这两个值是从 <code>ENV</code> 环境变量中获取的，而没有直接写入代码。这是生产环境应用的最佳实践，为了安全，绝不能在源码中写入敏感信息，例如原始密码。这两个值由 SendGrid 扩展自动设置，<a href="chapter11.html#image-upload-in-production">11.4.4 节</a>会介绍如何自己定义。如果好奇，可以使用下面的命令查看这两个环境变量的值：</p>
+<p><a href="#listing-sendgrid-config">代码清单 10.56</a> 中设置了 SendGrid 账户的用户名（<code>user_name</code>）和密码（<code>password</code>），但是注意，这两个值是从 <code>ENV</code> 环境变量中获取的，而没有直接写入代码。这是生产环境应用的最佳实践，为了安全，绝不能在源码中写入敏感信息，例如原始密码。这两个值由 SendGrid 扩展自动设置，<a href="chapter11.html#image-upload-in-production">11.4.4 节</a>会介绍如何自己定义。如果好奇，可以使用下面的命令查看这两个环境变量的值：</p>
 <div data-type="listing">
 
 
@@ -2133,18 +2151,19 @@ your password will stay as it is.
 <span class="nv">$ </span>git merge account-activation-password-reset
 </pre></div>
 </div>
-<p>然后，部署到 Heroku：</p>
+<p>然后，推送到远程仓库，再部署到 Heroku：</p>
 <div data-type="listing">
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
+<span class="nv">$ </span>git push
 <span class="nv">$ </span>git push heroku master
 <span class="nv">$ </span>heroku run rake db:migrate
 </pre></div>
 </div>
 <p>配置好 SendGrid 服务后，在生产环境的演示应用中使用你的电子邮件注册试试。你应该会收到一封激活邮件，如<a href="#fig-activation-email-production">图 10.20</a> 所示。如果忘记密码（或者假装忘了），可以使用 <a href="#password-reset">10.2 节</a>实现的功能重设密码，收到的重设邮件如<a href="#fig-reset-email-production">图 10.21</a> 所示。</p>
-<div id="fig-activation-email-production" class="figure"><img src="images/chapter10/activation_email_production.png" alt="activation email production" /><div class="figcaption"><span class="title-label">图 10.20：</span>生产环境中的应用发送的账户激活邮件</div></div>
-<div id="fig-reset-email-production" class="figure"><img src="images/chapter10/reset_email_production.png" alt="reset email production" /><div class="figcaption"><span class="title-label">图 10.21：</span>生产环境中的应用发送的密码重设邮件</div></div>
+<div id="fig-activation-email-production" class="figure"><img src="images/chapter10/activation_email_production.png" alt="activation email production" /><div class="figcaption"><span class="title-label">图 10.20</span>：生产环境中的应用发送的账户激活邮件</div></div>
+<div id="fig-reset-email-production" class="figure"><img src="images/chapter10/reset_email_production.png" alt="reset email production" /><div class="figcaption"><span class="title-label">图 10.21</span>：生产环境中的应用发送的密码重设邮件</div></div>
 </section>
 <section data-type="sect1" id="account-activation-and-password-reset-conclusion">
 <h1><span class="title-label">10.4.</span> 小结</h1>
@@ -2184,17 +2203,17 @@ your password will stay as it is.
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>
-<p>填写<a href="#listing-password-reset-expire-test">代码清单 10.55</a> 中缺少的代码，为<a href="#listing-password-reset-update-action">代码清单 10.50</a> 中的密码重设超时失效分支编写集成测试。（<a href="#listing-password-reset-expire-test">代码清单 10.55</a> 用到了 <code>response.body</code>，用来获取返回页面中的 HTML。）检查是否过期有很多方法，<a href="#listing-password-reset-expire-test">代码清单 10.55</a> 使用的方法是，检查响应主体中是否包含单词“expired”（不区分大小写）。</p>
+<p>填写<a href="#listing-password-reset-expire-test">代码清单 10.57</a> 中缺少的代码，为<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中的密码重设超时失效分支编写集成测试。（<a href="#listing-password-reset-expire-test">代码清单 10.57</a> 用到了 <code>response.body</code>，用来获取返回页面中的 HTML。）检查是否过期有很多方法，<a href="#listing-password-reset-expire-test">代码清单 10.57</a> 使用的方法是，检查响应主体中是否包含单词“expired”（不区分大小写）。</p>
 </li>
 <li>
-<p>现在，用户列表页面会显示所有用户，而且各用户还可以通过 /users/:id 查看。不过，更合理的做法是只显示已激活的用户。填写<a href="#listing-show-only-active-users-exercise">代码清单 10.56</a> 中缺少的代码，实现这一需求。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>（这段代码中使用了 Active Record 提供的 <code>where</code> 方法，<a href="chapter11.html#a-proto-feed">11.3.3 节</a>会详细介绍。）附加题：为 /users 和 /users/:id 编写集成测试。</p>
+<p>现在，用户列表页面会显示所有用户，而且各用户还可以通过 /users/:id 查看。不过，更合理的做法是只显示已激活的用户。填写<a href="#listing-show-only-active-users-exercise">代码清单 10.58</a> 中缺少的代码，实现这一需求。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>（这段代码中使用了 Active Record 提供的 <code>where</code> 方法，<a href="chapter11.html#a-proto-feed">11.3.3 节</a>会详细介绍。）附加题：为 /users 和 /users/:id 编写集成测试。</p>
 </li>
 <li>
-<p>在<a href="#listing-user-model-password-reset">代码清单 10.40</a> 中，<code>activate</code> 和 <code>create_reset_digest</code> 方法中都调用了两次 <code>update_attribute</code> 方法，每一次调用都要单独执行一个数据库事务（transaction）。填写<a href="#listing-update-columns">代码清单 10.57</a> 中缺少的代码，把两个 <code>update_attribute</code> 调用换成一个 <code>update_columns</code> 调用，这样修改后每个方法只会和数据库交互一次。然后再运行测试组件，确保仍能通过。</p>
+<p>在<a href="#listing-user-model-password-reset">代码清单 10.42</a> 中，<code>activate</code> 和 <code>create_reset_digest</code> 方法中都调用了两次 <code>update_attribute</code> 方法，每一次调用都要单独执行一个数据库事务（transaction）。填写<a href="#listing-update-columns">代码清单 10.59</a> 中缺少的代码，把两个 <code>update_attribute</code> 调用换成一个 <code>update_columns</code> 调用，这样修改后每个方法只会和数据库交互一次。然后再运行测试组件，确保仍能通过。</p>
 </li>
 </ol>
 <div id="listing-password-reset-expire-test" data-type="listing">
-<h5><span class="title-label">代码清单 10.55：</span>测试密码重设超时失效了 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 10.57</span>：测试密码重设超时失效了 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/password_resets_test.rb</div>
 
@@ -2227,7 +2246,7 @@ your password will stay as it is.
 </pre></div>
 </div>
 <div id="listing-show-only-active-users-exercise" data-type="listing">
-<h5><span class="title-label">代码清单 10.56：</span>只显示已激活用户的代码模板</h5>
+<h5><span class="title-label">代码清单 10.58</span>：只显示已激活用户的代码模板</h5>
 
 <div class="source-file">app/controllers/users_controller.rb</div>
 
@@ -2250,7 +2269,7 @@ your password will stay as it is.
 </pre></div>
 </div>
 <div id="listing-update-columns" data-type="listing">
-<h5><span class="title-label">代码清单 10.57：</span>使用 <code>update_columns</code> 的代码模板</h5>
+<h5><span class="title-label">代码清单 10.59</span>：使用 <code>update_columns</code> 的代码模板</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -2302,7 +2321,7 @@ t<sub>N</sub> - t<sub>r</sub> &gt; t<sub>N</sub> - t<sub>e</sub><br />
 - t<sub>r</sub> &gt; - t<sub>e</sub></p>
 <p>在这个不等式的两边乘于 -1 后得到：</p>
 <p class="text-center">t<sub>r</sub> &lt; t<sub>e</sub></p>
-<p>把 t<sub>e</sub> = 2.hours.ago 代入这个不等式后就能得到<a href="#listing-user-model-password-reset-expired">代码清单 10.51</a> 中的 <code>password_reset_expired?</code> 方法：</p>
+<p>把 t<sub>e</sub> = 2.hours.ago 代入这个不等式后就能得到<a href="#listing-user-model-password-reset-expired">代码清单 10.53</a> 中的 <code>password_reset_expired?</code> 方法：</p>
 <div data-type="listing">
 
 
@@ -2338,8 +2357,8 @@ t<sub>N</sub> - t<sub>r</sub> &gt; t<sub>N</sub> - t<sub>e</sub><br />
 <li id="fn-5">例如，如果攻击者能访问数据库，就能激活新注册的用户，然后以这个用户的身份登录，接着修改密码，获取控制权。 <a href="#fn-ref-5">&#8617;</a></li>
 <li id="fn-6">URL 中可以有多个查询参数，多个键值对之间使用 <code>&amp;</code> 符号连接，例如 <code>/edit?name=Foo%20Bar&amp;email=foo%40example.com</code>。 <a href="#fn-ref-6">&#8617;</a></li>
 <li id="fn-7">为了查明该怎么做，可以在谷歌中搜索“ruby rails escape url”。你会找到<a href="http://stackoverflow.com/questions/6714196/ruby-url-encoding-string">两种主要方法</a>：<code>URI::encode(str)</code> 和 <code>CGI.escape(str)</code>。一一试过之后，会发现需要的是第二个方法。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">只需处理二者都为空值的情况，如果只有一个为空值，匹配验证会捕获，并显示相应的错误消息。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">注意，<a href="#listing-show-only-active-users-exercise">代码清单 10.56</a> 中使用的是 <code>and</code> 而不是 <code>&amp;&amp;</code>。二者作用基本一样，但 <code>&amp;&amp;</code> 的<a href="http://en.wikipedia.org/wiki/Order_of_operations#Programming_languages">优先级</a>较高，和 <code>root_url</code> 绑定的太紧。我们也可以把 <code>redirect_to root_url</code> 放在括号里，不过习惯写法是使用 <code>and</code>。 <a href="#fn-ref-9">&#8617;</a></li>
+<li id="fn-8">只需处理密码为空值的情况，因为如果密码确认为空，密码确认字段的验证（如果密码为空，会跳过这个验证）会捕获这个问题，并显示相关的错误消息。 <a href="#fn-ref-8">&#8617;</a></li>
+<li id="fn-9">注意，<a href="#listing-show-only-active-users-exercise">代码清单 10.58</a> 中使用的是 <code>and</code> 而不是 <code>&amp;&amp;</code>。二者作用基本一样，但 <code>&amp;&amp;</code> 的<a href="http://en.wikipedia.org/wiki/Order_of_operations#Programming_languages">优先级</a>较高，和 <code>root_url</code> 绑定的太紧。我们也可以把 <code>redirect_to root_url</code> 放在括号里，不过习惯写法是使用 <code>and</code>。 <a href="#fn-ref-9">&#8617;</a></li>
 </ol>
 </div>
             </div>

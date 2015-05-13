@@ -74,10 +74,10 @@
 </pre></div>
 </div>
 <p>（参数中指定 <code>new</code>，其实还会生成视图，所以我们才没指定 <code>create</code> 和 <code>delete</code>，因为这两个动作没有视图。）参照 <a href="chapter7.html#signup-form">7.2 节</a>创建注册页面的方式，我们要创建一个登录表单，用于创建会话，构思如<a href="#fig-login-mockup">图 8.1</a> 所示。</p>
-<div id="fig-login-mockup" class="figure"><img src="images/chapter8/login_mockup.png" alt="login mockup" /><div class="figcaption"><span class="title-label">图 8.1：</span>登录表单的构思图</div></div>
+<div id="fig-login-mockup" class="figure"><img src="images/chapter8/login_mockup.png" alt="login mockup" /><div class="figcaption"><span class="title-label">图 8.1</span>：登录表单的构思图</div></div>
 <p>用户资源使用特殊的 <code>resources</code> 方法自动获得符合 REST 架构的路由（<a href="chapter7.html#listing-users-resource">代码清单 7.3</a>），会话资源则只能使用具名路由，处理发给 /login 地址的 <code>GET</code> 和 <code>POST</code> 请求，以及发给 /logout 地址的 <code>DELETE</code> 请求，如<a href="#listing-sessions-resource">代码清单 8.1</a> 所示。（删除了 <code>rails generate controller</code> 生成的无用路由。）</p>
 <div id="listing-sessions-resource" data-type="listing">
-<h5><span class="title-label">代码清单 8.1：</span>添加会话控制器的路由</h5>
+<h5><span class="title-label">代码清单 8.1</span>：添加会话控制器的路由</h5>
 
 <div class="source-file">config/routes.rb</div>
 
@@ -96,7 +96,7 @@
 </div>
 <p><a href="#listing-sessions-resource">代码清单 8.1</a> 中的规则会把 URL 和动作对应起来，就像<a href="chapter7.html#table-restful-users">表 7.1</a> 那样，如<a href="#table-restful-sessions">表 8.1</a> 所示。</p>
 <table id="table-restful-sessions" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 8.1：</span><a href="#listing-sessions-resource">代码清单 8.1</a> 中会话相关的规则生成的路由</caption>
+<caption><span class="title-label">表 8.1</span>：<a href="#listing-sessions-resource">代码清单 8.1</a> 中会话相关的规则生成的路由</caption>
 <colgroup>
 <col style="width: 15%;" />
 <col style="width: 15%;" />
@@ -167,7 +167,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <h2><span class="title-label">8.1.2.</span> 登录表单</h2>
 <p>定义好相关的控制器和路由之后，我们要编写新建会话的视图，也就是登录表单。比较<a href="#fig-login-mockup">图 8.1</a> 和<a href="chapter7.html#fig-signup-mockup">图 7.11</a> 之后发现，登录表单和注册表单的外观类似，只不过登录表单只有两个输入框（电子邮件地址和密码）。</p>
 <p>如<a href="#fig-login-failure-mockup">图 8.2</a> 所示，如果提交的登录信息无效，我们想重新渲染登录页面，并显示一个错误消息。在 <a href="cchapter7.html#signup-error-messages">7.3.3 节</a>，我们使用错误消息局部视图显示错误消息，但是那些消息由 Active Record 自动提供，所以错误消息局部视图不能显示创建会话时的错误，因为会话不是 Active Record 对象，因此我们要使用闪现消息渲染登录时的错误消息。</p>
-<div id="fig-login-failure-mockup" class="figure"><img src="images/chapter8/login_failure_mockup.png" alt="login failure mockup" /><div class="figcaption"><span class="title-label">图 8.2：</span>登录失败后显示的页面构思图</div></div>
+<div id="fig-login-failure-mockup" class="figure"><img src="images/chapter8/login_failure_mockup.png" alt="login failure mockup" /><div class="figcaption"><span class="title-label">图 8.2</span>：登录失败后显示的页面构思图</div></div>
 <p><a href="chapter7.html#listing-signup-form">代码清单 7.13</a> 中的注册表单使用 <code>form_for</code> 辅助方法，并且把表示用户实例的 <code>@user</code> 变量作为参数传给 <code>form_for</code>：</p>
 <div data-type="listing">
 
@@ -189,7 +189,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>知道怎么调用 <code>form_for</code> 之后，参照注册表单（<a href="chapter7.html#listing-signup-form">代码清单 7.13</a>）编写<a href="#fig-login-mockup">图 8.1</a> 中构思的登录表单就容易了，如<a href="#listing-login-form">代码清单 8.2</a> 所示。</p>
 <div id="listing-login-form" data-type="listing">
-<h5><span class="title-label">代码清单 8.2：</span>登录表单的代码</h5>
+<h5><span class="title-label">代码清单 8.2</span>：登录表单的代码</h5>
 
 <div class="source-file">app/views/sessions/new.html.erb</div>
 
@@ -201,7 +201,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="ss">:session</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">login_path</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -215,10 +215,10 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </pre></div>
 </div>
 <p>注意，为了操作方便，我们还加入了到“注册”页面的链接。<a href="#listing-login-form">代码清单 8.2</a> 中的登录表单如<a href="#fig-login-form">图 8.3</a> 所示。（导航条中的“Log in”还没填写地址，所以你要在地址栏中输入 /login。<a href="#changing-the-layout-links">8.2.3 节</a>会修正这个问题。）</p>
-<div id="fig-login-form" class="figure"><img src="images/chapter8/login_form.png" alt="login form" /><div class="figcaption"><span class="title-label">图 8.3：</span>登录表单</div></div>
+<div id="fig-login-form" class="figure"><img src="images/chapter8/login_form.png" alt="login form" /><div class="figcaption"><span class="title-label">图 8.3</span>：登录表单</div></div>
 <p>生成的表单 HTML 如<a href="#listing-login-form-html">代码清单 8.3</a> 所示。</p>
 <div id="listing-login-form-html" data-type="listing">
-<h5><span class="title-label">代码清单 8.3：</span><a href="#listing-login-form">代码清单 8.2</a> 中登录表单生成的 HTML</h5>
+<h5><span class="title-label">代码清单 8.3</span>：<a href="#listing-login-form">代码清单 8.2</a> 中登录表单生成的 HTML</h5>
 
 
 <div class="highlight language-html"><pre><span class="nt">&lt;form</span> <span class="na">accept-charset=</span><span class="s">"UTF-8"</span> <span class="na">action=</span><span class="s">"/login"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
@@ -242,7 +242,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>和创建用户类似，创建会话（登录）时先要处理提交无效数据的情况。我们会先分析提交表单后会发生什么，想办法在登录失败时显示有帮助的错误消息（如<a href="#fig-login-failure-mockup">图 8.2</a> 中的构思）。然后，以此为基础，验证提交的电子邮件地址和密码，处理登录成功的情况（<a href="#logging-in">8.2 节</a>）。</p>
 <p>首先，我们要为会话控制器编写一个最简单的 <code>create</code> 动作，以及空的 <code>new</code> 动作和 <code>destroy</code> 动作，如<a href="#listing-initial-create-session">代码清单 8.4</a> 所示。<code>create</code> 动作现在只渲染 <code>new</code> 视图，不过为后续工作做好了准备。提交 /login 页面中的表单后，显示的页面如<a href="#fig-initial-failed-login-rails-3">图 8.4</a> 所示。</p>
 <div id="listing-initial-create-session" data-type="listing">
-<h5><span class="title-label">代码清单 8.4：</span>会话控制器中 <code>create</code> 动作的初始版本</h5>
+<h5><span class="title-label">代码清单 8.4</span>：会话控制器中 <code>create</code> 动作的初始版本</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -260,7 +260,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <span class="k">end</span>
 </pre></div>
 </div>
-<div id="fig-initial-failed-login-rails-3" class="figure"><img src="images/chapter8/initial_failed_login_3rd_edition.png" alt="initial failed login 3rd edition" /><div class="figcaption"><span class="title-label">图 8.4：</span>添加<a href="#listing-initial-create-session">代码清单 8.4</a> 中的 <code>create</code> 动作后，登录失败后显示的页面</div></div>
+<div id="fig-initial-failed-login-rails-3" class="figure"><img src="images/chapter8/initial_failed_login_3rd_edition.png" alt="initial failed login 3rd edition" /><div class="figcaption"><span class="title-label">图 8.4</span>：添加<a href="#listing-initial-create-session">代码清单 8.4</a> 中的 <code>create</code> 动作后，登录失败后显示的页面</div></div>
 <p>仔细看一下<a href="#fig-initial-failed-login-rails-3">图 8.4</a> 中显示的调试信息，你会发现，正如 <a href="#login-form">8.1.2 节</a>末尾所说的，提交表单后会生成 <code>params</code> 哈希，电子邮件地址和密码都在 <code>:session</code> 键中（下述代码省略了一些 Rails 内部使用的信息）：</p>
 <div data-type="listing">
 
@@ -312,7 +312,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>是提交的密码。</p>
 <p>也就是说，在 <code>create</code> 动作中，<code>params</code> 哈希包含了使用电子邮件地址和密码认证用户身份所需的全部数据。其实，我们已经有了需要使用的方法：Active Record 提供的 <code>User.find_by</code> 方法（<a href="chapter6.html#finding-user-objects">6.1.4 节</a>）和 <code>has_secure_password</code> 提供的 <code>authenticate</code> 方法（<a href="chapter6.html#creating-and-authenticating-a-user">6.3.4 节</a>）。前面说过，如果认证失败，<code>authenticate</code> 方法会返回 <code>false</code>。基于以上分析，我们计划按照<a href="#listing-find-authenticate-user">代码清单 8.5</a> 中的方式实现用户登录功能。</p>
 <div id="listing-find-authenticate-user" data-type="listing">
-<h5><span class="title-label">代码清单 8.5：</span>查找并认证用户</h5>
+<h5><span class="title-label">代码清单 8.5</span>：查找并认证用户</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -345,7 +345,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>我们使用 <code>&amp;&amp;</code>（逻辑与）检测获取的用户是否有效。因为除了 <code>nil</code> 和 <code>false</code> 之外的所有对象都被视作 <code>true</code>，上面这个语句可能出现的结果如<a href="#table-user-and-and">表 8.2</a>所示。从表中可以看出，当且仅当数据库中存在提交的电子邮件地址，而且对应的密码和提交的密码匹配时，这个语句才会返回 <code>true</code>。</p>
 <table id="table-user-and-and" class="tableblock frame-all grid-all" style="width: 100%;">
-<caption><span class="title-label">表 8.2：</span><code>user &amp;&amp; user.authenticate(…​)</code> 可能得到的结果</caption>
+<caption><span class="title-label">表 8.2</span>：<code>user &amp;&amp; user.authenticate(…​)</code> 可能得到的结果</caption>
 <colgroup>
 <col style="width: 33%;" />
 <col style="width: 33%;" />
@@ -381,7 +381,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <h2><span class="title-label">8.1.4.</span> 渲染闪现消息</h2>
 <p>在 <a href="chapter7.html#signup-error-messages">7.3.3 节</a>，我们使用用户模型的验证错误显示注册失败时的错误消息。这些错误关联在某个 Active Record 对象上，不过现在不能使用这种方式了，因为会话不是 Active Record 模型。我们要采取的方法是，登录失败时，在闪现消息中显示消息。<a href="#listing-failed-login-attempt">代码清单 8.6</a> 是我们首次尝试实现所写的代码，其中有个小小的错误。</p>
 <div id="listing-failed-login-attempt" data-type="listing">
-<h5><span class="title-label">代码清单 8.6：</span>尝试处理登录失败（有个小小的错误）</h5>
+<h5><span class="title-label">代码清单 8.6</span>：尝试处理登录失败（有个小小的错误）</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -407,8 +407,8 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>布局中已经加入了显示闪现消息的局部视图（<a href="chapter7.html#listing-layout-flash">代码清单 7.25</a>），所以无需其他修改，<code>flash[:danger]</code> 消息就会显示出来，而且因为使用了 Bootstrap 提供的 CSS，消息的样式也很美观，如<a href="#fig-failed-login-flash">图 8.5</a> 所示。</p>
 <p>不过，就像<a href="#listing-failed-login-attempt">代码清单 8.6</a> 中的注释所说，代码不完全正确。显示的页面看起来很正常啊，有什么问题呢？问题在于，闪现消息在一个请求的生命周期内是持续存在的，而重新渲染页面（使用 <code>render</code> 方法）和<a href="chapter7.html#listing-signup-flash">代码清单 7.24</a> 中的重定向不同，不算是一次新请求，所以你会发现这个闪现消息存在的时间比预计的要长很多。例如，提交无效的登录信息，然后访问首页，还会显示这个闪现消息，如<a href="#fig-flash-persistence">图 8.6</a> 所示。<a href="#a-flash-test">8.1.5 节</a>会修正这个问题。</p>
-<div id="fig-failed-login-flash" class="figure"><img src="images/chapter8/failed_login_flash_3rd_edition.png" alt="failed login flash 3rd edition" /><div class="figcaption"><span class="title-label">图 8.5：</span>登录失败后显示的闪现消息</div></div>
-<div id="fig-flash-persistence" class="figure"><img src="images/chapter8/flash_persistence_3rd_edition.png" alt="flash persistence 3rd edition" /><div class="figcaption"><span class="title-label">图 8.6：</span>闪现消息一直存在</div></div>
+<div id="fig-failed-login-flash" class="figure"><img src="images/chapter8/failed_login_flash_3rd_edition.png" alt="failed login flash 3rd edition" /><div class="figcaption"><span class="title-label">图 8.5</span>：登录失败后显示的闪现消息</div></div>
+<div id="fig-flash-persistence" class="figure"><img src="images/chapter8/flash_persistence_3rd_edition.png" alt="flash persistence 3rd edition" /><div class="figcaption"><span class="title-label">图 8.6</span>：闪现消息一直存在</div></div>
 </section>
 <section data-type="sect2" id="a-flash-test">
 <h2><span class="title-label">8.1.5.</span> 测试闪现消息</h2>
@@ -445,7 +445,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </ol>
 <p>实现上述步骤的测试如<a href="#listing-flash-persistence-test">代码清单 8.7</a> 所示。</p>
 <div id="listing-flash-persistence-test" data-type="listing">
-<h5><span class="title-label">代码清单 8.7：</span>捕获继续显示闪现消息的测试 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 8.7</span>：捕获继续显示闪现消息的测试 <span class="red">RED</span></h5>
 
 <div class="source-file">test/integration/users_login_test.rb</div>
 
@@ -467,7 +467,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>添加上述测试之后，登录测试应该失败：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.8：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 8.8</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test </span><span class="nv">TEST</span><span class="o">=</span><span class="nb">test</span>/integration/users_login_test.rb
@@ -476,7 +476,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>上述命令指定 <code>TEST</code> 参数和文件的完整路径，演示如何只运行一个测试文件。</p>
 <p>让<a href="#listing-flash-persistence-test">代码清单 8.7</a> 中的测试通过的方法是，把 <code>flash</code> 换成特殊的 <code>flash.now</code>。<code>flash.now</code> 专门用于在重新渲染的页面中显示闪现消息。和 <code>flash</code> 不同的是，<code>flash.now</code> 中的内容会在下次请求时消失——这正是<a href="#listing-flash-persistence-test">代码清单 8.7</a> 中的测试所需的表现。替换之后，正确的应用代码如<a href="#listing-correct-login-failure">代码清单 8.9</a> 所示。</p>
 <div id="listing-correct-login-failure" data-type="listing">
-<h5><span class="title-label">代码清单 8.9：</span>处理登录失败正确的代码 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.9</span>：处理登录失败正确的代码 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -502,7 +502,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>然后，我们可以确认登录功能的集成测试和整个测试组件都能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.10：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.10</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test </span><span class="nv">TEST</span><span class="o">=</span><span class="nb">test</span>/integration/users_login_test.rb
@@ -516,7 +516,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>登录表单已经可以处理无效提交，下一步要正确处理有效提交，登入用户。本节通过临时会话让用户登录，浏览器关闭后会话自动失效。<a href="#remember-me">8.4 节</a>会实现持久会话，即便浏览器关闭，依然处于登录状态。</p>
 <p>实现会话的过程中要定义很多相关的函数，而且要在多个控制器和视图中使用。<a href="chapter4.html#back-to-the-title-helper">4.2.5 节</a>说过，Ruby 支持使用“模块”把这些函数集中放在一处。Rails 生成器很人性化，生成会话控制器时（<a href="#sessions-controller">8.1.1 节</a>）自动生成了一个会话辅助方法模块。而且，其中的辅助方法会自动引入 Rails 视图。如果在控制器的基类（<code>ApplicationController</code>）中引入辅助方法模块，还可以在控制器中使用，如<a href="#listing-sessions-helper-include">代码清单 8.11</a> 所示。</p>
 <div id="listing-sessions-helper-include" data-type="listing">
-<h5><span class="title-label">代码清单 8.11：</span>在 <code>ApplicationController</code> 中引入会话辅助方法模块</h5>
+<h5><span class="title-label">代码清单 8.11</span>：在 <code>ApplicationController</code> 中引入会话辅助方法模块</h5>
 
 <div class="source-file">app/controllers/application_controller.rb</div>
 
@@ -539,7 +539,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>这么做会在用户的浏览器中创建一个临时 cookie，内容是加密后的用户 ID。在后续的请求中，可以使用 <code>session[:user_id]</code> 取回这个 ID。<a href="#remember-me">8.4 节</a>使用的 <code>cookies</code> 方法创建的是持久 cookie，而 <code>session</code> 方法创建的是临时会话，浏览器关闭后立即失效。</p>
 <p>我们想在多个不同的地方使用这个登录方式，所以在会话辅助方法模块中定义一个名为 <code>log_in</code> 的方法，如<a href="#listing-log-in-function">代码清单 8.12</a> 所示。</p>
 <div id="listing-log-in-function" data-type="listing">
-<h5><span class="title-label">代码清单 8.12：</span><code>log_in</code> 方法</h5>
+<h5><span class="title-label">代码清单 8.12</span>：<code>log_in</code> 方法</h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -555,7 +555,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p><code>session</code> 方法创建的临时 cookie 会自动加密，所以<a href="#listing-log-in-function">代码清单 8.12</a> 中的代码是安全的，攻击者无法使用会话中的信息以该用户的身份登录。不过，只有 <code>session</code> 方法创建的临时 cookie 是这样，<code>cookies</code> 方法创建的持久 cookie 则有可能会受到“会话劫持”（session hijacking）攻击。所以在 <a href="#remember-me">8.4 节</a>我们会小心处理存入用户浏览器中的信息。</p>
 <p>定义好 <code>log_in</code> 方法后，我们可以完成会话控制器中的 <code>create</code> 动作了——登入用户，然后重定向到用户的资料页面，如<a href="#listing-log-in-success">代码清单 8.13</a> 所示。<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup></p>
 <div id="listing-log-in-success" data-type="listing">
-<h5><span class="title-label">代码清单 8.13：</span>登入用户</h5>
+<h5><span class="title-label">代码清单 8.13</span>：登入用户</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -591,7 +591,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <div data-type="listing">
 
 
-<div class="highlight language-ruby"><pre><span class="n">user_path</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<div class="highlight language-ruby"><pre><span class="n">user_url</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>定义好 <code>create</code> 动作后，<a href="#listing-login-form">代码清单 8.2</a> 中的登录表单就可以使用了。不过从应用的外观上看不出什么区别，除非直接查看浏览器中的会话，否则没有方法判断用户是否已经登录。<a href="#current-user">8.2.2 节</a>会使用会话中的用户 ID 从数据库中取回当前用户，做些视觉上的变化。<a href="#changing-the-layout-links">8.2.3 节</a>会修改网站布局中的链接，还会添加一个指向当前用户资料页面的链接。</p>
@@ -655,7 +655,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </pre></div>
 </div>
 <p><code>User</code> 对象是真值，所以仅当 <code>@current_user</code> 没有赋值时才会执行 <code>find_by</code> 方法。</p>
-<p>上述代码虽然可以使用，但并符合 Ruby 的习惯。<code>@current_user</code> 赋值语句的正确写法是这样：</p>
+<p>上述代码虽然可以使用，但并不符合 Ruby 的习惯。<code>@current_user</code> 赋值语句的正确写法是这样：</p>
 <div data-type="listing">
 
 
@@ -733,7 +733,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>综上所述，<code>current_user</code> 方法更简洁的定义方式如<a href="#listing-current-user">代码清单 8.14</a> 所示。</p>
 <div id="listing-current-user" data-type="listing">
-<h5><span class="title-label">代码清单 8.14：</span>在会话中查找当前用户</h5>
+<h5><span class="title-label">代码清单 8.14</span>：在会话中查找当前用户</h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -756,7 +756,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <section data-type="sect2" id="changing-the-layout-links">
 <h2><span class="title-label">8.2.3.</span> 修改布局中的链接</h2>
 <p>实现登录功能后，我们要根据登录状态修改布局中的链接。具体而言，我们要添加退出链接、用户设置页面的链接、用户列表页面的链接和当前用户的资料页面链接，构思图如<a href="#fig-login-success-mockup">图 8.7</a> 所示。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup>注意，退出链接和资料页面的链接在“Account”（账户）下拉菜单中。使用 Bootstrap 实现下拉菜单的方法参见<a href="#listing-layout-login-logout-links">代码清单 8.16</a>。</p>
-<div id="fig-login-success-mockup" class="figure"><img src="images/chapter8/login_success_mockup.png" alt="login success mockup" /><div class="figcaption"><span class="title-label">图 8.7：</span>成功登录后显示的资料页面构思图</div></div>
+<div id="fig-login-success-mockup" class="figure"><img src="images/chapter8/login_success_mockup.png" alt="login success mockup" /><div class="figcaption"><span class="title-label">图 8.7</span>：成功登录后显示的资料页面构思图</div></div>
 <p>此时，在现实开发中，我会考虑编写集成测试检测上面规划的行为。我在<a href="chapter3.html#aside-when-to-test">旁注 3.3</a> 中说过，当你熟练掌握 Rails 的测试工具后，会倾向于先写测试。但这个测试涉及到一些新知识，所以最好在专门的一节中编写（<a href="#testing-layout-changes">8.2.4 节</a>）。</p>
 <p>修改网站布局中的链接时要在 ERb 中使用 <code>if-else</code> 语句，用户登录时显示一组链接，未登录时显示另一组链接：</p>
 <div data-type="listing">
@@ -772,7 +772,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>为了编写这种代码，我们需要定义 <code>logged_in?</code> 方法，返回布尔值。</p>
 <p>用户登录后，当前用户存储在会话中，即 <code>current_user</code> 不是 <code>nil</code>。检测会话中有没有当前用户要使用“非”操作符（<a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>）。“非”操作符写做 <code>!</code>，经常读作“bang”。<code>logged_in?</code> 方法的定义如<a href="#listing-logged-in-p">代码清单 8.15</a> 所示。</p>
 <div id="listing-logged-in-p" data-type="listing">
-<h5><span class="title-label">代码清单 8.15：</span><code>logged_in?</code> 辅助方法</h5>
+<h5><span class="title-label">代码清单 8.15</span>：<code>logged_in?</code> 辅助方法</h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -833,7 +833,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>把这些链接都放到头部局部视图中，得到的视图如<a href="#listing-layout-login-logout-links">代码清单 8.16</a> 所示。</p>
 <div id="listing-layout-login-logout-links" data-type="listing">
-<h5><span class="title-label">代码清单 8.16：</span>修改布局中的链接</h5>
+<h5><span class="title-label">代码清单 8.16</span>：修改布局中的链接</h5>
 
 <div class="source-file">app/views/layouts/_header.html.erb</div>
 
@@ -841,7 +841,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <span class="x">  &lt;div class="container"&gt;</span>
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"sample app"</span><span class="p">,</span> <span class="n">root_path</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"logo"</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">    &lt;nav&gt;</span>
-<span class="x">      &lt;ul class="nav navbar-nav pull-right"&gt;</span>
+<span class="x">      &lt;ul class="nav navbar-nav navbar-right"&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Home"</span><span class="p">,</span> <span class="n">root_path</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="x">        &lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"Help"</span><span class="p">,</span> <span class="n">help_path</span> <span class="cp">%&gt;</span><span class="x">&lt;/li&gt;</span>
 <span class="hll"><span class="x">        </span><span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">logged_in?</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -870,7 +870,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>除了在布局中添加新链接之外，<a href="#listing-layout-login-logout-links">代码清单 8.16</a> 还借助 Bootstrap 实现了下拉菜单。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>注意这段代码中使用的几个 Bootstrap CSS 类：<code>dropdown</code>，<code>dropdown-menu</code> 等。为了让下拉菜单生效，我们要在 <code>application.js</code>（Asset Pipeline 的一部分）中引入 Bootstrap 提供的 JavaScript 库，如<a href="#listing-bootstrap-js">代码清单 8.17</a> 所示。</p>
 <div id="listing-bootstrap-js" data-type="listing">
-<h5><span class="title-label">代码清单 8.17：</span>在 <code>application.js</code> 中引入 Bootstrap JavaScript 库</h5>
+<h5><span class="title-label">代码清单 8.17</span>：在 <code>application.js</code> 中引入 Bootstrap JavaScript 库</h5>
 
 <div class="source-file">app/assets/javascripts/application.js</div>
 
@@ -882,7 +882,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </pre></div>
 </div>
 <p>现在，你应该访问登录页面，然后使用有效账户登录——这样足以测试前三节编写的代码表现是否正常。<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup>添加<a href="#listing-layout-login-logout-links">代码清单 8.16</a> 和<a href="#listing-bootstrap-js">代码清单 8.17</a> 中的代码后，应该能看到下拉菜单和只有已登录用户才能看到的链接，如<a href="#fig-profile-with-logout-link">图 8.8</a> 所示。如果关闭浏览器，还能确认应用确实忘了登录状态，必须再次登录才能看到上述改动。</p>
-<div id="fig-profile-with-logout-link" class="figure"><img src="images/chapter8/profile_with_logout_link_3rd_edition.png" alt="profile with logout link 3rd edition" /><div class="figcaption"><span class="title-label">图 8.8：</span>用户登录后看到了新添加的链接和下拉菜单</div></div>
+<div id="fig-profile-with-logout-link" class="figure"><img src="images/chapter8/profile_with_logout_link_3rd_edition.png" alt="profile with logout link 3rd edition" /><div class="figcaption"><span class="title-label">图 8.8</span>：用户登录后看到了新添加的链接和下拉菜单</div></div>
 </section>
 <section data-type="sect2" id="testing-layout-changes">
 <h2><span class="title-label">8.2.4.</span> 测试布局中的变化</h2>
@@ -924,7 +924,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>这行代码相当难懂，你无须完全理解，它的作用是严格实现前面的分析：在测试中耗时因子使用最小值，在生产环境则使用普通（最大）值。（<a href="chapter8.html#remember-me-checkbox">8.4.4 节</a>会深入介绍奇怪的 <code>?-:</code> 写法。）</p>
 <p><code>digest</code> 方法可以放在几个不同的地方，但 <a href="#remember-token-and-digest">8.4.1 节</a>会在用户模型中使用，所以建议放在 <code>user.rb</code> 中。因为计算摘要时不用获取用户对象，所以我们要把 <code>digest</code> 方法附在 <code>User</code> 类上，也就是定义为类方法（<a href="chapter4.html#constructors">4.4.1 节</a>简要介绍过）。结果如<a href="#listing-digest-method">代码清单 8.18</a> 所示。</p>
 <div id="listing-digest-method" data-type="listing">
-<h5><span class="title-label">代码清单 8.18：</span>定义固件中要使用的 <code>digest</code> 方法</h5>
+<h5><span class="title-label">代码清单 8.18</span>：定义固件中要使用的 <code>digest</code> 方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -949,7 +949,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>定义好 <code>digest</code> 方法后，我们可以创建一个有效的用户固件了，如<a href="#listing-real-user-fixture">代码清单 8.19</a> 所示。</p>
 <div id="listing-real-user-fixture" data-type="listing">
-<h5><span class="title-label">代码清单 8.19：</span>测试用户登录所需的固件</h5>
+<h5><span class="title-label">代码清单 8.19</span>：测试用户登录所需的固件</h5>
 
 <div class="source-file">test/fixtures/users.yml</div>
 
@@ -978,7 +978,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>其中，<code>users</code> 对应固件文件 <code>users.yml</code> 的文件名，<code>:michael</code> 是<a href="#listing-real-user-fixture">代码清单 8.19</a> 中定义的用户。</p>
 <p>定义好用户固件之后，现在可以把本节开头列出的操作步骤转换成代码了，如<a href="#listing-user-login-test-valid-information">代码清单 8.20</a> 所示。（注意，这段代码中的 <code>get</code> 和 <code>post</code> 两步严格来说没有关系，其实向控制器发起 <code>POST</code> 请求之前没必要向登录页面发起 <code>GET</code> 请求。我之所以加入这一步是为了明确表明操作步骤，以及确认渲染登录表单时没有错误。）</p>
 <div id="listing-user-login-test-valid-information" data-type="listing">
-<h5><span class="title-label">代码清单 8.20：</span>测试使用有效信息登录的情况 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.20</span>：测试使用有效信息登录的情况 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_login_test.rb</div>
 
@@ -1015,7 +1015,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p><code>count: 0</code> 参数的目的是，告诉 <code>assert_select</code>，我们期望页面中有零个匹配指定模式的链接。（<a href="chapter5.html#listing-layout-links-test">代码清单 5.25</a>中使用的是 <code>count: 2</code>，指定必须有两个匹配模式的链接。）</p>
 <p>因为应用代码已经能正常运行，所以这个测试应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.21：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.21</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test </span><span class="nv">TEST</span><span class="o">=</span><span class="nb">test</span>/integration/users_login_test.rb <span class="se">\</span>
@@ -1035,7 +1035,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <h2><span class="title-label">8.2.5.</span> 注册后直接登录</h2>
 <p>虽然现在基本完成了认证功能，但是新注册的用户可能还是会困惑，为什么注册后没有登录呢。注册后立即要求用户登录是很奇怪的，所以我们要在注册的过程中自动登入用户。为了实现这一功能，我们只需在用户控制器的 <code>create</code> 动作中调用 <code>log_in</code> 方法，如<a href="#listing-login-upon-signup">代码清单 8.22</a> 所示。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup></p>
 <div id="listing-login-upon-signup" data-type="listing">
-<h5><span class="title-label">代码清单 8.22：</span>注册后登入用户</h5>
+<h5><span class="title-label">代码清单 8.22</span>：注册后登入用户</h5>
 
 <div class="source-file">app/controllers/users_controller.rb</div>
 
@@ -1071,7 +1071,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>为了测试这个功能，我们可以在<a href="chapter7.html#listing-a-test-for-valid-submission">代码清单 7.26</a> 中添加一行代码，检查用户是否已经登录。我们可以定义一个 <code>is_logged_in?</code> 辅助方法，功能和<a href="#listing-logged-in-p">代码清单 8.15</a> 中的 <code>logged_in?</code> 方法一样，如果（测试环境的）会话中有用户的 ID 就返回 <code>true</code>，否则返回 <code>false</code>，如<a href="#listing-test-helper-sessions">代码清单 8.23</a> 所示。（我们不能像<a href="#listing-logged-in-p">代码清单 8.15</a> 那样使用 <code>current_user</code>，因为在测试中不能使用 <code>current_user</code> 方法，但是可以使用 <code>session</code> 方法。）我们定义的方法不是 <code>logged_in?</code>，而是 <code>is_logged_in?</code>——测试辅助方法和会话辅助方法名字不一样，以免混淆。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup></p>
 <div id="listing-test-helper-sessions" data-type="listing">
-<h5><span class="title-label">代码清单 8.23：</span>在测试中定义检查登录状态的方法，返回布尔值</h5>
+<h5><span class="title-label">代码清单 8.23</span>：在测试中定义检查登录状态的方法，返回布尔值</h5>
 
 <div class="source-file">test/test_helper.rb</div>
 
@@ -1091,7 +1091,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>然后，我们可以使用<a href="#listing-login-after-signup-test">代码清单 8.24</a> 中的测试检查注册后用户有没有登录。</p>
 <div id="listing-login-after-signup-test" data-type="listing">
-<h5><span class="title-label">代码清单 8.24：</span>测试注册后有没有登入用户 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.24</span>：测试注册后有没有登入用户 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_signup_test.rb</div>
 
@@ -1117,7 +1117,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>现在，测试组件应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.25：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.25</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1138,7 +1138,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>我们还要把当前用户设为 <code>nil</code>。不过在现在这种情况下做不做这一步都没关系，因为退出后会立即转向根地址。<sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup>和 <code>log_in</code> 及相关的方法一样，我们要把 <code>log_out</code> 方法放在会话辅助方法模块中，如<a href="#listing-log-out-method">代码清单 8.26</a> 所示。</p>
 <div id="listing-log-out-method" data-type="listing">
-<h5><span class="title-label">代码清单 8.26：</span><code>log_out</code> 方法</h5>
+<h5><span class="title-label">代码清单 8.26</span>：<code>log_out</code> 方法</h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -1161,7 +1161,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>然后，在会话控制器的 <code>destroy</code> 动作中调用 <code>log_out</code> 方法，如<a href="#listing-destroy-session">代码清单 8.27</a> 所示。</p>
 <div id="listing-destroy-session" data-type="listing">
-<h5><span class="title-label">代码清单 8.27：</span>销毁会话（退出用户）</h5>
+<h5><span class="title-label">代码清单 8.27</span>：销毁会话（退出用户）</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -1190,7 +1190,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>我们可以在<a href="#listing-user-login-test-valid-information">代码清单 8.20</a> 中的用户登录测试中添加一些步骤，测试退出功能。登录后，使用 <code>delete</code> 方法向退出地址（<a href="#table-restful-sessions">表 8.1</a>）发起 <code>DELETE</code> 请求，然后确认用户已经退出，而且重定向到了根地址。我们还要确认出现了登录链接，而且退出和资料页面的链接消失了。测试中新加入的步骤如<a href="#listing-user-logout-test">代码清单 8.28</a> 所示。</p>
 <div id="listing-user-logout-test" data-type="listing">
-<h5><span class="title-label">代码清单 8.28：</span>测试用户退出功能 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.28</span>：测试用户退出功能 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_login_test.rb</div>
 
@@ -1224,7 +1224,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>（现在可以在测试中使用 <code>is_logged_in?</code> 了，所以向登录地址发送有效信息之后，我们添加了 <code>assert is_logged_in?</code>。）</p>
 <p>定义并测试了 <code>destroy</code> 动作之后，注册、登录和退出三大功能就都实现了。现在测试组件应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.29：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.29</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1258,7 +1258,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </ol>
 <p>注意，最后一步和登入用户很相似：使用电子邮件地址取回用户，然后（使用 <code>authenticate</code> 方法）验证提交的密码和密码摘要是否匹配（<a href="#listing-find-authenticate-user">代码清单 8.5</a>）。所以，我们的实现方式和 <code>has_secure_password</code> 差不多。</p>
 <p>首先，我们把所需的 <code>remember_digest</code> 属性加入用户模型，如<a href="#fig-user-model-remember-digest">图 8.9</a> 所示。</p>
-<div id="fig-user-model-remember-digest" class="figure"><img src="images/chapter8/user_model_remember_digest.png" alt="user model remember digest" /><div class="figcaption"><span class="title-label">图 8.9：</span>添加 <code>remember_digest</code> 属性后的用户模型</div></div>
+<div id="fig-user-model-remember-digest" class="figure"><img src="images/chapter8/user_model_remember_digest.png" alt="user model remember digest" /><div class="figcaption"><span class="title-label">图 8.9</span>：添加 <code>remember_digest</code> 属性后的用户模型</div></div>
 <p>为了把<a href="#fig-user-model-remember-digest">图 8.9</a> 中的数据模型添加到应用中，我们要生成一个迁移：</p>
 <div data-type="listing">
 
@@ -1268,7 +1268,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>（可以和 <a href="chapter6.html#a-hashed-password">6.3.1 节</a>添加密码摘要的迁移比较一下。）和之前的迁移一样，迁移的名字以 <code>_to_users</code> 结尾，这么做是为了告诉 Rails 这个迁移是用来修改 <code>users</code> 表的。因为我们还指定了属性和类型，所以 Rails 会自动为我们生成迁移代码，如<a href="#listing-add-remember-digest-to-users-generated">代码清单 8.30</a> 所示。</p>
 <div id="listing-add-remember-digest-to-users-generated" data-type="listing">
-<h5><span class="title-label">代码清单 8.30：</span>生成的迁移，用来添加记忆摘要</h5>
+<h5><span class="title-label">代码清单 8.30</span>：生成的迁移，用来添加记忆摘要</h5>
 
 <div class="source-file">db/migrate/[timestamp]_add_remember_digest_to_users.rb</div>
 
@@ -1298,7 +1298,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>就像两个用户可以使用相同的密码一样，<sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup>记忆令牌也没必要是唯一的，不过如果唯一的话，安全性更高。<sup>[<a id="fn-ref-17" href="#fn-17">17</a>]</sup>对 base64 字符串来说，22 个字符中的每一个都有 64 种取值可能，所以两个记忆令牌“碰撞”的几率小到可以忽略，只有 1/64<sup>22</sup> = 2<sup>-132</sup> ≈ 10<sup>-40</sup>。而且，使用可在 URL 中安全使用的 base64 字符串（<code>urlsafe_base64</code> 方法的名字所示），我们还能在账户激活和密码重设链接中使用类似的令牌（<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>）。</p>
 <p>记住用户的登录状态要创建一个记忆令牌，并且在数据库中存储这个令牌的摘要。我们已经定义了 <code>digest</code> 方法，并且在测试固件中用过（<a href="#listing-digest-method">代码清单 8.18</a>）。基于上述分析，现在我们可以定义一个 <code>new_token</code> 方法，创建一个新令牌。和 <code>digest</code> 方法一样，新建令牌的方法也不需要用户对象，所以也定义为类方法，<sup>[<a id="fn-ref-18" href="#fn-18">18</a>]</sup>如<a href="#listing-token-method">代码清单 8.31</a> 所示。</p>
 <div id="listing-token-method" data-type="listing">
-<h5><span class="title-label">代码清单 8.31：</span>添加生成令牌的方法</h5>
+<h5><span class="title-label">代码清单 8.31</span>：添加生成令牌的方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1345,7 +1345,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>注意 <code>remember</code> 方法中第一行代码的赋值操作。根据 Ruby 处理对象内赋值操作的规则，如果没有 <code>self</code>，创建的是一个名为 <code>remember_token</code> 的本地变量——这并不是我们想要的行为。使用 <code>self</code> 的目的是确保把值赋给用户的 <code>remember_token</code> 属性。（现在你应该知道为什么 <code>before_save</code> 回调中要使用 <code>self.email</code>，而不是 <code>email</code> 了吧（<a href="chapter6.html#listing-email-downcase">代码清单 6.31</a>）。）<code>remember</code> 方法的第二行代码使用 <code>update_attribute</code> 方法更新记忆摘要。（<a href="chapter6.html#updating-user-objects">6.1.5 节</a>说过，这个方法会跳过验证。这里必须跳过验证，因为我们无法获取用户的密码和密码确认。）</p>
 <p>基于上述分析，创建有效令牌和摘要的方法是：首先使用 <code>User.new_token</code> 创建一个新记忆令牌，然后使用 <code>User.digest</code> 生成摘要，再更新数据库中的记忆摘要。实现这个步骤的 <code>remember</code> 方法如<a href="#listing-user-model-remember">代码清单 8.32</a> 所示。</p>
 <div id="listing-user-model-remember" data-type="listing">
-<h5><span class="title-label">代码清单 8.32：</span>在用户模型中添加 <code>remember</code> 方法 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.32</span>：在用户模型中添加 <code>remember</code> 方法 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1478,7 +1478,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>这种写法没使用 <code>==</code>，而是使用返回布尔值的 <code>is_password?</code> 方法进行比较。因为这么写意思更明确，所以，在应用代码中我们就这么写。</p>
 <p>基于上述分析，我们可以在用户模型中定义 <code>authenticated?</code> 方法，比较摘要和令牌。这个方法的作用类似于 <code>has_secure_password</code> 提供用来认证用户的 <code>authenticate</code> 方法（<a href="#listing-log-in-success">代码清单 8.13</a>）。<code>authenticated?</code> 方法的定义如<a href="#listing-authenticated-p">代码清单 8.33</a> 所示。</p>
 <div id="listing-authenticated-p" data-type="listing">
-<h5><span class="title-label">代码清单 8.33：</span>在用户模型中添加 <code>authenticated?</code> 方法</h5>
+<h5><span class="title-label">代码清单 8.33</span>：在用户模型中添加 <code>authenticated?</code> 方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1521,7 +1521,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>虽然<a href="#listing-authenticated-p">代码清单 8.33</a> 中的 <code>authenticated?</code> 方法和记忆令牌联系紧密，不过在其他情况下也很有用，<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>会改写这个方法，让它的使用范围更广。</p>
 <p>现在可以记住用户的登录状态了。我们要在 <code>log_in</code> 后面调用 <code>remember</code> 辅助方法，如<a href="#listing-log-in-with-remember">代码清单 8.34</a> 所示。</p>
 <div id="listing-log-in-with-remember" data-type="listing">
-<h5><span class="title-label">代码清单 8.34：</span>登录并记住登录状态</h5>
+<h5><span class="title-label">代码清单 8.34</span>：登录并记住登录状态</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -1551,7 +1551,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>和登录功能一样，<a href="#listing-log-in-with-remember">代码清单 8.34</a> 把真正的工作交给会话辅助方法完成。在会话辅助方法模块中，我们要定义一个名为 <code>remember</code> 的方法，调用 <code>user.remember</code>，从而生成一个记忆令牌，并把对应的摘要存入数据库；然后使用 <code>cookies</code> 创建永久 cookie，保存用户 ID 和记忆令牌。结果如<a href="#listing-remember-method">代码清单 8.35</a> 所示。</p>
 <div id="listing-remember-method" data-type="listing">
-<h5><span class="title-label">代码清单 8.35：</span>记住用户</h5>
+<h5><span class="title-label">代码清单 8.35</span>：记住用户</h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -1634,7 +1634,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>别被外观迷惑了，这不是比较语句（比较时应该使用双等号 <code>==</code>），而是赋值语句。如果读出来，不能念成“如果用户 ID 等于会话中的用户 ID”，应该是“如果会话中有用户的 ID，把会话中的 ID 赋值给 <code>user_id</code>”。<sup>[<a id="fn-ref-20" href="#fn-20">20</a>]</sup></p>
 <p>按照上述分析定义 <code>current_user</code> 辅助方法，如<a href="#listing-persistent-current-user">代码清单 8.36</a> 所示。</p>
 <div id="listing-persistent-current-user" data-type="listing">
-<h5><span class="title-label">代码清单 8.36：</span>更新 <code>current_user</code> 方法，支持持久会话 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 8.36</span>：更新 <code>current_user</code> 方法，支持持久会话 <span class="red">RED</span></h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -1679,10 +1679,10 @@ x    =   x   /   2      -&gt;     x     /=   2
 </pre></div>
 </div>
 <p>现在，新登录的用户能正确记住登录状态了。你可以确认一下：登录后关闭浏览器，再打开浏览器，重新访问演示应用，检查是否还是已登录状态。如果愿意，甚至还可以直接查看浏览器中的 cookie，如<a href="#fig-cookie-in-browser">图 8.10</a> 所示。<sup>[<a id="fn-ref-21" href="#fn-21">21</a>]</sup></p>
-<div id="fig-cookie-in-browser" class="figure"><img src="images/chapter8/cookie_in_browser_chrome.png" alt="cookie in browser chrome" /><div class="figcaption"><span class="title-label">图 8.10：</span>本地浏览器 cookie 中存储的记忆令牌</div></div>
+<div id="fig-cookie-in-browser" class="figure"><img src="images/chapter8/cookie_in_browser_chrome.png" alt="cookie in browser chrome" /><div class="figcaption"><span class="title-label">图 8.10</span>：本地浏览器 cookie 中存储的记忆令牌</div></div>
 <p>现在我们的应用还有一个问题：无法清除浏览器中的 cookie（除非等到 20 年后），因此用户无法退出。这正是测试应该捕获的问题，而且目前测试的确无法通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.37：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 8.37</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1693,7 +1693,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <h2><span class="title-label">8.4.3.</span> 忘记用户</h2>
 <p>为了让用户退出，我们要定义一些和记住用户相对的方法，忘记用户。最终实现的 <code>user.forget</code> 方法，把记忆摘要的值设为 <code>nil</code>，即撤销 <code>user.remember</code> 的操作，如<a href="#listing-user-model-forget">代码清单 8.38</a> 所示。</p>
 <div id="listing-user-model-forget" data-type="listing">
-<h5><span class="title-label">代码清单 8.38：</span>在用户模型中添加 <code>forget</code> 方法</h5>
+<h5><span class="title-label">代码清单 8.38</span>：在用户模型中添加 <code>forget</code> 方法</h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1740,7 +1740,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>然后我们可以定义 <code>forget</code> 辅助方法，忘记持久会话，然后在 <code>log_out</code> 辅助方法中调用 <code>forget</code>，如<a href="#listing-log-out-with-forget">代码清单 8.39</a> 所示。<code>forget</code> 方法先调用 <code>user.forget</code>，然后再从 cookie 中删除 <code>user_id</code> 和 <code>remember_token</code>。</p>
 <div id="listing-log-out-with-forget" data-type="listing">
-<h5><span class="title-label">代码清单 8.39：</span>退出持久会话</h5>
+<h5><span class="title-label">代码清单 8.39</span>：退出持久会话</h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -1810,7 +1810,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p><code>remember_digest</code> 的值是 <code>nil</code>，所以调用 <code>BCrypt::Password.new(remember_digest)</code> 时会抛出异常。而遇到这种情况时，我们希望 <code>authenticated?</code> 方法返回 <code>false</code>。</p>
 <p>这正是测试驱动开发的优势所在，所以在解决之前，我们先编写测试捕获这两个小问题。我们先让代码<a href="#listing-user-logout-test">清单 8.28</a> 中的集成测试失败，如<a href="#listing-test-double-logout">代码清单 8.40</a> 所示。</p>
 <div id="listing-test-double-logout" data-type="listing">
-<h5><span class="title-label">代码清单 8.40：</span>测试用户退出 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 8.40</span>：测试用户退出 <span class="red">RED</span></h5>
 
 <div class="source-file">test/integration/users_login_test.rb</div>
 
@@ -1845,7 +1845,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>第二个 <code>delete logout_path</code> 会抛出异常，因为没有当前用户，由此导致测试组件无法通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.41：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 8.41</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1853,7 +1853,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>在应用代码中，我们只需在 <code>logged_in?</code> 返回 <code>true</code> 时调用 <code>log_out</code> 即可，如<a href="#listing-destroy-forget">代码清单 8.42</a> 所示。</p>
 <div id="listing-destroy-forget" data-type="listing">
-<h5><span class="title-label">代码清单 8.42：</span>只有登录后才能退出 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.42</span>：只有登录后才能退出 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -1870,7 +1870,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>第二个问题涉及到两种不同的浏览器，在集成测试中很难模拟，不过直接在用户模型层测试很简单。我们只需创建一个没有记忆摘要的用户（<code>setup</code> 方法中定义的 <code>@user</code> 就没有），再调用 <code>authenticated?</code> 方法即可，如<a href="#listing-test-authenticated-invalid-token">代码清单 8.43</a> 所示。（注意，我们直接使用空记忆令牌，因为还没用到这个值之前就会发生错误。）</p>
 <div id="listing-test-authenticated-invalid-token" data-type="listing">
-<h5><span class="title-label">代码清单 8.43：</span>测试没有摘要时 <code>authenticated?</code> 方法的表现 <span class="red">RED</span></h5>
+<h5><span class="title-label">代码清单 8.43</span>：测试没有摘要时 <code>authenticated?</code> 方法的表现 <span class="red">RED</span></h5>
 
 <div class="source-file">test/models/user_test.rb</div>
 
@@ -1893,7 +1893,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p><code>BCrypt::Password.new(nil)</code> 会抛出异常，所以测试组件不能通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.44：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 8.44</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1901,7 +1901,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>为了修正这个问题，让测试通过，记忆摘要的值为 <code>nil</code> 时，<code>authenticated?</code> 要返回 <code>false</code>，如<a href="#listing-authenticated-p-fixed">代码清单 8.45</a> 所示。</p>
 <div id="listing-authenticated-p-fixed" data-type="listing">
-<h5><span class="title-label">代码清单 8.45：</span>更新 <code>authenticated?</code>，处理没有记忆摘要的情况 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.45</span>：更新 <code>authenticated?</code>，处理没有记忆摘要的情况 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -1931,7 +1931,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>这样写也行，但我喜欢明确返回的版本，而且也稍微简短一些。</p>
 <p>按照<a href="#listing-authenticated-p-fixed">代码清单 8.45</a> 修改之后，测试组件应该可以通过了，说明这两个小问题都解决了：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.46：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.46</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -1941,7 +1941,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <section data-type="sect2" id="remember-me-checkbox">
 <h2><span class="title-label">8.4.5.</span> “记住我”复选框</h2>
 <p>至此，我们的应用已经实现了完整且专业的认证系统。最后一步，我们来看一下如何使用“记住我”复选框让用户选择是否记住登录状态。包含这个复选框的登录表单构思图如<a href="#fig-login-remember-me-mockup">图 8.11</a> 所示。</p>
-<div id="fig-login-remember-me-mockup" class="figure"><img src="images/chapter8/login_remember_me_mockup.png" alt="login remember me mockup" /><div class="figcaption"><span class="title-label">图 8.11：</span>构思“记住我”复选框</div></div>
+<div id="fig-login-remember-me-mockup" class="figure"><img src="images/chapter8/login_remember_me_mockup.png" alt="login remember me mockup" /><div class="figcaption"><span class="title-label">图 8.11</span>：构思“记住我”复选框</div></div>
 <p>为了实现这个构思，我们首先要在登录表单（<a href="#listing-login-form">代码清单 8.2</a>）中添加一个复选框。和标注（label）、文本字段、密码字段和提交按钮一样，复选框也可以使用 Rails 辅助方法创建。不过，为了得到正确的样式，我们要把复选框嵌套在标注中，如下所示：</p>
 <div data-type="listing">
 
@@ -1954,7 +1954,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>把这段代码添加到登录表单后，得到的视图如<a href="#listing-remember-me-checkbox">代码清单 8.47</a> 所示。</p>
 <div id="listing-remember-me-checkbox" data-type="listing">
-<h5><span class="title-label">代码清单 8.47：</span>在登录表单中添加“记住我”复选框</h5>
+<h5><span class="title-label">代码清单 8.47</span>：在登录表单中添加“记住我”复选框</h5>
 
 <div class="source-file">app/views/sessions/new.html.erb</div>
 
@@ -1966,7 +1966,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="ss">:session</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">login_path</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
 
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -1986,7 +1986,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p><a href="#listing-remember-me-checkbox">代码清单 8.47</a> 中使用了 CSS 类 <code>checkbox</code> 和 <code>inline</code>，Bootstrap 使用这两个类把复选框和文本（“Remember me on this computer”）放在同一行。为了完善样式，我们还要再定义一些 CSS 规则，如<a href="#listing-remember-me-css">代码清单 8.48</a> 所示。得到的登录表单如<a href="#fig-login-form-remember-me">图 8.12</a> 所示。</p>
 <div id="listing-remember-me-css" data-type="listing">
-<h5><span class="title-label">代码清单 8.48：</span>“记住我”复选框的 CSS 规则</h5>
+<h5><span class="title-label">代码清单 8.48</span>：“记住我”复选框的 CSS 规则</h5>
 
 <div class="source-file">app/assets/stylesheets/custom.css.scss</div>
 
@@ -2012,7 +2012,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <span class="p">}</span>
 </pre></div>
 </div>
-<div id="fig-login-form-remember-me" class="figure"><img src="images/chapter8/login_form_remember_me.png" alt="login form remember me" /><div class="figcaption"><span class="title-label">图 8.12：</span>添加“记住我”复选框后的登录表单</div></div>
+<div id="fig-login-form-remember-me" class="figure"><img src="images/chapter8/login_form_remember_me.png" alt="login form remember me" /><div class="figcaption"><span class="title-label">图 8.12</span>：添加“记住我”复选框后的登录表单</div></div>
 <p>修改登录表单后，当用户勾选这个复选框后，要记住用户的登录状态，否则不记住。因为前一节的工作做得很好，现在实现起来只需一行代码就行。提交登录表单后，<code>params</code> 哈希中包含一个基于复选框状态的值（你可以使用有效信息填写登录表单，然后提交，看一下页面底部的调试信息）。如果勾选了复选框，<code>params[:session][:remember_me]</code> 的值是 <code>'1'</code>，否则是 <code>'0'</code>。</p>
 <p>我们可以检查 <code>params</code> 哈希中的相关值，根据提交的值决定是否记住用户：</p>
 <div data-type="listing">
@@ -2034,7 +2034,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>在会话控制器的 <code>create</code> 动作中加入这行代码后，得到的是非常简洁的代码，如<a href="#listing-remember-me-ternary">代码清单 8.49</a> 所示。（现在你应该可以理解<a href="#listing-digest-method">代码清单 8.18</a>中使用三元操作符定义 <code>cost</code> 变量的代码了。）</p>
 <div id="listing-remember-me-ternary" data-type="listing">
-<h5><span class="title-label">代码清单 8.49：</span>处理提交的“记住我”复选框</h5>
+<h5><span class="title-label">代码清单 8.49</span>：处理提交的“记住我”复选框</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -2156,7 +2156,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>把上面的注释换成代码后得到的 <code>log_in_as</code> 辅助方法如<a href="#listing-test-helper-log-in">代码清单 8.50</a> 所示。（这个方法相当高级，如果不能完全理解也没事。）</p>
 <div id="listing-test-helper-log-in" data-type="listing">
-<h5><span class="title-label">代码清单 8.50：</span>添加 <code>log_in_as</code> 辅助方法</h5>
+<h5><span class="title-label">代码清单 8.50</span>：添加 <code>log_in_as</code> 辅助方法</h5>
 
 <div class="source-file">test/test_helper.rb</div>
 
@@ -2234,7 +2234,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>可以获得我们所需的值。写出的测试如<a href="#listing-remember-me-test">代码清单 8.51</a> 所示。（<a href="#listing-user-login-test-valid-information">代码清单 8.20</a> 中用过 <code>users(:michael)</code>，它的作用是获取<a href="#listing-real-user-fixture">代码清单 8.19</a> 中的用户固件。）</p>
 <div id="listing-remember-me-test" data-type="listing">
-<h5><span class="title-label">代码清单 8.51：</span>测试“记住我”复选框 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.51</span>：测试“记住我”复选框 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_login_test.rb</div>
 
@@ -2262,7 +2262,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>如果你没犯我曾经犯过的错误，测试应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.52：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.52</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -2273,7 +2273,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <h3>测试“记住”分支</h3>
 <p>在<a href="#login-with-remembering">8.4.2 节</a>，我们自己动手确认了前面实现的持久会话可以正常使用，但是 <code>current_user</code> 方法的相关分支完全没有测试。针对这种情况，我最喜欢在未测试的代码块中抛出异常：如果没覆盖这部分代码，测试能通过；如果覆盖了，失败消息中会标识出相应的测试。如<a href="#listing-branch-raise">代码清单 8.53</a> 所示。</p>
 <div id="listing-branch-raise" data-type="listing">
-<h5><span class="title-label">代码清单 8.53：</span>在未测试的分支中抛出异常 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.53</span>：在未测试的分支中抛出异常 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -2302,7 +2302,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>现在，测试应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.54：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.54</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -2330,7 +2330,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </ol>
 <p>因为 <code>remember</code> 方法没有设定 <code>session[:user_id]</code>，所以上述步骤能测试“记住”分支。测试如<a href="#listing-persistent-sessions-test">代码清单 8.55</a> 所示。</p>
 <div id="listing-persistent-sessions-test" data-type="listing">
-<h5><span class="title-label">代码清单 8.55：</span>测试持久会话</h5>
+<h5><span class="title-label">代码清单 8.55</span>：测试持久会话</h5>
 
 <div class="source-file">test/helpers/sessions_helper_test.rb</div>
 
@@ -2364,7 +2364,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p><a href="#listing-persistent-sessions-test">代码清单 8.55</a> 中的测试应该失败：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.56：</span><strong class="red">RED</strong></h5>
+<h5><span class="title-label">代码清单 8.56</span>：<strong class="red">RED</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test </span><span class="nv">TEST</span><span class="o">=</span><span class="nb">test</span>/helpers/sessions_helper_test.rb
@@ -2372,7 +2372,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>我们要删除 <code>raise</code>，把 <code>current_user</code> 方法恢复原样，如<a href="#listing-branch-no-raise">代码清单 8.57</a> 所示，这样测试就能通过了。（你还可以把<a href="#listing-branch-no-raise">代码清单 8.57</a> 中的 <code>authenticated?</code> 删除，看看<a href="#listing-persistent-sessions-test">代码清单 8.55</a> 中的测试是否失败，从而确认第二个测试编写的是否正确。）</p>
 <div id="listing-branch-no-raise" data-type="listing">
-<h5><span class="title-label">代码清单 8.57：</span>删除抛出异常的代码 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.57</span>：删除抛出异常的代码 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/helpers/sessions_helper.rb</div>
 
@@ -2400,7 +2400,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>现在，测试组件应该可以通过：</p>
 <div data-type="listing">
-<h5><span class="title-label">代码清单 8.58：</span><strong class="green">GREEN</strong></h5>
+<h5><span class="title-label">代码清单 8.58</span>：<strong class="green">GREEN</strong></h5>
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>
@@ -2499,7 +2499,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </li>
 </ol>
 <div id="listing-token-digest-self" data-type="listing">
-<h5><span class="title-label">代码清单 8.59：</span>使用 <code>self</code> 定义生成令牌和摘要的方法 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.59</span>：使用 <code>self</code> 定义生成令牌和摘要的方法 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -2525,7 +2525,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </pre></div>
 </div>
 <div id="listing-token-digest-class-self" data-type="listing">
-<h5><span class="title-label">代码清单 8.60：</span>使用 <code>class &lt;&lt; self</code> 定义生成令牌和摘要的方法 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.60</span>：使用 <code>class &lt;&lt; self</code> 定义生成令牌和摘要的方法 <span class="green">GREEN</span></h5>
 
 <div class="source-file">app/models/user.rb</div>
 
@@ -2552,7 +2552,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </pre></div>
 </div>
 <div id="listing-login-create-user-instance" data-type="listing">
-<h5><span class="title-label">代码清单 8.61：</span>在 <code>create</code> 动作中使用实例变量的模板</h5>
+<h5><span class="title-label">代码清单 8.61</span>：在 <code>create</code> 动作中使用实例变量的模板</h5>
 
 <div class="source-file">app/controllers/sessions_controller.rb</div>
 
@@ -2581,7 +2581,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </pre></div>
 </div>
 <div id="listing-improved-remember-me-test" data-type="listing">
-<h5><span class="title-label">代码清单 8.62：</span>改进后的“记住我”复选框测试模板 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 8.62</span>：改进后的“记住我”复选框测试模板 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/integration/users_login_test.rb</div>
 
