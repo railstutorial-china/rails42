@@ -50,7 +50,7 @@
 <h1><span class="title-label">第 9 章</span> 更新，显示和删除用户</h1>
 <p>本章我们要完成用户资源的 REST 动作（<a href="chapter7.html#table-restful-users">表 7.1</a>），添加 <code>edit</code>、<code>update</code>、<code>index</code> 和 <code>destroy</code> 动作。首先我们要实现更新用户个人资料的功能，并借此实现权限机制（基于<a href="chapter8.html#log-in-log-out">第 8 章</a>实现的认证系统）。然后要创建一个页面，列出所有用户（也需要认证），期间会介绍如何使用示例数据和分页。最后，我们还要实现删除用户的功能，从数据库中删除用户记录。我们不会为所有用户都提供这种强大的功能，而是创建管理员，授权他们来删除用户。</p>
 <section data-type="sect1" id="updating-users">
-<h1><span class="title-label">9.1.</span> 更新用户</h1>
+<h1><span class="title-label">9.1</span> 更新用户</h1>
 <p>编辑用户信息的方法和创建新用户差不多（参见<a href="chapter7.html#sign-up">第 7 章</a>），创建新用户的页面在 <code>new</code> 动作中处理，而编辑用户的页面在 <code>edit</code> 动作中处理；创建用户的过程在 <code>create</code> 动作中处理 <code>POST</code> 请求，编辑用户要在 <code>update</code> 动作中处理 <code>PATCH</code> 请求（<a href="chapter3.html#aside-get-etc">旁注 3.2</a>）。二者之间最大的区别是，任何人都可以注册，但只有当前用户才能更新自己的信息。我们可以使用<a href="chapter8.html#log-in-log-out">第 8 章</a>实现的认证机制，通过“事前过滤器”（before filter）实现访问限制。</p>
 <p>开始实现之前，我们先切换到 <code>updating-users</code> 主题分支：</p>
 <div data-type="listing">
@@ -61,7 +61,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="edit-form">
-<h2><span class="title-label">9.1.1.</span> 编辑表单</h2>
+<h2><span class="title-label">9.1.1</span> 编辑表单</h2>
 <p>我们先来创建编辑表单，构思图如<a href="#fig-edit-user-mockup">图 9.1 所示</a>。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup>要把这个构思图转换成可以使用的页面，我们既要编写用户控制器的 <code>edit</code> 动作，也要创建编辑用户的视图。我们先来编写 <code>edit</code> 动作。在 <code>edit</code> 动作中我们要从数据库中读取相应的用户。由<a href="chapter7.html#table-restful-users">表 7.1</a> 得知，用户的编辑页面地址是 /users/1/edit（假设用户的 ID 是 1）。我们知道用户的 ID 可以使用 <code>params[:id]</code> 获取，那么就可以使用<a href="#listing-initial-edit-action">代码清单 9.1</a> 中的代码查找用户。</p>
 <div id="listing-initial-edit-action" data-type="listing">
 <h5><span class="title-label">代码清单 9.1</span>：用户控制器的 <code>edit</code> 动作</h5>
@@ -223,7 +223,7 @@
 </div>
 </section>
 <section data-type="sect2" id="unsuccessful-edits">
-<h2><span class="title-label">9.1.2.</span> 编辑失败</h2>
+<h2><span class="title-label">9.1.2</span> 编辑失败</h2>
 <p>本节我们要处理编辑失败的情况，过程和处理注册失败差不多（<a href="chapter7.html#unsuccessful-signups">7.3 节</a>）。我们要先定义 <code>update</code> 动作，把提交的 <code>params</code> 哈希传给 <code>update_attributes</code> 方法（<a href="chapter6.html#updating-user-objects">6.1.5 节</a>），更新用户，如<a href="#listing-user-update-action-unsuccessful">代码清单 9.5</a> 所示。如果提交的数据无效，更新操作会返回 <code>false</code>，由 <code>else</code> 分支处理，重新渲染编辑页面。我们之前用过类似的处理方式，代码结构和第一个版本的 <code>create</code> 动作类似（<a href="chapter7.html#listing-first-create-action">代码清单 7.16</a>）。</p>
 <div id="listing-user-update-action-unsuccessful" data-type="listing">
 <h5><span class="title-label">代码清单 9.5</span>：<code>update</code> 动作初始版本</h5>
@@ -278,7 +278,7 @@
 <div id="fig-buggy-edit-with-invalid-information" class="figure"><img src="images/chapter9/edit_with_invalid_information_3rd_edition.png" alt="edit with invalid information 3rd edition" /><div class="figcaption"><span class="title-label">图 9.3</span>：提交编辑表单后显示的错误消息</div></div>
 </section>
 <section data-type="sect2" id="testing-unsuccessful-edits">
-<h2><span class="title-label">9.1.3.</span> 编辑失败的测试</h2>
+<h2><span class="title-label">9.1.3</span> 编辑失败的测试</h2>
 <p><a href="#unsuccessful-edits">9.1.2 节</a>结束时编辑表单已经可以使用，按照<a href="chapter3.html#aside-when-to-test">旁注 3.3</a> 中的测试指导方针，现在我们要编写集成测试捕获回归。和之前一样，首先要生成一个集成测试文件：</p>
 <div data-type="listing">
 
@@ -323,7 +323,7 @@
 </div>
 </section>
 <section data-type="sect2" id="successful-edits">
-<h2><span class="title-label">9.1.4.</span> 编辑成功（使用 TDD）</h2>
+<h2><span class="title-label">9.1.4</span> 编辑成功（使用 TDD）</h2>
 <p>现在我们要让编辑表单能正常使用。编辑头像的功能已经有了，因为我们把上传头像的操作交由 Gravatar 处理，如需更换头像，点击<a href="#fig-edit-page">图 9.2</a> 中的“change”链接就可以了，如<a href="#fig-gravatar-cropper">图 9.4</a> 所示。下面我们来实现编辑其他信息的功能。</p>
 <div id="fig-gravatar-cropper" class="figure"><img src="images/chapter9/gravatar_cropper.png" alt="gravatar cropper" /><div class="figcaption"><span class="title-label">图 9.4</span>：Gravatar 的图片剪切界面，上传了一个<a href="http://www.michaelhartl.com/">帅哥</a>的图片</div></div>
 <p>上手测试后，你可能会发现，编写应用代码之前编写测试比之后再写更有用。针对现在这种情况，我们要编写的是“验收测试”（acceptance test），由测试的结果决定某个功能是否完成。为了演示如何编写验收测试，我们要使用测试驱动开发技术完成用户编辑功能。</p>
@@ -419,13 +419,13 @@
 </section>
 </section>
 <section data-type="sect1" id="authorization">
-<h1><span class="title-label">9.2.</span> 权限系统</h1>
+<h1><span class="title-label">9.2</span> 权限系统</h1>
 <p>在 Web 应用中，认证系统的功能是识别网站的用户，权限系统是控制用户可以做什么操作。<a href="chapter8.html#log-in-log-out">第 8 章</a>实现的认证机制有一个很好的作用，可以实现权限系统。</p>
 <p>虽然 <a href="#updating-users">9.1 节</a>已经完成了 <code>edit</code> 和 <code>update</code> 动作，但是却有一个荒唐的安全隐患：任何人（甚至是未登录的用户）都可以访问这两个动作，而且登录后的用户可以更新所有其他用户的资料。本节我们要实现一种安全机制，限制用户必须先登录才能更新自己的资料，而且不能更新别人的资料。</p>
 <p><a href="#requiring-logged-in-users">9.2.1 节</a>要处理未登录用户试图访问有权访问的保护页面。因为在使用应用的过程中经常会发生这种情况，所以我们要把这些用户转向登录页面，而且会显示一个帮助消息，构思图如<a href="#fig-login-page-protected-mockup">图 9.6</a> 所示。另一种情况是，用户尝试访问没有权限查看的页面（例如已登录的用户试图访问其他用户的编辑页面），此时要把用户重定向到根地址（<a href="#requiring-the-right-user">9.2.2 节</a>）。</p>
 <div id="fig-login-page-protected-mockup" class="figure"><img src="images/chapter9/login_page_protected_mockup.png" alt="login page protected mockup" /><div class="figcaption"><span class="title-label">图 9.6</span>：访问受保护页面时看到的页面构思图</div></div>
 <section data-type="sect2" id="requiring-logged-in-users">
-<h2><span class="title-label">9.2.1.</span> 必须先登录</h2>
+<h2><span class="title-label">9.2.1</span> 必须先登录</h2>
 <p>为了实现<a href="#fig-login-page-protected-mockup">图 9.6</a> 中的转向功能，我们要在用户控制器中使用“事前过滤器”。事前过滤器通过 <code>before_action</code> 方法设定，指定在某个动作运行前调用一个方法。<sup>[<a id="fn-ref-3" href="#fn-3">3</a>]</sup>为了实现要求用户先登录的限制，我们要定义一个名为 <code>logged_in_user</code> 的方法，然后使用 <code>before_action :logged_in_user</code> 调用这个方法，如<a href="#listing-authorize-before-filter">代码清单 9.12</a> 所示。</p>
 <div id="listing-authorize-before-filter" data-type="listing">
 <h5><span class="title-label">代码清单 9.12</span>：添加 <code>logged_in_user</code> 事前过滤器 <span class="red">RED</span></h5>
@@ -594,7 +594,7 @@
 <p>如果不小心让未授权的用户能访问 <code>edit</code> 动作，现在测试组件能立即捕获。</p>
 </section>
 <section data-type="sect2" id="requiring-the-right-user">
-<h2><span class="title-label">9.2.2.</span> 用户只能编辑自己的资料</h2>
+<h2><span class="title-label">9.2.2</span> 用户只能编辑自己的资料</h2>
 <p>当然，要求用户必须先登录还不够，用户必须只能编辑自己的资料。由 <a href="#requiring-logged-in-users">9.2.1 节</a>得知，测试组件很容易漏掉基本的安全缺陷，所以我们要使用测试驱动开发技术确保写出的代码能正确实现安全机制。为此，我们要在用户控制器的测试中添加一些测试，完善<a href="#listing-edit-update-redirect-tests">代码清单 9.17</a>。</p>
 <p>为了确保用户不能编辑其他用户的信息，我们需要登入第二个用户。所以，在用户固件文件中要再添加一个用户，如<a href="#listing-fixture-second-user">代码清单 9.20</a> 所示。</p>
 <div id="listing-fixture-second-user" data-type="listing">
@@ -812,7 +812,7 @@
 </div>
 </section>
 <section data-type="sect2" id="friendly-forwarding">
-<h2><span class="title-label">9.2.3.</span> 友好的转向</h2>
+<h2><span class="title-label">9.2.3</span> 友好的转向</h2>
 <p>网站的权限系统完成了，但是还有一个小瑕疵：不管用户尝试访问的是哪个受保护的页面，登录后都会重定向到资料页面。也就是说，如果未登录的用户访问了编辑资料页面，网站要求先登录，登录后会重定向到 /users/1，而不是 /users/1/edit。如果登录后能重定向到用户之前想访问的页面就更好了。</p>
 <p>实现这种需求所需的应用代码有点儿复杂，不过测试很简单，我们只需把<a href="#listing-edit-tests-logged-in">代码清单 9.14</a> 中登录和访问编辑页面两个操作调换顺序即可。如<a href="#listing-friendly-forwarding-test">代码清单 9.26</a> 所示，最终写出的测试先访问编辑页面，然后登录，最后确认把用户重定向到了编辑页面，而不是资料页面。</p>
 <div id="listing-friendly-forwarding-test" data-type="listing">
@@ -962,11 +962,11 @@
 </section>
 </section>
 <section data-type="sect1" id="showing-all-users">
-<h1><span class="title-label">9.3.</span> 列出所有用户</h1>
+<h1><span class="title-label">9.3</span> 列出所有用户</h1>
 <p>本节，我们要添加倒数第二个用户控制器动作，<code>index</code>。<code>index</code> 动作不是显示某一个用户，而是显示所有用户。在这个过程中，我们要学习如何在数据库中生成示例用户数据，以及如何分页显示用户列表，让首页显示任意数量的用户。用户列表、分页链接和“Users”（所有用户）导航链接的构思图如<a href="#fig-user-index-mockup">图 9.8</a> 所示。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup><a href="#deleting-users">9.4 节</a>会添加管理功能，用来删除用户。</p>
 <div id="fig-user-index-mockup" class="figure"><img src="images/chapter9/user_index_mockup_bootstrap.png" alt="user index mockup bootstrap" /><div class="figcaption"><span class="title-label">图 9.8</span>：用户列表页面的构思图</div></div>
 <section data-type="sect2" id="users-index">
-<h2><span class="title-label">9.3.1.</span> 用户列表</h2>
+<h2><span class="title-label">9.3.1</span> 用户列表</h2>
 <p>创建用户列表之前，我们先要实现一个安全机制。单个用户的资料页面对网站的所有访问者开放，但要限制用户列表页面，只让已登录的用户查看，减少未注册用户能看到的信息量。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup></p>
 <p>为了限制访问 <code>index</code> 动作，我们先编写一个简短的测试，确认应用会正确重定向 <code>index</code> 动作，如<a href="#listing-index-action-redirected-test">代码清单 9.31</a> 所示。</p>
 <div id="listing-index-action-redirected-test" data-type="listing">
@@ -1126,7 +1126,7 @@
 <div id="fig-user-index-only-one" class="figure"><img src="images/chapter9/user_index_only_one_3rd_edition.png" alt="user index only one 3rd edition" /><div class="figcaption"><span class="title-label">图 9.9</span>：用户列表页面，只显示了一个用户</div></div>
 </section>
 <section data-type="sect2" id="sample-users">
-<h2><span class="title-label">9.3.2.</span> 示例用户</h2>
+<h2><span class="title-label">9.3.2</span> 示例用户</h2>
 <p>本节，我们要为应用添加更多的用户。为了让用户列表看上去像个“列表”，我们可以在浏览器中访问注册页面，一个一个地注册用户，不过还有更好的方法，让 Ruby（和 Rake）为我们创建用户。</p>
 <p>首先，我们要在 <code>Gemfile</code> 中加入 <code>faker</code> gem，如<a href="#listing-faker-gemfile">代码清单 9.38</a> 所示。这个 gem 会使用半真实的名字和电子邮件地址创建示例用户。</p>
 <div id="listing-faker-gemfile" data-type="listing">
@@ -1186,7 +1186,7 @@
 <div id="fig-user-index-all" class="figure"><img src="images/chapter9/user_index_all_3rd_edition.png" alt="user index all 3rd edition" /><div class="figcaption"><span class="title-label">图 9.10</span>：用户列表页面，显示了 100 个示例用户</div></div>
 </section>
 <section data-type="sect2" id="pagination">
-<h2><span class="title-label">9.3.3.</span> 分页</h2>
+<h2><span class="title-label">9.3.3</span> 分页</h2>
 <p>现在，最初的那个用户不再孤单了，但是又出现了新问题：用户太多，全在一个页面中显示。现在的用户数量是 100 个，算是少的了，在真实的网站中，这个数量可能是以千计的。为了避免在一页中显示过多的用户，我们可以分页，一页只显示 30 个用户。</p>
 <p>在 Rails 中有很多实现分页的方法，我们要使用其中一个最简单也最完善的，叫 <a href="http://wiki.github.com/mislav/will_paginate/">will_paginate</a>。为此，我们要使用 <code>will_paginate</code> 和 <code>bootstrap-will_paginate</code> 这两个 gem。其中，<code>bootstrap-will_paginate</code> 的作用是设置 will_paginate 使用 Bootstrap 提供的分页样式。修改后的 <code>Gemfile</code> 如<a href="#listing-will-paginate-gem">代码清单 9.40</a> 所示。</p>
 <div id="listing-will-paginate-gem" data-type="listing">
@@ -1274,7 +1274,7 @@
 <div id="fig-user-index-page-two-rails-3" class="figure"><img src="images/chapter9/user_index_page_two_3rd_edition.png" alt="user index page two 3rd edition" /><div class="figcaption"><span class="title-label">图 9.12</span>：用户列表的第二页</div></div>
 </section>
 <section data-type="sect2" id="users-index-test">
-<h2><span class="title-label">9.3.4.</span> 用户列表页面的测试</h2>
+<h2><span class="title-label">9.3.4</span> 用户列表页面的测试</h2>
 <p>现在用户列表页面可以正常使用了，接下来要为这个页面编写一些简单的测试，其中一个测试前一节实现的分页。测试的步骤是，先登录，然后访问用户列表页面，确认第一页显示了一些用户，而且还显示了分页链接。为此，测试数据库中要有能足够数量的用户，足以分页才行，即超过 30 个。</p>
 <p>我们在<a href="#listing-fixture-second-user">代码清单 9.20</a> 中创建了第二个用户固件，但手动创建 30 多个用户，工作量有点大。不过，由固件中的 <code>password_digest</code> 属性得知，固件文件支持嵌入式 Ruby，所以我们可以使用<a href="#listing-users-fixtures-extra-users">代码清单 9.43</a> 中的代码，再创建 30 个用户。（<a href="#listing-users-fixtures-extra-users">代码清单 9.43</a> 还多创建了几个用户，以备后用。）</p>
 <div id="listing-users-fixtures-extra-users" data-type="listing">
@@ -1355,7 +1355,7 @@
 </div>
 </section>
 <section data-type="sect2" id="partial-refactoring">
-<h2><span class="title-label">9.3.5.</span> 使用局部视图重构</h2>
+<h2><span class="title-label">9.3.5</span> 使用局部视图重构</h2>
 <p>用户列表页面现在已经可以显示分页了，但是有个地方可以改进，我不得不介绍一下。Rails 提供了一些很巧妙的方法，可以精简视图的结构。本节我们要利用这些方法重构一下用户列表页面。因为我们已经做了很好的测试，所以可以放心重构，不必担心会破坏网站的功能。</p>
 <p>重构的第一步，把<a href="#listing-will-paginate-index-view">代码清单 9.41</a> 中的 <code>li</code> 换成 <code>render</code> 方法调用，如<a href="#listing-index-view-first-refactoring">代码清单 9.46</a> 所示。</p>
 <div id="listing-index-view-first-refactoring" data-type="listing">
@@ -1419,11 +1419,11 @@
 </section>
 </section>
 <section data-type="sect1" id="deleting-users">
-<h1><span class="title-label">9.4.</span> 删除用户</h1>
+<h1><span class="title-label">9.4</span> 删除用户</h1>
 <p>至此，用户列表页面完成了。符合 REST 架构的用户资源只剩下最后一个了——<code>destroy</code> 动作。本节，我们会先添加删除用户的链接（构思图如<a href="#fig-user-index-delete-links-mockup">图 9.13</a> 所示），然后再编写 <code>destroy</code> 动作，完成删除操作。不过，首先我们要先创建管理员级别的用户，并授权这些用户执行删除操作。</p>
 <div id="fig-user-index-delete-links-mockup" class="figure"><img src="images/chapter9/user_index_delete_links_mockup_bootstrap.png" alt="user index delete links mockup bootstrap" /><div class="figcaption"><span class="title-label">图 9.13</span>：显示有删除链接的用户列表页面构思图</div></div>
 <section data-type="sect2" id="administrative-users">
-<h2><span class="title-label">9.4.1.</span> 管理员</h2>
+<h2><span class="title-label">9.4.1</span> 管理员</h2>
 <p>我们要通过用户模型中一个名为 <code>admin</code> 的属性来判断用户是否具有管理员权限。<code>admin</code> 属性的类型为布尔值，Active Record 会自动生成一个 <code>admin?</code> 方法，返回布尔值，判断用户是否为管理员。添加 <code>admin</code> 属性后，用户数据模型如<a href="#fig-user-model-admin">图 9.14</a> 所示。</p>
 <div id="fig-user-model-admin" class="figure"><img src="images/chapter9/user_model_admin_3rd_edition.png" alt="user model admin 3rd edition" /><div class="figcaption"><span class="title-label">图 9.14</span>：添加 <code>admin</code> 布尔值属性后的用户模型</div></div>
 <p>和之前一样，我们要使用迁移添加 <code>admin</code> 属性，并且在命令行中指定其类型为 <code>boolean</code>：</p>
@@ -1523,7 +1523,7 @@
 </section>
 </section>
 <section data-type="sect2" id="the-destroy-action">
-<h2><span class="title-label">9.4.2.</span> <code>destroy</code> 动作</h2>
+<h2><span class="title-label">9.4.2</span> <code>destroy</code> 动作</h2>
 <p>完成用户资源的最后一步是，添加删除链接和 <code>destroy</code> 动作。我们先在用户列表页面每个用户后面加入一个删除链接，而且限制只有管理员才能执行删除操作。只有当前用户是管理员才能看到删除链接。视图如<a href="#listing-delete-links">代码清单 9.52</a> 所示。</p>
 <div id="listing-delete-links" data-type="listing">
 <h5><span class="title-label">代码清单 9.52</span>：删除用户的链接（只有管理员能看到）</h5>
@@ -1600,7 +1600,7 @@
 </div>
 </section>
 <section data-type="sect2" id="user-destroy-tests">
-<h2><span class="title-label">9.4.3.</span> 删除用户的测试</h2>
+<h2><span class="title-label">9.4.3</span> 删除用户的测试</h2>
 <p>像删除用户这种危险的操作，一定要编写测试，确保表现和预期一样。首先，我们把一个用户固件设为管理员，如<a href="#listing-fixture-user-admin">代码清单 9.55</a> 所示。</p>
 <div id="listing-fixture-user-admin" data-type="listing">
 <h5><span class="title-label">代码清单 9.55</span>：把一个用户固件设为管理员</h5>
@@ -1734,7 +1734,7 @@
 </section>
 </section>
 <section data-type="sect1" id="updating-showing-and-deleting-users-conclusion">
-<h1><span class="title-label">9.5.</span> 小结</h1>
+<h1><span class="title-label">9.5</span> 小结</h1>
 <p>我们用了好几章介绍如何实现用户资源，在 <a href="chapter5.html#user-signup-a-first-step">5.4 节</a>用户还不能注册，而现在不仅可以注册，还可以登录、退出、查看个人信息、修改信息，还能浏览网站中所有用户的列表，某些用户甚至可以删除其他用户。</p>
 <p>现阶段实现的演示应用建立了坚实的基础，完全可用于任何需要认证用户和权限系统的网站。<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>会实现两个附加功能：向新注册的用户发送账户激活链接（同时验证电子邮件地址有效），以及密码重设功能，帮助忘记密码的用户。</p>
 <p>在继续阅读之前，先把本章所做的改动合并到 <code>master</code> 分支：</p>
@@ -1763,7 +1763,7 @@
 <p>当然，在真实的网站中你或许并不想向数据库中添加示例数据，我加入这个操作只是为了查看生产环境中的效果（<a href="#fig-heroku-sample-users">图 9.16</a>）。生产环境显示的示例用户顺序各异，我的网站显示的顺序就和本地不同（<a href="#fig-user-index-pagination">图 9.11</a>）。这是因为，我们没有指定从数据库中取回用户的顺序，所以目前的顺序由数据库决定。这对用户而言没什么问题，但微博就不同了，我们会在 <a href="chapter11.html#micropost-refinements">11.1.4 节</a>解决这个问题。</p>
 <div id="fig-heroku-sample-users" class="figure"><img src="images/chapter9/heroku_sample_users.png" alt="heroku sample users" /><div class="figcaption"><span class="title-label">图 9.16</span>：生产环境显示的示例用户</div></div>
 <section data-type="sect2" id="updating-showing-and-deleting-users-learned">
-<h2><span class="title-label">9.5.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">9.5.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>可以使用编辑表单修改用户的资料，这个表单向 <code>update</code> 动作发送 <code>PATCH</code> 请求；</p>
@@ -1805,7 +1805,7 @@
 </section>
 </section>
 <section data-type="sect1" id="updating-showing-and-deleting-users-exercises">
-<h1><span class="title-label">9.6.</span> 练习</h1>
+<h1><span class="title-label">9.6</span> 练习</h1>
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>

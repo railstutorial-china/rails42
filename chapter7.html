@@ -51,7 +51,7 @@
 <p>用户模型可以使用了，接下来要实现大多数网站都离不开的功能：注册。在 <a href="#signup-form">7.2 节</a>我们会创建一个表单，提交用户注册时填写的信息，然后在 <a href="#successful-signups">7.4 节</a>使用提交的数据创建新用户，把属性值存入数据库。注册功能实现后，还要创建一个用户资料页面，显示用户的个人信息——这是实现 REST 架构（<a href="chapter2.html#mvc-in-action">2.2.2 节</a>）用户资源的第一步。在实现这些功能的过程中，我们会在 <a href="chapter5.html#layout-link-tests">5.3.4 节</a>的基础上编写简练生动的集成测试。</p>
 <p>本章要依赖<a href="chapter6.html#modeling-users">第 6 章</a>编写的用户模型验证，尽量保证新用户的电子邮件地址有效，<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>会在用户注册过程中添加账户激活功能，确保电子邮件地址确实可用。</p>
 <section data-type="sect1" id="showing-users">
-<h1><span class="title-label">7.1.</span> 显示用户的信息</h1>
+<h1><span class="title-label">7.1</span> 显示用户的信息</h1>
 <div id="fig-profile-mockup-profile-name" class="figure"><img src="images/chapter7/profile_mockup_profile_name_bootstrap.png" alt="profile mockup profile name bootstrap" /><div class="figcaption"><span class="title-label">图 7.1</span>：本节实现的用户资料页面构思图</div></div>
 <p>本节要实现的用户资料页面是完整页面的一小部分，只显示用户的名字和头像，构思图如<a href="#fig-profile-mockup-profile-name">图 7.1</a> 所示。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup> 最终完成的用户资料页面会显示用户的头像、基本信息和微博列表，构思图如<a href="#fig-profile-mockup">图 7.2</a> 所示。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>（在图 7.2 中，我们第一次用到了“lorem ipsum”占位文字，<a href="http://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean">这些文字背后的故事</a>很有意思，有空的话你可以了解一下。）这个资料页面会和整个演示应用一起在<a href="chapter12.html#following-users">第 12 章</a>完成。</p>
 <p>如果你一直坚持使用版本控制，现在像之前一样，新建一个主题分支：</p>
@@ -64,7 +64,7 @@
 </div>
 <div id="fig-profile-mockup" class="figure"><img src="images/chapter7/profile_mockup_bootstrap.png" alt="profile mockup bootstrap" /><div class="figcaption"><span class="title-label">图 7.2</span>：最终实现的用户资料页面构思图</div></div>
 <section data-type="sect2" id="debug-and-rails-environments">
-<h2><span class="title-label">7.1.1.</span> 调试信息和 Rails 环境</h2>
+<h2><span class="title-label">7.1.1</span> 调试信息和 Rails 环境</h2>
 <p>本节要实现的用户资料页面是第一个真正意义上的动态页面。虽然视图的代码不会动态改变，不过每个用户资料页面显示的内容却是从数据库中读取的。添加动态页面之前，最好做些准备工作，现在我们能做的就是在网站布局中加入一些调试信息，如<a href="#listing-rails-debug">代码清单 7.1</a> 所示。这段代码使用 Rails 内置的 <code>debug</code> 方法和 <code>params</code> 变量（<a href="#a-users-resource">7.1.2 节</a>会详细介绍），在各个页面显示一些对开发有帮助的信息。</p>
 <div id="listing-rails-debug" data-type="listing">
 <h5><span class="title-label">代码清单 7.1</span>：在网站布局中添加一些调试信息</h5>
@@ -224,7 +224,7 @@
 <div id="fig-home-page-with-debug" class="figure"><img src="images/chapter7/home_page_with_debug_3rd_edition.png" alt="home page with debug 3rd edition" /><div class="figcaption"><span class="title-label">图 7.3</span>：显示有调试信息的演示应用首页</div></div>
 </section>
 <section data-type="sect2" id="a-users-resource">
-<h2><span class="title-label">7.1.2.</span> 用户资源</h2>
+<h2><span class="title-label">7.1.2</span> 用户资源</h2>
 <p>为了实现用户资料页面，数据库中要有用户记录，这引出了“先有鸡还是先有蛋”的问题：网站还没有注册页面，怎么可能有用户呢？其实这个问题在 <a href="chapter6.html#creating-and-authenticating-a-user">6.3.4 节</a>已经解决了，那时我们自己动手在 Rails 控制台中创建了一个用户，所以数据库中应该有一个用户记录：</p>
 <div data-type="listing">
 
@@ -380,7 +380,7 @@
 <div id="fig-user-show-rails" class="figure"><img src="images/chapter7/user_show_3rd_edition.png" alt="user show 3rd edition" /><div class="figcaption"><span class="title-label">图 7.6</span>：添加 <code>show</code> 动作后的用户资料页面</div></div>
 </section>
 <section data-type="sect2" id="debugger">
-<h2><span class="title-label">7.1.3.</span> 调试器</h2>
+<h2><span class="title-label">7.1.3</span> 调试器</h2>
 <p>在 <a href="#a-users-resource">7.1.2 节</a>看到，调试信息能帮助我们理解应用的运作方式。从 Rails 4.2 开始，可以使用 <code>byebug</code> gem（<a href="chapter3.html#listing-gemfile-sample-app">代码清单 3.2</a>）更直接地获取调试信息。我们把 <code>debugger</code> 加到应用中，看一下这个 gem 的作用，如<a href="#listing-debugger">代码清单 7.6</a> 所示。</p>
 <div id="listing-debugger" data-type="listing">
 <h5><span class="title-label">代码清单 7.6</span>：在用户控制器中使用调试器</h5>
@@ -437,7 +437,7 @@
 <p>只要你觉得 Rails 应用中哪部分有问题，就可以在可能导致问题的代码附近加上 <code>debugger</code>。<code>byebug</code> 很强大，可以查看系统的状态，查找应用错误，以及交互式调试应用。</p>
 </section>
 <section data-type="sect2" id="a-gravatar-image-and-a-sidebar">
-<h2><span class="title-label">7.1.4.</span> Gravatar 头像和侧边栏</h2>
+<h2><span class="title-label">7.1.4</span> Gravatar 头像和侧边栏</h2>
 <p>前面创建了一个略显简陋的用户资料页面，这一节要再添加一些内容：用户头像和侧边栏。首先，我们要在用户资料页面中添加一个“全球通用识别”的头像，或者叫 <a href="http://gravatar.com/">Gravatar</a>。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>这是一个免费服务，让用户上传图片，将其关联到自己的电子邮件地址上。使用 Gravatar 可以简化在网站中添加用户头像的过程，开发者不必分心去处理图片上传、剪裁和存储，只要使用用户的电子邮件地址构成头像的 URL 地址，用户的头像就会显示出来。（<a href="chapter11.html#micropost-images">11.4 节</a>会介绍如何处理图片上传。）</p>
 <p>我们的计划是，定义一个名为 <code>gravatar_for</code> 的辅助方法，返回指定用户的 Gravatar 头像，如<a href="#listing-user-show-view-with-gravatar">代码清单 7.8</a> 所示。</p>
 <div id="listing-user-show-view-with-gravatar" data-type="listing">
@@ -565,7 +565,7 @@
 </section>
 </section>
 <section data-type="sect1" id="signup-form">
-<h1><span class="title-label">7.2.</span> 注册表单</h1>
+<h1><span class="title-label">7.2</span> 注册表单</h1>
 <p>用户资料页面已经可以访问了，但内容还不完整。下面我们要为网站创建一个注册表单。如<a href="chapter5.html#fig-new-signup-page">图 5.9</a> 和<a href="#fig-blank-signup-page-recap">图 7.10</a> 所示，“注册”页面还没有什么内容，无法注册新用户。本节会实现如<a href="#fig-signup-mockup">图 7.11</a> 所示的注册表单，添加注册功能。</p>
 <div id="fig-user-show-sidebar-css" class="figure"><img src="images/chapter7/user_show_sidebar_css_3rd_edition.png" alt="user show sidebar css 3rd edition" /><div class="figcaption"><span class="title-label">图 7.9</span>：添加侧边栏和 CSS 后的用户资料页面</div></div>
 <div id="fig-blank-signup-page-recap" class="figure"><img src="images/chapter7/new_signup_page_3rd_edition.png" alt="new signup page 3rd edition" /><div class="figcaption"><span class="title-label">图 7.10</span>：注册页面现在的样子</div></div>
@@ -579,7 +579,7 @@
 <p>在某些系统中可能还要重启 Web 服务器才能生效。</p>
 <div id="fig-signup-mockup" class="figure"><img src="images/chapter7/signup_mockup_bootstrap.png" alt="signup mockup bootstrap" /><div class="figcaption"><span class="title-label">图 7.11</span>：用户注册页面的构思图</div></div>
 <section data-type="sect2" id="using-form-for">
-<h2><span class="title-label">7.2.1.</span> 使用 <code>form_for</code></h2>
+<h2><span class="title-label">7.2.1</span> 使用 <code>form_for</code></h2>
 <p>注册页面的核心是一个表单，用于提交注册相关的信息（名字，电子邮件地址，密码和密码确认）。在 Rails 中，创建表单可以使用 <code>form_for</code> 辅助方法，传入 Active Record 对象后，使用该对象的属性构建一个表单。</p>
 <p>注册页面的地址是 /signup，由用户控制器的 <code>new</code> 动作处理（<a href="chapter5.html#listing-signup-route">代码清单 5.33</a>）。首先，我们要创建传给 <code>form_for</code> 的用户对象，然后赋值给 <code>@user</code> 变量，如<a href="#listing-new-action-with-user">代码清单 7.12</a> 所示。</p>
 <div id="listing-new-action-with-user" data-type="listing">
@@ -654,7 +654,7 @@
 <div id="fig-signup-form" class="figure"><img src="images/chapter7/signup_form_3rd_edition.png" alt="signup form 3rd edition" /><div class="figcaption"><span class="title-label">图 7.12</span>：用户注册页面</div></div>
 </section>
 <section data-type="sect2" id="signup-form-html">
-<h2><span class="title-label">7.2.2.</span> 注册表单的 HTML</h2>
+<h2><span class="title-label">7.2.2</span> 注册表单的 HTML</h2>
 <p>为了能更好地理解<a href="#listing-signup-form">代码清单 7.13</a> 中定义的表单，可以分成几段来看。我们先看外层结构——开头在 ERb 中调用 <code>form_for</code> 方法，结尾是 <code>end</code>：</p>
 <div data-type="listing">
 
@@ -774,11 +774,11 @@
 </section>
 </section>
 <section data-type="sect1" id="unsuccessful-signups">
-<h1><span class="title-label">7.3.</span> 注册失败</h1>
+<h1><span class="title-label">7.3</span> 注册失败</h1>
 <p>虽然上一节大概介绍了<a href="#fig-signup-form">图 7.12</a> 中表单的 HTML 结构（参见<a href="#listing-signup-form-html">代码清单 7.15</a>），但并没涉及什么细节，其实注册失败时才能更好地理解这个表单的作用。本节，我们会在注册表单中填写一些无效的数据，提交表单后，页面不会转向其他页面，而是返回“注册”页面，显示一些错误消息，如<a href="#fig-signup-failure-mockup">图 7.14</a> 中的构思图所示。</p>
 <div id="fig-signup-failure-mockup" class="figure"><img src="images/chapter7/signup_failure_mockup_bootstrap.png" alt="signup failure mockup bootstrap" /><div class="figcaption"><span class="title-label">图 7.14</span>：注册失败时显示的页面构思图</div></div>
 <section data-type="sect2" id="a-working-form">
-<h2><span class="title-label">7.3.1.</span> 可正常使用的表单</h2>
+<h2><span class="title-label">7.3.1</span> 可正常使用的表单</h2>
 <p>回顾一下 <a href="#a-users-resource">7.1.2 节</a>的内容，在 <code>routes.rb</code> 文件中设置 <code>resources :users</code> 之后（<a href="#listing-users-resource">代码清单 7.3</a>），Rails 应用就可以响应<a href="#table-restful-users">表格 7.1</a>中符合 REST 架构的 URL 了。其中，发送到 /users 地址上的 <code>POST</code> 请求由 <code>create</code> 动作处理。在 <code>create</code> 动作中，我们可以调用 <code>User.new</code> 方法，使用提交的数据创建一个新用户对象，尝试存入数据库，失败后再重新渲染“注册”页面，让访客重新填写注册信息。我们先来看一下生成的 <code>form</code> 元素：</p>
 <div data-type="listing">
 
@@ -862,7 +862,7 @@
 <p>就行了，但默认情况下这种用法并不安全，需要谨慎处理，避免恶意用户篡改应用的数据库。在 Rails 4.0 之后的版本中，这行代码会抛出异常（如<a href="#fig-signup-failure">图 7.15</a> 和<a href="#fig-signup-failure-rails-debug">图 7.16</a> 所示），增强了安全。</p>
 </section>
 <section data-type="sect2" id="strong-parameters">
-<h2><span class="title-label">7.3.2.</span> 健壮参数</h2>
+<h2><span class="title-label">7.3.2</span> 健壮参数</h2>
 <p>我们在 <a href="chapter4.html#a-user-class">4.4.5 节</a>提到过“批量赋值”——使用一个哈希初始化 Ruby 变量，如下所示：</p>
 <div data-type="listing">
 
@@ -920,7 +920,7 @@
 <div id="fig-invalid-submission-no-feedback" class="figure"><img src="images/chapter7/invalid_submission_no_feedback.png" alt="invalid submission no feedback" /><div class="figcaption"><span class="title-label">图 7.17</span>：提交无效信息后显示的注册表单</div></div>
 </section>
 <section data-type="sect2" id="signup-error-messages">
-<h2><span class="title-label">7.3.3.</span> 注册失败错误消息</h2>
+<h2><span class="title-label">7.3.3</span> 注册失败错误消息</h2>
 <p>处理注册失败的最后一步，要加入有用的错误消息，说明注册失败的原因。默认情况下，Rails 基于用户模型的验证，提供了这种消息。假设我们使用无效的电子邮件地址和长度较短的密码创建用户：</p>
 <div data-type="listing">
 
@@ -1075,7 +1075,7 @@
 <div id="fig-signup-error-messages" class="figure"><img src="images/chapter7/signup_error_messages_3rd_edition.png" alt="signup error messages 3rd edition" /><div class="figcaption"><span class="title-label">图 7.18</span>：注册失败后显示的错误消息</div></div>
 </section>
 <section data-type="sect2" id="a-test-for-invalid-submission">
-<h2><span class="title-label">7.3.4.</span> 注册失败的测试</h2>
+<h2><span class="title-label">7.3.4</span> 注册失败的测试</h2>
 <p>在没有完全支持测试的强大 Web 框架出现以前，开发者不得不自己动手测试表单。例如，为了测试注册页面，我们要在浏览器中访问这个页面，然后分别提交无效和有效的注册信息，检查各种情况下应用的表现是否正常。而且，每次修改应用后都要重复这个痛苦又容易出错的过程。</p>
 <p>幸好，使用 Rails 可以编写测试，自动测试表单。这一节，我们要编写测试，确认在表单中提交无效的数据时表现正确。<a href="#a-test-for-valid-submission">7.4.4 节</a>会编写提交有效数据时的测试。</p>
 <p>首先，我们要为用户注册功能生成一个集成测试文件，这个文件名为 <code>users_signup</code>（沿用使用复数命名资源名的约定）：</p>
@@ -1162,11 +1162,11 @@
 </section>
 </section>
 <section data-type="sect1" id="successful-signups">
-<h1><span class="title-label">7.4.</span> 注册成功</h1>
+<h1><span class="title-label">7.4</span> 注册成功</h1>
 <p>处理完提交无效数据的情况，本节我们要完成注册表单的功能，如果提交的数据有效，就把用户存入数据库。我们先尝试保存用户，如果保存成功，用户的数据会自动存入数据库，然后在浏览器中重定向，转向新注册用户的资料页面，页面中还会显示一个欢迎消息，构思图如<a href="#fig-signup-success-mockup">图 7.19</a> 所示。如果保存用户失败了，就交由上一节实现的功能处理。</p>
 <div id="fig-signup-success-mockup" class="figure"><img src="images/chapter7/signup_success_mockup_bootstrap.png" alt="signup success mockup bootstrap" /><div class="figcaption"><span class="title-label">图 7.19</span>：注册成功后显示的页面构思图</div></div>
 <section data-type="sect2" id="the-finished-signup-form">
-<h2><span class="title-label">7.4.1.</span> 完整的注册表单</h2>
+<h2><span class="title-label">7.4.1</span> 完整的注册表单</h2>
 <p>要完成注册表单的功能，我们要把<a href="#listing-create-action-strong-parameters">代码清单 7.17</a> 中的注释换成适当的代码。现在，提交有效数据时也不能正确处理，如<a href="#fig-valid-submission-error">图 7.20</a> 所示，因为 Rails 动作的默认行为是渲染对应的视图，而 <code>create</code> 动作不对应视图。</p>
 <div id="fig-valid-submission-error" class="figure"><img src="images/chapter7/valid_submission_error.png" alt="valid submission error" /><div class="figcaption"><span class="title-label">图 7.20</span>：提交有效注册信息后显示的错误页面</div></div>
 <p>成功注册后，我们不需要渲染页面，而要重定向到另一个页面。按照习惯，我们要重定向到新注册用户的资料页面，不过转到根地址也行。为此，在应用代码中要使用 <code>redirect_to</code> 方法，如<a href="#listing-user-create-action">代码清单 7.23</a> 所示。</p>
@@ -1214,7 +1214,7 @@
 <p>Rails 看到 <code>redirect_to @user</code> 后，知道我们想重定向到 <code>user_url(@user)</code>。</p>
 </section>
 <section data-type="sect2" id="the-flash">
-<h2><span class="title-label">7.4.2.</span> 闪现消息</h2>
+<h2><span class="title-label">7.4.2</span> 闪现消息</h2>
 <p>有了<a href="#listing-">代码清单 7.23</a> 中的代码后，注册表单已经可以使用了。不过在提交有效数据注册之前，我们要添加一个 Web 应用中经常使用的增强功能：访问随后的页面时显示一个消息（这里，我们要显示一个欢迎新用户的消息），如果再访问其他页面，或者刷新页面，这个消息要消失。</p>
 <p>在 Rails 中，短暂显示一个消息使用“闪现消息”（flash message）实现。按照 Rails 的约定，操作成功时使用 <code>:success</code> 键表示，如<a href="#listing-signup-flash">代码清单 7.24</a> 所示。</p>
 <div id="listing-signup-flash" data-type="listing">
@@ -1325,7 +1325,7 @@
 </div>
 </section>
 <section data-type="sect2" id="the-first-signup">
-<h2><span class="title-label">7.4.3.</span> 首次注册</h2>
+<h2><span class="title-label">7.4.3</span> 首次注册</h2>
 <p>现在我们可以注册一个用户，看看到目前为止所实现的功能。用户的名字使用“Rails Tutorial”，电子邮件地址使用“example@railstutorial.org”，如<a href="#fig-first-signup">图 7.21</a> 所示。注册成功后，页面中显示了一个友好的欢迎消息，如<a href="#fig-signup-flash">图 7.22</a> 所示。消息的样式是由 <a href="chapter5.html#bootstrap-and-custom-css">5.1.2 节</a>集成的 Bootstrap 框架提供的 <code>.success</code> 类实现。（如果无法注册，提示电子邮件地址已经使用，确保按照 <a href="#signup-form">7.2 节</a>的说明，执行了 <code>db:migrate:reset</code> Rake 任务，而且重启了开发服务器。）刷新用户资料页面后，闪现消息会消失，如<a href="#fig-signup-flash-reloaded">图 7.23</a> 所示。</p>
 <div id="fig-first-signup" class="figure"><img src="images/chapter7/first_signup.png" alt="first signup" /><div class="figcaption"><span class="title-label">图 7.21</span>：首次注册时填写的信息</div></div>
 <div id="fig-signup-flash" class="figure"><img src="images/chapter7/signup_flash_3rd_edition.png" alt="signup flash 3rd edition" /><div class="figcaption"><span class="title-label">图 7.22</span>：注册成功后显示有闪现消息的页面</div></div>
@@ -1343,7 +1343,7 @@
 </div>
 </section>
 <section data-type="sect2" id="a-test-for-valid-submission">
-<h2><span class="title-label">7.4.4.</span> 注册成功的测试</h2>
+<h2><span class="title-label">7.4.4</span> 注册成功的测试</h2>
 <p>在继续之前，我们要编写测试，确认提交有效信息后应用的表现正常，并捕获可能出现的回归。和 <a href="#a-test-for-invalid-submission">7.3.4 节</a>中注册失败的测试一样，我们主要是检查数据库中的内容。这一次，我们要提交有效的数据，确认创建了一个用户。类似<a href="#listing-a-test-for-invalid-submission">代码清单 7.21</a> 中使用的</p>
 <div data-type="listing">
 
@@ -1402,7 +1402,7 @@
 </section>
 </section>
 <section data-type="sect1" id="professional-grade-deployment">
-<h1><span class="title-label">7.5.</span> 专业部署方案</h1>
+<h1><span class="title-label">7.5</span> 专业部署方案</h1>
 <p>现在注册页面可以使用了，该把应用部署到生产环境了。虽然我们从<a href="chapter3.html#mostly-static-pages">第 3 章</a>就开始部署了，但现在应用才真正有点用，所以借此机会我们要把部署过程变得更专业一些。具体而言，我们要在生产环境的应用中添加一个重要功能，保障注册过程的安全性，还要把默认的 Web 服务器换成一个更适合在真实环境中使用的服务器。</p>
 <p>为了部署，现在你应该把改动合并到 <code>master</code> 分支中：</p>
 <div data-type="listing">
@@ -1415,7 +1415,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="ssl-in-production">
-<h2><span class="title-label">7.5.1.</span> 在生产环境中使用 SSL</h2>
+<h2><span class="title-label">7.5.1</span> 在生产环境中使用 SSL</h2>
 <p>在本章开发的注册表单中提交数据注册用户时，用户的名字、电子邮件地址和密码会在网络中传输，因此可能在途中被拦截。这是应用的重大潜在安全隐患，解决的方法是使用“安全套接层”（Secure Sockets Layer，简称 SSL），<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup>在数据离开浏览器之前加密相关信息。我们可以只在注册页面启用 SSL，不过整站启用也容易实现。整站都启用 SSL 后，<a href="chapter8.html#log-in-log-out">第 8 章</a>实现的用户登录功能也能从中受益，而且还能防范 <a href="chapter8.html#remember-me">8.4 节</a>讨论的会话劫持。</p>
 <p>启用 SSL 很简单，只要在生产环境的配置文件 <code>production.rb</code> 中去掉一行代码的注释即可。如<a href="#listing-ssl-in-production">代码清单 7.27</a> 所示，我们只需设置 <code>config</code> 变量，强制在生产环境中使用 SSL。</p>
 <div id="listing-ssl-in-production" data-type="listing">
@@ -1439,7 +1439,7 @@
 <p>然后，我们要在远程服务器中设置 SSL。这个过程包括为自己的域名购买和设置 SSL 证书，有很多工作要做。不过幸运的是，我们并不需要处理这些事，因为在 Heroku 中运行的应用（例如我们的演示应用），可以直接使用 Heroku 的 SSL 证书。所以，<a href="#production-webserver">7.5.2 节</a>部署应用后，会自动启用 SSL。（如果你想在自己的域名上使用 SSL，例如 <code>www.example.com</code>，参照 <a href="http://devcenter.heroku.com/articles/ssl">Heroku 对 SSL 的说明</a>。）</p>
 </section>
 <section data-type="sect2" id="production-webserver">
-<h2><span class="title-label">7.5.2.</span> 生产环境中的 Web 服务器</h2>
+<h2><span class="title-label">7.5.2</span> 生产环境中的 Web 服务器</h2>
 <p>启用 SSL 后，我们要配置应用，让它使用一个适合在生产环境中使用的 Web 服务器。默认情况下，Heroku 使用纯 Ruby 实现的 WEBrick，这个服务器易于搭建，但不能很好地处理巨大流量。因此，<a href="https://devcenter.heroku.com/articles/ruby-default-web-server">WEBrick 不适合在生产环境中使用</a>，我们要<a href="https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server">换用能处理大量请求的 Puma</a>。</p>
 <p>我们按照 <a href="https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server">Heroku 文档中的说明</a>，换用 Puma。第一步，在 <code>Gemfile</code> 中添加 <code>puma</code> gem，如<a href="#listing-puma-gemfile">代码清单 7.28</a> 所示。因为在本地不需要使用 Puma，所以我们把 <code>puma</code> 放在 <code>:production</code> 组中。</p>
 <div id="listing-puma-gemfile" data-type="listing">
@@ -1513,7 +1513,7 @@
 <div id="fig-signup-in-production" class="figure"><img src="images/chapter7/signup_in_production_3rd_edition.png" alt="signup in production 3rd edition" /><div class="figcaption"><span class="title-label">图 7.24</span>：在生产环境中注册</div></div>
 </section>
 <section data-type="sect2" id="ruby-version-number">
-<h2><span class="title-label">7.5.3.</span> Ruby 的版本</h2>
+<h2><span class="title-label">7.5.3</span> Ruby 的版本</h2>
 <p>部署到 Heroku 时，可能会看到类似下面的提醒消息：</p>
 <div data-type="listing">
 
@@ -1528,11 +1528,11 @@
 </section>
 </section>
 <section data-type="sect1" id="sign-up-conclusion">
-<h1><span class="title-label">7.6.</span> 小结</h1>
+<h1><span class="title-label">7.6</span> 小结</h1>
 <p>实现注册功能对演示应用来说是个重要的里程碑。
 虽然现在还没实现真正有用的功能，不过却为后续功能的开发奠定了坚实的基础。<a href="chapter8.html#log-in-log-out">第 8 章</a>会实现用户登录、退出功能，完成整个认证功能。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>，我们会实现更新用户个人信息的功能，还会实现管理员删除用户的功能，这样才算完全实现了<a href="#table-restful-users">表 7.1</a> 中列出的用户资源相关的 REST 动作。</p>
 <section data-type="sect2" id="sign-up-learned">
-<h2><span class="title-label">7.6.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">7.6.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>Rails 通过 <code>debug</code> 方法显示一些有用的调试信息；</p>
@@ -1571,7 +1571,7 @@
 </section>
 </section>
 <section data-type="sect1" id="sign-up-exercises">
-<h1><span class="title-label">7.7.</span> 练习</h1>
+<h1><span class="title-label">7.7</span> 练习</h1>
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>

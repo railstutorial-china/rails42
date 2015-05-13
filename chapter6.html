@@ -55,7 +55,7 @@
 <p>首先，实践已经证明，大多数网站的认证系统都要对第三方代码库做一些定制和修改，这往往比重新开发一个工作量还大。再者，现成的方案就像一个“黑盒”，你无法了解其中到底有些什么功能，而自己开发的话能更好地理解实现的过程。而且，Rails 最近的更新（参见 <a href="#adding-a-secure-password">6.3 节</a>），让开发认证系统变得很简单。最后，如果以后要用第三方系统的话，因为自己开发过，所以能更好地理解实现过程，便于定制功能。</p>
 </div>
 <section data-type="sect1" id="user-model">
-<h1><span class="title-label">6.1.</span> 用户模型</h1>
+<h1><span class="title-label">6.1</span> 用户模型</h1>
 <p>接下来的三章要实现网站的“注册”页面（构思图如<a href="#fig-signup-mockup-preview">图 6.1</a> 所示），在此之前我们先要解决存储问题，因为现在还没地方存储用户信息。所以，实现用户注册功能的第一步是，创建一个数据结构，获取并存储用户的信息。</p>
 <div id="fig-signup-mockup-preview" class="figure"><img src="images/chapter6/signup_mockup_bootstrap.png" alt="signup mockup bootstrap" /><div class="figcaption"><span class="title-label">图 6.1</span>：用户注册页面的构思图</div></div>
 <p>在 Rails 中，数据模型的默认数据结构叫“模型”（model，MVC 中的 M，参见 <a href="chapter1.html#model-view-controller">1.3.3 节</a>）。Rails 为解决数据持久化提供的默认解决方案是，使用数据库存储需要长期使用的数据。和数据库交互默认使用的是 Active Record。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup>Active Record 提供了一系列方法，无需使用<a href="http://en.wikipedia.org/wiki/Relational_database">关系数据库</a>所用的“结构化查询语言”（Structured Query Language，简称 SQL），<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>就能创建、保存和查询数据对象。Rails 还支持“迁移”（migration）功能，允许我们使用纯 Ruby 代码定义数据结构，而不用学习 SQL “数据定义语言”（Data Definition Language，简称 DDL）。最终的结果是，Active Record 把你和数据存储层完全隔开了。本书开发的应用在本地使用 SQLite，部署后使用 PostgreSQL（由 Heroku 提供，参见 <a href="chapter1.html#deploying">1.5 节</a>）。这就引出了一个更深层的话题——在不同的环境中，即便使用不同类型的数据库，我们也无需关心 Rails 是如何存储数据的。</p>
@@ -68,7 +68,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="database-migrations">
-<h2><span class="title-label">6.1.1.</span> 数据库迁移</h2>
+<h2><span class="title-label">6.1.1</span> 数据库迁移</h2>
 <p>回顾一下 <a href="chapter4.html#a-user-class">4.4.5 节</a>的内容，在我们自己创建的 <code>User</code> 类中为用户对象定义了 <code>name</code> 和 <code>email</code> 两个属性。那是个很有用的例子，但没有实现持久性最关键的要求：在 Rails 控制台中创建的用户对象，退出控制台后就会消失。本节的目的是为用户创建一个模型，让用户数据不会这么轻易消失。</p>
 <p>和 <a href="chapter4.html#a-user-class">4.4.5 节</a>中定义的 <code>User</code> 类一样，我们先为用户模型创建两个属性，分别是 <code>name</code> 和 <code>email</code>。我们会把 <code>email</code> 属性用作唯一的用户名。<sup>[<a id="fn-ref-3" href="#fn-3">3</a>]</sup>（<a href="#adding-a-secure-password">6.3 节</a>会添加一个属性，存储密码）在<a href="chapter4.html#listing-example-user">代码清单 4.13</a> 中，我们使用 Ruby 的 <code>attr_accessor</code> 方法创建了这两个属性：</p>
 <div data-type="listing">
@@ -154,7 +154,7 @@
 </div>
 </section>
 <section data-type="sect2" id="the-model-file">
-<h2><span class="title-label">6.1.2.</span> 模型文件</h2>
+<h2><span class="title-label">6.1.2</span> 模型文件</h2>
 <p>我们看到，执行<a href="#listing-generate-user-model">代码清单 6.1</a> 中的命令后会生成一个迁移文件（<a href="#listing-users-migration">代码清单 6.2</a>），也看到了执行迁移后得到的结果（<a href="#fig-sqlite-database-browser">图 6.5</a>）：修改 <code>db/development.sqlite3</code> 文件，新建 <code>users</code> 表，并创建 <code>id</code>、<code>name</code>、<code>email</code>、<code>created_at</code> 和 <code>updated_at</code> 这几个列。<a href="#listing-generate-user-model">代码清单 6.1</a> 同时还生成了一个模型文件，本节剩下的内容专门解说这个文件。</p>
 <p>我们先看用户模型的代码，在 <code>app/models/</code> 文件夹中的 <code>user.rb</code> 文件里。这个文件的内容非常简单，如<a href="#listing-raw-user-model">代码清单 6.3</a> 所示。</p>
 <div id="listing-raw-user-model" data-type="listing">
@@ -169,7 +169,7 @@
 <p><a href="chapter4.html#class-inheritance">4.4.2 节</a>介绍过，<code>class User &lt; ActiveRecord::Base</code> 的意思是 <code>User</code> 类继承自 <code>ActiveRecord::Base</code> 类，所以用户模型自动获得了 <code>ActiveRecord::Base</code> 的所有功能。当然了，只知道这种继承关系没什么用，我们并不知道 <code>ActiveRecord::Base</code> 做了什么。下面看几个实例。</p>
 </section>
 <section data-type="sect2" id="creating-user-objects">
-<h2><span class="title-label">6.1.3.</span> 创建用户对象</h2>
+<h2><span class="title-label">6.1.3</span> 创建用户对象</h2>
 <p>和<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>一样，探索数据模型使用的工具是 Rails 控制台。因为我们还不想修改数据库中的数据，所以要在沙盒模式中启动控制台：</p>
 <div data-type="listing">
 
@@ -280,7 +280,7 @@
 <p>那么我们怎么知道对象是否真被销毁了呢？对于已经保存而没有销毁的对象，怎样从数据库中读取呢？要回答这些问题，我们要先学习如何使用 Active Record 查找用户对象。</p>
 </section>
 <section data-type="sect2" id="finding-user-objects">
-<h2><span class="title-label">6.1.4.</span> 查找用户对象</h2>
+<h2><span class="title-label">6.1.4</span> 查找用户对象</h2>
 <p>Active Record 提供了好几种查找对象的方法。下面我们使用这些方法查找创建的第一个用户，同时也验证一下第三个用户（<code>foo</code>）是否被销毁了。先看一下还存在的用户：</p>
 <div data-type="listing">
 
@@ -335,7 +335,7 @@
 包含数据库中的所有用户。</p>
 </section>
 <section data-type="sect2" id="updating-user-objects">
-<h2><span class="title-label">6.1.5.</span> 更新用户对象</h2>
+<h2><span class="title-label">6.1.5</span> 更新用户对象</h2>
 <p>创建对象后，一般都会进行更新操作。更新有两种基本方式，其一，可以分别为各属性赋值，在 <a href="chapter4.html#a-user-class">4.4.5 节</a>就是这么做的：</p>
 <div data-type="listing">
 
@@ -396,11 +396,11 @@
 </section>
 </section>
 <section data-type="sect1" id="user-validations">
-<h1><span class="title-label">6.2.</span> 用户数据验证</h1>
+<h1><span class="title-label">6.2</span> 用户数据验证</h1>
 <p><a href="#user-model">6.1 节</a>创建的用户模型现在已经有了可以使用的 <code>name</code> 和 <code>email</code> 属性，不过功能还很简单：任何字符串（包括空字符串）都可以使用。名字和电子邮件地址的格式显然要复杂一些。例如，<code>name</code> 不应该是空的，<code>email</code> 应该符合特定的格式。而且，我们要把电子邮件地址当成用户名用来登录，那么在数据库中就不能重复出现。</p>
 <p>总之，<code>name</code> 和 <code>email</code> 不是什么字符串都可以使用的，我们要对它们可使用的值做个限制。Active Record 通过数据验证实现这种限制（<a href="chapter2.html#putting-the-micro-in-microposts">2.3.2 节</a>简单提到过）。本节，我们会介绍几种常用的数据验证：存在性、长度、格式和唯一性。<a href="#user-has-secure-password">6.3.2 节</a>还会介绍另一种常用的数据验证——二次确认。<a href="chapter7.html#unsuccessful-signups">7.3 节</a>会看到，如果提交了不合要求的数据，数据验证会显示一些很有用的错误消息。</p>
 <section data-type="sect2" id="a-validity-test">
-<h2><span class="title-label">6.2.1.</span> 有效性测试</h2>
+<h2><span class="title-label">6.2.1</span> 有效性测试</h2>
 <p><a href="chapter3.html#aside-when-to-test">旁注 3.3</a>说过，TDD 并不适用所有情况，但是模型验证是使用 TDD 的绝佳时机。如果不先编写失败测试，再想办法让它通过，我们很难确定验证是否实现了我们希望实现的功能。</p>
 <p>我们采用的方法是，先得到一个有效的模型对象，然后把属性改为无效值，以此确认这个对象是无效的。以防万一，我们先编写一个测试，确认模型对象一开始是有效的。这样，如果验证测试失败了，我们才知道的确事出有因（而不是因为一开始对象是无效的）。</p>
 <p><a href="#listing-generate-user-model">代码清单 6.1</a> 中的命令生成了一个用来测试用户模型的测试文件，现在这个文件中还没什么内容，如<a href="#listing-default-user-test">代码清单 6.4</a> 所示。</p>
@@ -450,7 +450,7 @@
 <p>这里，我们使用 <code>rake test:models</code>，只运行模型测试（和 <a href="chapter5.html#layout-link-tests">5.3.4 节</a>的 <code>rake test:integration</code> 对比一下）。</p>
 </section>
 <section data-type="sect2" id="validating-presence">
-<h2><span class="title-label">6.2.2.</span> 存在性验证</h2>
+<h2><span class="title-label">6.2.2</span> 存在性验证</h2>
 <p>存在性验证算是最基本的验证了，只是检查指定的属性是否存在。本节我们会确保用户存入数据库之前，<code>name</code> 和 <code>email</code> 字段都有值。<a href="chapter7.html#signup-error-messages">7.3.3 节</a>会介绍如何把这个限制应用到创建用户的注册表单中。</p>
 <p>我们要先在<a href="#listing-valid-user-test">代码清单 6.5</a> 的基础上再编写一个测试，检查 <code>name</code> 属性是否存在。如<a href="#listing-name-presence-test">代码清单 6.7</a> 所示，我们只需把 <code>@user</code> 的 <code>name</code> 属性设为空字符串（包含几个空格的字符串），然后使用 <code>assert_not</code> 方法确认得到的用户对象是无效的。</p>
 <div id="listing-name-presence-test" data-type="listing">
@@ -591,7 +591,7 @@
 </div>
 </section>
 <section data-type="sect2" id="length-validation">
-<h2><span class="title-label">6.2.3.</span> 长度验证</h2>
+<h2><span class="title-label">6.2.3</span> 长度验证</h2>
 <p>我们已经对用户模型可接受的数据做了一些限制，现在必须为用户提供一个名字，不过我们应该做进一步限制，因为用户的名字会在演示应用中显示，所以最好限制它的长度。有了前一节的基础，这一步就简单了。</p>
 <p>没有科学的方法确定最大长度是多少，我们就使用 50 作为长度的上限吧，所以要验证 51 个字符超长了。而且，用户的电子邮件地址可能会超过字符串的最大长度限制，这个最大值在很多数据库中都是 255——这种情况虽然很少发生，但也有发生的可能。因为下一节的格式验证无法实现这种限制，所以我们要在这一节实现。测试如<a href="#listing-length-validation-test">代码清单 6.14</a> 所示。</p>
 <div id="listing-length-validation-test" data-type="listing">
@@ -675,7 +675,7 @@
 <p>测试组件再次通过，接下来我们要实现一个更有挑战的验证——电子邮件地址的格式。</p>
 </section>
 <section data-type="sect2" id="format-validation">
-<h2><span class="title-label">6.2.4.</span> 格式验证</h2>
+<h2><span class="title-label">6.2.4</span> 格式验证</h2>
 <p><code>name</code> 属性的验证只需做一些简单的限制就好——任何非空、长度小于 51 个字符的字符串都可以。可是 <code>email</code> 属性需要更复杂的限制，必须是有效地电子邮件地址才行。目前我们只拒绝空电子邮件地址，本节我们要限制电子邮件地址符合常用的形式，类似 <code>user@example.com</code> 这种。</p>
 <p>这里我们用到的测试和验证不是十全十美的，只是刚好可以覆盖大多数有效的电子邮件地址，并拒绝大多数无效的电子邮件地址。我们会先测试一组有效的电子邮件地址和一组无效的电子邮件地址。我们要使用 <code>%w[]</code> 创建这两组地址，其中每个地址都是字符串形式，如下面的控制台会话所示：</p>
 <div data-type="listing">
@@ -876,7 +876,7 @@
 <p>那么就只剩一个限制要实现了：确保电子邮件地址的唯一性。</p>
 </section>
 <section data-type="sect2" id="uniqueness-validation">
-<h2><span class="title-label">6.2.5.</span> 唯一性验证</h2>
+<h2><span class="title-label">6.2.5</span> 唯一性验证</h2>
 <p>确保电子邮件地址的唯一性（这样才能作为用户名），要使用 <code>validates</code> 方法的 <code>:unique</code> 参数。提前说明，实现的过程中有一个很大的陷阱，所以不要轻易跳过本节，要认真阅读。</p>
 <p>我们要先编写一些简短的测试。之前的模型测试，只是使用 <code>User.new</code> 在内存中创建一个 Ruby 对象，但是测试唯一性时要把数据存入数据库。<sup>[<a id="fn-ref-13" href="#fn-13">13</a>]</sup>对重复电子邮件地址的测试如<a href="#listing-validates-uniqueness-of-email-test">代码清单 6.23</a> 所示。</p>
 <div id="listing-validates-uniqueness-of-email-test" data-type="listing">
@@ -1101,11 +1101,11 @@
 </section>
 </section>
 <section data-type="sect1" id="adding-a-secure-password">
-<h1><span class="title-label">6.3.</span> 添加安全密码</h1>
+<h1><span class="title-label">6.3</span> 添加安全密码</h1>
 <p>我们已经为 <code>name</code> 和 <code>email</code> 字段添加了验证规则，现在要加入用户所需的最后一个常规属性：安全密码。每个用户都要设置一个密码（还要二次确认），数据库中则存储经过哈希加密后的密码。（你可能会困惑。这里所说的“哈希”不是 <a href="chapter4.html#hashes-and-symbols">4.3.3 节</a>介绍的 Ruby 数据结构，而是经过不可逆<a href="http://en.wikipedia.org/wiki/Hash_function">哈希算法</a>计算得到的结果。）我们还要加入基于密码的认证验证机制，<a href="chapter8.html#log-in-log-out">第 8 章</a>会利用这个机制实现用户登录功能。</p>
 <p>认证用户的方法是，获取用户提交的密码，哈希加密，再和数据库中存储的密码哈希值对比，如果二者一致，用户提交的就是正确的密码，用户的身份也就通过认证了。我们要对比的是密码哈希值，而不是原始密码，所以不用在数据库中存储用户的密码。因此，就算被脱库了，用户的密码仍然安全。</p>
 <section data-type="sect2" id="a-hashed-password">
-<h2><span class="title-label">6.3.1.</span> 计算密码哈希值</h2>
+<h2><span class="title-label">6.3.1</span> 计算密码哈希值</h2>
 <p>我们使用的安全密码机制基本上由一个 Rails 方法即可实现，这个方法是 <code>has_secure_password</code>。我们要在用户模型中调用这个方法，如下所示：</p>
 <div data-type="listing">
 
@@ -1182,7 +1182,7 @@
 </div>
 </section>
 <section data-type="sect2" id="user-has-secure-password">
-<h2><span class="title-label">6.3.2.</span> 用户有安全的密码</h2>
+<h2><span class="title-label">6.3.2</span> 用户有安全的密码</h2>
 <p>现在我们已经在用户模型中添加了 <code>password_digest</code> 属性，也安装了 bcrypt，下面可以在用户模型中添加 <code>has_secure_password</code> 方法了，如<a href="#listing-has-secure-password">代码清单 6.34</a> 所示。</p>
 <div id="listing-has-secure-password" data-type="listing">
 <h5><span class="title-label">代码清单 6.34</span>：在用户模型中添加 <code>has_secure_password</code> 方法 <span class="red">RED</span></h5>
@@ -1248,7 +1248,7 @@
 <p><a href="#creating-and-authenticating-a-user">6.3.4 节</a>会看到在用户模型中添加 <code>has_secure_password</code> 的作用。在此之前，为了密码的安全，先添加一个小要求。</p>
 </section>
 <section data-type="sect2" id="minimum-password-length">
-<h2><span class="title-label">6.3.3.</span> 密码的最短长度</h2>
+<h2><span class="title-label">6.3.3</span> 密码的最短长度</h2>
 <p>一般来说，最好为密码做些限制，让别人更难猜测。在 Rails 中增强密码强度有很多方法，简单起见，我们只限制最短长度。最短长度为 6 是个不错的选择，针对这个验证的测试如<a href="#listing-minimum-password-length-test">代码清单 6.38</a> 所示。</p>
 <div id="listing-minimum-password-length-test" data-type="listing">
 <h5><span class="title-label">代码清单 6.38</span>：测试密码的最短长度 <span class="red">RED</span></h5>
@@ -1316,7 +1316,7 @@
 </div>
 </section>
 <section data-type="sect2" id="creating-and-authenticating-a-user">
-<h2><span class="title-label">6.3.4.</span> 创建并认证用户</h2>
+<h2><span class="title-label">6.3.4</span> 创建并认证用户</h2>
 <p>至此，基本的用户模型已经完成了。接下来，我们要在数据库中创建一个用户，为 <a href="chapter7.html#showing-users">7.1 节</a>开发的用户资料页面做准备。同时也看一下在用户模型中添加 <code>has_secure_password</code> 的效果，还要用一下重要的 <code>authenticate</code> 方法。</p>
 <p>因为现在还不能在网页中注册（<a href="chapter7.html#sign-up">第 7 章</a>实现），我们要在控制台中手动创建新用户。为了方便，我们会使用 <a href="#creating-user-objects">6.1.3 节</a>介绍的 <code>create</code> 方法。注意，不要在沙盒模式中启用控制台，否则结果不会存入数据库。所以我们要使用 <code>rails console</code> 启动普通的控制台，然后使用有效的名字和电子邮件地址，以及密码和密码确认，创建一个用户：</p>
 <div data-type="listing">
@@ -1373,7 +1373,7 @@
 </section>
 </section>
 <section data-type="sect1" id="modeling-users-conclusion">
-<h1><span class="title-label">6.4.</span> 小结</h1>
+<h1><span class="title-label">6.4</span> 小结</h1>
 <p>本章从零开始建立了一个可以正常使用的用户模型，创建了 <code>name</code>、<code>email</code> 和 <code>password</code> 属性，还为这些属性制定了重要的取值约束规则。而且，已经可以使用密码对用户进行认证了。整个用户模型只用了十行代码。</p>
 <p>在接下来的<a href="chapter7.html#sign-up">第 7 章</a>，我们会创建一个注册表单，用来新建用户，还会创建一个页面，显示用户的信息。<a href="chapter8.html#log-in-log-out">第 8 章</a>会使用 <a href="#adding-a-secure-password">6.3 节</a>实现的认证机制让用户登录网站。</p>
 <p>如果使用 Git，而且一直都没提交，现在是提交的好时机：</p>
@@ -1416,7 +1416,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="modeling-users-learned">
-<h2><span class="title-label">6.4.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">6.4.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>使用迁移可以修改应用的数据模型；</p>
@@ -1443,7 +1443,7 @@
 </section>
 </section>
 <section data-type="sect1" id="modeling-users-exercises">
-<h1><span class="title-label">6.5.</span> 练习</h1>
+<h1><span class="title-label">6.5</span> 练习</h1>
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>

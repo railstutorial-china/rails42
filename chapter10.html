@@ -50,7 +50,7 @@
 <h1><span class="title-label">第 10 章</span> 账户激活和密码重设</h1>
 <p><a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>完成了一个基本的用户资源（实现了<a href="chapter7.html#table-restful-users">表 7.1</a> 中的所有 REST 标准动作），以及灵活的认证和权限系统。本章，我们要对这个系统做最后的调整，增加两个联系紧密的功能：账户激活（验证新注册用户的电子邮件地址）和密码重设（帮助忘记密码的用户）。实现这两个功能都要创建新资源，借此机会我们还能再介绍一下控制器、路由和数据库迁移。这两个功能还涉及到一个重要且具挑战的话题——在 Rails 应用中发送电子邮件。而且这两个功能之间需要相互配合，因为重设密码时要向用户的电子邮件地址发送一封包含重设链接的邮件，电子邮件地址是否有效则要在激活账户时验证。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
 <section data-type="sect1" id="account-activation">
-<h1><span class="title-label">10.1.</span> 账户激活</h1>
+<h1><span class="title-label">10.1</span> 账户激活</h1>
 <p>目前，用户注册后立即就能完全控制自己的账户（<a href="chapter7.html#sign-up">第 7 章</a>）。本节，我们要添加一步，激活用户的账户，从而确认用户拥有注册时使用的电子邮件地址。为此，我们要为用户创建激活令牌和摘要，然后给用户发送一封电子邮件，提供包含令牌的链接。用户点击这个链接后，激活这个账户。</p>
 <p>我们要采取的实现步骤与注册用户（<a href="chapter8.html#logging-in">8.2 节</a>）和记住用户（<a href="chapter8.html#remember-me">8.4 节</a>）差不多，如下所示：</p>
 <ol class="arabic">
@@ -123,7 +123,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="account-activations-resource">
-<h2><span class="title-label">10.1.1.</span> 资源</h2>
+<h2><span class="title-label">10.1.1</span> 资源</h2>
 <p>和会话一样（<a href="chapter8.html#sessions">8.1 节</a>），我们要把“账户激活”看做一个资源，不过这个资源不对应模型，相关的数据（激活令牌和激活状态）存储在用户模型中。然而，我们要通过标准的 REST URL 处理账户激活操作。激活链接会改变用户的激活状态，所以我们计划在 <code>edit</code> 动作中处理。<sup>[<a id="fn-ref-3" href="#fn-3">3</a>]</sup>所需的控制器使用下面的命令生成：<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup></p>
 <div data-type="listing">
 
@@ -368,7 +368,7 @@
 </div>
 </section>
 <section data-type="sect2" id="account-activation-mailer-method">
-<h2><span class="title-label">10.1.2.</span> 邮件程序</h2>
+<h2><span class="title-label">10.1.2</span> 邮件程序</h2>
 <p>写好模型后，我们要编写发送账户激活邮件的代码了。我们要使用 Action Mailer 库创建一个邮件程序，在用户控制器的 <code>create</code> 动作中发送一封包含激活链接的邮件。邮件程序的结构和控制器动作差不多，邮件模板使用视图定义。这一节的任务是创建邮件程序，以及编写视图，写入激活账户所需的激活令牌和电子邮件地址。</p>
 <p>与模型和控制器一样，我们可以使用 <code>rails generate</code> 生成邮件程序：</p>
 <div data-type="listing">
@@ -824,7 +824,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com"&gt;Activate&lt;/a&
 <div id="fig-redirected-not-activated" class="figure"><img src="images/chapter10/redirected_not_activated.png" alt="redirected not activated" /><div class="figcaption"><span class="title-label">图 10.4</span>：注册后显示的首页，有一个提醒激活的消息</div></div>
 </section>
 <section data-type="sect2" id="activating-the-account">
-<h2><span class="title-label">10.1.3.</span> 激活账户</h2>
+<h2><span class="title-label">10.1.3</span> 激活账户</h2>
 <p>现在可以正确生成电子邮件了（<a href="#listing-account-activation-email">代码清单 10.23</a>），接下来我们要编写 <code>AccountActivationsController</code> 中的 <code>edit</code> 动作，激活用户。<a href="#account-activation-mailer-method">10.1.2 节</a>说过，激活令牌和电子邮件地址可以分别通过 <code>params[:id]</code> 和 <code>params[:email]</code> 获取。参照密码（<a href="chapter8.html#listing-find-authenticate-user">代码清单 8.5</a>）和记忆令牌（<a href="chapter8.html#listing-persistent-current-user">代码清单 8.36</a>）的实现方式，我们计划使用下面的代码查找和认证用户：</p>
 <div data-type="listing">
 
@@ -1104,7 +1104,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <p>至此，激活用户的功能基本完成了，不过还有个地方可以改进。（可以改进的是，不显示未激活的用户。这个改进留作<a href="#account-activation-and-password-reset-exercises">练习</a>。）<a href="#activation-test-and-refactoring">10.1.4 节</a>会编写一些测试，再做一些重构，完成整个功能。</p>
 </section>
 <section data-type="sect2" id="activation-test-and-refactoring">
-<h2><span class="title-label">10.1.4.</span> 测试和重构</h2>
+<h2><span class="title-label">10.1.4</span> 测试和重构</h2>
 <p>本节，我们要为账户激活功能添加一些集成测试。我们已经为提交有效信息的注册过程编写了测试，所以我们要把这个测试添加到 <a href="chapter7.html#a-test-for-valid-submission">7.4.4 节</a>编写的测试中（<a href="chapter7.html#listing-a-test-for-valid-submission">代码清单 7.26</a>）。在测试中，我们要添加好多步，不过意图都很明确，看看你是否能理解<a href="#listing-signup-with-account-activation-test">代码清单 10.31</a> 中的测试。</p>
 <div id="listing-signup-with-account-activation-test" data-type="listing">
 <h5><span class="title-label">代码清单 10.31</span>：在用户注册的测试文件中添加账户激活的测试 <span class="green">GREEN</span></h5>
@@ -1290,7 +1290,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </section>
 </section>
 <section data-type="sect1" id="password-reset">
-<h1><span class="title-label">10.2.</span> 密码重设</h1>
+<h1><span class="title-label">10.2</span> 密码重设</h1>
 <p>完成账户激活功能后（从而确认了用户的电子邮件地址可用），我们要处理一种常见的问题：用户忘记密码。我们会看到，密码重设的很多步骤和账户激活类似，所以这里会用到 <a href="#account-activation">10.1 节</a>学到的知识。不过，开头不一样，和账户激活功能不同的是，密码重设要修改一个视图，还要创建两个表单（处理电子邮件地址提交和设定新密码）。</p>
 <p>编写代码之前，我们先构思要实现的重设密码步骤。首先，我们要在演示应用的登录表单中添加“Forgot Password”（忘记密码）链接，如<a href="#fig-login-forgot-password-mockup">图 10.7</a> 所示。</p>
 <div id="fig-login-forgot-password-mockup" class="figure"><img src="images/chapter10/login_forgot_password_mockup.png" alt="login forgot password mockup" /><div class="figcaption"><span class="title-label">图 10.7</span>：“Forgot Password”链接的构思图</div></div>
@@ -1317,7 +1317,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </li>
 </ol>
 <section data-type="sect2" id="password-resets-resource">
-<h2><span class="title-label">10.2.1.</span> 资源</h2>
+<h2><span class="title-label">10.2.1</span> 资源</h2>
 <p>和账户激活一样（<a href="#account-activations-resource">10.1.1 节</a>），第一步要为资源生成控制器：</p>
 <div data-type="listing">
 
@@ -1452,7 +1452,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 </div>
 </section>
 <section data-type="sect2" id="password-resets-controller-and-form">
-<h2><span class="title-label">10.2.2.</span> 控制器和表单</h2>
+<h2><span class="title-label">10.2.2</span> 控制器和表单</h2>
 <p>我们要参照前面为没有模型的资源编写表单的方法，即创建新会话的登录表单（<a href="chapter8.html#listing-login-form">代码清单 8.2</a>），编写请求重设密码的表单。为了便于参考，我们再把这个表单列出来，如<a href="#listing-login-form-redux">代码清单 10.39</a> 所示。</p>
 <div id="listing-login-form-redux" data-type="listing">
 <h5><span class="title-label">代码清单 10.39</span>：登录表单的代码</h5>
@@ -1591,7 +1591,7 @@ fFb_F94mgQtmlSvRFGsITw/edit?email=michael%40michaelhartl.com
 <div id="fig-invalid-email-password-reset" class="figure"><img src="images/chapter10/invalid_email_password_reset.png" alt="invalid email password reset" /><div class="figcaption"><span class="title-label">图 10.13</span>：提交无效电子邮件地址后显示的“Forgot Password”表单</div></div>
 </section>
 <section data-type="sect2" id="password-reset-mailer-method">
-<h2><span class="title-label">10.2.3.</span> 邮件程序</h2>
+<h2><span class="title-label">10.2.3</span> 邮件程序</h2>
 <p><a href="#listing-user-model-password-reset">代码清单 10.42</a> 中发送密码重设邮件的代码是：</p>
 <div data-type="listing">
 
@@ -1786,7 +1786,7 @@ your password will stay as it is.
 </div>
 </section>
 <section data-type="sect2" id="resetting-the-password">
-<h2><span class="title-label">10.2.4.</span> 重设密码</h2>
+<h2><span class="title-label">10.2.4</span> 重设密码</h2>
 <p>为了让下面这种形式的链接生效，我们要编写一个表单，重设密码。</p>
 <div data-type="listing">
 
@@ -1990,7 +1990,7 @@ your password will stay as it is.
 <div id="fig-password-reset-success" class="figure"><img src="images/chapter10/password_reset_success.png" alt="password reset success" /><div class="figcaption"><span class="title-label">图 10.19</span>：密码重设成功</div></div>
 </section>
 <section data-type="sect2" id="password-reset-test">
-<h2><span class="title-label">10.2.5.</span> 测试</h2>
+<h2><span class="title-label">10.2.5</span> 测试</h2>
 <p>本节，我们要编写一个集成测试，覆盖<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中的两个分支：重设失败和重设成功。（前面说过，第三个分支的测试留作练习。）首先，为重设密码生成一个测试文件：</p>
 <div data-type="listing">
 
@@ -2094,7 +2094,7 @@ your password will stay as it is.
 </section>
 </section>
 <section data-type="sect1" id="email-in-production">
-<h1><span class="title-label">10.3.</span> 在生产环境中发送邮件</h1>
+<h1><span class="title-label">10.3</span> 在生产环境中发送邮件</h1>
 <p>我们已经成功实现了账户激活和密码重设功能，本节要配置应用，让它在生产环境中能真正地发送邮件。我们首先搭建一个免费的邮件服务，然后配置应用，最后再部署。</p>
 <p>我们要在生产环境中使用 SendGrid 服务发送邮件。这个服务是 Heroku 的扩展，只有通过认证的账户才能使用。（要在 Heroku 的账户中填写信用卡信息，不过认证不收费。）对我们的应用来说，入门套餐（免费，但每天最多只能发送 200 封邮件）就够了。我们可以使用下面的命令添加这个扩展：</p>
 <div data-type="listing">
@@ -2166,10 +2166,10 @@ your password will stay as it is.
 <div id="fig-reset-email-production" class="figure"><img src="images/chapter10/reset_email_production.png" alt="reset email production" /><div class="figcaption"><span class="title-label">图 10.21</span>：生产环境中的应用发送的密码重设邮件</div></div>
 </section>
 <section data-type="sect1" id="account-activation-and-password-reset-conclusion">
-<h1><span class="title-label">10.4.</span> 小结</h1>
+<h1><span class="title-label">10.4</span> 小结</h1>
 <p>实现账户激活和密码重设功能后，我们的演示应用已经完整实现了“注册-登录-退出”机制，而且是专业级的。本书剩下的章节以此为基础，实现类似 Twitter 的微博（<a href="chapter11.html#user-microposts">第 11 章</a>）和所关注用户发布的微博列表（<a href="chapter12.html#following-users">第 12 章</a>）。在实现的过程中，我们会学到一些 Rails 提供的强大功能，例如使用 <code>has_many</code> 和 <code>has_many :through</code> 实现的高级数据模型。</p>
 <section data-type="sect2" id="account-activation-and-password-reset-learned">
-<h2><span class="title-label">10.4.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">10.4.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>和会话一样，账户激活虽然没有对应的 Active Record 对象，但也可以看做一个“资源”；</p>
@@ -2199,7 +2199,7 @@ your password will stay as it is.
 </section>
 </section>
 <section data-type="sect1" id="account-activation-and-password-reset-exercises">
-<h1><span class="title-label">10.5.</span> 练习</h1>
+<h1><span class="title-label">10.5</span> 练习</h1>
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>
@@ -2309,7 +2309,7 @@ your password will stay as it is.
 </div>
 </section>
 <section data-type="sect1" id="proof-of-expiration-comparison">
-<h1><span class="title-label">10.6.</span> 证明超时失效的比较算式</h1>
+<h1><span class="title-label">10.6</span> 证明超时失效的比较算式</h1>
 <p>本节我们要证明 <a href="#resetting-the-password">10.2.4 节</a>比较密码重设超时失效的算式是正确的。我们先来定义两个时间间隔：Δt<sub>r</sub> 表示发送密码重设邮件后经过的时间，Δt<sub>e</sub> 表示限制的失效时长（例如两个小时）。如果邮件发出后经过的时间比限制的失效时长长，说明此次密码重设请求已经失效，即：</p>
 <p class="text-center">Δt<sub>r</sub> &gt; Δt<sub>e</sub></p>
 <p>如果用 t<sub>N</sub> 表示现在的时间，t<sub>r</sub> 表示发送邮件的时间，t<sub>e</sub> 表示失效的时间（例如两个小时以前），那么：</p>

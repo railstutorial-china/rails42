@@ -50,7 +50,7 @@
 <h1><span class="title-label">第 4 章</span> Rails 背后的 Ruby</h1>
 <p>有了<a href="chapter3.html#mostly-static-pages">第 3 章</a>的例子做铺垫，本章要介绍一些对 Rails 来说很重要的 Ruby 知识。Ruby 语言的知识点很多，不过对 Rails 开发者而言需要掌握的很少。我们采用的方式有别于常规的 Ruby 学习过程。本章的目标是，不管你有没有 Ruby 编程经验，都得让你掌握编写 Rails 应用所需的 Ruby 知识。这一章的内容很多，第一次阅读不能完全掌握也没关系。后续的章节我会经常提到本章的内容。</p>
 <section data-type="sect1" id="motivation">
-<h1><span class="title-label">4.1.</span> 导言</h1>
+<h1><span class="title-label">4.1</span> 导言</h1>
 <p>从前一章得知，即使完全不懂 Ruby 语言，我们也可以创建 Rails 应用的骨架，以及编写测试。我们依赖于书中提供的测试代码，得到错误信息，然后让测试组件通过。但是我们不能总是这样，所以这一章暂时不讲网站开发，而要正视我们的短肋——Ruby 语言。</p>
 <p>前一章末尾我们修改了几乎是静态内容的页面，让它们使用 Rails 布局，去除视图中的重复。我们使用的布局如<a href="#listing-application-layout-redux">代码清单 4.1</a> 所示（和<a href="chapter3.html#listing-application-layout">代码清单 3.32</a> 一样）。</p>
 <div id="listing-application-layout-redux" data-type="listing">
@@ -229,7 +229,7 @@
 <p>和引入应用的样式表那行代码一样，<a href="#listing-title-helper">代码清单 4.2</a> 的内容对有经验的 Rails 开发者来说也很简单，但其中很多重要的 Ruby 知识：模块，方法定义，可选的方法参数，注释，本地变量赋值，布尔值，流程控制，字符串拼接和返回值。本章会一一介绍这些知识。</p>
 </section>
 <section data-type="sect1" id="strings-and-methods">
-<h1><span class="title-label">4.2.</span> 字符串和方法</h1>
+<h1><span class="title-label">4.2</span> 字符串和方法</h1>
 <p>我们学习 Ruby 主要使用的工具是 Rails 控制台，它是用来和 Rails 应用交互的命令行工具，在 <a href="chapter2.html#a-user-has-many-microposts">2.3.3 节</a>介绍过。控制台基于 Ruby 的交互程序（<code>irb</code>）开发，因此能使用 Ruby 语言的全部功能。（<a href="#a-controller-class">4.4.4 节</a>会介绍，控制台还可以访问 Rails 环境。）</p>
 <p>如果使用云端 IDE，我建议使用一些 irb 配置参数。使用简单的 <code>nano</code> 文本编辑器，把<a href="#listing-irbrc">代码清单 4.8</a> 中的内容写入家目录里的 <code>.irbrc</code> 文件：<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup></p>
 <div data-type="listing">
@@ -260,7 +260,7 @@
 <p>默认情况下，控制台在开发环境中启动，这是 Rails 定义的三个独立环境之一（另外两个是测试环境和生产环境）。这三个环境的区别对本章不重要，<a href="chapter7.html#debug-and-rails-environments">7.1.1 节</a>会详细介绍。</p>
 <p>控制台是学习的好工具，你可以尽情地探索它的用法。别担心，你（几乎）不会破坏任何东西。如果在控制台中遇到了问题，可以按 Ctrl-C 键结束当前执行的操作，或者按 Ctrl-D 键直接退出。在阅读本章后续内容的过程中，你会发现查阅 <a href="http://ruby-doc.org/">Ruby API</a> 很有帮助。API 中有很多信息（或许太多了），例如，如果想进一步了解 Ruby 字符串，可以查看 <code>String</code> 类的文档。</p>
 <section data-type="sect2" id="comments">
-<h2><span class="title-label">4.2.1.</span> 注释</h2>
+<h2><span class="title-label">4.2.1</span> 注释</h2>
 <p>Ruby 中的注释以井号 <code>#</code>（也叫“哈希符号”，或者更诗意一点，叫“散列字元”）开头，一直到行尾结束。Ruby 会忽略注释，但是注释对人类读者（往往也包括代码的编写者）很有用。在下面的代码中</p>
 <div data-type="listing">
 
@@ -286,7 +286,7 @@
 <p>阅读的过程中，在控制台中输入或者复制粘贴命令时，如果愿意你可以不加注释，反正控制台会忽略注释。</p>
 </section>
 <section data-type="sect2" id="strings">
-<h2><span class="title-label">4.2.2.</span> 字符串</h2>
+<h2><span class="title-label">4.2.2</span> 字符串</h2>
 <p>对 Web 应用来说，字符串或许是最重要的数据结构，因为网页的内容就是从服务器发送给浏览器的字符串。我们先在控制台中体验一下字符串：</p>
 <div data-type="listing">
 
@@ -398,7 +398,7 @@
 </section>
 </section>
 <section data-type="sect2" id="objects-and-message-passing">
-<h2><span class="title-label">4.2.3.</span> 对象和消息传送</h2>
+<h2><span class="title-label">4.2.3</span> 对象和消息传送</h2>
 <p>在 Ruby 中，一切皆对象，包括字符串和 <code>nil</code> 都是。我们会在 <a href="#class-inheritance">4.4.2 节</a>介绍对象技术层面上的意义，不过一般很难通过阅读一本书就理解对象，你要多看一些例子才能建立对对象的感性认识。</p>
 <p>对象的作用说起来很简单：响应消息。例如，一个字符串对象可以响应 <code>length</code> 这个消息，返回字符串中包含的字符数量：</p>
 <div data-type="listing">
@@ -529,7 +529,7 @@
 </div>
 </section>
 <section data-type="sect2" id="method-definitions">
-<h2><span class="title-label">4.2.4.</span> 定义方法</h2>
+<h2><span class="title-label">4.2.4</span> 定义方法</h2>
 <p>在控制台中，我们可以像定义 <code>home</code> 动作（<a href="chapter3.html#listing-static-pages-controller">代码清单 3.6</a>）和 <code>full_title</code> 辅助方法（<a href="#listing-title-helper">代码清单 4.2</a>）一样定义方法。（在控制台中定义方法有点麻烦，我们一般会在文件中定义，这里只是为了演示。）例如，我们要定义一个名为 <code>string_message</code> 的方法，接受一个参数，返回值取决于参数是否为空：</p>
 <div data-type="listing">
 
@@ -582,7 +582,7 @@
 </div>
 </section>
 <section data-type="sect2" id="back-to-the-title-helper">
-<h2><span class="title-label">4.2.5.</span> 回顾标题的辅助方法</h2>
+<h2><span class="title-label">4.2.5</span> 回顾标题的辅助方法</h2>
 <p>下面我们来理解一下<a href="#listing-title-helper">代码清单 4.2</a> 中的 <code>full_title</code> 辅助方法，<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>在其中加上注解之后如<a href="#listing-annotated-title-helper">代码清单 4.9</a> 所示：</p>
 <div id="listing-annotated-title-helper" data-type="listing">
 <h5><span class="title-label">代码清单 4.9</span>：注解 <code>full_title</code> 方法</h5>
@@ -607,10 +607,10 @@
 </section>
 </section>
 <section data-type="sect1" id="other-data-structures">
-<h1><span class="title-label">4.3.</span> 其他数据类型</h1>
+<h1><span class="title-label">4.3</span> 其他数据类型</h1>
 <p>虽然 Web 应用最终都是处理字符串，但也需要其他的数据类型来生成字符串。本节介绍一些对开发 Rails 应用很重要的其他 Ruby 数据类型。</p>
 <section data-type="sect2" id="arrays-and-ranges">
-<h2><span class="title-label">4.3.1.</span> 数组和值域</h2>
+<h2><span class="title-label">4.3.1</span> 数组和值域</h2>
 <p>数组是一组具有特定顺序的元素。前面还没用过数组，不过理解数组对理解哈希有很大帮助（<a href="#hashes-and-symbols">4.3.3 节</a>），也有助于理解 Rails 中的数据模型（例如 <a href="chapter2.html#a-user-has-many-microposts">2.3.3</a> 节用到的 <code>has_many</code> 关联，<a href="chapter11.html#user-micropost-associations">11.1.3 节</a>会做详细介绍）。</p>
 <p>目前，我们已经花了很多时间理解字符串，从字符串过渡到数组可以从 <code>split</code> 方法开始：</p>
 <div data-type="listing">
@@ -780,7 +780,7 @@
 </div>
 </section>
 <section data-type="sect2" id="blocks">
-<h2><span class="title-label">4.3.2.</span> 块</h2>
+<h2><span class="title-label">4.3.2</span> 块</h2>
 <p>数组和值域可以响应的方法中有很多都可以跟着一个块（block），这是 Ruby 最强大也是最难理解的功能：</p>
 <div data-type="listing">
 
@@ -899,7 +899,7 @@
 </div>
 </section>
 <section data-type="sect2" id="hashes-and-symbols">
-<h2><span class="title-label">4.3.3.</span> 哈希和符号</h2>
+<h2><span class="title-label">4.3.3</span> 哈希和符号</h2>
 <p>哈希（Hash）本质上就是数组，只不过它的索引不局限于只能使用数字。（实际上在一些语言中，特别是 Perl，因为这个原因把哈希叫做“关联数组”。）哈希的索引（或者叫“键”）几乎可以使用任何对象。例如，可以使用字符串当键：</p>
 <div data-type="listing">
 
@@ -1044,7 +1044,7 @@
 </div>
 </section>
 <section data-type="sect2" id="css-revisited">
-<h2><span class="title-label">4.3.4.</span> 重温引入 CSS 的代码</h2>
+<h2><span class="title-label">4.3.4</span> 重温引入 CSS 的代码</h2>
 <p>现在我们要重新认识一下<a href="#listing-application-layout-redux">代码清单 4.1</a> 中在布局中引入层叠样式表的代码：</p>
 <div data-type="listing">
 
@@ -1127,10 +1127,10 @@
 </section>
 </section>
 <section data-type="sect1" id="ruby-classes">
-<h1><span class="title-label">4.4.</span> Ruby 类</h1>
+<h1><span class="title-label">4.4</span> Ruby 类</h1>
 <p>我们之前说过，Ruby 中的一切都是对象。本节我们要自己定义一些对象。Ruby 和其他面向对象的语言一样，使用类来组织方法，然后实例化类，创建对象。如果你刚接触“面向对象编程”（Object-Oriented Programming，简称 OOP），这些听起来都似天书一般，那我们来看一些实例吧。</p>
 <section data-type="sect2" id="constructors">
-<h2><span class="title-label">4.4.1.</span> 构造方法</h2>
+<h2><span class="title-label">4.4.1</span> 构造方法</h2>
 <p>我们看过很多使用类初始化对象的例子，不过还没自己动手做过。例如，我们使用双引号初始化一个字符串，双引号是字符串的字面构造方法：</p>
 <div data-type="listing">
 
@@ -1180,7 +1180,7 @@
 <p>在类上调用的方法，如本例的 <code>new</code>，叫“类方法”（class method）。在类上调用 <code>new</code> 方法，得到的结果是这个类的一个对象，也叫做这个类的“实例”（instance）。在实例上调用的方法，例如 <code>length</code>，叫“实例方法”（instance method）。</p>
 </section>
 <section data-type="sect2" id="class-inheritance">
-<h2><span class="title-label">4.4.2.</span> 类的继承</h2>
+<h2><span class="title-label">4.4.2</span> 类的继承</h2>
 <p>学习类时，理清类的继承关系会很有用，我们可以使用 <code>superclass</code> 方法：</p>
 <div data-type="listing">
 
@@ -1273,7 +1273,7 @@
 <p>来检查单词是否为“回文”。其实，在类中调用方法或访问属性时可以不用 <code>self.</code>（赋值时不行），所以也可以写成 <code>self == reverse</code>。</p>
 </section>
 <section data-type="sect2" id="modifying-built-in-classes">
-<h2><span class="title-label">4.4.3.</span> 修改内置的类</h2>
+<h2><span class="title-label">4.4.3</span> 修改内置的类</h2>
 <p>虽然继承是个很强大的功能，不过在判断回文这个例子中，如果能把 <code>palindrome?</code> 加入 <code>String</code> 类就更好了，这样（除了其他方法外）我们可以在字符串字面量上调用 <code>palindrome?</code> 方法。现在我们还不能直接调用：</p>
 <div data-type="listing">
 
@@ -1315,7 +1315,7 @@
 <p>可以看出，一个包含空格的字符串不是空的（empty），却是空白的（blank）。还要注意，<code>nil</code> 也是空白的。因为 <code>nil</code> 不是字符串，所以上面的代码说明了 Rails 其实是把 <code>blank?</code> 添加到 <code>String</code> 的基类 <code>Object</code> 中的。<a href="chapter8.html#remember-me">8.4 节</a>会再介绍一些 Rails 扩展 Ruby 类的例子。）</p>
 </section>
 <section data-type="sect2" id="a-controller-class">
-<h2><span class="title-label">4.4.4.</span> 控制器类</h2>
+<h2><span class="title-label">4.4.4</span> 控制器类</h2>
 <p>讨论类和继承时你可能觉得似曾相识，不错，我们之前见过，在静态页面控制器中（<a href="chapter3.html#listing-adding-the-about-page">代码清单 3.18</a>）：</p>
 <div data-type="listing">
 
@@ -1368,7 +1368,7 @@
 <div id="fig-static-pages-controller-inheritance" class="figure"><img src="images/chapter4/static_pages_controller_inheritance.png" alt="static pages controller inheritance" /><div class="figcaption"><span class="title-label">图 4.3</span>：静态页面控制器的类继承关系</div></div>
 </section>
 <section data-type="sect2" id="a-user-class">
-<h2><span class="title-label">4.4.5.</span> 用户类</h2>
+<h2><span class="title-label">4.4.5</span> 用户类</h2>
 <p>我们要自己定义一个类，结束对 Ruby 的介绍。这个类名为 <code>User</code>，目的是实现 <a href="chapter6.html#modeling-users">第 6 章</a>用到的用户模型。</p>
 <p>到目前为止，我们都在控制台中定义类，这样很快捷，但也有点不爽。现在我们要在应用的根目录中创建一个名为 <code>example_user.rb</code> 的文件，然后写入<a href="#listing-example-user">代码清单 4.13</a> 中的内容。</p>
 <div id="listing-example-user" data-type="listing">
@@ -1452,7 +1452,7 @@
 </section>
 </section>
 <section data-type="sect1" id="rails-flavored-ruby-conclusion">
-<h1><span class="title-label">4.5.</span> 小结</h1>
+<h1><span class="title-label">4.5</span> 小结</h1>
 <p>现在对 Ruby 语言的介绍结束了。<a href="chapter5.html#filling-in-the-layout">第 5 章</a>会好好利用这些知识来开发演示应用。</p>
 <p>我们不会使用 <a href="#a-user-class">4.4.5 节</a>创建的 <code>example_user.rb</code> 文件，所以我建议把它删除：</p>
 <div data-type="listing">
@@ -1473,7 +1473,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="rails-flavored-ruby-learned">
-<h2><span class="title-label">4.5.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">4.5.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>Ruby 提供了很多处理字符串的方法；</p>
@@ -1509,7 +1509,7 @@
 </section>
 </section>
 <section data-type="sect1" id="rails-flavored-ruby-exercises">
-<h1><span class="title-label">4.6.</span> 练习</h1>
+<h1><span class="title-label">4.6</span> 练习</h1>
 <ol class="arabic">
 <li>
 <p>把<a href="#listing-string-shuffle">代码清单 4.14</a> 中的问号换成合适的方法，结合 <code>split</code>、<code>shuffle</code> 和 <code>join</code> 实现一个函数，把字符串中的字符顺序打乱。</p>

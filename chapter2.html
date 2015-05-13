@@ -51,7 +51,7 @@
 <p>本章我们要开发一个简单的演示应用，展示 Rails 强大的功能。我们会使用脚手架快速生成程序，这样就能站在一定高度上概览 Ruby on Rails 编程的过程（也能大致了解 Web 开发）。正如<a href="chapter1.html#aside-scaffolding">旁注 1.2</a> 中所说，本书将采用与众不同方法，循序渐进开发一个完整的演示应用，遇到新的概念都会详细说明。不过为了快速概览（也为了寻找成就感），无需对脚手架避而不谈。我们可以通过 URL 和最终开发出来的玩具应用交互，了解 Rails 应用的结构，也第一次演示 Rails 使用的 REST 架构。</p>
 <p>和后面的演示应用类似，这个玩具应用中有用户（users）和用户的微博（microposts），因此算是一个小型的 Twitter 类应用。应用的功能还需要后续开发，而且开发过程中的很多步骤看起来很神秘，不过暂时不用担心：从<a href="chapter3.html#mostly-static-pages">第 3 章</a>起将从零开始再开发一个类似的完整应用，我还会提供大量的资料供后续阅读。你要有些耐心，不要怕多犯错误，本章的主要目的就是让你不要被脚手架的神奇迷惑住了，而要更深入的了解 Rails。</p>
 <section data-type="sect1" id="planning-the-application">
-<h1><span class="title-label">2.1.</span> 规划应用</h1>
+<h1><span class="title-label">2.1</span> 规划应用</h1>
 <p>这一节，我们要规划一下这个玩具应用。和 <a href="chapter1.html#the-first-application">1.3 节</a>一样，我们先使用 <code>rails new</code> 命令生成应用的骨架。</p>
 <div data-type="listing">
 
@@ -129,20 +129,20 @@
 <p>（和 <a href="chapter1.html#deploying">1.5 节</a>一样，可能会看到一些提醒消息，现在先不去管它。<a href="chapter7.html#professional-grade-deployment">7.5 节</a>会解决。）除了 Heroku 为应用提供的地址之外，输出的内容应该和<a href="chapter1.html#fig-heroku-app">图 1.18</a> 一样。</p>
 <p>下面要开发这个应用了。一般来说，开发 Web 应用的第一步是创建数据模型（data model）。模型表示应用所需的结构。这个玩具应用是个微博客，只有用户和简短的文章（微博）。那么我们先为这个应用添加用户模型（<a href="#a-toy-model-for-users">2.1.1 节</a>），然后再添加微博模型（<a href="#a-toy-model-for-microposts">2.1.2 节</a>）。</p>
 <section data-type="sect2" id="a-toy-model-for-users">
-<h2><span class="title-label">2.1.1.</span> 用户模型</h2>
+<h2><span class="title-label">2.1.1</span> 用户模型</h2>
 <p>网络中有多少不同的注册表单，就有多少定义用户数据模型的方式。我们要使用一种最简单的。这个玩具应用的用户有一个唯一的标识 <code>id</code>（<code>integer</code> 类型），一个公开的名字 <code>name</code>（<code>string</code> 类型），以及一个电子邮件地址 <code>email</code>（也是 <code>string</code> 类型）。电子邮件地址也作为用户名使用。用户模型的结构如<a href="#fig-demo-user-model">图 2.2</a>。</p>
 <div id="fig-demo-user-model" class="figure"><img src="images/chapter2/demo_user_model.png" alt="demo user model" /><div class="figcaption"><span class="title-label">图 2.2</span>：用户数据模型</div></div>
 <p>在 <a href="chapter6.html#database-migrations">6.1.1 节</a>会看到，<a href="#fig-demo-user-model">图 2.2</a> 中的 <code>users</code> 对应于数据库中的一个表；<code>id</code>、<code>name</code> 和 <code>email</code> 是表中的列。</p>
 </section>
 <section data-type="sect2" id="a-toy-model-for-microposts">
-<h2><span class="title-label">2.1.2.</span> 微博模型</h2>
+<h2><span class="title-label">2.1.2</span> 微博模型</h2>
 <p>微博数据模型的核心比用户模型还要简单：微博只要一个 <code>id</code> 和表示微博内容的 <code>content</code>（<code>text</code> 类型）字段即可。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>不过还有一个比较复杂的字段要实现，这个字段把微博和用户关联起来。我们使用 <code>user_id</code> 存储微博的属主。最终得到的微博数据模型如<a href="#fig-demo-micropost-model">图 2.3</a> 所示。</p>
 <div id="fig-demo-micropost-model" class="figure"><img src="images/chapter2/demo_micropost_model.png" alt="demo micropost model" /><div class="figcaption"><span class="title-label">图 2.3</span>：微博数据类型</div></div>
 <p><a href="#a-user-has-many-microposts">2.3.3 节</a>会介绍怎样使用 <code>user_id</code> 字段简单的实现一个用户拥有多个微博的功能。在<a href="chapter11.html#user-microposts">第 11 章</a>中有更完整的说明。</p>
 </section>
 </section>
 <section data-type="sect1" id="the-users-resource">
-<h1><span class="title-label">2.2.</span> 用户资源</h1>
+<h1><span class="title-label">2.2</span> 用户资源</h1>
 <p>这一节我们要实现 <a href="#a-toy-model-for-users">2.1.1 节</a>设定的用户数据模型，还会为这个模型创建 Web 界面。二者结合起来就是一个“用户资源”（Users Resource）。“资源”的意思是把用户设想为对象，可以通过 <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP 协议</a>在网页中创建（create）、读取（read）、更新（update）和删除（delete）。正如前面提到的，用户资源使用 Rails 内置的脚手架生成。我建议你先不要细看脚手架生成的代码，这时看只会让你更困惑。</p>
 <p>把 <code>scaffold</code> 传给 <code>rails generate</code> 就可以使用 Rails 的脚手架了。传给 <code>scaffold</code> 的参数是资源名的单数形式（这里是 <code>User</code>）<sup>[<a id="fn-ref-3" href="#fn-3">3</a>]</sup>，后面可以再跟着一些可选参数，指定数据模型中的字段：</p>
 <div data-type="listing">
@@ -232,7 +232,7 @@
 <p>任务列表看起来有点让人摸不着头脑，不过现在无需担心，你不需要知道所有（甚至大多数）命令。学完本教程后，你会知道所有重要的任务。</p>
 </div>
 <section data-type="sect2" id="a-user-tour">
-<h2><span class="title-label">2.2.1.</span> 浏览用户相关的页面</h2>
+<h2><span class="title-label">2.2.1</span> 浏览用户相关的页面</h2>
 <p>如果访问根 URL <a href="http://localhost:3000/" class="bare">http://localhost:3000/</a> 看到的还是 Rails 默认页面（<a href="chapter1.html#fig-riding-rails">图 1.9</a>）。不过使用脚手架生成用户资源时生成了很多用来处理用户的页面。例如，列出所有用户的页面地址是 <a href="http://localhost:3000/users">/users</a>，创建新用户的地址是 <a href="http://localhost:3000/users/new">/users/new</a>。本节的目的就是走马观花地浏览一下这些用户相关的页面。浏览时你会发现<a href="#table-user-urls">表 2.1</a> 很有用，表中显示了页面和 URL 之间的对应关系。</p>
 <table id="table-user-urls" class="tableblock frame-all grid-all" style="width: 100%;">
 <caption><span class="title-label">表 2.1</span>：用户资源中页面和 URL 的对应关系</caption>
@@ -286,7 +286,7 @@
 <div id="fig-demo-destroy-user" class="figure"><img src="images/chapter2/demo_destroy_user_3rd_edition.png" alt="demo destroy user 3rd edition" /><div class="figcaption"><span class="title-label">图 2.10</span>：删除一个用户</div></div>
 </section>
 <section data-type="sect2" id="mvc-in-action">
-<h2><span class="title-label">2.2.2.</span> MVC 实战</h2>
+<h2><span class="title-label">2.2.2</span> MVC 实战</h2>
 <p>我们已经快速概览了用户资源，下面我们从 MVC（<a href="chapter1.html#model-view-controller">1.3.3 节</a>）的视角出发，审视其中某些特定部分。我们要分析在浏览器中访问用户索引页的过程，了解一下 MVC（<a href="#fig-mvc-detailed">图 2.11</a>）。</p>
 <p>图中各步的说明如下：</p>
 <ol class="arabic">
@@ -546,7 +546,7 @@
 <p>视图把代码转换成 HTML（第 7 步），然后控制器将其返回给浏览器，再显示出来（第 8 步）。</p>
 </section>
 <section data-type="sect2" id="weaknesses-of-this-users-resource">
-<h2><span class="title-label">2.2.3.</span> 这个用户资源的不足</h2>
+<h2><span class="title-label">2.2.3</span> 这个用户资源的不足</h2>
 <p>脚手架生成的用户资源虽然能够让你大致了解 Rails，但也有一些不足：</p>
 <ul>
 <li>
@@ -568,10 +568,10 @@
 </section>
 </section>
 <section data-type="sect1" id="the-microposts-resource">
-<h1><span class="title-label">2.3.</span> 微博资源</h1>
+<h1><span class="title-label">2.3</span> 微博资源</h1>
 <p>我们已经生成并浏览了用户资源，现在要生成微博资源。阅读本节时，我推荐你和 <a href="#the-users-resource">2.2 节</a>对比一下。你会发现两个资源在很多方面都是一致的。通过这样重复生成资源，我们可以更好地理解 Rails 中的 REST 架构。在这样的早期阶段看一下用户资源和微博资源的相同之处，也是本章的主要目的之一。</p>
 <section data-type="sect2" id="a-micropost-microtour">
-<h2><span class="title-label">2.3.1.</span> 概览微博资源</h2>
+<h2><span class="title-label">2.3.1</span> 概览微博资源</h2>
 <p>和用户资源一样，我们使用 <code>rails generate scaffold</code> 命令生成微博资源的代码，不过这一次要实现<a href="#fig-demo-micropost-model">图 2.3</a> 中的数据模型：<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
 <div data-type="listing">
 
@@ -760,7 +760,7 @@
 <div id="fig-demo-micropost-index" class="figure"><img src="images/chapter2/demo_micropost_index_3rd_edition.png" alt="demo micropost index 3rd edition" /><div class="figcaption"><span class="title-label">图 2.13</span>：微博索引页（<a href="http://localhost:3000/microposts">/microposts</a>）</div></div>
 </section>
 <section data-type="sect2" id="putting-the-micro-in-microposts">
-<h2><span class="title-label">2.3.2.</span> 限制微博内容的长度</h2>
+<h2><span class="title-label">2.3.2</span> 限制微博内容的长度</h2>
 <p>如果要称得上“微博”这个名字，就要限制内容的长度。在 Rails 中实现这种限制很简单，使用验证（validation）功能即可。要限制微博的长度最大字数为 140 个字符（就像 Twitter 一样），我们可以使用长度验证。在文本编辑器或 IDE 中打开 <code>app/models/micropost.rb</code>，写入<a href="#listing-demo-length-validation">代码清单 2.10</a> 中的代码。</p>
 <div id="listing-demo-length-validation" data-type="listing">
 <h5><span class="title-label">代码清单 2.10</span>：限制微博的长度最多为 140 个字符</h5>
@@ -776,7 +776,7 @@
 <div id="fig-micropost-length-error" class="figure"><img src="images/chapter2/micropost_length_error_3rd_edition.png" alt="micropost length error 3rd edition" /><div class="figcaption"><span class="title-label">图 2.14</span>：发布微博失败时显示的错误消息</div></div>
 </section>
 <section data-type="sect2" id="a-user-has-many-microposts">
-<h2><span class="title-label">2.3.3.</span> 一个用户拥有多篇微博</h2>
+<h2><span class="title-label">2.3.3</span> 一个用户拥有多篇微博</h2>
 <p>Rails 最强大的功能之一是，可以在不同的数据模型之间建立关联（association）。对本例中的用户模型而言，每个用户可以拥有多篇微博。我们可以更新用户模型（参见<a href="#listing-demo-user-has-many-microposts">代码清单 2.11</a>）和微博模型（参见<a href="#listing-demo-micropost-belongs-to-user">代码清单 2.12</a>）的代码实现这种关联。</p>
 <div id="listing-demo-user-has-many-microposts" data-type="listing">
 <h5><span class="title-label">代码清单 2.11</span>：一个用户拥有多篇微博</h5>
@@ -827,7 +827,7 @@
 我们使用 <code>first_user.microposts</code> 获取这个用户发布的微博。Active Record 会自动返回 <code>user_id</code> 和 <code>first_user</code> 的 ID（<code>1</code>）相同的所有微博。在<a href="chapter11.html#user-microposts">第 11 章</a>和<a href="chapter12.html#following-users">第 12 章</a>中，我们会更深入地学习关联的这种用法。</p>
 </section>
 <section data-type="sect2" id="inheritance-hierarchies">
-<h2><span class="title-label">2.3.4.</span> 继承体系</h2>
+<h2><span class="title-label">2.3.4</span> 继承体系</h2>
 <p>接下来简要介绍 Rails 中控制器和模型的类集成。
 如果你有面向对象编程（Object-oriented Programming，简称 OOP）的经验，能更好地理解这些内容。如果你未接触过 OOP 的话，可以跳过这一节。一般来说，如果你不熟悉类的概念（<a href="chapter4.html#ruby-classes">4.4 节</a>中会介绍），我建议你以后再回过头来读这一节。</p>
 <p>我们先介绍模型的继承结构。对比一下<a href="#listing-demo-user-class">代码清单 2.13</a> 和<a href="#listing-demo-micropost-class">代码清单 2.14</a> ，可以看出，<code>User</code> 和 <code>Micropost</code> 都（通过 <code>&lt;</code> 符号）继承自 <code>ActiveRecord::Base</code>，这是 Active Record 为模型提供的基类。<a href="#fig-demo-model-inheritance">图 2.16</a> 列出了这种继承关系。通过继承 <code>ActiveRecord::Base</code>，模型对象才能与数据库通讯，才能把数据库中的列看做 Ruby 中的属性，等等。</p>
@@ -897,7 +897,7 @@
 <p>和模型的继承类似，通过继承 <code>ActionController::Base</code>，<code>UsersController</code> 和 <code>MicropostsController</code> 获得了很多功能。例如，处理模型对象的能力，过滤输入的 HTTP 请求，以及把视图渲染成 HTML。Rails 应用中的所有控制器都继承 <code>ApplicationController</code>，所以其中定义的规则会自动运用于应用中的的每个动作。例如，<a href="chapter8.html#remember-me">8.4 节</a>会介绍如何在 <code>ApplicationController</code> 中引入辅助方法，为整个应用的所有控制器都加上登录和退出功能。</p>
 </section>
 <section data-type="sect2" id="deploying-the-toy-app">
-<h2><span class="title-label">2.3.5.</span> 部署这个玩具应用</h2>
+<h2><span class="title-label">2.3.5</span> 部署这个玩具应用</h2>
 <p>完成微博资源之后，是时候把代码推送到 Bitbucket 的仓库中了：</p>
 <div data-type="listing">
 
@@ -929,7 +929,7 @@
 </section>
 </section>
 <section data-type="sect1" id="a-toy-app-conclusion">
-<h1><span class="title-label">2.4.</span> 小结</h1>
+<h1><span class="title-label">2.4</span> 小结</h1>
 <p>至此，对这个 Rails 应用的概览结束了。本章开发的玩具应用有优点也有缺点。</p>
 <p><strong>优点</strong></p>
 <ul>
@@ -987,7 +987,7 @@
 </ul>
 <p>本书后续的内容建立在这些优点之上，而且会改善缺点。</p>
 <section data-type="sect2" id="a-toy-app-learned">
-<h2><span class="title-label">2.4.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">2.4.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>使用脚手架自动生成模型的代码，然后通过 Web 界面和应用交互；</p>
@@ -1014,7 +1014,7 @@
 </section>
 </section>
 <section data-type="sect1" id="a-toy-app-exercises">
-<h1><span class="title-label">2.5.</span> 练习</h1>
+<h1><span class="title-label">2.5</span> 练习</h1>
 <ol class="arabic">
 <li>
 <p><a href="#listing-validates-content-presence">代码清单 2.18</a> 为微博内容添加了一个存在性验证，以此确保微博不能为空。验证这个规则确实能实现如<a href="#fig-micropost-content-cant-be-blank">图 2.19</a> 所示的效果。</p>

@@ -51,7 +51,7 @@
 <p><a href="chapter4.html#rails-flavored-ruby">第 4 章</a>简介 Ruby 时，我们学习了如何在演示应用中引入样式表（<a href="chapter4.html#motivation">4.1 节</a>），不过现在样式表中还没有内容。本章我们要使用一个 CSS 框架，以及自己编写的样式，填充样式表。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup>我们还要完善布局，添加指向各个页面的链接（例如首页和“关于”页面，<a href="#adding-some-structure">5.1 节</a>）。在这个过程中，我们会学习局部视图、Rails 路由和 Asset Pipeline，还会介绍 Sass（<a href="#sass-and-the-asset-pipeline">5.2 节</a>）。最后，我们还要向前迈出很重要的一步：允许用户在我们的网站中注册（<a href="#user-signup-a-first-step">5.4 节</a>）。</p>
 <p>本章大部改动是添加和修改应用的布局，这些操作一般不由测试驱动，或者完全不用测试。所以大部分时间都花在文本编辑器和浏览器中，只用 TDD 添加“联系”页面（<a href="#contact-page">5.3.1 节</a>）。不过，我们要编写一种重要的测试，集成测试，检查最终完成的布局中有所需的链接（<a href="#layout-link-tests">5.3.4 节</a>）。</p>
 <section data-type="sect1" id="adding-some-structure">
-<h1><span class="title-label">5.1.</span> 添加一些结构</h1>
+<h1><span class="title-label">5.1</span> 添加一些结构</h1>
 <p>本书介绍 Web 开发而不是 Web 设计，不过在一个看起来很简陋的应用中开发会让人提不起劲，所以本节要向布局中添加一些结构，再加入一些 CSS 实现基本的样式。除了使用自定义的 CSS 之外，我们还会使用由 Twitter 开发的开源 Web 设计框架 <a href="http://getbootstrap.com/">Bootstrap</a>。我们会按照一定的方式组织代码——当布局文件中的内容变多以后，使用局部视图清理。</p>
 <p>开发 Web 应用时，尽早对用户界面有个统筹安排往往会对你有所帮助。在本书后续内容中，我会经常使用网页构思图（mockup）（在 Web 领域经常称之为“线框图”），展示应用最终外观的草图。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>本章大部分内容都在开发 <a href="chapter3.html#static-pages">3.2 节</a>编写的静态页面，我们要在页面中加入一个网站 LOGO、导航条和网站底部。这些页面中最重要的是“首页”，它的构思图如<a href="#fig-home-page-mockup">图 5.1</a> 所示，<a href="#fig-site-with-footer">图 5.7</a> 是最终实现的效果。你会发现二者之间的某些细节有所不同，例如，在最终实现的页面中我们加入了一个 Rails LOGO——这没什么关系，因为构思图没必要画出每个细节。</p>
 <div id="fig-home-page-mockup" class="figure"><img src="images/chapter5/home_page_mockup_3rd_edition.png" alt="home page mockup 3rd edition" /><div class="figcaption"><span class="title-label">图 5.1</span>：演示应用首页的构思图</div></div>
@@ -64,7 +64,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="site-navigation">
-<h2><span class="title-label">5.1.1.</span> 网站导航</h2>
+<h2><span class="title-label">5.1.1</span> 网站导航</h2>
 <p>在应用中添加链接和样式之前，我们先来修改网站的布局文件 <code>application.html.erb</code>（上一次见到是在<a href="chapter4.html#listing-application-layout-full-title">代码清单 4.3</a> 中），添加一些 HTML 结构。我们要添加一些区域，一些 CSS 类，以及导航条。布局文件的完整内容参见<a href="#listing-layout-new-structure">代码清单 5.1</a>，
 对各部分的说明紧跟其后。如果你迫不及待想看到结果，请看<a href="#fig-layout-no-logo-or-custom-css">图 5.2</a>。（注意：结果（还）不是很让人满意。）</p>
 <div id="listing-layout-new-structure" data-type="listing">
@@ -260,7 +260,7 @@
 <p>现在我们终于可以看到劳动的果实了，如<a href="#fig-layout-no-logo-or-custom-css">图 5.2</a> 所示。你可能会说，这并不很美观啊。或许吧。不过也可以小小的高兴一下，因为我们为 HTML 结构指定了合适的类，可以用来添加 CSS。</p>
 </section>
 <section data-type="sect2" id="bootstrap-and-custom-css">
-<h2><span class="title-label">5.1.2.</span> Bootstrap 和自定义的 CSS</h2>
+<h2><span class="title-label">5.1.2</span> Bootstrap 和自定义的 CSS</h2>
 <p>前一节我们为很多 HTML 元素指定了 CSS 类，这样我们就可以使用 CSS 灵活的构建布局了。如前所述，其中很多类在 Bootstrap 中都有特殊的意义。Bootstrap 是 Twitter 开发的框架，可以方便地把精美的 Web 设计和用户界面元素添加到使用 HTML5 开发的应用中。本节，我们会结合 Bootstrap 和一些自定义的 CSS 为演示应用添加一些样式。</p>
 <p>首先，我们要安装 Bootstrap。在 Rails 应用中可以使用 <code>bootstrap-sass</code> 这个 gem，如<a href="#listing-bootstrap-sass">代码清单 5.3</a> 所示。Bootstrap 框架本身使用 <a href="http://lesscss.org/">LESS</a> 编写动态样式表，而 Rails 的 Asset Pipeline 默认支持的是（非常类似的）Sass 语言。<code>bootstrap-sass</code> 会把 LESS 转换成 Sass，而且让 Bootstrap 中所有必要的文件都可以在当前应用中使用。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup></p>
 <div id="listing-bootstrap-sass" data-type="listing">
@@ -429,7 +429,7 @@
 <div id="fig-sample-app-logo" class="figure"><img src="images/chapter5/sample_app_logo_3rd_edition.png" alt="sample app logo 3rd edition" /><div class="figcaption"><span class="title-label">图 5.6</span>：添加 LOGO 样式后的演示应用</div></div>
 </section>
 <section data-type="sect2" id="partials">
-<h2><span class="title-label">5.1.3.</span> 局部视图</h2>
+<h2><span class="title-label">5.1.3</span> 局部视图</h2>
 <p>虽然<a href="#listing-layout-new-structure">代码清单 5.1</a> 中的布局达到了目的，但其中的内容看起来有点混乱。HTML shim 就占用了三行，而且使用了只针对 IE 的奇怪句法，如果能把它打包放在一个单独的地方就好了。头部的 HTML 自成一个逻辑单元，所以也可以把这部分打包放在某个地方。在 Rails 中我们可以使用“局部视图”实现这种想法。先来看一下定义了局部视图之后的布局文件。如<a href="#listing-layout-with-partials">代码清单 5.8</a> 所示。</p>
 <div id="listing-layout-with-partials" data-type="listing">
 <h5><span class="title-label">代码清单 5.8</span>：把 HTML shim 和头部放到局部视图之后的网站布局</h5>
@@ -588,10 +588,10 @@
 </section>
 </section>
 <section data-type="sect1" id="sass-and-the-asset-pipeline">
-<h1><span class="title-label">5.2.</span> Sass 和 Asset Pipeline</h1>
+<h1><span class="title-label">5.2</span> Sass 和 Asset Pipeline</h1>
 <p>在新版 Rails 中，最大的变化是增加了 Asset Pipeline，这个功能明显提升了 CSS、JavaScript 和图片等静态资源文件的生成效率，而且还能降低管理成本。本节我们先大致介绍一下 Asset Pipeline，然后说明如何使用强大的 CSS 编写工具 Sass。</p>
 <section data-type="sect2" id="the-asset-pipeline">
-<h2><span class="title-label">5.2.1.</span> Asset Pipeline</h2>
+<h2><span class="title-label">5.2.1</span> Asset Pipeline</h2>
 <p>Asset Pipeline 对 Rails 做了很多改动，但对 Rails 开发者来说只有三个特性需要了解：静态资源文件夹，清单文件，以及预处理器引擎。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup>下面一一介绍。</p>
 <section data-type="sect3" id="asset-directories">
 <h3>静态资源文件夹</h3>
@@ -713,7 +713,7 @@ images/ javascripts/ stylesheets/
 </section>
 </section>
 <section data-type="sect2" id="syntactically-awesome-stylesheets">
-<h2><span class="title-label">5.2.2.</span> 句法强大的样式表</h2>
+<h2><span class="title-label">5.2.2</span> 句法强大的样式表</h2>
 <p>Sass 是一种编写 CSS 的语言，从多方面增强了 CSS 的功能。本节我们要介绍两个最主要的功能：嵌套和变量。（还有一个功能是“混入”，<a href="chapter7.html#debug-and-rails-environments">7.1.1 节</a>再介绍。）</p>
 <p><a href="#bootstrap-and-custom-css">5.1.2 节</a>说过，Sass 支持一种名为 SCSS 的格式（扩展名为 <code>.scss</code>），这是 CSS 句法的一个扩展集。SCSS 只为 CSS 添加了一些功能，而没有定义全新的句法。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup>也就是说，所有有效的 CSS 文件都是有效的 SCSS 文件，这对已经定义了样式的项目来说是件好事。在我们的应用中，因为要使用 Bootstrap，所以从一开始就使用了 SCSS。Rails 的 Asset Pipeline 会自动使用 Sass 预处理器处理扩展名为 <code>.scss</code> 的文件，所以 <code>custom.css.scss</code> 文件会首先经由 Sass 预处理器处理，然后引入应用的样式表中，再发送给浏览器。</p>
 <section data-type="sect3" id="nesting">
@@ -1011,7 +1011,7 @@ images/ javascripts/ stylesheets/
 </section>
 </section>
 <section data-type="sect1" id="layout-links">
-<h1><span class="title-label">5.3.</span> 布局中的链接</h1>
+<h1><span class="title-label">5.3</span> 布局中的链接</h1>
 <p>我们已经为网站的布局定义了看起来不错的样式，下面要把链接中使用的占位符 <code>#</code> 换成真正的链接地址。当然，我们可以像下面这样硬编码链接：</p>
 <div data-type="listing">
 
@@ -1076,7 +1076,7 @@ images/ javascripts/ stylesheets/
 </tbody>
 </table>
 <section data-type="sect2" id="contact-page">
-<h2><span class="title-label">5.3.1.</span> “联系”页面</h2>
+<h2><span class="title-label">5.3.1</span> “联系”页面</h2>
 <p>继续之前，我们要先添加一个“联系”页面（<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习题），测试如<a href="#listing-contact-page-test">代码清单 5.16</a> 所示，形式和<a href="chapter3.html#listing-title-tests">代码清单 3.22</a> 差不多。（如果你做了<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习，测试中可能会使用 <code>@base_title</code> 变量，你可以在<a href="#listing-contact-page-test">代码清单 5.16</a> 中使用。）</p>
 <div id="listing-contact-page-test" data-type="listing">
 <h5><span class="title-label">代码清单 5.16</span>：“联系”页面的测试 <span class="red">RED</span></h5>
@@ -1172,7 +1172,7 @@ images/ javascripts/ stylesheets/
 </div>
 </section>
 <section data-type="sect2" id="rails-routes">
-<h2><span class="title-label">5.3.2.</span> Rails 路由</h2>
+<h2><span class="title-label">5.3.2</span> Rails 路由</h2>
 <p>为了添加演示应用中静态页面的具名路由，我们要修改 Rails 用来定义 URL 映射的路由文件，即 <code>config/routes.rb</code>。我们先分析一下特殊的首页路由（<a href="chapter3.html#setting-the-root-route">3.4.4 节</a>定义），然后定义其他静态页面的路由。</p>
 <p>目前，我们见到了三种定义根路由的方式，首先是 <code>hello_app</code> 中的（<a href="chapter1.html#listing-hello-root-route">代码清单 1.10</a>）</p>
 <div data-type="listing">
@@ -1242,7 +1242,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 </section>
 <section data-type="sect2" id="using-named-routes">
-<h2><span class="title-label">5.3.3.</span> 使用具名路由</h2>
+<h2><span class="title-label">5.3.3</span> 使用具名路由</h2>
 <p>有了<a href="#listing-static-page-routes">代码清单 5.22</a> 中的路由，我们就可以在网站的布局中使用具名路由了。我们只需在 <code>link_to</code> 函数的第二个参数中指定合适的具名路由。例如，我们要把</p>
 <div data-type="listing">
 
@@ -1304,7 +1304,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <div id="fig-about-page" class="figure"><img src="images/chapter5/about_page_styled_3rd_edition.png" alt="about page styled 3rd edition" /><div class="figcaption"><span class="title-label">图 5.8</span>：<a href="http://localhost:3000/about">/about</a> 地址上的“关于”页面</div></div>
 </section>
 <section data-type="sect2" id="layout-link-tests">
-<h2><span class="title-label">5.3.4.</span> 布局中链接的测试</h2>
+<h2><span class="title-label">5.3.4</span> 布局中链接的测试</h2>
 <p>我们在布局中加入了几个链接，最好再编写一些测试，确保链接正常。我们可以在浏览器中手动测试，先访问首页，然后点击其他链接，不过这么做很快就会变得繁琐。所以我们要使用集成测试，编写端到端测试完成这些操作。首先，生成测试模板，名为 <code>site_layout</code>：</p>
 <div data-type="listing">
 
@@ -1434,10 +1434,10 @@ help_url  -&gt; 'http://www.example.com/help'
 </section>
 </section>
 <section data-type="sect1" id="user-signup-a-first-step">
-<h1><span class="title-label">5.4.</span> 用户注册：第一步</h1>
+<h1><span class="title-label">5.4</span> 用户注册：第一步</h1>
 <p>为了完成本章的目标，本节要设置“注册”页面的路由，为此要创建第二个控制器。这是允许用户注册重要的第一步，我们会在<a href="chapter6.html#modeling-users">第 6 章</a>完成第二步，创建用户模型，<a href="chapter7.html#sign-up">第 7 章</a>会完成整个功能。</p>
 <section data-type="sect2" id="users-controller">
-<h2><span class="title-label">5.4.1.</span> 用户控制器</h2>
+<h2><span class="title-label">5.4.1</span> 用户控制器</h2>
 <p>我们在 <a href="chapter3.html#static-pages">3.2 节</a>创建了第一个控制器——静态页面控制器。现在要创建第二个，用户控制器。和之前一样，我们使用 <code>generate</code> 命令创建所需的控制器骨架，包含用户注册页面所需的动作。遵照 Rails 使用的 REST 架构约定，我们把这个动作命名为 <code>new</code>，把 <code>new</code> 作为参数传给 <code>generate</code> 命令就可以自动创建这个动作，如<a href="#listing-generate-users-controller">代码清单 5.28</a> 所示。</p>
 <div id="listing-generate-users-controller" data-type="listing">
 <h5><span class="title-label">代码清单 5.28</span>：生成用户控制器（包含 <code>new</code> 动作）</h5>
@@ -1510,7 +1510,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </div>
 </section>
 <section data-type="sect2" id="signup-url">
-<h2><span class="title-label">5.4.2.</span> “注册”页面的 URL</h2>
+<h2><span class="title-label">5.4.2</span> “注册”页面的 URL</h2>
 <p>有了前一节生成的代码，现在就可以通过 /users/new 访问新建用户页面。但是参照<a href="#table-url-mapping">表 5.1</a>，我们希望这个页面的 URL 是 <code>/signup</code>。为此，我们要参照<a href="#listing-static-page-routes">代码清单 5.22</a> 的做法，为“注册”页面添加规则 <code>get '/signup'</code>，如<a href="#listing-signup-route">代码清单 5.33</a> 所示。</p>
 <div id="listing-signup-route" data-type="listing">
 <h5><span class="title-label">代码清单 5.33</span>：“注册”页面的路由</h5>
@@ -1564,7 +1564,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </section>
 </section>
 <section data-type="sect1" id="filling-in-the-layout-conclusion">
-<h1><span class="title-label">5.5.</span> 小结</h1>
+<h1><span class="title-label">5.5</span> 小结</h1>
 <p>本章，我们为应用定义了一些样式，也设置了一些路由。本书剩下的内容会不断为这个应用添加功能：先添加用户注册、登录和退出功能，然后实现发微博功能，最后添加关注用户功能。</p>
 <p>现在，如果使用 Git 的话，应该把本章所做的改动合并到主分支中：</p>
 <div data-type="listing">
@@ -1594,7 +1594,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <p>部署完成后应该在生产服务器中有一个可以正常运行的演示应用，如<a href="#fig-layout-production">图 5.10</a> 所示。</p>
 <div id="fig-layout-production" class="figure"><img src="images/chapter5/layout_production.png" alt="layout production" /><div class="figcaption"><span class="title-label">图 5.10</span>：运行在生产环境中的演示应用</div></div>
 <section data-type="sect2" id="filling-in-the-layout-learned">
-<h2><span class="title-label">5.5.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">5.5.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>使用 HTML5 可以定义一个包括 LOGO、头部、底部和主体内容的网站布局；</p>
@@ -1621,7 +1621,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </section>
 </section>
 <section data-type="sect1" id="filling-in-the-layout-exercises">
-<h1><span class="title-label">5.6.</span> 练习</h1>
+<h1><span class="title-label">5.6</span> 练习</h1>
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>

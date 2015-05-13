@@ -51,7 +51,7 @@
 <p>从本章开始，我们要开发一个专业级演示应用，本书后续内容会一直开发这个应用。最终完成的应用包含用户、微博功能，以及完整的登录和用户身份认证系统，不过我们先从一个看似功能有限的话题出发——创建静态页面。这看似简单的一件事却是一个很好的锻炼，极具意义，对这个初建的应用而言也是个很好的开端。</p>
 <p>虽然 Rails 被设计出来是为了开发基于数据库的动态网站，不过它也能胜任使用纯 HTML 创建的静态页面。其实，使用 Rails 创建静态页面有一个好处：添加少量动态内容十分容易。这一章就教你怎么做。在这个过程中，我们会一窥自动化测试（automated testing）的面目，自动化测试可以让我们相信自己编写的代码是正确的。而且，编写一个好的测试组件还可以让我们信心十足地重构代码，修改实现过程但不影响功能。</p>
 <section data-type="sect1" id="sample-app-setup">
-<h1><span class="title-label">3.1.</span> 创建演示应用</h1>
+<h1><span class="title-label">3.1</span> 创建演示应用</h1>
 <p>和<a href="chapter2.html#a-toy-app">第 2 章</a>一样，我们要先创建一个新 Rails 项目，名为 <code>sample_app</code>，如<a href="#listing-rails-new-sample-app">代码清单 3.1</a> 所示：<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
 <div id="listing-rails-new-sample-app" data-type="listing">
 <h5><span class="title-label">代码清单 3.1</span>：创建一个新应用</h5>
@@ -175,7 +175,7 @@ by [Michael Hartl](http://www.michaelhartl.com/).
 <p>注意，如果你决定把真实的应用放到 Heroku 中，一定要按照 <a href="chapter7.html#professional-grade-deployment">7.5 节</a>介绍的方法配置 Unicorn。</p>
 </section>
 <section data-type="sect1" id="static-pages">
-<h1><span class="title-label">3.2.</span> 静态页面</h1>
+<h1><span class="title-label">3.2</span> 静态页面</h1>
 <p>前一节的准备工作做好之后，我们可以开始开发这个演示应用了。本节，我们要向开发动态页面迈出第一步：创建一些 Rails 动作和视图，但只包含静态 HTML。Rails 动作放在控制器中（MVC 中的 C，参见 <a href="chapter1.html#model-view-controller">1.3.3 节</a>），其中的动作是为了实现相关的功能。<a href="chapter2.html#a-toy-app">第 2 章</a>已经简要介绍了控制器，全面熟悉 <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST 架构</a>之后（从<a href="chapter6.html#modeling-users">第 6 章</a>开始），你会更深入地理解控制器。回想一下 <a href="chapter1.html#the-first-application">1.3 节</a>介绍的 Rails 项目文件夹结构（<a href="chapter1.html#fig-directory-structure-rails">图 1.4</a>），会对我们有所帮助。这一节主要在 <code>app/controllers</code> 和 <code>app/views</code> 两个文件夹中工作。</p>
 <p>在 <a href="chapter1.html#branch-edit-commit-merge">1.4.4 节</a>我们说过，使用 Git 时最好在单独的主题分支中完成工作。如果你使用 Git 做版本控制，现在应该执行下述命令，切换到一个主题分支中，然后再创建静态页面：</p>
 <div data-type="listing">
@@ -187,7 +187,7 @@ by [Michael Hartl](http://www.michaelhartl.com/).
 </div>
 <p>（第一个命令的作用是确保我们现在处于主分支中，这样才能基于 <code>master</code> 分支创建 <code>static-pages</code> 分支。如果你当前就在主分支中，可以不执行这个命令。）</p>
 <section data-type="sect2" id="generated-static-pages">
-<h2><span class="title-label">3.2.1.</span> 生成静态页面</h2>
+<h2><span class="title-label">3.2.1</span> 生成静态页面</h2>
 <p>下面我们要使用第 2 章用来生成脚手架的 <code>generate</code> 命令生成一个控制器，既然这个控制器用来处理静态页面，那就把它命名为 <code>StaticPages</code> 吧。可以看出，控制器的名字使用<a href="https://en.wikipedia.org/wiki/CamelCase">驼峰式命名法</a>。我们计划创建“首页”，“帮助”页面和“关于”页面，对应的动作名分别为 <code>home</code>、<code>help</code> 和 <code>about</code>。<code>generate</code> 命令可以接收一个可选的参数列表，指定要创建的动作。我们要在命令行中指定“首页”和“帮助”页面的动作，但故意不指定“关于”页面的动作，在 <a href="#getting-started-with-testing">3.3 节</a>再介绍怎么添加这个动作。生成静态页面控制器的命令如<a href="#listing-generating-pages">代码清单 3.4</a> 所示。</p>
 <div id="listing-generating-pages" data-type="listing">
 <h5><span class="title-label">代码清单 3.4</span>：生成静态页面控制器</h5>
@@ -415,7 +415,7 @@ end
 <p>这两个视图都只是占位用的，它们的内容中都有一个一级标题（<code>h1</code> 标签）和一个显示视图文件完整路径的段落（<code>p</code> 标签）。</p>
 </section>
 <section data-type="sect2" id="custom-static-pages">
-<h2><span class="title-label">3.2.2.</span> 修改静态页面中的内容</h2>
+<h2><span class="title-label">3.2.2</span> 修改静态页面中的内容</h2>
 <p>我们会在 <a href="#slightly-dynamic-pages">3.4 节</a>添加一些简单的动态内容。现在，这些静态内容的存在是为了强调一件很重要的事：Rails 的视图可以只包含静态的 HTML。所以我们甚至无需了解 Rails 就可以修改“首页”和“帮助”页面的内容，如<a href="#listing-custom-home-page">代码清单 3.9</a> 和 <a href="#listing-custom-help-page">3.10</a> 所示。</p>
 <div id="listing-custom-home-page" data-type="listing">
 <h5><span class="title-label">代码清单 3.9</span>：修改“首页”的 HTML</h5>
@@ -451,7 +451,7 @@ end
 </section>
 </section>
 <section data-type="sect1" id="getting-started-with-testing">
-<h1><span class="title-label">3.3.</span> 开始测试</h1>
+<h1><span class="title-label">3.3</span> 开始测试</h1>
 <p>我们创建并修改了“首页”和“帮助”页面的内容，下面要添加“关于”页面。做这样的改动时，最好编写自动化测试确认实现的方法正确。对本书开发的应用来说，我们编写的测试组件有两个作用：其一，是一种安全防护措施；其二，作为源码的文档。虽然要编写额外的代码，但是如果方法得当，测试能协助我们快速开发，因为有了测试查找问题所用的时间会变少。不过，我们要善于编写测试才行，所以要尽早开始练习。</p>
 <p>几乎每个 Rails 开发者都认同测试是好习惯，但具体的作法多种多样。最近有一场针对“测试驱动开发”（Test-Driven Development，简称 TDD）的辩论<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup>，十分热闹。TDD 是一种测试技术，程序员要先编写失败的测试，然后再编写应用的代码，让测试通过。本书采用一种轻量级，符合直觉的测试方案，只在适当的时候才使用 TDD，而不严格遵守 TDD 理念（<a href="#aside-when-to-test">旁注 3.3</a>）。</p>
 <div data-type="sidebar" id="aside-when-to-test" class="sidebar">
@@ -494,7 +494,7 @@ end
 </div>
 <p>我们主要编写的测试类型是控制器测试（本节开始编写），模型测试（<a href="chapter6.html#modeling-users">第 6 章</a>开始编写）和集成测试（<a href="chapter7.html#sign-up">第 7 章</a>开始编写）。集成测试的作用特别大，它能模拟用户在浏览器中和应用交互的过程，最终会成为我们的主要关注对象，不过控制器测试更容易上手。</p>
 <section data-type="sect2" id="our-first-test">
-<h2><span class="title-label">3.3.1.</span> 第一个测试</h2>
+<h2><span class="title-label">3.3.1</span> 第一个测试</h2>
 <p>现在我们要在这个应用中添加一个“关于”页面。我们会看到，这个测试很简短，所以按照<a href="#aside-when-to-test">旁注 3.3</a>中的指导方针，我们要先编写测试。然后使用失败的测试驱动我们编写应用代码。</p>
 <p>着手测试是件具有挑战的事情，要求对 Rails 和 Ruby 都有深入的了解。这么早就编写测试可能有点儿吓人。不过，Rails 已经为我们解决了最难的部分，因为执行 <code>rails generate controller</code> 命令时（<a href="#listing-generating-pages">代码清单 3.4</a>）自动生成了一个测试文件，我们可以从这个文件入手：</p>
 <div data-type="listing">
@@ -549,7 +549,7 @@ static_pages_controller_test.rb
 <p>按照需求，一开始测试组件可以通过（<strong class="green">GREEN</strong>）。（如果没按照 <a href="#minitest-reporters">3.7.1 节</a>的说明添加 MiniTest 报告程序，不会看到绿色。）顺便说一下，测试要花点时间启动，因为（1）要启动 Spring 服务器预加载部分 Rails 环境，不过这一步只在首次启动时执行；（2）启动 Ruby 也要花点儿时间。（第二点可以使用 <a href="#automated-tests-with-guard">3.7.3 节</a>推荐的 Guard 改善。）</p>
 </section>
 <section data-type="sect2" id="red">
-<h2><span class="title-label">3.3.2.</span> 遇红</h2>
+<h2><span class="title-label">3.3.2</span> 遇红</h2>
 <p>我们在<a href="#aside-when-to-test">旁注 3.3</a>中说过，TDD 流程是，先编写一个失败测试，然后编写应用代码让测试通过，最后再按需重构代码。因为很多测试工具都使用红色表示失败的测试，使用绿色表示通过的测试，所以这个流程有时也叫“遇红-变绿-重构”循环。这一节我们先完成这个循环的第一步，编写一个失败测试，“遇红”。然后在 <a href="#green">3.3.3 节</a>变绿，<a href="#layouts-and-embedded-ruby">3.4.3 节</a>重构。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup></p>
 <p>首先，我们要为“关于”页面编写一个失败测试。参照<a href="#listing-default-controller-test">代码清单 3.11</a>，你或许能猜到应该怎么写，如<a href="#listing-about-test">代码清单 3.13</a> 所示。</p>
 <div id="listing-about-test" data-type="listing">
@@ -590,7 +590,7 @@ static_pages_controller_test.rb
 </div>
 </section>
 <section data-type="sect2" id="green">
-<h2><span class="title-label">3.3.3.</span> 变绿</h2>
+<h2><span class="title-label">3.3.3</span> 变绿</h2>
 <p>现在有了一个失败测试（<strong class="red">RED</strong>），我们要在这个失败测试的错误消息指示下，让测试通过（<strong class="green">GREEN</strong>），也就是要实现一个可以访问的“关于”页面。</p>
 <p>我们先看一下这个失败测试给出的错误消息：<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup></p>
 <div data-type="listing">
@@ -695,12 +695,12 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 <div id="fig-about-us" class="figure"><img src="images/chapter3/about_us_3rd_edition.png" alt="about us 3rd edition" /><div class="figcaption"><span class="title-label">图 3.5</span>：新添加的“关于”页面（<a href="http://localhost:3000/static_pages/about">/static_pages/about</a>）</div></div>
 </section>
 <section data-type="sect2" id="refactor">
-<h2><span class="title-label">3.3.4.</span> 重构</h2>
+<h2><span class="title-label">3.3.4</span> 重构</h2>
 <p>现在测试已经变绿了，我们可以自信地尽情重构了。开发应用时，代码经常会“变味”（意思是代码会变得丑陋、啰嗦，有大量的重复）。电脑不会在意，但是人类会，所以经常重构把代码变简洁一些是很重要的事情。我们的演示应用现在还很小，没什么可重构的，不过代码无时无刻不在变味，所以 <a href="#layouts-and-embedded-ruby">3.4.3</a> 节就要开始重构。</p>
 </section>
 </section>
 <section data-type="sect1" id="slightly-dynamic-pages">
-<h1><span class="title-label">3.4.</span> 有点动态内容的页面</h1>
+<h1><span class="title-label">3.4</span> 有点动态内容的页面</h1>
 <p>我们已经为一些静态页面创建了动作和视图，现在要稍微添加一些动态内容，根据所在的页面不同而变化：我们要让标题根据页面的内容变化。改变标题到底算不算真正动态还有争议，这么做能为<a href="chapter7.html#sign-up">第 7 章</a>实现的真正动态内容打下基础。</p>
 <p>我们的计划是修改首页、“帮助”页面和“关于”页面，让每页显示的标题都不一样。为此，我们要在页面的视图中使用 <code>&lt;title&gt;</code> 标签。大多数浏览器都会在浏览器窗口的顶部显示标题中的内容，而且标题对“搜索引擎优化”（Search-Engine Optimization，简称 SEO）也有好处。我们要使用完整的“遇红-变绿-重构”循环：先为页面的标题编写一些简单的测试（<strong class="red">遇红</strong>），然后分别在三个页面中添加标题（<strong class="green">变绿</strong>），最后使用布局文件去除重复内容（重构）。本节结束时，三个静态页面的标题都会变成“&lt;页面的名字&gt; | Ruby on Rails Tutorial Sample App”这种形式（<a href="#table-static-pages">表 3.2</a>）。</p>
 <p><code>rails new</code> 命令会创建一个布局文件，不过现在最好不用。我们重命名这个文件：</p>
@@ -749,7 +749,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </tbody>
 </table>
 <section data-type="sect2" id="testing-titles">
-<h2><span class="title-label">3.4.1.</span> 测试标题（遇红）</h2>
+<h2><span class="title-label">3.4.1</span> 测试标题（遇红）</h2>
 <p>添加标题之前，我们要学习网页的一般结构，如<a href="#listing-html-structure">代码清单 3.21</a> 所示。</p>
 <div id="listing-html-structure" data-type="listing">
 <h5><span class="title-label">代码清单 3.21</span>：网页一般的 HTML 结构</h5>
@@ -816,7 +816,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </div>
 </section>
 <section data-type="sect2" id="adding-page-titles">
-<h2><span class="title-label">3.4.2.</span> 添加页面标题（变绿）</h2>
+<h2><span class="title-label">3.4.2</span> 添加页面标题（变绿）</h2>
 <p>现在，我们要为每个页面添加标题，让前一节的测试通过。参照<a href="#listing-html-structure">代码清单 3.21</a> 中的 HTML 结构，把<a href="#listing-custom-home-page">代码清单 3.9</a> 中的首页内容换成<a href="#listing-home-view-full-html">代码清单 3.24</a> 中的内容。</p>
 <div id="listing-home-view-full-html" data-type="listing">
 <h5><span class="title-label">代码清单 3.24</span>：具有完整 HTML 结构的首页 <span class="red">RED</span></h5>
@@ -902,7 +902,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </div>
 </section>
 <section data-type="sect2" id="layouts-and-embedded-ruby">
-<h2><span class="title-label">3.4.3.</span> 布局和嵌入式 Ruby（重构）</h2>
+<h2><span class="title-label">3.4.3</span> 布局和嵌入式 Ruby（重构）</h2>
 <p>到目前为止，本节已经做了很多事情，我们使用 Rails 控制器和动作生成了三个可用的页面，不过这些页面中的内容都是纯静态的 HTML，没有体现出 Rails 的强大之处。而且，代码中有着大量重复：</p>
 <ul>
 <li>
@@ -1148,7 +1148,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 <p>测试不能证明代码完全正确，但至少能提高正确的可能性，而且还提供了安全防护措施，避免以后出现问题。</p>
 </section>
 <section data-type="sect2" id="setting-the-root-route">
-<h2><span class="title-label">3.4.4.</span> 设置根路由</h2>
+<h2><span class="title-label">3.4.4</span> 设置根路由</h2>
 <p>我们修改了网站中的页面，也顺利开始编写测试了，在继续之前，我们要设置应用的根路由。与 <a href="chapter1.html#hello-world">1.3.4 节</a>和 <a href="chapter2.html#mvc-in-action">2.2.2 节</a>的做法一样，我们要修改 <code>routes.rb</code> 文件，把根路径 <code>/</code> 指向我们选择的页面。这里我们要指向前面创建的首页。（我还建议把 <a href="#sample-app-setup">3.1 节</a>添加的 <code>hello</code> 动作从应用的控制器中删除。）如<a href="#listing-home-root-route">代码清单 3.37</a> 所示，我们要把自动生成的 <code>get</code> 规则（<a href="#listing-pages-routes">代码清单 3.5</a>）改成：</p>
 <div data-type="listing">
 
@@ -1173,7 +1173,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </section>
 </section>
 <section data-type="sect1" id="mostly-static-pages-conclusion">
-<h1><span class="title-label">3.5.</span> 小结</h1>
+<h1><span class="title-label">3.5</span> 小结</h1>
 <p>总的来说，本章几乎没有做什么：我们从静态页面开始，最后得到的还几乎是静态内容的页面。不过从表面来看，我们使用了 Rails 中的控制器、动作和视图，现在我们已经可以向网站中添加任意的动态内容了。本书的后续内容会告诉你怎么添加。</p>
 <p>在继续之前，我们花一点时间把改动提交到主题分支，然后将其合并到主分支中。在 <a href="#static-pages">3.2 节</a>，我们为静态页面的开发工作创建了一个 Git 新分支，在开发的过程中如果你还没有提交，那么先来做一次提交吧，因为我们已经完成了一些工作：</p>
 <div data-type="listing">
@@ -1208,7 +1208,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </div>
 <p>在部署之前，我们先运行测试组件——这是一个好习惯。</p>
 <section data-type="sect2" id="mostly-static-pages-learned">
-<h2><span class="title-label">3.5.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">3.5.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>我们第三次介绍从零开始创建一个新 Rails 应用的完整过程，包括安装所需的 gem，把应用推送到远程仓库，以及部署到生产环境中；</p>
@@ -1235,7 +1235,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </section>
 </section>
 <section data-type="sect1" id="mostly-static-pages-exercises">
-<h1><span class="title-label">3.6.</span> 练习</h1>
+<h1><span class="title-label">3.6</span> 练习</h1>
 <p>从这以后，我建议在单独的主题分支中做练习：</p>
 <div data-type="listing">
 
@@ -1315,7 +1315,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </div>
 </section>
 <section data-type="sect1" id="advanced-testing-setup">
-<h1><span class="title-label">3.7.</span> 高级测试技术</h1>
+<h1><span class="title-label">3.7</span> 高级测试技术</h1>
 <p>这一节选读，介绍本书配套视频中使用的测试设置，包含三方面内容：增强版通过和失败报告程序（<a href="#minitest-reporters">3.7.1 节</a>）；过滤测试失败消息中调用跟踪的方法（<a href="#backtrace-silencer">3.7.2 节</a>）；一个自动测试运行程序，检测到文件有变化后自动运行相应的测试（<a href="#automated-tests-with-guard">3.7.3 节</a>）。这一节使用的代码相对高级，放在这里只是为了查阅方便，现在并不期望你能理解。</p>
 <p>这一节应该在主分支中修改：</p>
 <div data-type="listing">
@@ -1325,7 +1325,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </pre></div>
 </div>
 <section data-type="sect2" id="minitest-reporters">
-<h2><span class="title-label">3.7.1.</span> MiniTest 报告程序</h2>
+<h2><span class="title-label">3.7.1</span> MiniTest 报告程序</h2>
 <p>为了让 Rails 中的测试适时显示红色和绿色，我建议你在测试辅助文件中加入<a href="#listing-minitest-reporters">代码清单 3.40</a> 中的内容，<sup>[<a id="fn-ref-15" href="#fn-15">15</a>]</sup>充分利用<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 中的 <a href="https://github.com/kern/minitest-reporters">minitest-reporters</a> gem。</p>
 <div id="listing-minitest-reporters" data-type="listing">
 <h5><span class="title-label">代码清单 3.40</span>：配置测试，显示红色和绿色</h5>
@@ -1351,7 +1351,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 <div id="fig-red-to-green" class="figure"><img src="images/chapter3/red_to_green.png" alt="red to green" /><div class="figcaption"><span class="title-label">图 3.8</span>：在云端 IDE 中测试由红变绿</div></div>
 </section>
 <section data-type="sect2" id="backtrace-silencer">
-<h2><span class="title-label">3.7.2.</span> 调用跟踪静默程序</h2>
+<h2><span class="title-label">3.7.2</span> 调用跟踪静默程序</h2>
 <p>如果有错误，或者测试失败，测试运行程序会显示调用跟踪，从失败的测试开始一直追溯到应用代码。调用跟踪对查找问题来说很有用，但在某些系统中（包括云端 IDE），会一直追溯到应用的代码以及各个 gem（包括 Rails）中，显示的内容往往很多。如果问题发生在应用代码中，而不是它的依赖件中，那么内容更多。</p>
 <p>我们可以过滤调用追踪，不显示不需要的内容。为此，我们要使用<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 中的 <a href="https://github.com/metaskills/mini_backtrace">mini_backtrace</a> gem，然后再设置静默程序。在云端 IDE 中，大多数不需要的内容都包含字符串“rvm”（指的是 Ruby Version Manager），所以我建议使用<a href="#listing-backtrace-silencer">代码清单 3.41</a> 中的静默程序把这些内容过滤掉。</p>
 <div id="listing-backtrace-silencer" data-type="listing">
@@ -1373,7 +1373,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 <p>如这段代码中的注释所说，添加静默程序后要重启本地服务器。</p>
 </section>
 <section data-type="sect2" id="automated-tests-with-guard">
-<h2><span class="title-label">3.7.3.</span> 使用 Guard 自动测试</h2>
+<h2><span class="title-label">3.7.3</span> 使用 Guard 自动测试</h2>
 <p>使用 <code>rake test</code> 命令有一点很烦人，总是要切换到命令行然后手动运行测试。为了避免这种不便，我们可以使用 <a href="https://github.com/guard/guard">Guard</a> 自动运行测试。Guard 会监视文件系统的变动，假如你修改了 <code>static_pages_controller_test.rb</code>，那么 Guard 只会运行这个文件中的测试。而且，我们还可以配置 Guard，让它在 <code>home.html.erb</code> 文件被修改后，也自动运行 <code>static_pages_controller_test.rb</code>。</p>
 <p><a href="#listing-gemfile-sample-app">代码清单 3.2</a> 中已经包含了 <code>guard</code> gem，所以我们只需初始化即可：</p>
 <div data-type="listing">

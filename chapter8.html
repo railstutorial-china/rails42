@@ -51,7 +51,7 @@
 <p><a href="chapter7.html#sign-up">第 7 章</a>实现了用户注册功能，本章要实现登录和退出功能。我们要通过网络中三种常见的方式实现登录退出功能，分别为：浏览器关闭后“忘记”用户的登录状态（<a href="#sessions">8.1 节</a>和 <a href="#logging-in">8.2 节</a>），自动记住用户的登录状态（<a href="#remember-me">8.4 节</a>），勾选“记住我”选项时才记住用户的登录状态（<a href="#remember-me-checkbox">8.4.5 节</a>）。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
 <p>本章开发的认证系统可用于定制网站的内容，还能基于登录状态和用户的身份实现权限机制。例如，本章我们会更新网站的头部，加入“登录”或“退出”链接，以及到个人资料页面的链接。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>会实现一种安全机制，只有已登录的用户才能访问用户列表页面，只有用户自己才能编辑自己的信息，只有管理员才能从数据库中删除其他用户。<a href="chapter11.html#user-microposts">第 11 章</a>会使用已登录用户的身份发布他自己的微博。<a href="chapter12.html#following-users">第 12 章</a>会让当前登录的用户关注网站中的其他用户，从而获取关注用户的微博更新。</p>
 <section data-type="sect1" id="sessions">
-<h1><span class="title-label">8.1.</span> 会话</h1>
+<h1><span class="title-label">8.1</span> 会话</h1>
 <p><a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> 协议<a href="https://en.wikipedia.org/wiki/Stateless_protocol">没有状态</a>，每个请求都是独立的事务，无法使用之前请求中的信息。所以，在 HTTP 协议中无法在两个页面之间记住用户的身份。需要用户登录的应用都要使用“<a href="http://en.wikipedia.org/wiki/Session_(computer_science)">会话</a>”（session）。会话是两台电脑之间的半永久性连接，例如运行 Web 浏览器的客户端电脑和运行 Rails 的服务器。</p>
 <p>在 Rails 中实现会话最常见的方式是使用 <a href="http://en.wikipedia.org/wiki/HTTP_cookie">cookie</a>。cookie 是存储在用户浏览器中的少量文本。访问其他页面时，cookie 中存储的信息仍在，所以可以在 cookie 中存储一些信息，例如用户的 ID，让应用从数据库中取回已登录的用户。这一节和 <a href="#logging-in">8.2 节</a>会使用 Rails 提供的 <code>session</code> 方法实现临时会话，浏览器关闭后会话自动失效。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup><a href="#remember-me">8.4 节</a>会使用 Rails 提供的 <code>cookies</code> 方法让会话持续的时间久一些。</p>
 <p>把会话看成符合 REST 架构的资源便于操作，访问登录页面时渲染一个表单用于新建会话，登录时创建一个会话，退出时再把会话销毁。不过会话和用户资源不同，用户资源（通过用户模型）使用数据库存储数据，而会话资源要使用 cookie。所以，登录功能的大部分工作是实现基于会话的认证机制。这一节和下一节要为登录功能做些准备工作，包括创建会话控制器，登录表单和相关的控制器动作。然后在 <a href="#logging-in">8.2 节</a>添加所需的会话处理代码，完成登录功能。</p>
@@ -64,7 +64,7 @@
 </pre></div>
 </div>
 <section data-type="sect2" id="sessions-controller">
-<h2><span class="title-label">8.1.1.</span> 会话控制器</h2>
+<h2><span class="title-label">8.1.1</span> 会话控制器</h2>
 <p>登录和退出功能由会话控制器中的相应动作处理，登录表单在 <code>new</code> 动作中处理（本节的内容），登录的过程是向 <code>create</code> 动作发送 <code>POST</code> 请求（<a href="#logging-in">8.2 节</a>），退出则是向 <code>destroy</code> 动作发送 <code>DELETE</code> 请求（<a href="#logging-out">8.3 节</a>）。（HTTP 请求和 REST 动作之间的对应关系参见<a href="chapter7.html#table-restful-users">表 7.1</a>。）</p>
 <p>首先，我们要生成会话控制器，以及其中的 <code>new</code> 动作：</p>
 <div data-type="listing">
@@ -164,7 +164,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>你没必要完全理解这些输出的内容。像这样查看路由能对应用支持的动作有个整体认识。</p>
 </section>
 <section data-type="sect2" id="login-form">
-<h2><span class="title-label">8.1.2.</span> 登录表单</h2>
+<h2><span class="title-label">8.1.2</span> 登录表单</h2>
 <p>定义好相关的控制器和路由之后，我们要编写新建会话的视图，也就是登录表单。比较<a href="#fig-login-mockup">图 8.1</a> 和<a href="chapter7.html#fig-signup-mockup">图 7.11</a> 之后发现，登录表单和注册表单的外观类似，只不过登录表单只有两个输入框（电子邮件地址和密码）。</p>
 <p>如<a href="#fig-login-failure-mockup">图 8.2</a> 所示，如果提交的登录信息无效，我们想重新渲染登录页面，并显示一个错误消息。在 <a href="cchapter7.html#signup-error-messages">7.3.3 节</a>，我们使用错误消息局部视图显示错误消息，但是那些消息由 Active Record 自动提供，所以错误消息局部视图不能显示创建会话时的错误，因为会话不是 Active Record 对象，因此我们要使用闪现消息渲染登录时的错误消息。</p>
 <div id="fig-login-failure-mockup" class="figure"><img src="images/chapter8/login_failure_mockup.png" alt="login failure mockup" /><div class="figcaption"><span class="title-label">图 8.2</span>：登录失败后显示的页面构思图</div></div>
@@ -238,7 +238,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>对比一下<a href="#listing-login-form-html">代码清单 8.3</a> 和<a href="chapter7.html#listing-signup-form-html">代码清单 7.15</a>，你可能已经猜到了，提交登录表单后会生成一个 <code>params</code> 哈希，其中 <code>params[:session][:email]</code> 和 <code>params[:session][:password]</code> 分别对应电子邮件地址和密码字段。</p>
 </section>
 <section data-type="sect2" id="finding-and-authenticating-a-user">
-<h2><span class="title-label">8.1.3.</span> 查找并认证用户</h2>
+<h2><span class="title-label">8.1.3</span> 查找并认证用户</h2>
 <p>和创建用户类似，创建会话（登录）时先要处理提交无效数据的情况。我们会先分析提交表单后会发生什么，想办法在登录失败时显示有帮助的错误消息（如<a href="#fig-login-failure-mockup">图 8.2</a> 中的构思）。然后，以此为基础，验证提交的电子邮件地址和密码，处理登录成功的情况（<a href="#logging-in">8.2 节</a>）。</p>
 <p>首先，我们要为会话控制器编写一个最简单的 <code>create</code> 动作，以及空的 <code>new</code> 动作和 <code>destroy</code> 动作，如<a href="#listing-initial-create-session">代码清单 8.4</a> 所示。<code>create</code> 动作现在只渲染 <code>new</code> 视图，不过为后续工作做好了准备。提交 /login 页面中的表单后，显示的页面如<a href="#fig-initial-failed-login-rails-3">图 8.4</a> 所示。</p>
 <div id="listing-initial-create-session" data-type="listing">
@@ -378,7 +378,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </table>
 </section>
 <section data-type="sect2" id="rendering-with-a-flash-message">
-<h2><span class="title-label">8.1.4.</span> 渲染闪现消息</h2>
+<h2><span class="title-label">8.1.4</span> 渲染闪现消息</h2>
 <p>在 <a href="chapter7.html#signup-error-messages">7.3.3 节</a>，我们使用用户模型的验证错误显示注册失败时的错误消息。这些错误关联在某个 Active Record 对象上，不过现在不能使用这种方式了，因为会话不是 Active Record 模型。我们要采取的方法是，登录失败时，在闪现消息中显示消息。<a href="#listing-failed-login-attempt">代码清单 8.6</a> 是我们首次尝试实现所写的代码，其中有个小小的错误。</p>
 <div id="listing-failed-login-attempt" data-type="listing">
 <h5><span class="title-label">代码清单 8.6</span>：尝试处理登录失败（有个小小的错误）</h5>
@@ -411,7 +411,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <div id="fig-flash-persistence" class="figure"><img src="images/chapter8/flash_persistence_3rd_edition.png" alt="flash persistence 3rd edition" /><div class="figcaption"><span class="title-label">图 8.6</span>：闪现消息一直存在</div></div>
 </section>
 <section data-type="sect2" id="a-flash-test">
-<h2><span class="title-label">8.1.5.</span> 测试闪现消息</h2>
+<h2><span class="title-label">8.1.5</span> 测试闪现消息</h2>
 <p>闪现消息的错误表现是应用的一个小 bug。根据<a href="chapter3.html#aside-when-to-test">旁注 3.3</a> 中的测试指导方针，遇到这种情况应该编写测试，捕获错误，防止以后再发生。因此，在继续之前，我们要为登录表单的提交操作编写一个简短的集成测试。测试能标识出这个问题，也能避免回归，而且还能为后面的登录和退出功能的集成测试奠定好的基础。</p>
 <p>首先，为应用的登录功能生成一个集成测试文件：</p>
 <div data-type="listing">
@@ -512,7 +512,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </section>
 </section>
 <section data-type="sect1" id="logging-in">
-<h1><span class="title-label">8.2.</span> 登录</h1>
+<h1><span class="title-label">8.2</span> 登录</h1>
 <p>登录表单已经可以处理无效提交，下一步要正确处理有效提交，登入用户。本节通过临时会话让用户登录，浏览器关闭后会话自动失效。<a href="#remember-me">8.4 节</a>会实现持久会话，即便浏览器关闭，依然处于登录状态。</p>
 <p>实现会话的过程中要定义很多相关的函数，而且要在多个控制器和视图中使用。<a href="chapter4.html#back-to-the-title-helper">4.2.5 节</a>说过，Ruby 支持使用“模块”把这些函数集中放在一处。Rails 生成器很人性化，生成会话控制器时（<a href="#sessions-controller">8.1.1 节</a>）自动生成了一个会话辅助方法模块。而且，其中的辅助方法会自动引入 Rails 视图。如果在控制器的基类（<code>ApplicationController</code>）中引入辅助方法模块，还可以在控制器中使用，如<a href="#listing-sessions-helper-include">代码清单 8.11</a> 所示。</p>
 <div id="listing-sessions-helper-include" data-type="listing">
@@ -528,7 +528,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>做好这些基础工作后，现在可以开始编写代码登入用户了。</p>
 <section data-type="sect2" id="the-log-in-method">
-<h2><span class="title-label">8.2.1.</span> <code>log_in</code> 方法</h2>
+<h2><span class="title-label">8.2.1</span> <code>log_in</code> 方法</h2>
 <p>有 Rails 提供的 <code>session</code> 方法协助，登入用户很简单。（<code>session</code> 方法和 <a href="#sessions-controller">8.1.1 节</a>生成的会话控制器没有关系。）我们可以把 <code>session</code> 视作一个哈希，可以按照下面的方式赋值：</p>
 <div data-type="listing">
 
@@ -597,7 +597,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <p>定义好 <code>create</code> 动作后，<a href="#listing-login-form">代码清单 8.2</a> 中的登录表单就可以使用了。不过从应用的外观上看不出什么区别，除非直接查看浏览器中的会话，否则没有方法判断用户是否已经登录。<a href="#current-user">8.2.2 节</a>会使用会话中的用户 ID 从数据库中取回当前用户，做些视觉上的变化。<a href="#changing-the-layout-links">8.2.3 节</a>会修改网站布局中的链接，还会添加一个指向当前用户资料页面的链接。</p>
 </section>
 <section data-type="sect2" id="current-user">
-<h2><span class="title-label">8.2.2.</span> 当前用户</h2>
+<h2><span class="title-label">8.2.2</span> 当前用户</h2>
 <p>把用户 ID 安全地存储在临时会话中之后，在后续的请求中可以将其读取出来。我们要定义一个名为 <code>current_user</code> 的方法，从数据库中取出用户 ID 对应的用户。<code>current_user</code> 方法的作用是编写类似下面的代码：</p>
 <div data-type="listing">
 
@@ -754,7 +754,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>定义好 <code>current_user</code> 之后，现在可以根据用户的登录状态修改应用的布局了。</p>
 </section>
 <section data-type="sect2" id="changing-the-layout-links">
-<h2><span class="title-label">8.2.3.</span> 修改布局中的链接</h2>
+<h2><span class="title-label">8.2.3</span> 修改布局中的链接</h2>
 <p>实现登录功能后，我们要根据登录状态修改布局中的链接。具体而言，我们要添加退出链接、用户设置页面的链接、用户列表页面的链接和当前用户的资料页面链接，构思图如<a href="#fig-login-success-mockup">图 8.7</a> 所示。<sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup>注意，退出链接和资料页面的链接在“Account”（账户）下拉菜单中。使用 Bootstrap 实现下拉菜单的方法参见<a href="#listing-layout-login-logout-links">代码清单 8.16</a>。</p>
 <div id="fig-login-success-mockup" class="figure"><img src="images/chapter8/login_success_mockup.png" alt="login success mockup" /><div class="figcaption"><span class="title-label">图 8.7</span>：成功登录后显示的资料页面构思图</div></div>
 <p>此时，在现实开发中，我会考虑编写集成测试检测上面规划的行为。我在<a href="chapter3.html#aside-when-to-test">旁注 3.3</a> 中说过，当你熟练掌握 Rails 的测试工具后，会倾向于先写测试。但这个测试涉及到一些新知识，所以最好在专门的一节中编写（<a href="#testing-layout-changes">8.2.4 节</a>）。</p>
@@ -885,7 +885,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <div id="fig-profile-with-logout-link" class="figure"><img src="images/chapter8/profile_with_logout_link_3rd_edition.png" alt="profile with logout link 3rd edition" /><div class="figcaption"><span class="title-label">图 8.8</span>：用户登录后看到了新添加的链接和下拉菜单</div></div>
 </section>
 <section data-type="sect2" id="testing-layout-changes">
-<h2><span class="title-label">8.2.4.</span> 测试布局中的变化</h2>
+<h2><span class="title-label">8.2.4</span> 测试布局中的变化</h2>
 <p>我们自己动手验证了成功登录后应用的表现正常，在继续之前，还要编写集成测试检查这些行为，以及捕获回归。我们要在<a href="#listing-flash-persistence-test">代码清单 8.7</a>的基础上，再添加一些测试，检查下面的操作步骤：</p>
 <ol class="arabic">
 <li>
@@ -1032,7 +1032,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <p>（测试的名字是使用下划线把“test”和测试说明连接在一起。）</p>
 </section>
 <section data-type="sect2" id="login-upon-signup">
-<h2><span class="title-label">8.2.5.</span> 注册后直接登录</h2>
+<h2><span class="title-label">8.2.5</span> 注册后直接登录</h2>
 <p>虽然现在基本完成了认证功能，但是新注册的用户可能还是会困惑，为什么注册后没有登录呢。注册后立即要求用户登录是很奇怪的，所以我们要在注册的过程中自动登入用户。为了实现这一功能，我们只需在用户控制器的 <code>create</code> 动作中调用 <code>log_in</code> 方法，如<a href="#listing-login-upon-signup">代码清单 8.22</a> 所示。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup></p>
 <div id="listing-login-upon-signup" data-type="listing">
 <h5><span class="title-label">代码清单 8.22</span>：注册后登入用户</h5>
@@ -1126,7 +1126,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </section>
 </section>
 <section data-type="sect1" id="logging-out">
-<h1><span class="title-label">8.3.</span> 退出</h1>
+<h1><span class="title-label">8.3</span> 退出</h1>
 <p><a href="#sessions">8.1 节</a>说过，我们要实现的认证系统会记住用户的登录状态，直到用户自行退出为止。本节，我们就要实现退出功能。退出链接已经定义好了（<a href="#listing-layout-login-logout-links">代码清单 8.16</a>），所以我们只需编写一个正确的控制器动作，销毁用户会话。</p>
 <p>目前为止，会话控制器的动作都遵从了 REST 架构，<code>new</code> 动作用于登录页面，<code>create</code> 动作完成登录操作。我们要继续使用 REST 架构，添加一个 <code>destroy</code> 动作，删除会话，实现退出功能。登录功能在<a href="#listing-log-in-success">代码清单 8.13</a> 和<a href="#listing-login-upon-signup">代码清单 8.22</a> 中都用到了，但退出功能不同，只在一处使用，所以我们会直接把相关的代码写在 <code>destroy</code> 动作中。<a href="#remember-tests">8.4.6 节</a>会看到，这么做（稍微重构后）易于测试认证系统。</p>
 <p>退出要撤销 <code>log_in</code>（<a href="#listing-log-in-function">代码清单 8.12</a>）完成的操作，即从会话中删除用户的 ID。为此，我们要使用 <code>delete</code> 方法，如下所示：</p>
@@ -1232,10 +1232,10 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 </section>
 <section data-type="sect1" id="remember-me">
-<h1><span class="title-label">8.4.</span> 记住我</h1>
+<h1><span class="title-label">8.4</span> 记住我</h1>
 <p><a href="#logging-in">8.2 节</a>实现的登录系统自成一体且功能完整，不过大多数网站还会提供一种功能——用户关闭浏览器后仍能记住用户的会话。本节，我们首先实现自动记住用户会话的功能，只有用户明确退出后会话才会失效。<a href="#remember-me-checkbox">8.4.5 节</a>实现另一种常用方式：提供一个“记住我”复选框，让用户选择是否记住会话。这两种方式都很专业，<a href="http://github.com/">GitHub</a> 和 <a href="http://bitbucket.org/">Bitbucket</a> 等网站使用第一种，<a href="http://www.facebook.com/">Facebook</a> 和 <a href="http://twitter.com/">Twitter</a> 等网站使用第二种。</p>
 <section data-type="sect2" id="remember-token-and-digest">
-<h2><span class="title-label">8.4.1.</span> 记忆令牌和摘要</h2>
+<h2><span class="title-label">8.4.1</span> 记忆令牌和摘要</h2>
 <p><a href="#logging-in">8.2 节</a>使用 Rails 中的 <code>session</code> 方法存储用户的 ID，但是浏览器关闭后这个信息就不见了。本节，我们迈出实现持久会话的第一步：生成使用 <code>cookies</code> 方法创建持久 cookie 所需的“记忆令牌”，以及认证令牌所需的安全记忆摘要。</p>
 <p><a href="#the-log-in-method">8.2.1 节</a>说过，使用 <code>session</code> 方法存储的信息默认情况下就是安全的，但使用 <code>cookies</code> 方法存储的信息则不然。具体而言，持久 cookie 有被<a href="http://en.wikipedia.org/wiki/Session_hijacking">会话劫持</a>的风险，攻击者可以使用盗取的记忆令牌以某个用户的身份登录。盗取 cookie 中的信息主要有四种方法：（1）使用<a href="https://en.wikipedia.org/wiki/Packet_analyzer">包嗅探</a>工具截获不安全网络中传输的 cookie；<sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup>（2）获取包含记忆令牌的数据库；（3）使用“跨站脚本”（Cross-Site Scripting，简称 XSS）攻击；（4）获取已登录用户的设备访问权。我们在 <a href="chapter7.html#professional-grade-deployment">7.5 节</a>启用了全站 SSL，避免嗅探网络中传输的数据，因此解决了第一个问题。为了解决第二个问题，我们不会存储记忆令牌本身，而是存储令牌的哈希摘要——这种方法和 <a href="chapter6.html#adding-a-secure-password">6.3 节</a>一样，不存储原始密码，而是存储密码摘要。Rails 会转义插入视图模板中的内容，所以自动解决了第三个问题。对于最后一个问题，虽然没有万无一失的方法能避免攻击者获取已登录用户电脑的访问权，不过我们可以在每次用户退出后修改令牌，以及签名加密存储在浏览器中的敏感信息，尽量减少第三个问题发生的几率。</p>
 <p>经过上述分析，我们计划按照下面的方式实现持久会话：</p>
@@ -1382,7 +1382,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 </section>
 <section data-type="sect2" id="login-with-remembering">
-<h2><span class="title-label">8.4.2.</span> 登录时记住登录状态</h2>
+<h2><span class="title-label">8.4.2</span> 登录时记住登录状态</h2>
 <p>定义好 <code>user.remember</code> 方法之后，我们可以创建持久会话了，方法是，把（加密后的）用户 ID和记忆令牌作为持久 cookie 存入浏览器。为此，我们要使用 <code>cookies</code> 方法。这个方法和 <code>session</code> 一样，可以视为一个哈希。一个 cookie 有两部分信息，一个是 <code>value</code>（值），一个是可选的 <code>expires</code>（过期日期）。例如，我们可以创建一个值为记忆令牌，20 年后过期的 cookie，实现持久会话：</p>
 <div data-type="listing">
 
@@ -1690,7 +1690,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 </section>
 <section data-type="sect2" id="forgetting-users">
-<h2><span class="title-label">8.4.3.</span> 忘记用户</h2>
+<h2><span class="title-label">8.4.3</span> 忘记用户</h2>
 <p>为了让用户退出，我们要定义一些和记住用户相对的方法，忘记用户。最终实现的 <code>user.forget</code> 方法，把记忆摘要的值设为 <code>nil</code>，即撤销 <code>user.remember</code> 的操作，如<a href="#listing-user-model-forget">代码清单 8.38</a> 所示。</p>
 <div id="listing-user-model-forget" data-type="listing">
 <h5><span class="title-label">代码清单 8.38</span>：在用户模型中添加 <code>forget</code> 方法</h5>
@@ -1771,7 +1771,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 </section>
 <section data-type="sect2" id="two-subtle-bugs">
-<h2><span class="title-label">8.4.4.</span> 两个小问题</h2>
+<h2><span class="title-label">8.4.4</span> 两个小问题</h2>
 <p>现在还有两个相互之间有关系的小问题要解决。第一个，虽然只有登录后才能看到退出链接，但一个用户可能会同时打开多个浏览器窗口访问网站，如果用户在一个窗口中退出了，再在另一个窗口中点击退出链接的话会导致错误，因为<a href="#listing-log-out-with-forget">代码清单 8.39</a> 中使用了 <code>current_user</code>。<sup>[<a id="fn-ref-22" href="#fn-22">22</a>]</sup>我们可以限制只有已登录的用户才能退出，解决这个问题。</p>
 <p>第二个问题，用户可能会在不同的浏览器中登录（登录状态也被记住），例如 Chrome 和 Firefox，如果用户在一个浏览器中退出，而另一个浏览器中没有退出，就会导致问题。<sup>[<a id="fn-ref-23" href="#fn-23">23</a>]</sup>假如用户在 Firefox 中退出了，那么记忆摘要的值变成了 <code>nil</code>（通过<a href="#listing-user-model-forget">代码清单 8.38</a> 中的 <code>user.forget</code>）。在 Firefox 中没什么问题，因为<a href="#listing-log-out-with-forget">代码清单 8.39</a> 中的 <code>log_out</code> 方法删除了用户的 ID，所以在 <code>current_user</code> 方法中，<code>user</code> 变量的值是 <code>nil</code>：</p>
 <div data-type="listing">
@@ -1939,7 +1939,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 </section>
 <section data-type="sect2" id="remember-me-checkbox">
-<h2><span class="title-label">8.4.5.</span> “记住我”复选框</h2>
+<h2><span class="title-label">8.4.5</span> “记住我”复选框</h2>
 <p>至此，我们的应用已经实现了完整且专业的认证系统。最后一步，我们来看一下如何使用“记住我”复选框让用户选择是否记住登录状态。包含这个复选框的登录表单构思图如<a href="#fig-login-remember-me-mockup">图 8.11</a> 所示。</p>
 <div id="fig-login-remember-me-mockup" class="figure"><img src="images/chapter8/login_remember_me_mockup.png" alt="login remember me mockup" /><div class="figcaption"><span class="title-label">图 8.11</span>：构思“记住我”复选框</div></div>
 <p>为了实现这个构思，我们首先要在登录表单（<a href="#listing-login-form">代码清单 8.2</a>）中添加一个复选框。和标注（label）、文本字段、密码字段和提交按钮一样，复选框也可以使用 Rails 辅助方法创建。不过，为了得到正确的样式，我们要把复选框嵌套在标注中，如下所示：</p>
@@ -2116,7 +2116,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 </section>
 <section data-type="sect2" id="remember-tests">
-<h2><span class="title-label">8.4.6.</span> 记住登录状态功能的测试</h2>
+<h2><span class="title-label">8.4.6</span> 记住登录状态功能的测试</h2>
 <p>“记住我”功能虽然可以使用了，但是我们还得编写一些测试，确认表现正常。测试的目的是要捕获实现方式中可能出现的错误，这一点稍后讨论。更重要的原因是，实现持久会话的代码现在完全没有测试。编写测试时要使用一些小技巧，但能得到更强大的测试组件。</p>
 <section data-type="sect3" id="testing-the-remember-me-box">
 <h3>测试“记住我”复选框</h3>
@@ -2411,7 +2411,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </section>
 </section>
 <section data-type="sect1" id="log-in-log-out-conclusion">
-<h1><span class="title-label">8.5.</span> 小结</h1>
+<h1><span class="title-label">8.5</span> 小结</h1>
 <p>这两章我们介绍了很多基础知识，也为稍显简陋的应用实现了注册和登录功能。实现用户认证功能后，我们可以根据登录状态和用户的身份限制对特定页面的访问权限。我们会在<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>实现编辑用户个人信息的功能。</p>
 <p>在继续之前，先把本章的改动合并到 <code>master</code> 分支：</p>
 <div data-type="listing">
@@ -2446,7 +2446,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>这样，在部署和执行迁移期间会显示一个标准的错误页面。详情参见 Heroku 文档中对<a href="https://devcenter.heroku.com/articles/error-pages">错误页面</a>的说明。</p>
 <section data-type="sect2" id="log-in-log-out-learned">
-<h2><span class="title-label">8.5.1.</span> 读完本章学到了什么</h2>
+<h2><span class="title-label">8.5.1</span> 读完本章学到了什么</h2>
 <ul>
 <li>
 <p>Rails 可以使用临时 cookie 和持久 cookie 维护页面之间的状态；</p>
@@ -2488,7 +2488,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </section>
 </section>
 <section data-type="sect1" id="log-in-log-out-exercises">
-<h1><span class="title-label">8.6.</span> 练习</h1>
+<h1><span class="title-label">8.6</span> 练习</h1>
 <p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
 <ol class="arabic">
 <li>
