@@ -277,7 +277,7 @@ by [Michael Hartl](http://www.michaelhartl.com/).
 <p>这个命令也会生成名为 <code>static_pages_controller.rb</code> 的控制器文件。因为 Ruby 的类名使用驼峰式（<a href="chapter4.html#ruby-classes">4.4 节</a>），所以提到控制器时我会使用驼峰式，不过这是我的个人选择。（因为 Ruby 文件名一般使用蛇底式，所以 Rails 生成器使用 <a href="http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-underscore"><code>underscore</code></a> 方法把驼峰式转换成蛇底式。）</p>
 <p>顺便说一下，如果在生成代码时出现了错误，知道如何撤销操作就很有用了。<a href="#aside-undoing-things">旁注 3.1</a> 中介绍了一些如何在 Rails 中撤销操作的方法。</p>
 <div data-type="sidebar" id="aside-undoing-things" class="sidebar">
-<h5>旁注 3.1：撤销操作</h5>
+<h5><span class="title-label">旁注 3.1</span>：撤销操作</h5>
 <p>即使再小心，在开发 Rails 应用的过程中也可能会犯错。幸好 Rails 提供了一些工具能够帮助我们还原操作。</p>
 <p>举例来说，一个常见的情况是，更改控制器的名字，这时你得删除生成的文件。生成控制器时，除了控制器文件本身之外，Rails 还会生成很多其他文件（参见<a href="#listing-generating-pages">代码清单 3.4</a>）。撤销生成的文件不仅仅要删除控制器文件，还要删除一些辅助的文件。（在 <a href="chapter2.html#the-users-resource">2.2 节</a>和 <a href="chapter2.html#the-microposts-resource">2.3 节</a>我们看到，<code>rails generate</code> 命令还会自动修改 <code>routes.rb</code> 文件，因此我们也想自动撤销这些修改。）在 Rails 中，我们可以使用 <code>rails destroy</code> 命令完成撤销操作。一般来说，下面这两个命令是相互抵消的：</p>
 <div data-type="listing">
@@ -359,7 +359,7 @@ end
 <p>然后访问 <a href="http://localhost:3000/static_pages/home">/static_pages/home</a>，如<a href="#fig-raw-home-view">图 3.2</a> 所示。</p>
 <div id="fig-raw-home-view" class="figure"><img src="images/chapter3/raw_home_view_3rd_edition.png" alt="raw home view 3rd edition" /><div class="figcaption"><span class="title-label">图 3.2</span>：简陋的首页（<a href="http://localhost:3000/static_pages/home">/static_pages/home</a>）</div></div>
 <div data-type="sidebar" id="aside-get-etc" class="sidebar">
-<h5>旁注3.2：GET 等</h5>
+<h5><span class="title-label">旁注 3.2</span>：GET 等</h5>
 <p>超文本传输协议（<a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP</a>）定义了几个基本操作，<code>GET</code>、<code>POST</code>、<code>PATCH</code> 和 <code>DELETE</code>。这四个动词表示客户端电脑（通常安装了一种浏览器，例如 Chrome、Firefox 或 Safari）和服务器（通常会运行一个 Web 服务器，例如 Apache 或 Nginx）之间的操作。（有一点很重要，你要知道，在本地电脑中开发 Rails 应用时，客户端和服务器在同一台物理设备中，但是二者是不同的概念。）受 REST 架构影响的 Web 框架（包括 Rails）都很重视对 HTTP 动词的实现，我们在<a href="chapter2.html#a-toy-app">第 2 章</a>已经简要介绍了 REST，从<a href="chapter7.html#sign-up">第 7 章</a>开始会做更详细的介绍。</p>
 <p><code>GET</code> 是最常用的 HTTP 操作，用来读取网络中的数据。它的意思是“读取一个网页”，当你访问 <a href="http://www.google.com" class="bare">http://www.google.com</a> 或 <a href="http://www.wikipedia.org" class="bare">http://www.wikipedia.org</a> 时，浏览器发送的就是 <code>GET</code> 请求。<code>POST</code> 是第二种最常用的操作，当你提交表单时浏览器发送的就是 <code>POST</code> 请求。在 Rails 应用中，<code>POST</code> 请求一般用来创建某个东西（不过 HTTP 也允许 <code>POST</code> 执行更新操作）。例如，提交注册表单时发送的 <code>POST</code> 请求会在网站中创建一个新用户。另外两个动词，<code>PATCH</code> 和 <code>DELETE</code>，分别用来更新和销毁服务器上的某个东西。这两个操作没 <code>GET</code> 和 <code>POST</code> 那么常用，因为浏览器没有内建对这两种请求的支持，不过有些 Web 框架（包括 Rails）通过一些聪明的处理方式，让它看起来就像是浏览器发出的一样。所以，这四种请求类型 Rails 都支持。</p>
 </div>
@@ -455,7 +455,7 @@ end
 <p>我们创建并修改了“首页”和“帮助”页面的内容，下面要添加“关于”页面。做这样的改动时，最好编写自动化测试确认实现的方法正确。对本书开发的应用来说，我们编写的测试组件有两个作用：其一，是一种安全防护措施；其二，作为源码的文档。虽然要编写额外的代码，但是如果方法得当，测试能协助我们快速开发，因为有了测试查找问题所用的时间会变少。不过，我们要善于编写测试才行，所以要尽早开始练习。</p>
 <p>几乎每个 Rails 开发者都认同测试是好习惯，但具体的作法多种多样。最近有一场针对“测试驱动开发”（Test-Driven Development，简称 TDD）的辩论<sup>[<a id="fn-ref-4" href="#fn-4">4</a>]</sup>，十分热闹。TDD 是一种测试技术，程序员要先编写失败的测试，然后再编写应用的代码，让测试通过。本书采用一种轻量级，符合直觉的测试方案，只在适当的时候才使用 TDD，而不严格遵守 TDD 理念（<a href="#aside-when-to-test">旁注 3.3</a>）。</p>
 <div data-type="sidebar" id="aside-when-to-test" class="sidebar">
-<h5>旁注 3.3：什么时候测试</h5>
+<h5><span class="title-label">旁注 3.3</span>：什么时候测试</h5>
 <p>判断何时以及如何测试之前，最好弄明白为什么要测试。在我看来，编写自动化测试主要有三个好处：</p>
 <ol class="arabic">
 <li>
@@ -1497,7 +1497,7 @@ Writing new Guardfile to /home/ubuntu/workspace/sample_app/Guardfile
 </div>
 <p>写作本书时，Spring 服务器还有点儿怪异，有时 Spring 进程会不断拖慢测试的运行速度。如果你发现测试变得异常缓慢，最好查看系统进程（<a href="#aside-processes">旁注 3.4</a>），如果需要，关掉 Spring 进程。</p>
 <div data-type="sidebar" id="aside-processes" class="sidebar">
-<h5>旁注 3.4：Unix 进程</h5>
+<h5><span class="title-label">旁注 3.4</span>：Unix 进程</h5>
 <p>在 Unix 类系统中，例如 Linux 和 OS X，用户和系统执行的任务都在包装良好的容器中，这个容器叫“进程”（process）。若想查看系统中的所有进程，可以执行 <code>ps</code> 命令，并指定 <code>aux</code> 参数：</p>
 <div data-type="listing">
 

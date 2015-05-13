@@ -52,7 +52,7 @@
 <p>本书采用一种综合式方法讲授 Web 开发，在学习的过程中我们要开发三个演示应用：第一个最简单，叫 <code>hello_app</code>（<a href="#the-first-application">1.3 节</a>）；第二个功能多一些，叫 <code>toy_app</code>（<a href="chapter2.html#a-toy-app">第 2 章</a>），第三个是真正的演示程序，叫 <code>sample_app</code>（<a href="chapter3.html#mostly-static-pages">第 3 章</a>到<a href="chapter12.html#following-users">第 12 章</a>）。从这三个应用的名字可以看出，书中开发的应用不限定于某种特定类型的网站。不过，最后一个演示应用有点儿类似某个流行的<a href="https://twitter.com">社会化微博网站</a>（很巧，这个网站一开始也是使用 Rails 开发的）。本书的重点是介绍通用原则，所以不管你想开发什么样的 Web 应用，读完本书后，都能建立扎实的基础。</p>
 <p>人们经常会问，我要具备多少背景知识才能阅读本书学习 Web 开发。<a href="#prerequisites">1.1.1 节</a>对此做了详细分析。Web 开发是个具有挑战性的学科，对没有任何背景知识的初学者来说挑战更大。我最初为本书设定的阅读对象是已经具有一定编程和 Web 开发经验的开发者，但后来发现读者中有很多都刚开始接触开发。所以，现在你看到的本书第三版做出了很多努力，尽量降低了入门 Rails 的门槛。</p>
 <div data-type="sidebar" id="aside-barrier" class="sidebar">
-<h5>旁注 1.1：降低门槛</h5>
+<h5><span class="title-label">旁注 1.1</span>：降低门槛</h5>
 <p>本书第三版采取了很多措施，降低入门 Rails 的门槛：</p>
 <ul>
 <li>
@@ -80,7 +80,7 @@
 <p><a href="chapter2.html#a-toy-app">第 2 章</a>会创建第二个项目，演示 Rails 应用的一些基本操作。为了速度，我们会使用脚手架（<a href="#aside-scaffolding">旁注 1.2</a>）创建这个应用（名为 <code>toy_app</code>）。因为生成的代码很丑也很复杂，所以<a href="chapter2.html#a-toy-app">第 2 章</a>将集中精力在浏览器中，使用 URI（经常称为 URL）<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>和这个应用交互。</p>
 <p>本书剩下的章节将集中精力开发一个真实的大型演示应用（名为 <code>sample_app</code>），所有代码都从零开始编写。在开发这个应用的过程中，我们会用到模拟技术，“测试驱动开发”（Test-driven Development，简称 TDD）理念，以及“集成测试”（integration test）。<a href="#mostly-static-pages">第 3 章</a>创建静态页面，然后增加一些动态内容。<a href="#rails-flavored-ruby">第 4 章</a>会简要介绍一下 Rails 使用的 Ruby 程序语言。<a href="#filling-in-the-layout">第 5 章</a>到<a href="#account-activation-and-password-reset">第 10 章</a>将逐步完善这个应用的低层结构，包括网站的布局，用户数据模型，完整的注册和认证系统（含有账户激活和密码重设功能）。最后，<a href="#user-microposts">第 11 章</a>和<a href="#following-users">第 12 章</a>将添加微博和社交功能，最终开发出一个可以正常运行的演示网站。</p>
 <div data-type="sidebar" id="aside-scaffolding" class="sidebar">
-<h5>旁注 1.2：脚手架——更快，更简单，更诱人</h5>
+<h5><span class="title-label">旁注 1.2</span>：脚手架——更快，更简单，更诱人</h5>
 <p>Rails 出现伊始就吸引了众多目光，特别是 Rails 创始人 David Heinemeier Hansson 录制的著名的“<a href="http://v.youku.com/v_show/id_XNzg5MjUwOTU2.html">15分钟开发一个博客程序</a>”视频。这个视频及其衍生版本是窥探 Rails 强大功能一种很好的方式，我推荐你看一下这些视频。不过事先提醒一下，这些视频中的演示能控制在 15 分钟以内，得益于一种叫做“脚手架”（scaffold）的功能，通过 Rails 命令 <code>generate scaffold</code> 生成大量的代码。</p>
 <p>写作本书时，我也想过使用脚手架，因为它<a href="http://en.wikipedia.org/wiki/Dark_side_(Star_Wars)">更快、更简单、更诱人</a>。不过脚手架生成的大量且复杂的代码会让初学者困惑。虽然能学会脚手架的用法，但并不明白到底发生了什么事。使用脚手架，你只是一个脚本生成器的使用者，无法提升你对 Rails 的认识。</p>
 <p>本书将采用一种不同的方式，虽然<a href="chapter2.html#a-toy-app">第 2 章</a>会用脚手架开发一个小型的玩具应用，但本书的核心是从<a href="#mostly-static-pages">第 3 章</a>起开发的演示应用。在开发这个演示应用的每个阶段，我们只会编写少量的代码，易于理解但又具有一定的挑战性。通过这一过程，最终你会对 Rails 有较为深刻的理解，而且能灵活运用，开发几乎任何类型的 Web 应用。</p>
@@ -244,7 +244,7 @@ hello, world!
 </pre></div>
 </div>
 <div data-type="sidebar" id="aside-unix-commands" class="sidebar">
-<h5>旁注 1.3：Unix 命令行速成课</h5>
+<h5><span class="title-label">旁注 1.3</span>：Unix 命令行速成课</h5>
 <p>使用 Windows 和 Mac OS X（数量较少，但增长势头迅猛）的用户可能对 Unix 命令行不熟悉。如果使用推荐的云端环境，很幸运，这个环境提供了 Unix（Linux）命令行——在标准的 <a href="http://en.wikipedia.org/wiki/Shell_(computing)">shell 命令行界面</a>中运行的 <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>。</p>
 <p>命令行的基本思想很简单：使用简短的命令执行很多操作，例如创建文件夹（<code>mkdir</code>），移动和复制文件（<code>mv</code> 和 <code>cp</code>），以及变换目录浏览文件系统（<code>cd</code>）。主要使用图形化界面（Graphical User Interface，简称 GUI）的用户可能觉得命令行落后，其实是被表象蒙蔽了：命令行是开发者最强大的工具之一。其实，你经常会看到经验丰富的开发者开着多个终端窗口，运行命令行 shell。</p>
 <p>这是一门很深的学问，但在本书中只会用到一些最常用的 Unix 命令行命令，如<a href="#table-unix-commands">表 1.1</a>所示。若想更深入地学习 Unix 命令行，请阅读 Mark Bates 写的《<a href="http://conqueringthecommandline.com/">Conquering the Command Line</a>》（可以<a href="http://conqueringthecommandline.com/book">免费在线阅读</a>，也可以<a href="http://conqueringthecommandline.com/#pricing">购买电子书和视频</a>）。</p>
@@ -834,7 +834,7 @@ application_controller.rb  concerns/
 <h2><span class="title-label">1.4.3.</span> Bitbucket</h2>
 <p>我们已经把项目纳入 Git 版本控制系统了，接下来可以把代码推送到 <a href="http://www.bitbucket.com/">Bitbucket</a> 中。Bitbucket 是一个专门用来托管和分享 Git 仓库的网站。（本书前几版使用 <a href="http://www.github.com/">GitHub</a>，换用 Bitbucket 的原因参见<a href="#aside-github-bitbucket">旁注 1.4</a>。）在 Bitbucket 中放一份 Git 仓库的副本有两个目的：其一，对代码做个完整备份（包括所有提交历史）；其二，便于以后协作。</p>
 <div data-type="sidebar" id="aside-github-bitbucket" class="sidebar">
-<h5>旁注 1.4：GitHub 和 Bitbucket</h5>
+<h5><span class="title-label">旁注 1.4</span>：GitHub 和 Bitbucket</h5>
 <p>目前，托管 Git 仓库最受欢迎的网站是 GitHub 和 Bitbucket。这两个网站有很多相似之处：都可托管仓库，也可以协作，而且浏览和搜索仓库很方便。但二者之间有个重要的区别（对本书而言）：GitHub 为开源项目提供无限量的免费仓库，但私有仓库收费；而 Bitbucket 提供了无限量的私有仓库，仅当协作者超过一定数量时才收费。所以，选择哪个网站，取决于具体的需求。</p>
 <p>本书前几版使用 GitHub，因为它对开源项目来说有很多好用的功能，但我越来越关注安全，所以推荐所有 Web 应用都放在私有仓库中。因为 Web 应用的仓库中可能包含潜在的敏感信息，例如密钥和密码，可能会威胁到使用这份代码的网站的安全。当然，这类信息也有安全的处理方法，但是容易出错，而且需要很多专业知识。</p>
 <p>本书开发的演示应用可以安全地公开，但这只是特例，不能推广。因此，为了尽量提高安全，我们不能冒险，还是默认就使用私有仓库保险。既然 GitHub 对私有仓库收费，而 Bitbucket 提供了不限量的免费私有仓库，就我们的需求来说，Bitbucket 比 Github 更合适。</p>

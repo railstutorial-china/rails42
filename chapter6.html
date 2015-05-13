@@ -50,7 +50,7 @@
 <h1><span class="title-label">第 6 章</span> 用户模型</h1>
 <p><a href="chapter5.html#filling-in-the-layout">第 5 章</a>末尾创建了一个临时的用户注册页面（<a href="chapter5.html#user-signup-a-first-step">5.4 节</a>）。本书接下来的五章会逐步在这个页面中添加功能。本章我们要迈出关键的一步，创建网站中用户的数据模型，并实现存储数据的方式。<a href="chapter7.html#sign-up">第 7 章</a>会实现用户注册功能，并创建用户资料页面。用户能注册后，我们要实现登录和退出功能（<a href="chapter8.html#log-in-log-out">第 8 章</a>）。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>（<a href="chapter9.html#requiring-logged-in-users">9.2.1 节</a>）会介绍如何保护页面，禁止无权限的用户访问。最后，在<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>实现账户激活（从而确认电子邮件地址有效）和密码重设功能。第 6 章到第 10 章的内容结合在一起，为 Rails 应用开发一个功能完整的登录和认证系统。或许你知道已经有很多开发好的 Rails 认证方案，<a href="aside.html#roll-your-own">旁注 6.1</a>解释了为什么，至少在初学阶段，最好自己动手实现。</p>
 <div data-type="sidebar" id="roll-your-own" class="sidebar">
-<h5>旁注 6.1：自己开发认证系统</h5>
+<h5><span class="title-label">旁注 6.1</span>：自己开发认证系统</h5>
 <p>基本上所有 Web 应用都需要某种登录和认证系统。为此，大多数 Web 框架都提供了多种实现方式，Rails 也不例外。为 Rails 开发的认证和权限系统有 <a href="http://github.com/thoughtbot/clearance">Clearance</a>、<a href="http://github.com/binarylogic/authlogic">Authlogic</a>、<a href="http://github.com/plataformatec/devise">Devise</a> 和 <a href="http://railscasts.com/episodes/192-authorization-with-cancan">CanCan</a>。除此之外，还有一些不是 Rails 专用的方案，基于 <a href="http://en.wikipedia.org/wiki/OpenID">OpenID</a> 和 <a href="http://en.wikipedia.org/wiki/Oauth">OAuth</a> 实现。所以你肯定会问，为什么我们要重复制造轮子，为什么不直接使用现成的方案，而要自己开发呢？</p>
 <p>首先，实践已经证明，大多数网站的认证系统都要对第三方代码库做一些定制和修改，这往往比重新开发一个工作量还大。再者，现成的方案就像一个“黑盒”，你无法了解其中到底有些什么功能，而自己开发的话能更好地理解实现的过程。而且，Rails 最近的更新（参见 <a href="#adding-a-secure-password">6.3 节</a>），让开发认证系统变得很简单。最后，如果以后要用第三方系统的话，因为自己开发过，所以能更好地理解实现过程，便于定制功能。</p>
 </div>
@@ -998,7 +998,7 @@
 </ol>
 <p>相信我，上面这种难以置信的情况可能发生，只要有一定的访问量，在任何 Rails 网站中都可能发生。幸好解决的办法很容易，只需在数据库层也加上唯一性限制。我们要做的是在数据库中为 <code>email</code> 列建立索引（<a href="#aside-database-indices">旁注 6.2</a>），然后为索引加上唯一性限制。</p>
 <div data-type="sidebar" id="aside-database-indices" class="sidebar">
-<h5>旁注 6.2：数据库索引</h5>
+<h5><span class="title-label">旁注 6.2</span>：数据库索引</h5>
 <p>在数据库中创建列时要考虑是否需要通过这个列查找记录。以<a href="#listing-users-migration">代码清单 6.2</a>中的迁移创建的 <code>email</code> 属性为例，<a href="chapter7.html#sign-up">第 7 章</a>实现登录功能后，我们要根据提交的电子邮件地址查找对应的用户记录。可是在这个简单的数据模型中通过电子邮件地址查找用户只有一种方法——检查数据库中的所有用户记录，比较记录中的 <code>email</code> 属性和指定的电子邮件地址。也就是说，可能要检查每一条记录（毕竟用户可能是数据库中的最后一条记录）。在数据库领域，这叫“全表扫描”。如果网站中有几千个用户，这可不是一件轻松的事。</p>
 <p>在 <code>email</code> 列加上索引可以解决这个问题。我们可以把数据库索引看成书籍的索引。如果要在一本书中找出某个字符串（例如 <code>"foobar"</code>）出现的所有位置，需要翻看书中的每一页。但是如果有索引的话，只需在索引中找到 <code>"foobar"</code> 条目，就能看到所有包含 <code>"foobar"</code> 的页码。数据库索引基本上也是这种原理。</p>
 </div>

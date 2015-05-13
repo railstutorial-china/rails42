@@ -664,7 +664,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 </div>
 <p>这种写法用到了容易让人困惑的 <code>||=</code>（或等）操作符，参见<a href="#aside-or-equals">旁注 8.1</a> 中的说明。</p>
 <div data-type="sidebar" id="aside-or-equals" class="sidebar">
-<h5>旁注 8.1：<code>||=</code> 操作符简介</h5>
+<h5><span class="title-label">旁注 8.1</span>：<code>||=</code> 操作符简介</h5>
 <p><code>||=</code>（或等）赋值操作符在 Ruby 中常用，因此有追求的 Rails 开发者要学会使用。初学时可能会觉得 <code>||=</code> 很神秘，不过和其他操作符对比之后，你会发现也不难理解。</p>
 <p>我们先来看一下常见的变量自增一赋值：</p>
 <div data-type="listing">
@@ -1400,7 +1400,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>这样写，Rails 会自动把过期时间设为 <code>20.years.from_now</code>。</p>
 <div data-type="sidebar" id="aside-time-helpers" class="sidebar">
-<h5>旁注 8.2：cookie 在 <code>20.years.from_now</code> 之后过期</h5>
+<h5><span class="title-label">旁注 8.2</span>：cookie 在 <code>20.years.from_now</code> 之后过期</h5>
 <p>你可能还记得，<a href="chapter4.html#class-inheritance">4.4.2 节</a>说过，可以向任何 Ruby 类，甚至是内置的类中添加自定义的方法。那一节，我们向 <code>String</code> 类添加了 <code>palindrome?</code> 方法（而且还发现了 <code>"deified"</code> 是回文）。我们还介绍过，Rails 为 <code>Object</code> 类添加了 <code>blank?</code> 方法（所以，<code>"".blank?</code>、<code>" ".blank?</code> 和 <code>nil.blank?</code> 的返回值都是 <code>true</code>）。创建 <code>20.years.from_now</code> 之后过期的 cookie 的 <code>cookies.permanent</code> 方法又是一例。<code>permanent</code> 方法使用了 Rails 提供的一个时间辅助方法。时间辅助方法添加到 <code>Fixnum</code> 类（整数的基类）中：</p>
 <div data-type="listing">
 
@@ -2064,7 +2064,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </div>
 <p>至此，我们的登录系统完成了。你可以在浏览器中勾选或不勾选“记住我”确认一下。</p>
 <div data-type="sidebar" id="aside-ternary-operator" class="sidebar">
-<h5>旁注 8.3：世界上有 10 种人</h5>
+<h5><span class="title-label">旁注 8.3</span>：世界上有 10 种人</h5>
 <p>有一个老笑话，说世界上有 10 种人，懂二进制的人和不懂二进制的人。（这里的 10，在二进制中是 2）同理，我们可以说，世界上有 11 种人，一种人喜欢三元操作符，一种人不喜欢，还有一种人不知道三元操作符是什么。（如果你碰巧是第三种人，稍后就不是了。）</p>
 <p>编程一段时间之后，你会发现，最常使用的流程控制之一是下面这种：</p>
 <div data-type="listing">
