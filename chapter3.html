@@ -63,7 +63,7 @@
 </pre></div>
 </div>
 <p>（和 <a href="chapter2.html#planning-the-application">2.1 节</a>一样，如果使用云端 IDE，可以在同一个工作空间中创建这个应用，没必要再新建一个工作空间。）</p>
-<p>类似 <a href="chapter2.html#planning-the-application">2.1 节</a>，接下来我们要用文本编辑器打开并编辑 <code>Gemfile</code>，写入应用所需的 gem。<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 与<a href="chapter1.html#listing-gemfile-sqlite-version">代码清单 1.5</a> 和<a href="chapter1.html#listing-demo-gemfile-sqlite-version-redux">代码清单 2.1</a> 一样，不过 <code>test</code> 组中的 gem 有所不同，稍后会做进一步设置（<a href="#advanced-testing-setup">3.7 节</a>）。注意，如果现在你想安装这个应用使用的所有 gem，要写入<a href="chapter11.html#listing-final-gemfile">代码清单 11.66</a> 中的内容。</p>
+<p>类似 <a href="chapter2.html#planning-the-application">2.1 节</a>，接下来我们要用文本编辑器打开并编辑 <code>Gemfile</code>，写入应用所需的 gem。<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 与<a href="chapter1.html#listing-gemfile-sqlite-version">代码清单 1.5</a> 和<a href="chapter1.html#listing-demo-gemfile-sqlite-version-redux">代码清单 2.1</a> 一样，不过 <code>test</code> 组中的 gem 有所不同，稍后会做进一步设置（<a href="#advanced-testing-setup">3.7 节</a>）。注意，如果现在你想安装这个应用使用的所有 gem，要写入<a href="chapter11.html#listing-final-gemfile">[chapter11#listing-final-gemfile]</a> 中的内容。</p>
 <div id="listing-gemfile-sample-app" data-type="listing">
 <h5><span class="title-label">代码清单 3.2</span>：演示应用的 <code>Gemfile</code></h5>
 
@@ -379,7 +379,7 @@ end
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>从上面代码中的 <code>class</code> 可以看出，<code>static_pages_controller.rb</code> 文件中定义了一个类，名为 <code>StaticPagesController</code>。类是一种组织函数（也叫方法）的有效方式，例如 <code>home</code> 和 <code>help</code> 动作就是方法，使用 <code>def</code> 关键字定义。<a href="chapter2.html#inheritance-hierarchies">2.3.4</a> 节说过，尖括号 <code>&lt;</code> 表示 <code>StaticPagesController</code> 继承自 <code>ApplicationController</code> 类，这就意味着我们定义的页面拥有了 Rails 提供的大量功能。（我们会在 <a href="chapter4.html#ruby-classes">4.4 节</a>更详细的介绍类和继承。）</p>
+<p>从上面代码中的 <code>class</code> 可以看出，<code>static_pages_controller.rb</code> 文件中定义了一个类，名为 <code>StaticPagesController</code>。类是一种组织函数（也叫方法）的有效方式，例如 <code>home</code> 和 <code>help</code> 动作就是方法，使用 <code>def</code> 关键字定义。<a href="chapter2.html#inheritance-hierarchies">2.3.4 节</a> 节说过，尖括号 <code>&lt;</code> 表示 <code>StaticPagesController</code> 继承自 <code>ApplicationController</code> 类，这就意味着我们定义的页面拥有了 Rails 提供的大量功能。（我们会在 <a href="chapter4.html#ruby-classes">4.4 节</a>更详细的介绍类和继承。）</p>
 <p>在本例中，静态页面控制器中的两个方法默认都是空的：</p>
 <div data-type="listing">
 
@@ -416,7 +416,7 @@ end
 </section>
 <section data-type="sect2" id="custom-static-pages">
 <h2><span class="title-label">3.2.2</span> 修改静态页面中的内容</h2>
-<p>我们会在 <a href="#slightly-dynamic-pages">3.4 节</a>添加一些简单的动态内容。现在，这些静态内容的存在是为了强调一件很重要的事：Rails 的视图可以只包含静态的 HTML。所以我们甚至无需了解 Rails 就可以修改“首页”和“帮助”页面的内容，如<a href="#listing-custom-home-page">代码清单 3.9</a> 和 <a href="#listing-custom-help-page">3.10</a> 所示。</p>
+<p>我们会在 <a href="#slightly-dynamic-pages">3.4 节</a>添加一些简单的动态内容。现在，这些静态内容的存在是为了强调一件很重要的事：Rails 的视图可以只包含静态的 HTML。所以我们甚至无需了解 Rails 就可以修改“首页”和“帮助”页面的内容，如<a href="#listing-custom-home-page">代码清单 3.9</a> 和 <a href="#listing-custom-help-page">代码清单 3.10</a> 所示。</p>
 <div id="listing-custom-home-page" data-type="listing">
 <h5><span class="title-label">代码清单 3.9</span>：修改“首页”的 HTML</h5>
 
@@ -445,7 +445,7 @@ end
 <span class="nt">&lt;/p&gt;</span>
 </pre></div>
 </div>
-<p>修改之后，这两个页面显示的内容如<a href="#fig-custom-home-page">图 3.3</a> 和 <a href="#fig-custom-help-page">3.4</a> 所示。</p>
+<p>修改之后，这两个页面显示的内容如<a href="#fig-custom-home-page">图 3.3</a> 和 <a href="#fig-custom-help-page">图 3.4</a> 所示。</p>
 <div id="fig-custom-home-page" class="figure"><img src="images/chapter3/custom_home_page.png" alt="custom home page" /><div class="figcaption"><span class="title-label">图 3.3</span>：修改后的“首页”</div></div>
 <div id="fig-custom-help-page" class="figure"><img src="images/chapter3/custom_help_page_3rd_edition.png" alt="custom help page 3rd edition" /><div class="figcaption"><span class="title-label">图 3.4</span>：修改后的“帮助”页面</div></div>
 </section>
@@ -696,7 +696,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </section>
 <section data-type="sect2" id="refactor">
 <h2><span class="title-label">3.3.4</span> 重构</h2>
-<p>现在测试已经变绿了，我们可以自信地尽情重构了。开发应用时，代码经常会“变味”（意思是代码会变得丑陋、啰嗦，有大量的重复）。电脑不会在意，但是人类会，所以经常重构把代码变简洁一些是很重要的事情。我们的演示应用现在还很小，没什么可重构的，不过代码无时无刻不在变味，所以 <a href="#layouts-and-embedded-ruby">3.4.3</a> 节就要开始重构。</p>
+<p>现在测试已经变绿了，我们可以自信地尽情重构了。开发应用时，代码经常会“变味”（意思是代码会变得丑陋、啰嗦，有大量的重复）。电脑不会在意，但是人类会，所以经常重构把代码变简洁一些是很重要的事情。我们的演示应用现在还很小，没什么可重构的，不过代码无时无刻不在变味，所以 <a href="#layouts-and-embedded-ruby">3.4.3 节</a> 节就要开始重构。</p>
 </section>
 </section>
 <section data-type="sect1" id="slightly-dynamic-pages">
@@ -1086,7 +1086,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 </pre></div>
 </div>
 <p>这几行代码的作用是，引入应用的样式表和 JavaScript 文件（Asset Pipeline 的一部分，<a href="chapter5.html#the-asset-pipeline">5.2.1 节</a>会介绍）；Rails 中的 <code>csrf_meta_tags</code> 方法，作用是避免“跨站请求伪造”（Cross-Site Request Forgery，简称 CSRF，一种恶意网络攻击）。</p>
-<p>现在，<a href="#listing-home-view-erb-title">代码清单 3.28</a>、<a href="#listing-help-view-erb-title">3.30</a> 和 <a href="#listing-about-view-erb-title">3.31</a> 的内容还是和布局文件中类似的 HTML 结构，所以我们要把完整的结构删除，只保留需要的内容。清理后的视图如<a href="#listing-home-view-interior">代码清单 3.33</a>、<a href="#listing-help-view-interior">3.34</a> 和 <a href="#listing-about-view-interior">3.35</a> 所示。</p>
+<p>现在，<a href="#listing-home-view-erb-title">代码清单 3.28</a>、<a href="#listing-help-view-erb-title">代码清单 3.30</a> 和 <a href="#listing-about-view-erb-title">代码清单 3.31</a> 的内容还是和布局文件中类似的 HTML 结构，所以我们要把完整的结构删除，只保留需要的内容。清理后的视图如<a href="#listing-home-view-interior">代码清单 3.33</a>、<a href="#listing-help-view-interior">代码清单 3.34</a> 和 <a href="#listing-about-view-interior">代码清单 3.35</a> 所示。</p>
 <div id="listing-home-view-interior" data-type="listing">
 <h5><span class="title-label">代码清单 3.33</span>：去除完整的 HTML 结构后的首页 <span class="green">GREEN</span></h5>
 
@@ -1544,8 +1544,8 @@ spring app <span class="p">|</span> sample_app <span class="p">|</span> started 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>guard
 </pre></div>
 </div>
-<p><a href="#listing-gitignore-spring">代码清单 3.42</a> 中的规则针对本书做了优化，例如，修改控制器后会自动运行集成测试。如果想运行所有测试，在 <code>guard&gt;</code> 终端中按回车键。（有时会看到一个错误，说连接 Spring 服务器失败。再次按回车键就能解决这个问题。）</p>
-<p>若想退出 Guard，按 Ctrl-D 键。如果想为 Guard 添加其他的匹配器，参照<a href="#listing-gitignore-spring">代码清单 3.42</a>，<a href="https://github.com/guard/guard#readme">Guard 的说明文件</a>和<a href="https://github.com/guard/guard/wiki">维基</a>。</p>
+<p><a href="#listing-gitignore-spring">代码清单 3.43</a> 中的规则针对本书做了优化，例如，修改控制器后会自动运行集成测试。如果想运行所有测试，在 <code>guard&gt;</code> 终端中按回车键。（有时会看到一个错误，说连接 Spring 服务器失败。再次按回车键就能解决这个问题。）</p>
+<p>若想退出 Guard，按 Ctrl-D 键。如果想为 Guard 添加其他的匹配器，参照<a href="#listing-gitignore-spring">代码清单 3.43</a>，<a href="https://github.com/guard/guard#readme">Guard 的说明文件</a>和<a href="https://github.com/guard/guard/wiki">维基</a>。</p>
 </section>
 </section>
 </section>
