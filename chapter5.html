@@ -171,7 +171,7 @@
 <span class="x">&lt;/nav&gt;</span>
 </pre></div>
 </div>
-<p>这里使用 Rails 提供的 <code>link_to</code> 辅助方法创建链接（<a href="chapter3.html#custom-static-pages">3.2.2 节</a>直接使用 <code>a</code> 标签创建）。<code>link_to</code> 的第一个参数是链接文本，第二个参数是链接地址。在 <a href="#layout-links">5.3.3 节</a>我们会使用“具名路由”（named route）指定链接地址，现在暂且使用 Web 开发中经常使用的占位符 <code>#</code>。第三个参数可选，是一个哈希，本例使用这个参数为 LOGO 添加一个 CSS ID——<code>logo</code>。（其他三个链接没有使用这个哈希参数，没关系，因为这个参数是可选的。）Rails 辅助方法的参数经常这样使用哈希，让我们仅使用 Rails 的辅助方法就能灵活添加 HTML 属性。</p>
+<p>这里使用 Rails 提供的 <code>link_to</code> 辅助方法创建链接（<a href="chapter3.html#custom-static-pages">3.2.2 节</a>直接使用 <code>a</code> 标签创建）。<code>link_to</code> 的第一个参数是链接文本，第二个参数是链接地址。在 <a href="#layout-links">5.3 节</a>我们会使用“具名路由”（named route）指定链接地址，现在暂且使用 Web 开发中经常使用的占位符 <code>#</code>。第三个参数可选，是一个哈希，本例使用这个参数为 LOGO 添加一个 CSS ID——<code>logo</code>。（其他三个链接没有使用这个哈希参数，没关系，因为这个参数是可选的。）Rails 辅助方法的参数经常这样使用哈希，让我们仅使用 Rails 的辅助方法就能灵活添加 HTML 属性。</p>
 <p><code>div</code> 标签中的第二个元素是导航链接，使用无序列表标签 <code>ul</code>，以及列表项目标签 <code>li</code> 编写：</p>
 <div data-type="listing">
 
@@ -1077,7 +1077,7 @@ images/ javascripts/ stylesheets/
 </table>
 <section data-type="sect2" id="contact-page">
 <h2><span class="title-label">5.3.1</span> “联系”页面</h2>
-<p>继续之前，我们要先添加一个“联系”页面（<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习题），测试如<a href="#listing-contact-page-test">代码清单 5.16</a> 所示，形式和<a href="chapter3.html#listing-title-tests">代码清单 3.22</a> 差不多。（如果你做了<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习，测试中可能会使用 <code>@base_title</code> 变量，你可以在<a href="#listing-contact-page-test">代码清单 5.16</a> 中使用。）</p>
+<p>继续之前，我们要先添加一个“联系”页面（<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>的练习题），测试如<a href="#listing-contact-page-test">代码清单 5.16</a> 所示，形式和<a href="chapter3.html#listing-title-tests">代码清单 3.22</a> 差不多。（如果你做了<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>的练习，测试中可能会使用 <code>@base_title</code> 变量，你可以在<a href="#listing-contact-page-test">代码清单 5.16</a> 中使用。）</p>
 <div id="listing-contact-page-test" data-type="listing">
 <h5><span class="title-label">代码清单 5.16</span>：“联系”页面的测试 <span class="red">RED</span></h5>
 
@@ -1526,7 +1526,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </span><span class="k">end</span>
 </pre></div>
 </div>
-<p>然后使用具名路由让首页中的按钮指向正确的地址。和其他路由一样，添加 <code>get 'signup'</code> 后会得到具名路由 <code>signup_path</code>。我们在<a href="#listing-home-page-signup-link">代码清单 5.34</a> 中使用这个具名路由。针对“注册”页面的测试留作<a href="#filling-in-the-layout-exercises">练习</a>。</p>
+<p>然后使用具名路由让首页中的按钮指向正确的地址。和其他路由一样，添加 <code>get 'signup'</code> 后会得到具名路由 <code>signup_path</code>。我们在<a href="#listing-home-page-signup-link">代码清单 5.34</a> 中使用这个具名路由。针对“注册”页面的测试留作<a href="#filling-in-the-layout-exercises">5.6 节</a>。</p>
 <div id="listing-home-page-signup-link" data-type="listing">
 <h5><span class="title-label">代码清单 5.34</span>：使用按钮链接到“注册”页面</h5>
 
@@ -1622,7 +1622,7 @@ help_url  -&gt; 'http://www.example.com/help'
 </section>
 <section data-type="sect1" id="filling-in-the-layout-exercises">
 <h1><span class="title-label">5.6</span> 练习</h1>
-<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
+<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>中的说明。</p>
 <ol class="arabic">
 <li>
 <p>按照 <a href="#syntactically-awesome-stylesheets">5.2.2 节</a>的建议，自己动手把底部的样式由<a href="#listing-footer-css">代码清单 5.13</a> 中的 CSS 改写成<a href="#listing-refactored-scss">代码清单 5.15</a> 中的 SCSS。</p>
@@ -1631,7 +1631,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <p>在<a href="#listing-layout-links-test">代码清单 5.25</a> 所示的集成测试中添加一些代码，使用 <code>get</code> 方法访问“注册”页面，确认这个页面有正确的标题。</p>
 </li>
 <li>
-<p>像代<a href="#listing-test-helper-application-helper">码清单 5.36</a> 那样在测试辅助文件中引入应用的辅助方法，就能在测试中使用 <code>full_title</code> 辅助方法。然后可以使用<a href="#listing-layout-links-test-signup-full-title-helper">代码清单 5.37</a> 中的测试检查页面的标题（在前一个练习的基础上编写）。不过这么做有个缺点，如果标题的公共部分有错别字（例如“Ruby on Rails Tutoial”），测试组件不能发现。所以要为 <code>full_title</code> 辅助方法编写一个测试：新建一个测试，专门用来测试应用的辅助方法，然后把<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 中的 <code>FILL_IN</code> 改成具体的代码。（<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 使用 <code>assert_equal</code> 方法通过 <code>==</code> 操作符检查两个值是否相等。）</p>
+<p>像<a href="#listing-test-helper-application-helper">代码清单 5.36</a> 那样在测试辅助文件中引入应用的辅助方法，就能在测试中使用 <code>full_title</code> 辅助方法。然后可以使用<a href="#listing-layout-links-test-signup-full-title-helper">代码清单 5.37</a> 中的测试检查页面的标题（在前一个练习的基础上编写）。不过这么做有个缺点，如果标题的公共部分有错别字（例如“Ruby on Rails Tutoial”），测试组件不能发现。所以要为 <code>full_title</code> 辅助方法编写一个测试：新建一个测试，专门用来测试应用的辅助方法，然后把<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 中的 <code>FILL_IN</code> 改成具体的代码。（<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 使用 <code>assert_equal</code> 方法通过 <code>==</code> 操作符检查两个值是否相等。）</p>
 </li>
 </ol>
 <div id="listing-test-helper-application-helper" data-type="listing">
