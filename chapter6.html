@@ -418,7 +418,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>为了测试有效的对象，我们要在特殊的 <code>setup</code> 方法中创建一个有效的用户对象 <code>@user</code>。<a href="chapter3.html#mostly-static-pages-exercises">第 3 章</a>的练习中提到过，<code>setup</code> 方法会在每个测试方法运行前执行。因为 <code>@user</code> 是实例变量，所以自动可在所有测试方法中使用，而且我们可以使用 <code>valid?</code> 方法检查它是否有效。测试如<a href="#listing-valid-user-test">代码清单 6.5</a> 所示。</p>
+<p>为了测试有效的对象，我们要在特殊的 <code>setup</code> 方法中创建一个有效的用户对象 <code>@user</code>。<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>的练习中提到过，<code>setup</code> 方法会在每个测试方法运行前执行。因为 <code>@user</code> 是实例变量，所以自动可在所有测试方法中使用，而且我们可以使用 <code>valid?</code> 方法检查它是否有效。测试如<a href="#listing-valid-user-test">代码清单 6.5</a> 所示。</p>
 <div id="listing-valid-user-test" data-type="listing">
 <h5><span class="title-label">代码清单 6.5</span>：测试用户对象一开始是有效的 <span class="green">GREEN</span></h5>
 
@@ -485,7 +485,7 @@
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test</span>:models
 </pre></div>
 </div>
-<p>我们在<a href="chapter2.html#a-toy-app-exercises">第 2 章的练习</a>中见过，<code>name</code> 属性的存在性验证使用 <code>validates</code> 方法，而且其参数为 <code>presence: true</code>，如<a href="#listing-validates-presence-of-name">代码清单 6.9</a> 所示。<code>presence: true</code> 是只有一个元素的可选哈希参数，<a href="chapter4.html#css-revisited">4.3.4 节</a>说过，如果方法的最后一个参数是哈希，可以省略花括号。（<a href="chapter5.html#site-navigation">5.1.1 节</a>说过，Rails 经常使用哈希做参数。）</p>
+<p>我们在<a href="chapter2.html#a-toy-app-exercises">2.5 节</a>中见过，<code>name</code> 属性的存在性验证使用 <code>validates</code> 方法，而且其参数为 <code>presence: true</code>，如<a href="#listing-validates-presence-of-name">代码清单 6.9</a> 所示。<code>presence: true</code> 是只有一个元素的可选哈希参数，<a href="chapter4.html#css-revisited">4.3.4 节</a>说过，如果方法的最后一个参数是哈希，可以省略花括号。（<a href="chapter5.html#site-navigation">5.1.1 节</a>说过，Rails 经常使用哈希做参数。）</p>
 <div id="listing-validates-presence-of-name" data-type="listing">
 <h5><span class="title-label">代码清单 6.9</span>：添加 <code>name</code> 属性存在性验证 <span class="green">GREEN</span></h5>
 
@@ -1444,7 +1444,7 @@
 </section>
 <section data-type="sect1" id="modeling-users-exercises">
 <h1><span class="title-label">6.5</span> 练习</h1>
-<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
+<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>中的说明。</p>
 <ol class="arabic">
 <li>
 <p>为<a href="#listing-email-downcase">代码清单 6.31</a> 中把电子邮件地址转换成小写字母形式的代码编写一个测试，如<a href="#listing-email-downcase-test">代码清单 6.41</a> 所示。这段测试使用 <code>reload</code> 方法从数据库中重新加载数据；使用 <code>assert_equal</code> 方法测试是否相等。为了验证<a href="#listing-email-downcase-test">代码清单 6.41</a> 是正确的，先把 <code>before_save</code> 那行注释掉，看测试是否失败，然后去掉注释，看测试能否通过。</p>
@@ -1551,9 +1551,9 @@
 <li id="fn-3">把电子邮件地址作为用户名，以后如果需要和用户联系就方便了（参见<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>）。 <a href="#fn-ref-3">&#8617;</a></li>
 <li id="fn-4">别管 <code>t</code> 对象是怎么实现的，这抽象层的东西，我们无需知道。你只要相信 <code>t</code> 能完成指定的工作就行了。 <a href="#fn-ref-4">&#8617;</a></li>
 <li id="fn-5">SQLite 读作“ess-cue-ell-ite”，不过倒是经常使用错误的读音“sequel-ite”。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6"><a href="chapter12.html#subselects">12.3.3 节</a>是个例外。 <a href="#fn-ref-6">&#8617;</a></li>
+<li id="fn-6"><a href="chapter12.html#subselects">[chapter12#subselects]</a>是个例外。 <a href="#fn-ref-6">&#8617;</a></li>
 <li id="fn-7">你可能对 <code>"2014-07-24 00:57:46"</code> 这个时间感到好奇，为什么作者半夜还在写书呢？其实不然，这个时间戳是<a href="http://dwz.cn/uFS7b">协调世界时</a>（Coordinated Universal Time，简称 UTC），作用类似于<a href="http://dwz.cn/uFSfF">格林尼治标准时间</a>（Greenwich Mean Time，简称 GMT）。以下内容摘自<a href="http://www.nist.gov/pml/div688/utcnist.cfm#cut">美国国家标准技术研究所时间和频率司的常见问题解答页面</a>。问：为什么协调世界时的缩写是 UTC 而不是 CUT？答：协调世界时是在 1970 年由国际电信联盟（ITU）的专家顾问团设计的，ITU 觉得应该使用一个通用的缩写以避免混淆，因为各方无法达成共识，最终 ITU 没有采用英文缩写 CUT 或法文缩写 TUC ，而是折中选择了 UTC。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">异常和异常处理是 Ruby 语言相对高级的功能，本书基本不会用到。不过异常是 Ruby 语言很重要的一部分，建议你阅读 <a href="chapter12.html#guide-to-further-resources">12.4.1 节</a>推荐的书籍学习。 <a href="#fn-ref-8">&#8617;</a></li>
+<li id="fn-8">异常和异常处理是 Ruby 语言相对高级的功能，本书基本不会用到。不过异常是 Ruby 语言很重要的一部分，建议你阅读 <a href="chapter12.html#guide-to-further-resources">[chapter12#guide-to-further-resources]</a>推荐的书籍学习。 <a href="#fn-ref-8">&#8617;</a></li>
 <li id="fn-9"><code>update_attributes</code> 方法是 <code>update</code> 方法的别名，但我喜欢使用前者，因为它和单数形式 <code>update_attribute</code> 对应。 <a href="#fn-ref-9">&#8617;</a></li>
 <li id="fn-10">如果结果不难想象，我们会省略在控制台中执行命令得到的结果，例如 <code>User.new</code> 的返回值。 <a href="#fn-ref-10">&#8617;</a></li>
 <li id="fn-11">你知道吗，根据标准，<code>"Michael Hartl"@example.com</code> 虽有引号和空格，但也是有效的电子邮件地址，很不可思议吧。 <a href="#fn-ref-11">&#8617;</a></li>
