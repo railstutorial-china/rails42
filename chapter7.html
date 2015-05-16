@@ -53,7 +53,7 @@
 <section data-type="sect1" id="showing-users">
 <h1><span class="title-label">7.1</span> 显示用户的信息</h1>
 <div id="fig-profile-mockup-profile-name" class="figure"><img src="images/chapter7/profile_mockup_profile_name_bootstrap.png" alt="profile mockup profile name bootstrap" /><div class="figcaption"><span class="title-label">图 7.1</span>：本节实现的用户资料页面构思图</div></div>
-<p>本节要实现的用户资料页面是完整页面的一小部分，只显示用户的名字和头像，构思图如<a href="#fig-profile-mockup-profile-name">图 7.1</a> 所示。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup> 最终完成的用户资料页面会显示用户的头像、基本信息和微博列表，构思图如<a href="#fig-profile-mockup">图 7.2</a> 所示。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>（在图 7.2 中，我们第一次用到了“lorem ipsum”占位文字，<a href="http://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean">这些文字背后的故事</a>很有意思，有空的话你可以了解一下。）这个资料页面会和整个演示应用一起在<a href="chapter12.html#following-users">第 12 章</a>完成。</p>
+<p>本节要实现的用户资料页面是完整页面的一小部分，只显示用户的名字和头像，构思图如<a href="#fig-profile-mockup-profile-name">图 7.1</a> 所示。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup> 最终完成的用户资料页面会显示用户的头像、基本信息和微博列表，构思图如<a href="#fig-profile-mockup">图 7.2</a> 所示。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>（在图 7.2 中，我们第一次用到了“lorem ipsum”占位文字，<a href="http://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean">这些文字背后的故事</a>很有意思，有空的话你可以了解一下。）这个资料页面会和整个演示应用一起在<a href="chapter12.html#following-users">[chapter12#following-users]</a>完成。</p>
 <p>如果你一直坚持使用版本控制，现在像之前一样，新建一个主题分支：</p>
 <div data-type="listing">
 
@@ -438,7 +438,7 @@
 </section>
 <section data-type="sect2" id="a-gravatar-image-and-a-sidebar">
 <h2><span class="title-label">7.1.4</span> Gravatar 头像和侧边栏</h2>
-<p>前面创建了一个略显简陋的用户资料页面，这一节要再添加一些内容：用户头像和侧边栏。首先，我们要在用户资料页面中添加一个“全球通用识别”的头像，或者叫 <a href="http://gravatar.com/">Gravatar</a>。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>这是一个免费服务，让用户上传图片，将其关联到自己的电子邮件地址上。使用 Gravatar 可以简化在网站中添加用户头像的过程，开发者不必分心去处理图片上传、剪裁和存储，只要使用用户的电子邮件地址构成头像的 URL 地址，用户的头像就会显示出来。（<a href="chapter11.html#micropost-images">11.4 节</a>会介绍如何处理图片上传。）</p>
+<p>前面创建了一个略显简陋的用户资料页面，这一节要再添加一些内容：用户头像和侧边栏。首先，我们要在用户资料页面中添加一个“全球通用识别”的头像，或者叫 <a href="http://gravatar.com/">Gravatar</a>。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>这是一个免费服务，让用户上传图片，将其关联到自己的电子邮件地址上。使用 Gravatar 可以简化在网站中添加用户头像的过程，开发者不必分心去处理图片上传、剪裁和存储，只要使用用户的电子邮件地址构成头像的 URL 地址，用户的头像就会显示出来。（<a href="chapter11.html#micropost-images">[chapter11#micropost-images]</a>会介绍如何处理图片上传。）</p>
 <p>我们的计划是，定义一个名为 <code>gravatar_for</code> 的辅助方法，返回指定用户的 Gravatar 头像，如<a href="#listing-user-show-view-with-gravatar">代码清单 7.8</a> 所示。</p>
 <div id="listing-user-show-view-with-gravatar" data-type="listing">
 <h5><span class="title-label">代码清单 7.8</span>：显示用户名字和 Gravatar 头像的用户资料页面视图</h5>
@@ -779,7 +779,7 @@
 <div id="fig-signup-failure-mockup" class="figure"><img src="images/chapter7/signup_failure_mockup_bootstrap.png" alt="signup failure mockup bootstrap" /><div class="figcaption"><span class="title-label">图 7.14</span>：注册失败时显示的页面构思图</div></div>
 <section data-type="sect2" id="a-working-form">
 <h2><span class="title-label">7.3.1</span> 可正常使用的表单</h2>
-<p>回顾一下 <a href="#a-users-resource">7.1.2 节</a>的内容，在 <code>routes.rb</code> 文件中设置 <code>resources :users</code> 之后（<a href="#listing-users-resource">代码清单 7.3</a>），Rails 应用就可以响应<a href="#table-restful-users">表格 7.1</a>中符合 REST 架构的 URL 了。其中，发送到 /users 地址上的 <code>POST</code> 请求由 <code>create</code> 动作处理。在 <code>create</code> 动作中，我们可以调用 <code>User.new</code> 方法，使用提交的数据创建一个新用户对象，尝试存入数据库，失败后再重新渲染“注册”页面，让访客重新填写注册信息。我们先来看一下生成的 <code>form</code> 元素：</p>
+<p>回顾一下 <a href="#a-users-resource">7.1.2 节</a>的内容，在 <code>routes.rb</code> 文件中设置 <code>resources :users</code> 之后（<a href="#listing-users-resource">代码清单 7.3</a>），Rails 应用就可以响应<a href="#table-restful-users">表 7.1</a>中符合 REST 架构的 URL 了。其中，发送到 /users 地址上的 <code>POST</code> 请求由 <code>create</code> 动作处理。在 <code>create</code> 动作中，我们可以调用 <code>User.new</code> 方法，使用提交的数据创建一个新用户对象，尝试存入数据库，失败后再重新渲染“注册”页面，让访客重新填写注册信息。我们先来看一下生成的 <code>form</code> 元素：</p>
 <div data-type="listing">
 
 
@@ -935,7 +935,7 @@
 </pre></div>
 </div>
 <p>如上所示，<code>errors.full_message</code> 对象是一个由错误消息组成的数组（<a href="chapter6.html#validating-presence">6.2.2 节</a>简介过）。</p>
-<p>和上面的控制台会话类似，在<a href="#listing-first-create-action">代码清单 7.16</a> 中，保存失败时也会生成一组和 <code>@user</code> 对象相关的错误消息。如果想在浏览器中显示这些错误消息，我们要在 <code>new</code> 视图中渲染一个错误消息局部视图，并把表单中每个输入框的 CSS 类设为 <code>form-control</code>（在 Bootstrap 中有特殊意义），如<a href="#listing-f-error-messages">代码清单 7.18</a> 所示。注意，这个错误消息局部视图只是临时的，最终版会在 <a href="chapter11.html#creating-microposts">11.3.2 节</a>实现。</p>
+<p>和上面的控制台会话类似，在<a href="#listing-first-create-action">代码清单 7.16</a> 中，保存失败时也会生成一组和 <code>@user</code> 对象相关的错误消息。如果想在浏览器中显示这些错误消息，我们要在 <code>new</code> 视图中渲染一个错误消息局部视图，并把表单中每个输入框的 CSS 类设为 <code>form-control</code>（在 Bootstrap 中有特殊意义），如<a href="#listing-f-error-messages">代码清单 7.18</a> 所示。注意，这个错误消息局部视图只是临时的，最终版会在 <a href="chapter11.html#creating-microposts">[chapter11#creating-microposts]</a>实现。</p>
 <div id="listing-f-error-messages" data-type="listing">
 <h5><span class="title-label">代码清单 7.18</span>：在注册表单中显示错误消息</h5>
 
@@ -1012,7 +1012,7 @@
 <span class="go">=&gt; true</span>
 </pre></div>
 </div>
-<p>第一次使用 <code>empty?</code> 方法是在 <a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>，用在字符串上；从上面的代码可以看出，<code>empty?</code> 也可用在 Rails 错误对象上，如果错误对象为空返回 <code>true</code>，否则返回 <code>false</code>。<code>any?</code> 方法就是取反 <code>empty?</code> 的返回值，如果对象中有内容就返回 <code>true</code>，没内容则返回 <code>false</code>。（顺便说一下，<code>count</code>、<code>empty?</code> 和 <code>any?</code> 都可以用在 Ruby 数组上，<a href="chapter11.html#showing-microposts">11.2 节</a>会好好利用这三个方法。）</p>
+<p>第一次使用 <code>empty?</code> 方法是在 <a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>，用在字符串上；从上面的代码可以看出，<code>empty?</code> 也可用在 Rails 错误对象上，如果错误对象为空返回 <code>true</code>，否则返回 <code>false</code>。<code>any?</code> 方法就是取反 <code>empty?</code> 的返回值，如果对象中有内容就返回 <code>true</code>，没内容则返回 <code>false</code>。（顺便说一下，<code>count</code>、<code>empty?</code> 和 <code>any?</code> 都可以用在 Ruby 数组上，<a href="chapter11.html#showing-microposts">[chapter11#showing-microposts]</a>会好好利用这三个方法。）</p>
 <p>还有一个比较新的方法是 <code>pluralize</code>，在控制台中默认不可用，不过我们可以引入 <code>ActionView::Helpers::TextHelper</code> 模块，加载这个方法：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
 <div data-type="listing">
 
@@ -1088,7 +1088,7 @@
 </pre></div>
 </div>
 <p>（<a href="#a-test-for-valid-submission">7.4.4 节</a>测试注册成功时也使用这个文件。）</p>
-<p>测试的主要目的是，确认点击注册按钮提交无效数据后，不会创建新用户。（对错误消息的测试留作<a href="#sign-up-exercises">练习</a>。）方法是检测用户的数量。测试会使用每个 Active Record 类（包括 <code>User</code> 类）都能使用的 <code>count</code> 方法：</p>
+<p>测试的主要目的是，确认点击注册按钮提交无效数据后，不会创建新用户。（对错误消息的测试留作<a href="#sign-up-exercises">7.7 节</a>。）方法是检测用户的数量。测试会使用每个 Active Record 类（包括 <code>User</code> 类）都能使用的 <code>count</code> 方法：</p>
 <div data-type="listing">
 
 
@@ -1215,7 +1215,7 @@
 </section>
 <section data-type="sect2" id="the-flash">
 <h2><span class="title-label">7.4.2</span> 闪现消息</h2>
-<p>有了<a href="#listing-">代码清单 7.23</a> 中的代码后，注册表单已经可以使用了。不过在提交有效数据注册之前，我们要添加一个 Web 应用中经常使用的增强功能：访问随后的页面时显示一个消息（这里，我们要显示一个欢迎新用户的消息），如果再访问其他页面，或者刷新页面，这个消息要消失。</p>
+<p>有了<a href="#listing-user-create-action">代码清单 7.23</a> 中的代码后，注册表单已经可以使用了。不过在提交有效数据注册之前，我们要添加一个 Web 应用中经常使用的增强功能：访问随后的页面时显示一个消息（这里，我们要显示一个欢迎新用户的消息），如果再访问其他页面，或者刷新页面，这个消息要消失。</p>
 <p>在 Rails 中，短暂显示一个消息使用“闪现消息”（flash message）实现。按照 Rails 的约定，操作成功时使用 <code>:success</code> 键表示，如<a href="#listing-signup-flash">代码清单 7.24</a> 所示。</p>
 <div id="listing-signup-flash" data-type="listing">
 <h5><span class="title-label">代码清单 7.24</span>：用户注册成功后显示一个闪现消息</h5>
@@ -1245,7 +1245,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>把一个消息赋值给 <code>flash</code> 之后，我们就可以在重定向后的第一个页面中将其显示出来了。我们要遍历 <code>flash</code>，在网站布局中显示所有相关的消息。你可能还记得 <a href="chapter4.html">4.3.3 节</a>在控制台中遍历哈希那个例子，当时我故意把变量命名为 <code>flash</code>：</p>
+<p>把一个消息赋值给 <code>flash</code> 之后，我们就可以在重定向后的第一个页面中将其显示出来了。我们要遍历 <code>flash</code>，在网站布局中显示所有相关的消息。你可能还记得 <a href="chapter4.html#hashes-and-symbols">4.3.3 节</a>在控制台中遍历哈希那个例子，当时我故意把变量命名为 <code>flash</code>：</p>
 <div data-type="listing">
 
 
@@ -1271,7 +1271,7 @@
 <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 </div>
-<p>（这段代码很乱，混用了 HTML 和 ERb，<a href="#sign-up-exercises">练习</a>中有一题会要求你把它变得好看一些。）</p>
+<p>（这段代码很乱，混用了 HTML 和 ERb，<a href="#sign-up-exercises">7.7 节</a>中有一题会要求你把它变得好看一些。）</p>
 <p>其中</p>
 <div data-type="listing">
 
@@ -1572,7 +1572,7 @@
 </section>
 <section data-type="sect1" id="sign-up-exercises">
 <h1><span class="title-label">7.7</span> 练习</h1>
-<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
+<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>中的说明。</p>
 <ol class="arabic">
 <li>
 <p>确认<a href="#listing-gravatar-option">代码清单 7.31</a> 中的代码允许 <a href="#a-gravatar-image-and-a-sidebar">7.1.4 节</a>定义的 <code>gravatar_for</code> 辅助方法接受可选的 <code>size</code> 参数，可以在视图中使用类似 <code>gravatar_for user, size: 50</code> 这样的代码。（<a href="chapter9.html#users-index">9.3.1 节</a>会使用这个改进后的辅助方法。）</p>
