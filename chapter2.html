@@ -138,7 +138,7 @@
 <h2><span class="title-label">2.1.2</span> 微博模型</h2>
 <p>微博数据模型的核心比用户模型还要简单：微博只要一个 <code>id</code> 和表示微博内容的 <code>content</code>（<code>text</code> 类型）字段即可。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>不过还有一个比较复杂的字段要实现，这个字段把微博和用户关联起来。我们使用 <code>user_id</code> 存储微博的属主。最终得到的微博数据模型如<a href="#fig-demo-micropost-model">图 2.3</a> 所示。</p>
 <div id="fig-demo-micropost-model" class="figure"><img src="images/chapter2/demo_micropost_model.png" alt="demo micropost model" /><div class="figcaption"><span class="title-label">图 2.3</span>：微博数据类型</div></div>
-<p><a href="#a-user-has-many-microposts">2.3.3 节</a>会介绍怎样使用 <code>user_id</code> 字段简单的实现一个用户拥有多个微博的功能。在<a href="chapter11.html#user-microposts">第 11 章</a>中有更完整的说明。</p>
+<p><a href="#a-user-has-many-microposts">2.3.3 节</a>会介绍怎样使用 <code>user_id</code> 字段简单的实现一个用户拥有多个微博的功能。在<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>中有更完整的说明。</p>
 </section>
 </section>
 <section data-type="sect1" id="the-users-resource">
@@ -316,8 +316,8 @@
 </li>
 </ol>
 <div id="fig-mvc-detailed" class="figure"><img src="images/chapter2/mvc_detailed.png" alt="mvc detailed" /><div class="figcaption"><span class="title-label">图 2.11</span>：Rails 中的 MVC 架构详解</div></div>
-<p>下面详细分析这个过程。首先，从浏览器中发起一个请求（第 1 步）。可以直接在浏览器地址栏中输入地址，也可以点击网页中的链接。请求到达 Rails 路由（第 2 步），根据 URL（以及请求的类型，参见<a href="chapter3.html#aside-get-etc">旁注 3.2</a>）将其分发给合适的控制器动作。把用户资源中相关的 URL 映射到控制器动作的代码如<a href="#rails-routes">代码清单 2.2</a> 所示。这行代码会按照<a href="#table-user-urls">表 2.1</a> 中的对应关系做映射。<code>:users</code> 这个符号很奇怪，它是一个符号（Symbol），<a href="chapter4.html#hashes-and-symbols">4.3.3 节</a>会介绍。</p>
-<div id="rails-routes" data-type="listing">
+<p>下面详细分析这个过程。首先，从浏览器中发起一个请求（第 1 步）。可以直接在浏览器地址栏中输入地址，也可以点击网页中的链接。请求到达 Rails 路由（第 2 步），根据 URL（以及请求的类型，参见<a href="chapter3.html#aside-get-etc">旁注 3.2</a>）将其分发给合适的控制器动作。把用户资源中相关的 URL 映射到控制器动作的代码如<a href="#listing-rails-routes">代码清单 2.2</a> 所示。这行代码会按照<a href="#table-user-urls">表 2.1</a> 中的对应关系做映射。<code>:users</code> 这个符号很奇怪，它是一个符号（Symbol），<a href="chapter4.html#hashes-and-symbols">4.3.3 节</a>会介绍。</p>
+<div id="listing-rails-routes" data-type="listing">
 <h5><span class="title-label">代码清单 2.2</span>：Rails 路由，其中定义了用户资源的规则</h5>
 
 <div class="source-file">config/routes.rb</div>
@@ -478,7 +478,7 @@
 <div data-type="sidebar" id="aside-rest" class="sidebar">
 <h5><span class="title-label">旁注 2.2</span>：表现层状态转化（REST）</h5>
 <p>如果你阅读过一些 Ruby on Rails Web 开发相关的资料，会看到很多地方都提到了“REST”，它是“表现层状态转化”（REpresentational State Transfer）的简称。REST 是一种架构方式，用来开发分布式、基于网络的系统和软件程序，例如 WWW 和 Web 应用。REST 理论很抽象，在 Rails 应用中，REST 意味着大多数组件（例如用户和微博）都会被模型化，变成资源（resource），可以创建（create）、读取（read）、更新（update）和删除（delete）。这些操作与<a href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">关系型数据库中的 CRUD 操作</a>和 <a href="http://en.wikipedia.org/wiki/HTTP_request#Request_methods">HTTP 请求方法</a>（<code>POST</code>，<code>GET</code>，<code>PATCH</code> <sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup> 和 <code>DELETE</code>）对应。<a href="chapter3.html#getting-started-with-testing">3.3 节</a>，特别是<a href="chapter3.html#aside-get-etc">旁注 3.2</a>，将更详细地介绍 HTTP 请求。</p>
-<p>作为 Rails 应用开发者，REST 开发方式能帮助你决定编写哪些控制器和动作：你只需简单的把可以创建、读取、更新和删除的资源理清就可以了。对本章的“用户”和“微博”来说，这一过程非常明确，因为它们都是很自然的资源形式。在<a href="chapter12.html#following-users">第 12 章</a>将看到，使用 REST 架构可以通过一种自然而便捷的方式解决很棘手的问题（“关注用户”功能）。</p>
+<p>作为 Rails 应用开发者，REST 开发方式能帮助你决定编写哪些控制器和动作：你只需简单的把可以创建、读取、更新和删除的资源理清就可以了。对本章的“用户”和“微博”来说，这一过程非常明确，因为它们都是很自然的资源形式。在<a href="chapter12.html#following-users">[chapter12#following-users]</a>将看到，使用 REST 架构可以通过一种自然而便捷的方式解决很棘手的问题（“关注用户”功能）。</p>
 </div>
 <p>为了探明用户控制器和用户模型之间的关系，我们看一下简化后的 <code>index</code> 动作，如<a href="#listing-demo-index-action">代码清单 2.5</a> 所示。（脚手架生成的代码很粗糙，所以我做了简化。）</p>
 <div id="listing-demo-index-action" data-type="listing">
@@ -801,7 +801,7 @@
 </div>
 <p>我们可以把这种关联用<a href="#fig-micropost-user-association">图 2.15</a> 中的图标表示出来。因为 <code>microposts</code> 表中有 <code>user_id</code> 这一列，所以 Rails（通过 Active Record）能把微博和各个用户关联起来。</p>
 <div id="fig-micropost-user-association" class="figure"><img src="images/chapter2/micropost_user_association.png" alt="micropost user association" /><div class="figcaption"><span class="title-label">图 2.15</span>：微博和用户之间的关联</div></div>
-<p>在<a href="chapter11.html#user-microposts">第 11 章</a>和<a href="chapter12.html#following-users">第 12 章</a>，我们会使用微博和用户之间的关联显示一个用户的所有微博，还会生成一个和 Twitter 类似的微博列表。现在，我们可以在控制台（console）中检查用户与微博之间的关联。控制台是和 Rails 应用交互很有用的工具。在命令行中执行 <code>rails console</code> 命令，启动控制台。然后输入 <code>User.first</code>，从数据库中读取第一个用户，并把得到的数据赋值给 <code>first_user</code> 变量：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
+<p>在<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>和<a href="chapter12.html#following-users">[chapter12#following-users]</a>，我们会使用微博和用户之间的关联显示一个用户的所有微博，还会生成一个和 Twitter 类似的微博列表。现在，我们可以在控制台（console）中检查用户与微博之间的关联。控制台是和 Rails 应用交互很有用的工具。在命令行中执行 <code>rails console</code> 命令，启动控制台。然后输入 <code>User.first</code>，从数据库中读取第一个用户，并把得到的数据赋值给 <code>first_user</code> 变量：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -824,7 +824,7 @@
 </pre></div>
 </div>
 <p>我在这段代码的最后一行加上了 <code>exit</code>，告诉你如何退出终端。在大多数系统中也可以按 Ctrl-D 键。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup>
-我们使用 <code>first_user.microposts</code> 获取这个用户发布的微博。Active Record 会自动返回 <code>user_id</code> 和 <code>first_user</code> 的 ID（<code>1</code>）相同的所有微博。在<a href="chapter11.html#user-microposts">第 11 章</a>和<a href="chapter12.html#following-users">第 12 章</a>中，我们会更深入地学习关联的这种用法。</p>
+我们使用 <code>first_user.microposts</code> 获取这个用户发布的微博。Active Record 会自动返回 <code>user_id</code> 和 <code>first_user</code> 的 ID（<code>1</code>）相同的所有微博。在<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>和<a href="chapter12.html#following-users">[chapter12#following-users]</a>中，我们会更深入地学习关联的这种用法。</p>
 </section>
 <section data-type="sect2" id="inheritance-hierarchies">
 <h2><span class="title-label">2.3.4</span> 继承体系</h2>
