@@ -49,7 +49,7 @@
                     <section data-type="chapter" id="log-in-log-out">
 <h1><span class="title-label">第 8 章</span> 登录和退出</h1>
 <p><a href="chapter7.html#sign-up">第 7 章</a>实现了用户注册功能，本章要实现登录和退出功能。我们要通过网络中三种常见的方式实现登录退出功能，分别为：浏览器关闭后“忘记”用户的登录状态（<a href="#sessions">8.1 节</a>和 <a href="#logging-in">8.2 节</a>），自动记住用户的登录状态（<a href="#remember-me">8.4 节</a>），勾选“记住我”选项时才记住用户的登录状态（<a href="#remember-me-checkbox">8.4.5 节</a>）。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
-<p>本章开发的认证系统可用于定制网站的内容，还能基于登录状态和用户的身份实现权限机制。例如，本章我们会更新网站的头部，加入“登录”或“退出”链接，以及到个人资料页面的链接。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>会实现一种安全机制，只有已登录的用户才能访问用户列表页面，只有用户自己才能编辑自己的信息，只有管理员才能从数据库中删除其他用户。<a href="chapter11.html#user-microposts">第 11 章</a>会使用已登录用户的身份发布他自己的微博。<a href="chapter12.html#following-users">第 12 章</a>会让当前登录的用户关注网站中的其他用户，从而获取关注用户的微博更新。</p>
+<p>本章开发的认证系统可用于定制网站的内容，还能基于登录状态和用户的身份实现权限机制。例如，本章我们会更新网站的头部，加入“登录”或“退出”链接，以及到个人资料页面的链接。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>会实现一种安全机制，只有已登录的用户才能访问用户列表页面，只有用户自己才能编辑自己的信息，只有管理员才能从数据库中删除其他用户。<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>会使用已登录用户的身份发布他自己的微博。<a href="chapter12.html#following-users">[chapter12#following-users]</a>会让当前登录的用户关注网站中的其他用户，从而获取关注用户的微博更新。</p>
 <section data-type="sect1" id="sessions">
 <h1><span class="title-label">8.1</span> 会话</h1>
 <p><a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> 协议<a href="https://en.wikipedia.org/wiki/Stateless_protocol">没有状态</a>，每个请求都是独立的事务，无法使用之前请求中的信息。所以，在 HTTP 协议中无法在两个页面之间记住用户的身份。需要用户登录的应用都要使用“<a href="http://en.wikipedia.org/wiki/Session_(computer_science)">会话</a>”（session）。会话是两台电脑之间的半永久性连接，例如运行 Web 浏览器的客户端电脑和运行 Rails 的服务器。</p>
@@ -921,7 +921,7 @@ x    =   x   /   2      -&gt;     x     /=   2
                                               <span class="no">BCrypt</span><span class="o">::</span><span class="no">Engine</span><span class="o">.</span><span class="n">cost</span>
 </pre></div>
 </div>
-<p>这行代码相当难懂，你无须完全理解，它的作用是严格实现前面的分析：在测试中耗时因子使用最小值，在生产环境则使用普通（最大）值。（<a href="chapter8.html#remember-me-checkbox">8.4.4 节</a>会深入介绍奇怪的 <code>?-:</code> 写法。）</p>
+<p>这行代码相当难懂，你无须完全理解，它的作用是严格实现前面的分析：在测试中耗时因子使用最小值，在生产环境则使用普通（最大）值。（<a href="chapter8.html#remember-me-checkbox">8.4.5 节</a>会深入介绍奇怪的 <code>?-:</code> 写法。）</p>
 <p><code>digest</code> 方法可以放在几个不同的地方，但 <a href="#remember-token-and-digest">8.4.1 节</a>会在用户模型中使用，所以建议放在 <code>user.rb</code> 中。因为计算摘要时不用获取用户对象，所以我们要把 <code>digest</code> 方法附在 <code>User</code> 类上，也就是定义为类方法（<a href="chapter4.html#constructors">4.4.1 节</a>简要介绍过）。结果如<a href="#listing-digest-method">代码清单 8.18</a> 所示。</p>
 <div id="listing-digest-method" data-type="listing">
 <h5><span class="title-label">代码清单 8.18</span>：定义固件中要使用的 <code>digest</code> 方法</h5>
@@ -1808,7 +1808,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 </pre></div>
 </div>
 <p><code>remember_digest</code> 的值是 <code>nil</code>，所以调用 <code>BCrypt::Password.new(remember_digest)</code> 时会抛出异常。而遇到这种情况时，我们希望 <code>authenticated?</code> 方法返回 <code>false</code>。</p>
-<p>这正是测试驱动开发的优势所在，所以在解决之前，我们先编写测试捕获这两个小问题。我们先让代码<a href="#listing-user-logout-test">清单 8.28</a> 中的集成测试失败，如<a href="#listing-test-double-logout">代码清单 8.40</a> 所示。</p>
+<p>这正是测试驱动开发的优势所在，所以在解决之前，我们先编写测试捕获这两个小问题。我们先让<a href="#listing-user-logout-test">代码清单 8.28</a> 中的集成测试失败，如<a href="#listing-test-double-logout">代码清单 8.40</a> 所示。</p>
 <div id="listing-test-double-logout" data-type="listing">
 <h5><span class="title-label">代码清单 8.40</span>：测试用户退出 <span class="red">RED</span></h5>
 
@@ -2489,13 +2489,13 @@ x    =   x   /   2      -&gt;     x     /=   2
 </section>
 <section data-type="sect1" id="log-in-log-out-exercises">
 <h1><span class="title-label">8.6</span> 练习</h1>
-<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
+<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>中的说明。</p>
 <ol class="arabic">
 <li>
-<p>在<a href="#listing-user-model-remember">代码清单 8.32</a> 中，我们定义了生成令牌和摘要的类方法，前面都加上了 <code>User</code>。这么定义没问题，而且因为我们会使用 <code>User.new_token</code> 和 <code>User.digest</code> 调用，或许这样定义意思更明确。不过，定义类方法有两种更常用的方式，一种有点让人困惑，一种极其让人困惑。运行测试组件，确认<a href="#listing-token-digest-self">代码清单 8.59</a>（有点让人困惑）和<a href="#listing-token-digest-class-self">代码清单 8.60</a>（极其让人困惑）中的实现方式是正确的。（注意，在<a href="#listing-token-digest-self">代码清单 8.59</a> 和<a href="#listing-token-digest-class-self">8.60</a> 中，<code>self</code> 是 <code>User</code> 类，而用户模型中的其他 <code>self</code> 都是用户对象实例。这就是让人困惑的根源所在。）</p>
+<p>在<a href="#listing-user-model-remember">代码清单 8.32</a> 中，我们定义了生成令牌和摘要的类方法，前面都加上了 <code>User</code>。这么定义没问题，而且因为我们会使用 <code>User.new_token</code> 和 <code>User.digest</code> 调用，或许这样定义意思更明确。不过，定义类方法有两种更常用的方式，一种有点让人困惑，一种极其让人困惑。运行测试组件，确认<a href="#listing-token-digest-self">代码清单 8.59</a>（有点让人困惑）和<a href="#listing-token-digest-class-self">代码清单 8.60</a>（极其让人困惑）中的实现方式是正确的。（注意，在<a href="#listing-token-digest-self">代码清单 8.59</a> 和<a href="#listing-token-digest-class-self">代码清单 8.60</a> 中，<code>self</code> 是 <code>User</code> 类，而用户模型中的其他 <code>self</code> 都是用户对象实例。这就是让人困惑的根源所在。）</p>
 </li>
 <li>
-<p><a href="#remember-me-checkbox">8.4.5 节</a>说过，由于应用现在的设计方式，在<a href="#listing-remember-me-test">代码清单 8.51</a> 的集成测试中无法获取 <code>remember_token</code> 虚拟属性。不过，在测试中使用一个特殊的方法可以获取，这个方法是 <code>assigns</code>。在测试中，可以访问控制器中定义的实例变量，方法是把实例变量的符号形式传给 <code>assigns</code> 方法。例如，如果 <code>create</code> 动作中定义了 <code>@user</code> 变量，在测试中可以使用 <code>assigns(:user)</code> 获取这个变量。现在，会话控制器中的 <code>create</code> 动作定义了一个普通的变量（不是实例变量），名为 <code>user</code>，如果我们把它改成实例变量，就可以测试 <code>cookies</code> 中是否包含用户的记忆令牌。填写<a href="#listing-login-create-user-instance">代码清单 8.61</a> 和<a href="#listing-improved-remember-me-test">8.62</a> 中缺少的内容（<code>?</code> 和 <code>FILL_IN</code>），完成改进后的“记住我”复选框测试。</p>
+<p><a href="#remember-me-checkbox">8.4.5 节</a>说过，由于应用现在的设计方式，在<a href="#listing-remember-me-test">代码清单 8.51</a> 的集成测试中无法获取 <code>remember_token</code> 虚拟属性。不过，在测试中使用一个特殊的方法可以获取，这个方法是 <code>assigns</code>。在测试中，可以访问控制器中定义的实例变量，方法是把实例变量的符号形式传给 <code>assigns</code> 方法。例如，如果 <code>create</code> 动作中定义了 <code>@user</code> 变量，在测试中可以使用 <code>assigns(:user)</code> 获取这个变量。现在，会话控制器中的 <code>create</code> 动作定义了一个普通的变量（不是实例变量），名为 <code>user</code>，如果我们把它改成实例变量，就可以测试 <code>cookies</code> 中是否包含用户的记忆令牌。填写<a href="#listing-login-create-user-instance">代码清单 8.61</a> 和<a href="#listing-improved-remember-me-test">代码清单 8.62</a> 中缺少的内容（<code>?</code> 和 <code>FILL_IN</code>），完成改进后的“记住我”复选框测试。</p>
 </li>
 </ol>
 <div id="listing-token-digest-self" data-type="listing">
@@ -2647,7 +2647,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <li id="fn-16">何止“可以”，因为 bcrypt 会在哈希值中<a href="https://en.wikipedia.org/wiki/Salt_%28cryptography%29">加盐</a>，其实没有办法判别两个用户的密码是否相同。 <a href="#fn-ref-16">&#8617;</a></li>
 <li id="fn-17">如果记忆令牌是唯一的，攻击者必须同时拥有用户的 ID 和 cookie 中的记忆令牌才能劫持会话。 <a href="#fn-ref-17">&#8617;</a></li>
 <li id="fn-18">一般的规则是，如果方法不需要访问类的实例，就应该定义为类方法。到 <a href="chapter10.html#account-activation-mailer-method">10.1.2 节</a>会发现，这个决定很重要。 <a href="#fn-ref-18">&#8617;</a></li>
-<li id="fn-19"><a href="chapter6.html">6.3.1 节</a>说过，“unencrypted password”（未加密的密码）用词不当，因为安全密码是哈希值，并不是加密后得到的值。 <a href="#fn-ref-19">&#8617;</a></li>
+<li id="fn-19"><a href="chapter6.html#a-hashed-password">6.3.1 节</a>说过，“unencrypted password”（未加密的密码）用词不当，因为安全密码是哈希值，并不是加密后得到的值。 <a href="#fn-ref-19">&#8617;</a></li>
 <li id="fn-20">我一般会把这种赋值语句放在括号内，从视觉上提醒自己，这不是比较。 <a href="#fn-ref-20">&#8617;</a></li>
 <li id="fn-21">若想知道怎么在你的系统中查看 cookie，请在谷歌中搜索“&lt;你的浏览器名&gt; inspect cookies”。 <a href="#fn-ref-21">&#8617;</a></li>
 <li id="fn-22">感谢读者 Paulo Célio Júnior 指出这个问题。 <a href="#fn-ref-22">&#8617;</a></li>
