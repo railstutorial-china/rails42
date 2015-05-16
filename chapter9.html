@@ -62,7 +62,7 @@
 </div>
 <section data-type="sect2" id="edit-form">
 <h2><span class="title-label">9.1.1</span> 编辑表单</h2>
-<p>我们先来创建编辑表单，构思图如<a href="#fig-edit-user-mockup">图 9.1 所示</a>。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup>要把这个构思图转换成可以使用的页面，我们既要编写用户控制器的 <code>edit</code> 动作，也要创建编辑用户的视图。我们先来编写 <code>edit</code> 动作。在 <code>edit</code> 动作中我们要从数据库中读取相应的用户。由<a href="chapter7.html#table-restful-users">表 7.1</a> 得知，用户的编辑页面地址是 /users/1/edit（假设用户的 ID 是 1）。我们知道用户的 ID 可以使用 <code>params[:id]</code> 获取，那么就可以使用<a href="#listing-initial-edit-action">代码清单 9.1</a> 中的代码查找用户。</p>
+<p>我们先来创建编辑表单，构思图如<a href="#fig-edit-user-mockup">图 9.1</a>。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup>要把这个构思图转换成可以使用的页面，我们既要编写用户控制器的 <code>edit</code> 动作，也要创建编辑用户的视图。我们先来编写 <code>edit</code> 动作。在 <code>edit</code> 动作中我们要从数据库中读取相应的用户。由<a href="chapter7.html#table-restful-users">表 7.1</a> 得知，用户的编辑页面地址是 /users/1/edit（假设用户的 ID 是 1）。我们知道用户的 ID 可以使用 <code>params[:id]</code> 获取，那么就可以使用<a href="#listing-initial-edit-action">代码清单 9.1</a> 中的代码查找用户。</p>
 <div id="listing-initial-edit-action" data-type="listing">
 <h5><span class="title-label">代码清单 9.1</span>：用户控制器的 <code>edit</code> 动作</h5>
 
@@ -1760,7 +1760,7 @@
 <span class="nv">$ </span>heroku restart
 </pre></div>
 </div>
-<p>当然，在真实的网站中你或许并不想向数据库中添加示例数据，我加入这个操作只是为了查看生产环境中的效果（<a href="#fig-heroku-sample-users">图 9.16</a>）。生产环境显示的示例用户顺序各异，我的网站显示的顺序就和本地不同（<a href="#fig-user-index-pagination">图 9.11</a>）。这是因为，我们没有指定从数据库中取回用户的顺序，所以目前的顺序由数据库决定。这对用户而言没什么问题，但微博就不同了，我们会在 <a href="chapter11.html#micropost-refinements">11.1.4 节</a>解决这个问题。</p>
+<p>当然，在真实的网站中你或许并不想向数据库中添加示例数据，我加入这个操作只是为了查看生产环境中的效果（<a href="#fig-heroku-sample-users">图 9.16</a>）。生产环境显示的示例用户顺序各异，我的网站显示的顺序就和本地不同（<a href="#fig-user-index-pagination">图 9.11</a>）。这是因为，我们没有指定从数据库中取回用户的顺序，所以目前的顺序由数据库决定。这对用户而言没什么问题，但微博就不同了，我们会在 <a href="chapter11.html#micropost-refinements">[chapter11#micropost-refinements]</a>解决这个问题。</p>
 <div id="fig-heroku-sample-users" class="figure"><img src="images/chapter9/heroku_sample_users.png" alt="heroku sample users" /><div class="figcaption"><span class="title-label">图 9.16</span>：生产环境显示的示例用户</div></div>
 <section data-type="sect2" id="updating-showing-and-deleting-users-learned">
 <h2><span class="title-label">9.5.1</span> 读完本章学到了什么</h2>
@@ -1806,7 +1806,7 @@
 </section>
 <section data-type="sect1" id="updating-showing-and-deleting-users-exercises">
 <h1><span class="title-label">9.6</span> 练习</h1>
-<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">第 3 章练习</a>中的说明。</p>
+<p>避免练习和正文冲突的方法参见<a href="chapter3.html#mostly-static-pages-exercises">3.6 节</a>中的说明。</p>
 <ol class="arabic">
 <li>
 <p>编写一个测试，确保友好转向只会在首次登录后转向指定的地址，以后再登录都会转向默认地址（即资料页面）。提示：把这个测试添加到<a href="#listing-friendly-forwarding-test">代码清单 9.26</a> 中，检查 <code>session[:forwarding_url]</code> 中是否保存了正确的值。</p>
