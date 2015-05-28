@@ -1832,7 +1832,7 @@ your password will stay as it is.
 <p>而不是</p>
 <div data-type="listing">
 
-<pre class="highlight language-erb"><code>f.hidden_field :email, @user.email</code></pre>
+<pre><code class="highlight language-erb">f.hidden_field :email, @user.email</code></pre>
 
 </div>
 <p>因为在重设密码的链接中，邮件地址在 <code>params[:email]</code> 中，如果使用后者，就会把邮件地址放入 <code>params[:user][:email]</code> 中。</p>

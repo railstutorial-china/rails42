@@ -526,6 +526,7 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <span class="k">end</span>
 </pre></div>
 </div>
+<div id="fig-cloud9-gemfile" class="figure"><img src="images/chapter1/cloud9_gemfile.png" alt="cloud9 gemfile" /><div class="figcaption"><span class="title-label">图 1.5</span>：在文本编辑器中打开默认生成的 <code>Gemfile</code></div></div>
 <p>其中很多行代码都用 <code>#</code> 符号注释掉了，这些代码放在这是为了告诉你一些常用的 gem，也是为了展示 Bundler 的句法。现在，除了这些默认的 gem 之外，我们还不需要其他的 gem。</p>
 <p>如果没在 <code>gem</code> 指令中指定版本号，Bundler 会自动最新版。下面就是一例：</p>
 <div data-type="listing">
@@ -548,7 +549,6 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 <div class="highlight language-ruby"><pre><span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span> <span class="s1">'~&gt; 4.0.0'</span>
 </pre></div>
 </div>
-<div id="fig-cloud9-gemfile" class="figure"><img src="images/chapter1/cloud9_gemfile.png" alt="cloud9 gemfile" /><div class="figcaption"><span class="title-label">图 1.5</span>：在文本编辑器中打开默认生成的 <code>Gemfile</code></div></div>
 <p>这行代码的意思是，安装版本号大于 <code>4.0.0</code>，但小于 <code>4.1</code> 的 <code>coffee-rails</code>。也就是说，<code>&gt;=</code> 符号的意思是始终安装最新版；<code>~&gt; 4.0.0</code> 的意思是只安装补丁版本号变化的版本（例如从 <code>4.0.0</code> 到 <code>4.0.1</code>），而不安装次版本或主版本的更新（例如从 <code>4.0</code> 到 <code>4.1</code>）。不过，经验告诉我们，即使是补丁版本的升级也可能导致错误，所以在本教程中我们基本上会为所有的 gem 都指定精确的版本号。你可以使用任何 gem 的最新版本，还可以在 <code>Gemfile</code> 中使用 <code>~&gt;</code>（一般推荐有经验的用户使用），但事先提醒你，这可能会导致本教程开发的应用表现异常。</p>
 <p>修改<a href="#listing-default-gemfile">代码清单 1.4</a> 中的 <code>Gemfile</code>，换用精确的版本号，得到的结果如<a href="#listing-gemfile-sqlite-version">代码清单 1.5</a> 所示。注意，借此机会我们还变动了 <code>sqlite3</code> 的位置，只在开发环境和测试环境（<a href="chapter7.html#debug-and-rails-environments">7.1.1 节</a>）中安装，避免和 Heroku 所用的数据库冲突（<a href="#deploying">1.5 节</a>）。</p>
 <div id="listing-gemfile-sqlite-version" data-type="listing">
@@ -616,8 +616,8 @@ Use <span class="sb">`</span>bundle show <span class="o">[</span>gemname<span cl
 </pre></div>
 </div>
 <p>不管使用哪种环境，我都建议你在另一个终端选项卡中执行 <code>rails server</code> 命令，这样你就可以继续在第一个选项卡中执行其他命令了，如<a href="#fig-new-terminal-tab">图 1.6</a> 和<a href="#fig-rails-server-new-tab">图 1.7</a> 所示。（如果你已经在第一个选项卡中启动了服务器，可以按 Ctrl-C 键关闭服务器。）在本地环境中，在浏览器中打开 <a href="http://localhost:3000/">http://localhost:3000/</a>；在云端 IDE 中，打开“Share”（分享）面板，点击“Application”后的地址即可打开应用（如<a href="#fig-share-workspace">图 1.8</a>）。在这两种环境中，显示的页面应该都和<a href="#fig-riding-rails">图 1.9</a> 类似。</p>
-<div id="fig-new-terminal-tab" class="figure"><img src="images/chapter1/new_terminal_tab.png" alt="new terminal tab" /><div class="figcaption"><span class="title-label">图 1.6</span>：再打开一个终端选项卡</div></div>
 <p>点击“About your application’s environment”可以查看应用的信息。你看到的版本号可能和我的不一样，但和<a href="#fig-riding-rails-environment">图 1.10</a> 差不多。当然了，从长远来看，我们不需要这个 Rails 默认页面，不过现在看到这个页面说明 Rails 可以正常运行了。我们会在<a href="#hello-world">1.3.4 节</a>删除这个页面，替换成我们自己写的首页。</p>
+<div id="fig-new-terminal-tab" class="figure"><img src="images/chapter1/new_terminal_tab.png" alt="new terminal tab" /><div class="figcaption"><span class="title-label">图 1.6</span>：再打开一个终端选项卡</div></div>
 <div id="fig-rails-server-new-tab" class="figure"><img src="images/chapter1/rails_server_new_tab.png" alt="rails server new tab" /><div class="figcaption"><span class="title-label">图 1.7</span>：在另一个选项卡中运行 Rails 服务器</div></div>
 <div id="fig-share-workspace" class="figure"><img src="images/chapter1/share_workspace.png" alt="share workspace" /><div class="figcaption"><span class="title-label">图 1.8</span>：分享运行在云端工作空间中的本地服务器</div></div>
 <div id="fig-riding-rails" class="figure"><img src="images/chapter1/riding_rails_3rd_edition.png" alt="riding rails 3rd edition" /><div class="figcaption"><span class="title-label">图 1.9</span>：执行 <code>rails server</code> 命令后看到的 Rails 默认页面</div></div>

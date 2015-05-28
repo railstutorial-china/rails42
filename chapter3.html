@@ -124,7 +124,7 @@ end
 <p>和第一个应用一样，我建议你更新一下 <code>README</code> 文件（在应用的根目录中），更好的描述这个应用。我们先把这个文件的格式从 RDoc 改为 Markdown：</p>
 <div data-type="listing">
 
-<pre class="highlight language-sh"><code><span class="gp">$ </span>git mv README.rdoc README.md</code></pre>
+<pre><code class="highlight language-sh"><span class="gp">$ </span>git mv README.rdoc README.md</code></pre>
 
 </div>
 <p>然后写入<a href="#listing-sample-app-readme">代码清单 3.3</a> 中的内容。</p>
@@ -143,7 +143,7 @@ by [Michael Hartl](http://www.michaelhartl.com/).
 <p>最后，提交这次改动：</p>
 <div data-type="listing">
 
-<pre class="highlight language-sh"><code><span class="gp">$ </span>git commit -am <span class="s2">"Improve the README"</span></code></pre>
+<pre><code class="highlight language-sh"><span class="gp">$ </span>git commit -am <span class="s2">"Improve the README"</span></code></pre>
 
 </div>
 <p>你可能还记得，在 <a href="chapter1.html#branch-edit-commit-merge">1.4.4 节</a>，我们使用 <code>git commit -a -m "Message"</code> 命令，指定了“全部变化”的旗标 <code>-a</code> 和提交信息旗标 <code>-m</code>。如上面这个命令所示，我们可以把两个旗标合在一起，变成 <code>git commit -am "Message"</code>。</p>
@@ -263,7 +263,7 @@ by [Michael Hartl](http://www.michaelhartl.com/).
 <p>最后一个命令的意思是，把 <code>static-pages</code> 主题分支推送到 Bitbucket。以后再推送时，可以省略后面的参数，简写成：</p>
 <div data-type="listing">
 
-<pre class="highlight language-sh"><code><span class="gp">$ </span>git push</code></pre>
+<pre><code class="highlight language-sh"><span class="gp">$ </span>git push</code></pre>
 
 </div>
 <p>在现实的开发过程中，我一般都会先提交再推送，但是为了行文简洁，从这往后我们会省略提交这一步。</p>
@@ -346,7 +346,7 @@ end
 <p>如下的规则</p>
 <div data-type="listing">
 
-<pre class="highlight language-rb"><code><span class="n">get</span> <span class="s1">'static_pages/home'</span></code></pre>
+<pre><code class="highlight language-rb"><span class="n">get</span> <span class="s1">'static_pages/home'</span></code></pre>
 
 </div>
 <p>把发给 /static_pages/home 的请求映射到静态页面控制器中的 <code>home</code> 动作上。另外，<code>get</code> 表明这个路由响应 GET 请求。GET 是 HTTP（超文本传输协议，Hypertext Transfer Protocol）支持的基本请求方法之一（<a href="#aside-get-etc">旁注 3.2</a>）。在这个例子中，当我们在静态页面控制器中生成 <code>home</code> 动作时，就自动在 /static_pages/home 地址上获得了一个页面。若想查看这个页面，按照 <a href="chapter1.html#rails-server">1.3.2 节</a>中的方法，启动 Rails 开发服务器：</p>
@@ -651,7 +651,7 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 <p>现在测试依旧失败，不过测试消息又变了：</p>
 <div data-type="listing">
 
-<pre class="highlight language-sh"><code><span class="gp">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test
+<pre><code class="highlight language-sh"><span class="gp">$ </span>bundle <span class="nb">exec </span>rake <span class="nb">test
 </span>ActionView::MissingTemplate: Missing template static_pages/about</code></pre>
 
 </div>
