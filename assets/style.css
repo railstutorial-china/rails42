@@ -186,6 +186,13 @@ div[data-type="listing"] .source-file {
     background-color: #ffc;
 }
 
+/* Equations */
+
+div[data-type="equation"] {
+    margin: 30px 0;
+    text-align: center;
+}
+
 /* Navigation */
 
 .navi {
