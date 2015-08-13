@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.3"/>
+    <meta name="generator" content="persie 0.0.1.alpha.5"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -73,7 +73,7 @@
 <div class="highlight language-sh"><pre><span class="nv">$ </span>rails generate controller Sessions new
 </pre></div>
 </div>
-<p>（参数中指定 <code>new</code>，其实还会生成视图，所以我们才没指定 <code>create</code> 和 <code>delete</code>，因为这两个动作没有视图。）参照 <a href="chapter7.html#signup-form">7.2 节</a>创建注册页面的方式，我们要创建一个登录表单，用于创建会话，构思如<a href="#fig-login-mockup">图 8.1</a> 所示。</p>
+<p>（参数中指定 <code>new</code>，其实还会生成视图，所以我们才没指定 <code>create</code> 和 <code>destroy</code>，因为这两个动作没有视图。）参照 <a href="chapter7.html#signup-form">7.2 节</a>创建注册页面的方式，我们要创建一个登录表单，用于创建会话，构思如<a href="#fig-login-mockup">图 8.1</a> 所示。</p>
 <div id="fig-login-mockup" class="figure"><img src="images/chapter8/login_mockup.png" alt="login mockup" /><div class="figcaption"><span class="title-label">图 8.1</span>：登录表单的构思图</div></div>
 <p>用户资源使用特殊的 <code>resources</code> 方法自动获得符合 REST 架构的路由（<a href="chapter7.html#listing-users-resource">代码清单 7.3</a>），会话资源则只能使用具名路由，处理发给 /login 地址的 <code>GET</code> 和 <code>POST</code> 请求，以及发给 /logout 地址的 <code>DELETE</code> 请求，如<a href="#listing-sessions-resource">代码清单 8.1</a> 所示。（删除了 <code>rails generate controller</code> 生成的无用路由。）</p>
 <div id="listing-sessions-resource" data-type="listing">
@@ -936,7 +936,7 @@ x    =   x   /   2      -&gt;     x     /=   2
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 
   <span class="c1"># 返回指定字符串的哈希摘要</span>
   <span class="k">def</span> <span class="nc">User</span><span class="o">.</span><span class="nf">digest</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
@@ -1310,7 +1310,7 @@ x    =   x   /   2      -&gt;     x     /=   2
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 
   <span class="c1"># 返回指定字符串的哈希摘要</span>
   <span class="k">def</span> <span class="nc">User</span><span class="o">.</span><span class="nf">digest</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
@@ -1358,7 +1358,7 @@ x    =   x   /   2      -&gt;     x     /=   2
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 
   <span class="c1"># 返回指定字符串的哈希摘要</span>
   <span class="k">def</span> <span class="nc">User</span><span class="o">.</span><span class="nf">digest</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
@@ -1491,7 +1491,7 @@ x    =   x   /   2      -&gt;     x     /=   2
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 
   <span class="c1"># 返回指定字符串的哈希摘要</span>
   <span class="k">def</span> <span class="nc">User</span><span class="o">.</span><span class="nf">digest</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
@@ -1706,7 +1706,7 @@ x    =   x   /   2      -&gt;     x     /=   2
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 
   <span class="c1"># 返回指定字符串的哈希摘要</span>
   <span class="k">def</span> <span class="nc">User</span><span class="o">.</span><span class="nf">digest</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>

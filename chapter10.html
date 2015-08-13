@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.3"/>
+    <meta name="generator" content="persie 0.0.1.alpha.5"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -1870,7 +1870,13 @@ your password will stay as it is.
 <p><a href="#listing-password-reset-edit-action">代码清单 10.51</a> 中的 <code>authenticated?(:reset, params[:id])</code>，<a href="#listing-generalized-current-user">代码清单 10.26</a> 中的 <code>authenticated?(:remember, cookies[:remember_token])</code>，以及<a href="#listing-account-activation-edit-action">代码清单 10.29</a> 中的 <code>authenticated?(:activation, params[:id])</code>，就是<a href="#table-password-token-digest">表 10.1</a> 中 <code>authenticated?</code> 方法的三个用例。</p>
 <p>现在，点击<a href="#listing-password-reset-email">代码清单 10.49</a> 中的链接后，会显示密码重设表单，如<a href="#fig-password-reset-form">图 10.17</a> 所示。</p>
 <div id="fig-password-reset-form" class="figure"><img src="images/chapter10/password_reset_form.png" alt="password reset form" /><div class="figcaption"><span class="title-label">图 10.17</span>：密码重设表单</div></div>
-<p><code>edit</code> 动作对应的 <code>update</code> 动作要考虑四种情况：密码重设超时失效，重设成功，密码无效导致的重设失败，密码和密码确认为空值时导致的密码重设失败（此时看起来像是成功了）。前三种情况对应<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中外层 <code>if</code> 语句的三个分支。因为这个表单会修改 Active Record 模型（用户模型），所以我们可以使用共用的局部视图渲染错误消息。密码为空值的情况比较特殊，因为用户模型的验证允许出现这种情况（参见<a href="chapter9.html#listing-allow-blank-password">代码清单 9.10</a>），所以要特别处理，显示一个闪现消息。<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
+<p><code>edit</code> 动作对应的 <code>update</code> 动作要考虑四种情况：密码重设超时失效，重设成功，密码无效导致的重设失败，密码和密码确认为空值时导致的密码重设失败（此时看起来像是成功了）。前三种情况对应<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中外层 <code>if</code> 语句的三个分支。因为这个表单会修改 Active Record 模型（用户模型），所以我们可以使用共用的局部视图渲染错误消息。密码为空值的情况比较特殊，因为用户模型的验证允许出现这种情况（参见<a href="chapter9.html#listing-allow-blank-password">代码清单 9.10</a>），所以要特别处理，直接在 <code>@user</code> 对象的错误消息中添加一个错误：<sup>[<a id="fn-ref-8" href="#fn-8">8</a>]</sup></p>
+<div data-type="listing">
+
+
+<div class="highlight language-ruby"><pre><span class="vi">@user</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="s2">"can't be empty"</span><span class="p">)</span>
+</pre></div>
+</div>
 <div id="listing-password-reset-update-action" data-type="listing">
 <h5><span class="title-label">代码清单 10.52</span>：重设密码的 <code>update</code> 动作</h5>
 
@@ -1901,8 +1907,8 @@ your password will stay as it is.
   <span class="k">end</span>
 
   <span class="k">def</span> <span class="nf">update</span>
-<span class="hll">    <span class="k">if</span> <span class="n">password_blank?</span>
-</span>      <span class="n">flash</span><span class="o">.</span><span class="n">now</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password can't be blank"</span>
+<span class="hll">    <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:password</span><span class="o">].</span><span class="n">empty?</span>
+</span>      <span class="n">flash</span><span class="o">.</span><span class="n">now</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password can't be empty"</span>
       <span class="n">render</span> <span class="s1">'edit'</span>
 <span class="hll">    <span class="k">elsif</span> <span class="vi">@user</span><span class="o">.</span><span class="n">update_attributes</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
 </span>      <span class="n">log_in</span> <span class="vi">@user</span>
@@ -1919,11 +1925,6 @@ your password will stay as it is.
 <span class="hll">      <span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span>
 </span>    <span class="k">end</span>
 
-    <span class="c1"># 如果密码为空，返回 true</span>
-    <span class="k">def</span> <span class="nf">password_blank?</span>
-<span class="hll">      <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:password</span><span class="o">].</span><span class="n">blank?</span>
-</span>    <span class="k">end</span>
-
     <span class="c1"># 事前过滤器</span>
 
     <span class="k">def</span> <span class="nf">get_user</span>
@@ -1931,21 +1932,21 @@ your password will stay as it is.
     <span class="k">end</span>
 
     <span class="c1"># 确保是有效用户</span>
-    <span class="k">def</span> <span class="nf">valid_user</span>
-      <span class="k">unless</span> <span class="p">(</span><span class="vi">@user</span> <span class="o">&amp;&amp;</span> <span class="vi">@user</span><span class="o">.</span><span class="n">activated?</span> <span class="o">&amp;&amp;</span>
+<span class="hll">    <span class="k">def</span> <span class="nf">valid_user</span>
+</span>      <span class="k">unless</span> <span class="p">(</span><span class="vi">@user</span> <span class="o">&amp;&amp;</span> <span class="vi">@user</span><span class="o">.</span><span class="n">activated?</span> <span class="o">&amp;&amp;</span>
               <span class="vi">@user</span><span class="o">.</span><span class="n">authenticated?</span><span class="p">(</span><span class="ss">:reset</span><span class="p">,</span> <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">))</span>
         <span class="n">redirect_to</span> <span class="n">root_url</span>
       <span class="k">end</span>
     <span class="k">end</span>
 
     <span class="c1"># 检查重设令牌是否过期</span>
-    <span class="k">def</span> <span class="nf">check_expiration</span>
-      <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">password_reset_expired?</span>
-<span class="hll">        <span class="n">flash</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password reset has expired."</span>
-</span><span class="hll">        <span class="n">redirect_to</span> <span class="n">new_password_reset_url</span>
-</span><span class="hll">      <span class="k">end</span>
-</span><span class="hll">    <span class="k">end</span>
-</span><span class="k">end</span>
+<span class="hll">    <span class="k">def</span> <span class="nf">check_expiration</span>
+</span>      <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">password_reset_expired?</span>
+        <span class="n">flash</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password reset has expired."</span>
+        <span class="n">redirect_to</span> <span class="n">new_password_reset_url</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
 </pre></div>
 </div>
 <p>我们把密码重设是否超时失效交给用户模型判断：</p>
@@ -2053,8 +2054,8 @@ your password will stay as it is.
     <span class="c1"># 密码为空值</span>
     <span class="n">patch</span> <span class="n">password_reset_path</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">reset_token</span><span class="p">),</span>
           <span class="ss">email</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
-          <span class="ss">user</span><span class="p">:</span> <span class="p">{</span> <span class="ss">password</span><span class="p">:</span>              <span class="s2">"  "</span><span class="p">,</span>
-                  <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">"foobar"</span> <span class="p">}</span>
+          <span class="ss">user</span><span class="p">:</span> <span class="p">{</span> <span class="ss">password</span><span class="p">:</span>              <span class="s2">""</span><span class="p">,</span>
+                  <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">""</span> <span class="p">}</span>
     <span class="n">assert_not</span> <span class="n">flash</span><span class="o">.</span><span class="n">empty?</span>
     <span class="n">assert_template</span> <span class="s1">'password_resets/edit'</span>
     <span class="c1"># 密码和密码确认有效</span>
@@ -2310,18 +2311,277 @@ your password will stay as it is.
 </section>
 <section data-type="sect1" id="proof-of-expiration-comparison">
 <h1><span class="title-label">10.6</span> 证明超时失效的比较算式</h1>
-<p>本节我们要证明 <a href="#resetting-the-password">10.2.4 节</a>比较密码重设超时失效的算式是正确的。我们先来定义两个时间间隔：Δt<sub>r</sub> 表示发送密码重设邮件后经过的时间，Δt<sub>e</sub> 表示限制的失效时长（例如两个小时）。如果邮件发出后经过的时间比限制的失效时长长，说明此次密码重设请求已经失效，即：</p>
-<p class="text-center">Δt<sub>r</sub> &gt; Δt<sub>e</sub></p>
-<p>如果用 t<sub>N</sub> 表示现在的时间，t<sub>r</sub> 表示发送邮件的时间，t<sub>e</sub> 表示失效的时间（例如两个小时以前），那么：</p>
-<p class="text-center">Δt<sub>r</sub> = t<sub>N</sub> - t<sub>r</sub><br />
-Δt<sub>e</sub> = t<sub>N</sub> - t<sub>e</sub></p>
+<p>本节我们要证明 <a href="#resetting-the-password">10.2.4 节</a>比较密码重设超时失效的算式是正确的。我们先来定义两个时间间隔：<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="4ex" height="2.5ex" viewbox="0 -739.9 1691.5 1063.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E2-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E2-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E2-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E2-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E2-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E2-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+ 表示发送密码重设邮件后经过的时间，<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.5ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="3.833ex" height="2.167ex" viewbox="0 -739.9 1637 918.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E2-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E2-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E2-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E2-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E2-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E2-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+ 表示限制的失效时长（例如两个小时）。如果邮件发出后经过的时间比限制的失效时长长，说明此次密码重设请求已经失效，即：</p>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="10.833ex" height="2.5ex" viewbox="0 -739.9 4667.1 1063.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-3E" x="1969" y="0"></use>
+ <use xlink:href="#E1-MJMAIN-394" x="3030" y="0"></use>
+<g transform="translate(3868,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
+<p>如果用 <svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.5ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="2.5ex" height="1.833ex" viewbox="0 -649.9 1097.4 820.9" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-4E" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-4E" x="517" y="-213"></use>
+</g>
+</svg>
+表示现在的时间，<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="4ex" height="2.5ex" viewbox="0 -739.9 1691.5 1063.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E2-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E2-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E2-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E2-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E2-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E2-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+ 表示发送邮件的时间，<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.5ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="1.833ex" height="2ex" viewbox="0 -649.9 799 828.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</svg>
+ 表示失效的时间（例如两个小时以前），那么：</p>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="14.5ex" height="2.5ex" viewbox="0 -739.9 6208.4 1063.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-4E" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-3D" x="1969" y="0"></use>
+<g transform="translate(3030,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-4E" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-2212" x="4349" y="0"></use>
+<g transform="translate(5354,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.5ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="14.167ex" height="2.167ex" viewbox="0 -739.9 6099.5 918.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-4E" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-3D" x="1914" y="0"></use>
+<g transform="translate(2975,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-4E" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-2212" x="4295" y="0"></use>
+<g transform="translate(5300,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
 <p>把这两个等式代入第一个算式：</p>
-<p class="text-center">Δt<sub>r</sub> &gt; Δt<sub>e</sub><br />
-t<sub>N</sub> - t<sub>r</sub> &gt; t<sub>N</sub> - t<sub>e</sub><br />
-- t<sub>r</sub> &gt; - t<sub>e</sub></p>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="10.833ex" height="2.5ex" viewbox="0 -739.9 4667.1 1063.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-394" x="0" y="0"></use>
+<g transform="translate(838,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-3E" x="1969" y="0"></use>
+ <use xlink:href="#E1-MJMAIN-394" x="3030" y="0"></use>
+<g transform="translate(3868,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="17.667ex" height="2.333ex" viewbox="0 -649.9 7640.9 973.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-4E" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-4E" x="517" y="-213"></use>
+ <use xlink:href="#E1-MJMAIN-2212" x="1319" y="0"></use>
+<g transform="translate(2324,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-3E" x="3456" y="0"></use>
+<g transform="translate(4516,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-4E" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-2212" x="5836" y="0"></use>
+<g transform="translate(6841,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="10.667ex" height="2.333ex" viewbox="0 -649.9 4557.1 973.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMAIN-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMAIN-2212" x="0" y="0"></use>
+<g transform="translate(783,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+</g>
+ <use xlink:href="#E1-MJMAIN-3E" x="1914" y="0"></use>
+ <use xlink:href="#E1-MJMAIN-2212" x="2975" y="0"></use>
+<g transform="translate(3758,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
 <p>在这个不等式的两边乘于 -1 后得到：</p>
-<p class="text-center">t<sub>r</sub> &lt; t<sub>e</sub></p>
-<p>把 t<sub>e</sub> = 2.hours.ago 代入这个不等式后就能得到<a href="#listing-user-model-password-reset-expired">代码清单 10.53</a> 中的 <code>password_reset_expired?</code> 方法：</p>
+<div data-type="equation">
+
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.833ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="7ex" height="2.333ex" viewbox="0 -649.9 2991.1 973.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-3B3" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path>
+<path stroke-width="10" id="E1-MJMAIN-3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-3B3" x="517" y="-213"></use>
+ <use xlink:href="#E1-MJMAIN-3C" x="1131" y="0"></use>
+<g transform="translate(2192,0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</g>
+</svg>
+
+</div>
+<p>把 <svg xmlns:xlink="http://www.w3.org/1999/xlink" style="vertical-align: -0.5ex; margin-left: 0ex; margin-right: 0ex; margin-bottom: 1px; margin-top: 1px;" width="1.833ex" height="2ex" viewbox="0 -649.9 799 828.7" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path stroke-width="10" id="E1-MJMATHI-74" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path>
+<path stroke-width="10" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path>
+</defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)">
+ <use xlink:href="#E1-MJMATHI-74" x="0" y="0"></use>
+ <use transform="scale(0.707)" xlink:href="#E1-MJMATHI-65" x="517" y="-213"></use>
+</g>
+</svg>
+ = 2.hours.ago 代入这个不等式后就能得到<a href="#listing-user-model-password-reset-expired">代码清单 10.53</a> 中的 <code>password_reset_expired?</code> 方法：</p>
 <div data-type="listing">
 
 

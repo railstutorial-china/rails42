@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.3"/>
+    <meta name="generator" content="persie 0.0.1.alpha.5"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -1058,7 +1058,7 @@
 <div class="highlight language-yaml"><pre><span class="c1"># empty</span>
 </pre></div>
 </div>
-<p>为了保证电子邮件地址的唯一性，还要做些修改。有些数据库适配器的索引区分大小写，会把“Foo@ExAMPle.CoM”和“foo@example.com”视作不同的字符串，但我们的应用会把他们看做同一个地址。为了避免不兼容，我们要统一使用小写形式的地址，存入数据库前，把“Foo@ExAMPle.CoM”转换成“foo@example.com”。为此，我们要使用“回调”（callback），在 Active Record 对象生命周期的特定时刻调用。<sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup>现在，我们要使用的回调是 <code>before_save</code>，在用户存入数据库之前把电子邮件地址转换成全小写字母形式，如<a href="#listing-email-downcase">代码清单 6.31</a> 所示。（这只是初步实现方式，<a href="chapter8.html#remember-me">8.4 节</a>会再次讨论这个话题，届时会使用常用的“方法引用”定义回调。）</p>
+<p>为了保证电子邮件地址的唯一性，还要做些修改。有些数据库适配器的索引区分大小写，会把“Foo@ExAMPle.CoM”和“foo@example.com”视作不同的字符串，但我们的应用会把他们看做同一个地址。为了避免不兼容，我们要统一使用小写形式的地址，存入数据库前，把“Foo@ExAMPle.CoM”转换成“foo@example.com”。为此，我们要使用“回调”（callback），在 Active Record 对象生命周期的特定时刻调用。<sup>[<a id="fn-ref-16" href="#fn-16">16</a>]</sup>现在，我们要使用的回调是 <code>before_save</code>，在用户存入数据库之前把电子邮件地址转换成全小写字母形式，如<a href="#listing-email-downcase">代码清单 6.31</a> 所示。（这只是初步实现方式，<a href="chapter10.html#account-activations-resource">10.1.1 节</a>会再次讨论这个话题，届时会使用常用的“方法引用”定义回调。）</p>
 <div id="listing-email-downcase" data-type="listing">
 <h5><span class="title-label">代码清单 6.31</span>：把 <code>email</code> 属性的值转换为小写形式，确保电子邮件地址的唯一性 <span class="green">GREEN</span></h5>
 
@@ -1166,7 +1166,7 @@
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.2'</span>
 <span class="n">gem</span> <span class="s1">'bcrypt'</span><span class="p">,</span>               <span class="s1">'3.1.7'</span>
 <span class="o">.</span>
 <span class="o">.</span>
@@ -1247,9 +1247,9 @@
 </div>
 <p><a href="#creating-and-authenticating-a-user">6.3.4 节</a>会看到在用户模型中添加 <code>has_secure_password</code> 的作用。在此之前，为了密码的安全，先添加一个小要求。</p>
 </section>
-<section data-type="sect2" id="minimum-password-length">
+<section data-type="sect2" id="minimum-password-standards">
 <h2><span class="title-label">6.3.3</span> 密码的最短长度</h2>
-<p>一般来说，最好为密码做些限制，让别人更难猜测。在 Rails 中增强密码强度有很多方法，简单起见，我们只限制最短长度。最短长度为 6 是个不错的选择，针对这个验证的测试如<a href="#listing-minimum-password-length-test">代码清单 6.38</a> 所示。</p>
+<p>一般来说，最好为密码做些限制，让别人更难猜测。在 Rails 中增强密码强度有很多方法，简单起见，我们只限制最短长度，而且要求密码不能为空。最短长度为 6 是个不错的选择，针对这个验证的测试如<a href="#listing-minimum-password-length-test">代码清单 6.38</a> 所示。</p>
 <div id="listing-minimum-password-length-test" data-type="listing">
 <h5><span class="title-label">代码清单 6.38</span>：测试密码的最短长度 <span class="red">RED</span></h5>
 
@@ -1266,6 +1266,11 @@
   <span class="o">.</span>
   <span class="o">.</span>
   <span class="o">.</span>
+<span class="hll">  <span class="nb">test</span> <span class="s2">"password should be present (nonblank)"</span> <span class="k">do</span>
+</span><span class="hll">    <span class="vi">@user</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">password_confirmation</span> <span class="o">=</span> <span class="s2">" "</span> <span class="o">*</span> <span class="mi">6</span>
+</span><span class="hll">    <span class="n">assert_not</span> <span class="vi">@user</span><span class="o">.</span><span class="n">valid?</span>
+</span><span class="hll">  <span class="k">end</span>
+</span>
 <span class="hll">  <span class="nb">test</span> <span class="s2">"password should have a minimum length"</span> <span class="k">do</span>
 </span><span class="hll">    <span class="vi">@user</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">password_confirmation</span> <span class="o">=</span> <span class="s2">"a"</span> <span class="o">*</span> <span class="mi">5</span>
 </span><span class="hll">    <span class="n">assert_not</span> <span class="vi">@user</span><span class="o">.</span><span class="n">valid?</span>
@@ -1288,7 +1293,7 @@
 <div class="highlight language-ruby"><pre><span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>把这行代码写入用户模型，如<a href="#listing-password-implementation">代码清单 6.39</a> 所示。</p>
+<p>在上述代码的基础上，还要加上存在性验证，得出的用户模型如<a href="#listing-password-implementation">代码清单 6.39</a> 所示。（<code>has_secure_password</code> 方法本身会验证存在性，但是只在创建新记录时才验证，因此更新用户时存在漏洞。）</p>
 <div id="listing-password-implementation" data-type="listing">
 <h5><span class="title-label">代码清单 6.39</span>：实现安全密码的全部代码 <span class="green">GREEN</span></h5>
 
@@ -1302,7 +1307,7 @@
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-<span class="hll">  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+<span class="hll">  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 </span><span class="k">end</span>
 </pre></div>
 </div>
@@ -1506,7 +1511,7 @@
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 <span class="k">end</span>
 </pre></div>
 </div>
@@ -1523,7 +1528,7 @@
                     <span class="nb">format</span><span class="p">:</span>     <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 <span class="k">end</span>
 </pre></div>
 </div>
@@ -1561,7 +1566,7 @@
 <li id="fn-13">如前所述，这里就要使用专门的测试数据库 <code>db/test.sqlite3</code>。 <a href="#fn-ref-13">&#8617;</a></li>
 <li id="fn-14">严格来说，只有域名部分不区分大小写，<code>foo@bar.com</code> 和 <code>Foo@bar.com</code> 其实是不同的地址。但在实际使用中，千万别依赖这个规则，<a href="http://email.about.com/od/emailbehindthescenes/f/email_case_sens.htm">about.com</a> 中的文章说道，“区分大小写的电子邮件地址会带来很多麻烦，不易互换使用，也不利传播，所以要求输入正确的大小写是很愚蠢的。几乎没有电子邮件服务提供商或 ISP 强制要求使用区分大小写的电子邮件地址，也不会提示收件人的大小写错了（例如，要全部大写）。”感谢读者 Riley Moses 指正这个问题。 <a href="#fn-ref-14">&#8617;</a></li>
 <li id="fn-15">当然，我们可以直接编辑创建 <code>users</code> 表的迁移文件（<a href="#listing-users-migration">代码清单 6.2</a>），不过，需要先回滚再迁移。这不是 Rails 的风格，正确的做法是每次修改数据结构都要使用迁移。 <a href="#fn-ref-15">&#8617;</a></li>
-<li id="fn-16">Rails 支持的回调参见 <a href="http://api.rubyonrails.org/v4.2.0.beta2/classes/ActiveRecord/Callbacks.html">Rails API</a>。 <a href="#fn-ref-16">&#8617;</a></li>
+<li id="fn-16">Rails 支持的回调参见 <a href="http://api.rubyonrails.org/v4.2.2/classes/ActiveRecord/Callbacks.html">Rails API</a>。 <a href="#fn-ref-16">&#8617;</a></li>
 <li id="fn-17">“虚拟”的意思是模型对象中有属性，但数据库中没有对应的列。 <a href="#fn-ref-17">&#8617;</a></li>
 <li id="fn-18">“密码哈希摘要”经常称作“加密密码”，这种叫法是错误的。<a href="https://github.com/rails/rails/blob/master/activemodel/lib/active_model/secure_password.rb">Rails 源码</a>和本书前两版都犯了这个错误。“加密密码”之所以不对，是因为从设计角度看，加密是可逆的——能加密，也能解密。而计算密码哈希摘要的目的是实现不可逆，由摘要很难推出原始密码。感谢读者 Andy Philips 指出这个问题，并建议我使用正确的术语。 <a href="#fn-ref-18">&#8617;</a></li>
 <li id="fn-19">如果出现问题，可以使用这个方法还原数据库：1）退出控制台；2）在命令行中执行 <code>$ rm -f development.sqlite3</code> 命令，删除数据库（<a href="chapter7.html#sign-up">第 7 章</a>会介绍一种更优雅的做法）；3）执行 <code>$ bundle exec rake db:migrate</code> 命令，重新运行迁移；4）重启控制台。 <a href="#fn-ref-19">&#8617;</a></li>

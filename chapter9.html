@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.3"/>
+    <meta name="generator" content="persie 0.0.1.alpha.5"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -385,7 +385,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>如<a href="#listing-user-update-action">代码清单 9.9</a> 的标题所示，测试组件无法通过，因为密码长度验证（<a href="chapter6.html#listing-password-implementation">代码清单 6.39</a>）失败了，这是因为<a href="#listing-successful-edit-test">代码清单 9.8</a> 中密码和密码确认都是空值。为了让测试通过，我们要在密码为空值时特殊处理最短长度验证，方法是把 <code>allow_blank: true</code> 参数传给 <code>validates</code> 方法，如<a href="#listing-allow-blank-password">代码清单 9.10</a> 所示。</p>
+<p>如<a href="#listing-user-update-action">代码清单 9.9</a> 的标题所示，测试组件无法通过，因为密码长度验证（<a href="chapter6.html#listing-password-implementation">代码清单 6.39</a>）失败了，这是因为<a href="#listing-successful-edit-test">代码清单 9.8</a> 中密码和密码确认都是空值。为了让测试通过，我们要在密码为空值时特殊处理最短长度验证，方法是把 <code>allow_nil: true</code> 参数传给 <code>validates</code> 方法，如<a href="#listing-allow-blank-password">代码清单 9.10</a> 所示。</p>
 <div id="listing-allow-blank-password" data-type="listing">
 <h5><span class="title-label">代码清单 9.10</span>：更新时允许密码为空 <span class="green">GREEN</span></h5>
 
@@ -399,14 +399,14 @@
                     <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="no">VALID_EMAIL_REGEX</span> <span class="p">},</span>
                     <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">}</span>
   <span class="n">has_secure_password</span>
-<span class="hll">  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">},</span> <span class="ss">allow_blank</span><span class="p">:</span> <span class="kp">true</span>
+<span class="hll">  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">},</span> <span class="ss">allow_nil</span><span class="p">:</span> <span class="kp">true</span>
 </span>  <span class="o">.</span>
   <span class="o">.</span>
   <span class="o">.</span>
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>你可能担心这么改用户注册时可以把密码设为空白值，其实不然，<a href="chapter6.html#adding-a-secure-password">6.3 节</a>说过，创建对象时，<code>has_secure_password</code> 会执行存在性验证。</p>
+<p>你可能担心这么改用户注册时可以把密码设为空值，其实不然，<a href="chapter6.html#minimum-password-standards">6.3.3 节</a>说过，创建对象时，<code>has_secure_password</code> 会执行存在性验证。</p>
 <p>至此，用户编辑页面应该可以正常使用了，如<a href="#fig-edit-form-working">图 9.5</a> 所示。你也可以运行测试组件确认一下，应该可以通过：</p>
 <div data-type="listing">
 <h5><span class="title-label">代码清单 9.11</span>：<strong class="green">GREEN</strong></h5>
@@ -838,8 +838,8 @@
     <span class="n">email</span> <span class="o">=</span> <span class="s2">"foo@bar.com"</span>
     <span class="n">patch</span> <span class="n">user_path</span><span class="p">(</span><span class="vi">@user</span><span class="p">),</span> <span class="ss">user</span><span class="p">:</span> <span class="p">{</span> <span class="nb">name</span><span class="p">:</span>  <span class="nb">name</span><span class="p">,</span>
                                     <span class="ss">email</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span>
-                                    <span class="ss">password</span><span class="p">:</span>              <span class="s2">"foobar"</span><span class="p">,</span>
-                                    <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">"foobar"</span> <span class="p">}</span>
+                                    <span class="ss">password</span><span class="p">:</span>              <span class="s2">""</span><span class="p">,</span>
+                                    <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">""</span> <span class="p">}</span>
     <span class="n">assert_not</span> <span class="n">flash</span><span class="o">.</span><span class="n">empty?</span>
     <span class="n">assert_redirected_to</span> <span class="vi">@user</span>
     <span class="vi">@user</span><span class="o">.</span><span class="n">reload</span>
@@ -1135,7 +1135,7 @@
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.2'</span>
 <span class="n">gem</span> <span class="s1">'bcrypt'</span><span class="p">,</span>               <span class="s1">'3.1.7'</span>
 <span class="n">gem</span> <span class="s1">'faker'</span><span class="p">,</span>                <span class="s1">'1.4.2'</span>
 <span class="hll"><span class="o">.</span>
@@ -1195,7 +1195,7 @@
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                   <span class="s1">'4.2.0'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                   <span class="s1">'4.2.2'</span>
 <span class="n">gem</span> <span class="s1">'bcrypt'</span><span class="p">,</span>                  <span class="s1">'3.1.7'</span>
 <span class="n">gem</span> <span class="s1">'faker'</span><span class="p">,</span>                   <span class="s1">'1.4.2'</span>
 <span class="n">gem</span> <span class="s1">'will_paginate'</span><span class="p">,</span>           <span class="s1">'3.0.7'</span>

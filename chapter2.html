@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.3"/>
+    <meta name="generator" content="persie 0.0.1.alpha.5"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -57,7 +57,7 @@
 
 
 <div class="highlight language-sh"><pre><span class="nv">$ </span><span class="nb">cd</span> ~/workspace
-<span class="nv">$ </span>rails _4.2.0_ new toy_app
+<span class="nv">$ </span>rails _4.2.2_ new toy_app
 <span class="nv">$ </span><span class="nb">cd </span>toy_app/
 </pre></div>
 </div>
@@ -69,7 +69,7 @@
 
 <div class="highlight language-ruby"><pre><span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
 
-<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.0'</span>
+<span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.2'</span>
 <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span>           <span class="s1">'5.0.2'</span>
 <span class="n">gem</span> <span class="s1">'uglifier'</span><span class="p">,</span>             <span class="s1">'2.5.3'</span>
 <span class="n">gem</span> <span class="s1">'coffee-rails'</span><span class="p">,</span>         <span class="s1">'4.1.0'</span>
@@ -828,7 +828,7 @@
 </section>
 <section data-type="sect2" id="inheritance-hierarchies">
 <h2><span class="title-label">2.3.4</span> 继承体系</h2>
-<p>接下来简要介绍 Rails 中控制器和模型的类集成。
+<p>接下来简要介绍 Rails 中控制器和模型的类继承。
 如果你有面向对象编程（Object-oriented Programming，简称 OOP）的经验，能更好地理解这些内容。如果你未接触过 OOP 的话，可以跳过这一节。一般来说，如果你不熟悉类的概念（<a href="chapter4.html#ruby-classes">4.4 节</a>中会介绍），我建议你以后再回过头来读这一节。</p>
 <p>我们先介绍模型的继承结构。对比一下<a href="#listing-demo-user-class">代码清单 2.13</a> 和<a href="#listing-demo-micropost-class">代码清单 2.14</a> ，可以看出，<code>User</code> 和 <code>Micropost</code> 都（通过 <code>&lt;</code> 符号）继承自 <code>ActiveRecord::Base</code>，这是 Active Record 为模型提供的基类。<a href="#fig-demo-model-inheritance">图 2.16</a> 列出了这种继承关系。通过继承 <code>ActiveRecord::Base</code>，模型对象才能与数据库通讯，才能把数据库中的列看做 Ruby 中的属性，等等。</p>
 <div id="listing-demo-user-class" data-type="listing">
