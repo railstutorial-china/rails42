@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -392,6 +392,7 @@
 <div class="source-file">app/models/user.rb</div>
 
 <div class="highlight language-ruby"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:remember_token</span>
   <span class="n">before_save</span> <span class="p">{</span> <span class="nb">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">downcase</span> <span class="p">}</span>
   <span class="n">validates</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">maximum</span><span class="p">:</span> <span class="mi">50</span> <span class="p">}</span>
   <span class="no">VALID_EMAIL_REGEX</span> <span class="o">=</span> <span class="sr">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span>
@@ -1760,7 +1761,7 @@
 <span class="nv">$ </span>heroku restart
 </pre></div>
 </div>
-<p>当然，在真实的网站中你或许并不想向数据库中添加示例数据，我加入这个操作只是为了查看生产环境中的效果（<a href="#fig-heroku-sample-users">图 9.16</a>）。生产环境显示的示例用户顺序各异，我的网站显示的顺序就和本地不同（<a href="#fig-user-index-pagination">图 9.11</a>）。这是因为，我们没有指定从数据库中取回用户的顺序，所以目前的顺序由数据库决定。这对用户而言没什么问题，但微博就不同了，我们会在 <a href="chapter11.html#micropost-refinements">[chapter11#micropost-refinements]</a>解决这个问题。</p>
+<p>当然，在真实的网站中你或许并不想向数据库中添加示例数据，我加入这个操作只是为了查看生产环境中的效果（<a href="#fig-heroku-sample-users">图 9.16</a>）。生产环境显示的示例用户顺序各异，我的网站显示的顺序就和本地不同（<a href="#fig-user-index-pagination">图 9.11</a>）。这是因为，我们没有指定从数据库中取回用户的顺序，所以目前的顺序由数据库决定。这对用户而言没什么问题，但微博就不同了，我们会在 <a href="chapter11.html#micropost-refinements">11.1.4 节</a>解决这个问题。</p>
 <div id="fig-heroku-sample-users" class="figure"><img src="images/chapter9/heroku_sample_users.png" alt="heroku sample users" /><div class="figcaption"><span class="title-label">图 9.16</span>：生产环境显示的示例用户</div></div>
 <section data-type="sect2" id="updating-showing-and-deleting-users-learned">
 <h2><span class="title-label">9.5.1</span> 读完本章学到了什么</h2>
@@ -1818,7 +1819,7 @@
 <p>参照<a href="#listing-forbidden-admin-test">代码清单 9.59</a>，直接向 <code>update</code> 动作发送 <code>PATCH</code> 请求，确认无法修改 <code>admin</code> 属性。为了确保测试写得正确，首先应该把 <code>admin</code> 添加到允许修改的参数列表 <code>user_params</code> 中，因此添加这个测试前测试组件无法通过。</p>
 </li>
 <li>
-<p>使用<a href="#listing-new-edit-partial">代码清单 9.60</a> 中的局部视图重构 <code>new.html.erb</code> 和 <code>edit.html.erb</code> 视图中的表单。注意，要明确传入表单变量 <code>f</code>，如<a href="#listing-new-user-with-partial">代码清单 9.61</a> 所示。</p>
+<p>使用<a href="#listing-new-edit-partial">代码清单 9.60</a> 中的局部视图重构 <code>new.html.erb</code> 和 <code>edit.html.erb</code> 视图中的表单，重构后的代码如<a href="#listing-new-user-with-partial">代码清单 9.61</a> 和<a href="#listing-edit-user-with-partial">代码清单 9.62</a> 所示。注意这里使用 <code>provide</code> 方法（<a href="#layouts-and-embedded-ruby">3.4.3 节</a>用过）避免布局中有重复。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup></p>
 </li>
 </ol>
 <div id="listing-forbidden-admin-test" data-type="listing">
@@ -1858,23 +1859,27 @@
 </pre></div>
 </div>
 <div id="listing-new-edit-partial" data-type="listing">
-<h5><span class="title-label">代码清单 9.60</span>：<code>new</code> 和 <code>edit</code> 视图中使用的表单字段局部视图</h5>
+<h5><span class="title-label">代码清单 9.60</span>：<code>new</code> 和 <code>edit</code> 视图中使用的表单局部视图</h5>
 
-<div class="source-file">app/views/users/_fields.html.erb</div>
+<div class="source-file">app/views/users/_form.html.erb</div>
 
-<div class="highlight language-erb"><pre><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'shared/error_messages'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<div class="highlight language-erb"><pre><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'shared/error_messages'</span><span class="p">,</span> <span class="ss">object</span><span class="p">:</span> <span class="vi">@user</span> <span class="cp">%&gt;</span><span class="x"></span>
 
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
 
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
 
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
 
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="s2">"Confirmation"</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password_confirmation</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'form-control'</span> <span class="cp">%&gt;</span><span class="x"></span>
+
+<span class="x">  </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="k">yield</span><span class="p">(</span><span class="ss">:button_text</span><span class="p">),</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary"</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 </div>
 <div id="listing-new-user-with-partial" data-type="listing">
@@ -1883,14 +1888,30 @@
 <div class="source-file">app/views/users/new.html.erb</div>
 
 <div class="highlight language-erb"><pre><span class="cp">&lt;%</span> <span class="n">provide</span><span class="p">(</span><span class="ss">:title</span><span class="p">,</span> <span class="s1">'Sign up'</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%</span> <span class="n">provide</span><span class="p">(</span><span class="ss">:button_text</span><span class="p">,</span> <span class="s1">'Create my account'</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">&lt;h1&gt;Sign up&lt;/h1&gt;</span>
-
 <span class="x">&lt;div class="row"&gt;</span>
 <span class="x">  &lt;div class="col-md-6 col-md-offset-3"&gt;</span>
-<span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="vi">@user</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'fields'</span><span class="p">,</span> <span class="ss">f</span><span class="p">:</span> <span class="n">f</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"Create my account"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary"</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">    </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'form'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<div id="listing-edit-user-with-partial" data-type="listing">
+<h5><span class="title-label">代码清单 9.62</span>：使用局部视图的编辑页面视图</h5>
+
+<div class="source-file">app/views/users/edit.html.erb</div>
+
+<div class="highlight language-erb"><pre><span class="cp">&lt;%</span> <span class="n">provide</span><span class="p">(</span><span class="ss">:title</span><span class="p">,</span> <span class="s1">'Edit user'</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%</span> <span class="n">provide</span><span class="p">(</span><span class="ss">:button_text</span><span class="p">,</span> <span class="s1">'Save changes'</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">&lt;h1&gt;Update your profile&lt;/h1&gt;</span>
+<span class="x">&lt;div class="row"&gt;</span>
+<span class="x">  &lt;div class="col-md-6 col-md-offset-3"&gt;</span>
+<span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'form'</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">    &lt;div class="gravatar_edit"&gt;</span>
+<span class="x">      </span><span class="cp">&lt;%=</span> <span class="n">gravatar_for</span> <span class="vi">@user</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">      &lt;a href="http://gravatar.com/emails" target="_blank"&gt;Change&lt;/a&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
 <span class="x">  &lt;/div&gt;</span>
 <span class="x">&lt;/div&gt;</span>
 </pre></div>
@@ -1914,17 +1935,18 @@
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">图片来自 <a href="http://www.flickr.com/photos/sashawolff/4598355045/" class="bare">http://www.flickr.com/photos/sashawolff/4598355045/</a> <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">不要担心实现的细节。具体的实现方式是 Rails 框架的开发者需要关注的，Rails 应用开发者无需关心。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">设定事前过滤器的方法以前是 <code>before_filter</code>，但为了强调过滤器在控制器的动作之前运行，Rails 核心开发团队决定使用这个新名字。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">本节使用的代码摘自 <a href="http://thoughtbot.com/">thoughtbot</a> 开发的 <a href="http://github.com/thoughtbot/clearance">Clearance</a> gem。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">感谢读者 Yoel Adler 指出这个小问题，并和我讨论解决办法。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">婴儿的图片来自 <a href="http://www.flickr.com/photos/glasgows/338937124/" class="bare">http://www.flickr.com/photos/glasgows/338937124/</a> <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">Twitter 也采用了相同的做法。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">理论上这两个命令执行的操作可以通过 <code>rake db:reset</code> 一个命令完成，不过写作本书时，不能在当下最新版 Rails 中使用。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">变量名并不是一定要使用 <code>user</code>，遍历时如果用的是 <code>@users.each do |foobar|</code>，那么就要用 <code>render foobar</code>。关键是要知道对象的类，也就是 <code>User</code>。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">curl 等命令行工具可以发送 <code>PATCH</code> 请求。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">详情请观看 RailsCasts 中的“<a href="http://railscasts.com/episodes/77-destroy-without-javascript">Destroy Without JavaScript</a>”。 <a href="#fn-ref-11">&#8617;</a></li>
+<li id="fn-1">图片来自 <a href="http://www.flickr.com/photos/sashawolff/4598355045/" class="bare">http://www.flickr.com/photos/sashawolff/4598355045/</a> <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">不要担心实现的细节。具体的实现方式是 Rails 框架的开发者需要关注的，Rails 应用开发者无需关心。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">设定事前过滤器的方法以前是 <code>before_filter</code>，但为了强调过滤器在控制器的动作之前运行，Rails 核心开发团队决定使用这个新名字。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">本节使用的代码摘自 <a href="http://thoughtbot.com/">thoughtbot</a> 开发的 <a href="http://github.com/thoughtbot/clearance">Clearance</a> gem。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">感谢读者 Yoel Adler 指出这个小问题，并和我讨论解决办法。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">婴儿的图片来自 <a href="http://www.flickr.com/photos/glasgows/338937124/" class="bare">http://www.flickr.com/photos/glasgows/338937124/</a> <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">Twitter 也采用了相同的做法。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">理论上这两个命令执行的操作可以通过 <code>rake db:reset</code> 一个命令完成，不过写作本书时，不能在当下最新版 Rails 中使用。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">变量名并不是一定要使用 <code>user</code>，遍历时如果用的是 <code>@users.each do |foobar|</code>，那么就要用 <code>render foobar</code>。关键是要知道对象的类，也就是 <code>User</code>。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">curl 等命令行工具可以发送 <code>PATCH</code> 请求。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">详情请观看 RailsCasts 中的“<a href="http://railscasts.com/episodes/77-destroy-without-javascript">Destroy Without JavaScript</a>”。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">感谢读者 Jose Carlos Montero Gómez 建议使用这种方式进一步简化 <code>new</code> 和 <code>edit</code> 视图。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

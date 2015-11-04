@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -138,7 +138,7 @@
 <h2><span class="title-label">2.1.2</span> 微博模型</h2>
 <p>微博数据模型的核心比用户模型还要简单：微博只要一个 <code>id</code> 和表示微博内容的 <code>content</code>（<code>text</code> 类型）字段即可。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>不过还有一个比较复杂的字段要实现，这个字段把微博和用户关联起来。我们使用 <code>user_id</code> 存储微博的属主。最终得到的微博数据模型如<a href="#fig-demo-micropost-model">图 2.3</a> 所示。</p>
 <div id="fig-demo-micropost-model" class="figure"><img src="images/chapter2/demo_micropost_model.png" alt="demo micropost model" /><div class="figcaption"><span class="title-label">图 2.3</span>：微博数据类型</div></div>
-<p><a href="#a-user-has-many-microposts">2.3.3 节</a>会介绍怎样使用 <code>user_id</code> 字段简单的实现一个用户拥有多个微博的功能。在<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>中有更完整的说明。</p>
+<p><a href="#a-user-has-many-microposts">2.3.3 节</a>会介绍怎样使用 <code>user_id</code> 字段简单的实现一个用户拥有多个微博的功能。在<a href="chapter11.html#user-microposts">第 11 章</a>中有更完整的说明。</p>
 </section>
 </section>
 <section data-type="sect1" id="the-users-resource">
@@ -478,7 +478,7 @@
 <div data-type="sidebar" id="aside-rest" class="sidebar">
 <h5><span class="title-label">旁注 2.2</span>：表现层状态转化（REST）</h5>
 <p>如果你阅读过一些 Ruby on Rails Web 开发相关的资料，会看到很多地方都提到了“REST”，它是“表现层状态转化”（REpresentational State Transfer）的简称。REST 是一种架构方式，用来开发分布式、基于网络的系统和软件程序，例如 WWW 和 Web 应用。REST 理论很抽象，在 Rails 应用中，REST 意味着大多数组件（例如用户和微博）都会被模型化，变成资源（resource），可以创建（create）、读取（read）、更新（update）和删除（delete）。这些操作与<a href="http://en.wikipedia.org/wiki/Create,_read,_update_and_delete">关系型数据库中的 CRUD 操作</a>和 <a href="http://en.wikipedia.org/wiki/HTTP_request#Request_methods">HTTP 请求方法</a>（<code>POST</code>，<code>GET</code>，<code>PATCH</code> <sup>[<a id="fn-ref-7" href="#fn-7">7</a>]</sup> 和 <code>DELETE</code>）对应。<a href="chapter3.html#getting-started-with-testing">3.3 节</a>，特别是<a href="chapter3.html#aside-get-etc">旁注 3.2</a>，将更详细地介绍 HTTP 请求。</p>
-<p>作为 Rails 应用开发者，REST 开发方式能帮助你决定编写哪些控制器和动作：你只需简单的把可以创建、读取、更新和删除的资源理清就可以了。对本章的“用户”和“微博”来说，这一过程非常明确，因为它们都是很自然的资源形式。在<a href="chapter12.html#following-users">[chapter12#following-users]</a>将看到，使用 REST 架构可以通过一种自然而便捷的方式解决很棘手的问题（“关注用户”功能）。</p>
+<p>作为 Rails 应用开发者，REST 开发方式能帮助你决定编写哪些控制器和动作：你只需简单的把可以创建、读取、更新和删除的资源理清就可以了。对本章的“用户”和“微博”来说，这一过程非常明确，因为它们都是很自然的资源形式。在<a href="chapter12.html#following-users">第 12 章</a>将看到，使用 REST 架构可以通过一种自然而便捷的方式解决很棘手的问题（“关注用户”功能）。</p>
 </div>
 <p>为了探明用户控制器和用户模型之间的关系，我们看一下简化后的 <code>index</code> 动作，如<a href="#listing-demo-index-action">代码清单 2.5</a> 所示。（脚手架生成的代码很粗糙，所以我做了简化。）</p>
 <div id="listing-demo-index-action" data-type="listing">
@@ -801,7 +801,7 @@
 </div>
 <p>我们可以把这种关联用<a href="#fig-micropost-user-association">图 2.15</a> 中的图标表示出来。因为 <code>microposts</code> 表中有 <code>user_id</code> 这一列，所以 Rails（通过 Active Record）能把微博和各个用户关联起来。</p>
 <div id="fig-micropost-user-association" class="figure"><img src="images/chapter2/micropost_user_association.png" alt="micropost user association" /><div class="figcaption"><span class="title-label">图 2.15</span>：微博和用户之间的关联</div></div>
-<p>在<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>和<a href="chapter12.html#following-users">[chapter12#following-users]</a>，我们会使用微博和用户之间的关联显示一个用户的所有微博，还会生成一个和 Twitter 类似的微博列表。现在，我们可以在控制台（console）中检查用户与微博之间的关联。控制台是和 Rails 应用交互很有用的工具。在命令行中执行 <code>rails console</code> 命令，启动控制台。然后输入 <code>User.first</code>，从数据库中读取第一个用户，并把得到的数据赋值给 <code>first_user</code> 变量：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
+<p>在<a href="chapter11.html#user-microposts">第 11 章</a>和<a href="chapter12.html#following-users">第 12 章</a>，我们会使用微博和用户之间的关联显示一个用户的所有微博，还会生成一个和 Twitter 类似的微博列表。现在，我们可以在控制台（console）中检查用户与微博之间的关联。控制台是和 Rails 应用交互很有用的工具。在命令行中执行 <code>rails console</code> 命令，启动控制台。然后输入 <code>User.first</code>，从数据库中读取第一个用户，并把得到的数据赋值给 <code>first_user</code> 变量：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
 <div data-type="listing">
 
 
@@ -824,7 +824,7 @@
 </pre></div>
 </div>
 <p>我在这段代码的最后一行加上了 <code>exit</code>，告诉你如何退出终端。在大多数系统中也可以按 Ctrl-D 键。<sup>[<a id="fn-ref-11" href="#fn-11">11</a>]</sup>
-我们使用 <code>first_user.microposts</code> 获取这个用户发布的微博。Active Record 会自动返回 <code>user_id</code> 和 <code>first_user</code> 的 ID（<code>1</code>）相同的所有微博。在<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>和<a href="chapter12.html#following-users">[chapter12#following-users]</a>中，我们会更深入地学习关联的这种用法。</p>
+我们使用 <code>first_user.microposts</code> 获取这个用户发布的微博。Active Record 会自动返回 <code>user_id</code> 和 <code>first_user</code> 的 ID（<code>1</code>）相同的所有微博。在<a href="chapter11.html#user-microposts">第 11 章</a>和<a href="chapter12.html#following-users">第 12 章</a>中，我们会更深入地学习关联的这种用法。</p>
 </section>
 <section data-type="sect2" id="inheritance-hierarchies">
 <h2><span class="title-label">2.3.4</span> 继承体系</h2>
@@ -1068,17 +1068,17 @@
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">之所以这么做是因为，Rails 提供的默认页面在 Heroku 中不能正常显示，因此很难判断部署是否成功。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">微博的内容很短，<code>string</code> 类型就足够了，但使用 <code>text</code> 类型更能表明我们的意图，而且也便于以后放宽微博长度限制。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">脚手架中使用的名字和模型一致，是单数；而资源和控制器使用复数。因此，这里要使用 <code>User</code>，不是 <code>Users</code>。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4"><code>rails</code> 脚本经过特殊处理，无需使用 <code>bundle exec</code>。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">有些文章说视图直接把 HTML 返回给浏览器（通过 Web 服务器，例如 Apache 或 Nginx）。不管实现的细节如何，我更相信控制器是一个中枢，应用中所有信息都会经由它传递。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">加州大学欧文分校 2000 年 Roy Thomas Fielding 的博士论文《<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a>》。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">Rails 早期版本使用 <code>PUT</code> 请求更新数据，但是根据 HTTP 标准，<code>PATCH</code> 方法更合适。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">和生成用户资源使用的脚手架命令一样，生成微博资源的脚手架也要使用单数形式，因此要用 <code>generate Micropost</code>。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">脚手架生成的代码和<a href="#listing-demo-microposts-resource">代码清单 2.8</a> 相比，可能会有额外的空行。无须担心，因为 Ruby 会忽略额外的空行。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">你的控制台可能会显示类似 <code>2.1.1 :001 &gt;</code> 的提示符，但示例中使用 <code>&gt;&gt;</code> 代替，因为不同的 Ruby 版本显示的提示符不同。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">和“Ctrl-C”一样，虽然实际按的是“Ctrl-d”，但习惯写成“Ctrl-D”。 <a href="#fn-ref-11">&#8617;</a></li>
+<li id="fn-1">之所以这么做是因为，Rails 提供的默认页面在 Heroku 中不能正常显示，因此很难判断部署是否成功。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">微博的内容很短，<code>string</code> 类型就足够了，但使用 <code>text</code> 类型更能表明我们的意图，而且也便于以后放宽微博长度限制。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">脚手架中使用的名字和模型一致，是单数；而资源和控制器使用复数。因此，这里要使用 <code>User</code>，不是 <code>Users</code>。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4"><code>rails</code> 脚本经过特殊处理，无需使用 <code>bundle exec</code>。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">有些文章说视图直接把 HTML 返回给浏览器（通过 Web 服务器，例如 Apache 或 Nginx）。不管实现的细节如何，我更相信控制器是一个中枢，应用中所有信息都会经由它传递。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">加州大学欧文分校 2000 年 Roy Thomas Fielding 的博士论文《<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Architectural Styles and the Design of Network-based Software Architectures</a>》。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">Rails 早期版本使用 <code>PUT</code> 请求更新数据，但是根据 HTTP 标准，<code>PATCH</code> 方法更合适。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">和生成用户资源使用的脚手架命令一样，生成微博资源的脚手架也要使用单数形式，因此要用 <code>generate Micropost</code>。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">脚手架生成的代码和<a href="#listing-demo-microposts-resource">代码清单 2.8</a> 相比，可能会有额外的空行。无须担心，因为 Ruby 会忽略额外的空行。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">你的控制台可能会显示类似 <code>2.1.1 :001 &gt;</code> 的提示符，但示例中使用 <code>&gt;&gt;</code> 代替，因为不同的 Ruby 版本显示的提示符不同。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">和“Ctrl-C”一样，虽然实际按的是“Ctrl-d”，但习惯写成“Ctrl-D”。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

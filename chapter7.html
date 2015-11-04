@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -53,7 +53,7 @@
 <section data-type="sect1" id="showing-users">
 <h1><span class="title-label">7.1</span> 显示用户的信息</h1>
 <div id="fig-profile-mockup-profile-name" class="figure"><img src="images/chapter7/profile_mockup_profile_name_bootstrap.png" alt="profile mockup profile name bootstrap" /><div class="figcaption"><span class="title-label">图 7.1</span>：本节实现的用户资料页面构思图</div></div>
-<p>本节要实现的用户资料页面是完整页面的一小部分，只显示用户的名字和头像，构思图如<a href="#fig-profile-mockup-profile-name">图 7.1</a> 所示。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup> 最终完成的用户资料页面会显示用户的头像、基本信息和微博列表，构思图如<a href="#fig-profile-mockup">图 7.2</a> 所示。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>（在图 7.2 中，我们第一次用到了“lorem ipsum”占位文字，<a href="http://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean">这些文字背后的故事</a>很有意思，有空的话你可以了解一下。）这个资料页面会和整个演示应用一起在<a href="chapter12.html#following-users">[chapter12#following-users]</a>完成。</p>
+<p>本节要实现的用户资料页面是完整页面的一小部分，只显示用户的名字和头像，构思图如<a href="#fig-profile-mockup-profile-name">图 7.1</a> 所示。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup> 最终完成的用户资料页面会显示用户的头像、基本信息和微博列表，构思图如<a href="#fig-profile-mockup">图 7.2</a> 所示。<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>（在图 7.2 中，我们第一次用到了“lorem ipsum”占位文字，<a href="http://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean">这些文字背后的故事</a>很有意思，有空的话你可以了解一下。）这个资料页面会和整个演示应用一起在<a href="chapter12.html#following-users">第 12 章</a>完成。</p>
 <p>如果你一直坚持使用版本控制，现在像之前一样，新建一个主题分支：</p>
 <div data-type="listing">
 
@@ -438,7 +438,7 @@
 </section>
 <section data-type="sect2" id="a-gravatar-image-and-a-sidebar">
 <h2><span class="title-label">7.1.4</span> Gravatar 头像和侧边栏</h2>
-<p>前面创建了一个略显简陋的用户资料页面，这一节要再添加一些内容：用户头像和侧边栏。首先，我们要在用户资料页面中添加一个“全球通用识别”的头像，或者叫 <a href="http://gravatar.com/">Gravatar</a>。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>这是一个免费服务，让用户上传图片，将其关联到自己的电子邮件地址上。使用 Gravatar 可以简化在网站中添加用户头像的过程，开发者不必分心去处理图片上传、剪裁和存储，只要使用用户的电子邮件地址构成头像的 URL 地址，用户的头像就会显示出来。（<a href="chapter11.html#micropost-images">[chapter11#micropost-images]</a>会介绍如何处理图片上传。）</p>
+<p>前面创建了一个略显简陋的用户资料页面，这一节要再添加一些内容：用户头像和侧边栏。首先，我们要在用户资料页面中添加一个“全球通用识别”的头像，或者叫 <a href="http://gravatar.com/">Gravatar</a>。<sup>[<a id="fn-ref-6" href="#fn-6">6</a>]</sup>这是一个免费服务，让用户上传图片，将其关联到自己的电子邮件地址上。使用 Gravatar 可以简化在网站中添加用户头像的过程，开发者不必分心去处理图片上传、剪裁和存储，只要使用用户的电子邮件地址构成头像的 URL 地址，用户的头像就会显示出来。（<a href="chapter11.html#micropost-images">11.4 节</a>会介绍如何处理图片上传。）</p>
 <p>我们的计划是，定义一个名为 <code>gravatar_for</code> 的辅助方法，返回指定用户的 Gravatar 头像，如<a href="#listing-user-show-view-with-gravatar">代码清单 7.8</a> 所示。</p>
 <div id="listing-user-show-view-with-gravatar" data-type="listing">
 <h5><span class="title-label">代码清单 7.8</span>：显示用户名字和 Gravatar 头像的用户资料页面视图</h5>
@@ -935,7 +935,7 @@
 </pre></div>
 </div>
 <p>如上所示，<code>errors.full_message</code> 对象是一个由错误消息组成的数组（<a href="chapter6.html#validating-presence">6.2.2 节</a>简介过）。</p>
-<p>和上面的控制台会话类似，在<a href="#listing-first-create-action">代码清单 7.16</a> 中，保存失败时也会生成一组和 <code>@user</code> 对象相关的错误消息。如果想在浏览器中显示这些错误消息，我们要在 <code>new</code> 视图中渲染一个错误消息局部视图，并把表单中每个输入框的 CSS 类设为 <code>form-control</code>（在 Bootstrap 中有特殊意义），如<a href="#listing-f-error-messages">代码清单 7.18</a> 所示。注意，这个错误消息局部视图只是临时的，最终版会在 <a href="chapter11.html#creating-microposts">[chapter11#creating-microposts]</a>实现。</p>
+<p>和上面的控制台会话类似，在<a href="#listing-first-create-action">代码清单 7.16</a> 中，保存失败时也会生成一组和 <code>@user</code> 对象相关的错误消息。如果想在浏览器中显示这些错误消息，我们要在 <code>new</code> 视图中渲染一个错误消息局部视图，并把表单中每个输入框的 CSS 类设为 <code>form-control</code>（在 Bootstrap 中有特殊意义），如<a href="#listing-f-error-messages">代码清单 7.18</a> 所示。注意，这个错误消息局部视图只是临时的，最终版会在 <a href="chapter11.html#creating-microposts">11.3.2 节</a>实现。</p>
 <div id="listing-f-error-messages" data-type="listing">
 <h5><span class="title-label">代码清单 7.18</span>：在注册表单中显示错误消息</h5>
 
@@ -1012,7 +1012,7 @@
 <span class="go">=&gt; true</span>
 </pre></div>
 </div>
-<p>第一次使用 <code>empty?</code> 方法是在 <a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>，用在字符串上；从上面的代码可以看出，<code>empty?</code> 也可用在 Rails 错误对象上，如果错误对象为空返回 <code>true</code>，否则返回 <code>false</code>。<code>any?</code> 方法就是取反 <code>empty?</code> 的返回值，如果对象中有内容就返回 <code>true</code>，没内容则返回 <code>false</code>。（顺便说一下，<code>count</code>、<code>empty?</code> 和 <code>any?</code> 都可以用在 Ruby 数组上，<a href="chapter11.html#showing-microposts">[chapter11#showing-microposts]</a>会好好利用这三个方法。）</p>
+<p>第一次使用 <code>empty?</code> 方法是在 <a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>，用在字符串上；从上面的代码可以看出，<code>empty?</code> 也可用在 Rails 错误对象上，如果错误对象为空返回 <code>true</code>，否则返回 <code>false</code>。<code>any?</code> 方法就是取反 <code>empty?</code> 的返回值，如果对象中有内容就返回 <code>true</code>，没内容则返回 <code>false</code>。（顺便说一下，<code>count</code>、<code>empty?</code> 和 <code>any?</code> 都可以用在 Ruby 数组上，<a href="chapter11.html#showing-microposts">11.2 节</a>会好好利用这三个方法。）</p>
 <p>还有一个比较新的方法是 <code>pluralize</code>，在控制台中默认不可用，不过我们可以引入 <code>ActionView::Helpers::TextHelper</code> 模块，加载这个方法：<sup>[<a id="fn-ref-10" href="#fn-10">10</a>]</sup></p>
 <div data-type="listing">
 
@@ -1695,21 +1695,21 @@
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1"><a href="http://gomockingbird.com/">Mockingbird</a> 不支持插入自定义的图片，图 7.1 中的头像是我用 <a href="http://www.gimp.org/">GIMP</a> 加上的。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">图中的河马原图在此 <a href="http://www.flickr.com/photos/43803060@N00/24308857/" class="bare">http://www.flickr.com/photos/43803060@N00/24308857/</a> <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">也可以自己添加环境，详情参见 <a href="http://railscasts.com/episodes/72-adding-an-environment">RailsCast 中的视频</a>。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">Rails 的调试信息是 <a href="http://www.yaml.org/">YAML</a>（YAML Ain’t Markup Language 的简称，是个<a href="http://catb.org/jargon/html/R/recursive-acronym.html">递归缩写</a>。）格式，这种格式对机器和人类都很友好。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">意思是，路由可以正常使用，不过对应的页面现在还不能访问。例如，/users/1/edit 交由用户控制器的 <code>edit</code> 动作处理，但现在还没编写 <code>edit</code> 动作，如果访问这个地址会看到一个错误页面。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">在印度教中，Avatar 是神的化身，可以是一个人，也可以是一种动物。由此引申到其他领域，特别是在虚拟世界中，Avatar 代表一个人。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">这段代码中有个 <code>.gravatar_edit</code> 类，<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>会用到。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">如果你想了解真伪令牌的细节，可以查看 <a href="http://stackoverflow.com/questions/941594/understand-rails-authenticity-token">Stack Overflow 中的这个问题</a>。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">译者注：其实 <code>private</code> 是方法，不是关键字，参见《<a href="http://book.douban.com/subject/2337297/">The Ruby Programming Language</a>》。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">之所以知道要引入 <code>ActionView::Helpers::TextHelper</code> 模块，是因为我在 <a href="http://api.rubyonrails.org/v4.2.2/classes/ActionView/Helpers/TextHelper.html#method-i-pluralize">Rails API</a> 中查了 <code>pluralize</code> 的文档。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">其实我们要使用的是 <code>flash.now</code>，现在暂且不管二者之间的细微差别。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">严格来说，SSL 现在叫 TLS（Transport Layer Security，传输层安全），不过我认识的人都继续用“SSL”。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">为了确保代码行短于 80 列，<a href="#listing-production-webserver-config">代码清单 7.29</a> 稍微修改了一下排版。 <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">本章没有修改数据模型，所以在 Heroku 中不执行迁移也行。因为有些读者反馈遇到了问题，所以以防万一，我在最后添加了一步，执行 <code>heroku run rake db:migrate</code> 命令。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">例如，我花了好几个小时在本地电脑中安装 Ruby 2.1.4，一直不成功，然后发现 Ruby 2.1.5 前一天发布了。再尝试安装 2.1.5，仍然失败。 <a href="#fn-ref-15">&#8617;</a></li>
+<li id="fn-1"><a href="http://gomockingbird.com/">Mockingbird</a> 不支持插入自定义的图片，图 7.1 中的头像是我用 <a href="http://www.gimp.org/">GIMP</a> 加上的。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">图中的河马原图在此 <a href="http://www.flickr.com/photos/43803060@N00/24308857/" class="bare">http://www.flickr.com/photos/43803060@N00/24308857/</a> <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">也可以自己添加环境，详情参见 <a href="http://railscasts.com/episodes/72-adding-an-environment">RailsCast 中的视频</a>。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">Rails 的调试信息是 <a href="http://www.yaml.org/">YAML</a>（YAML Ain’t Markup Language 的简称，是个<a href="http://catb.org/jargon/html/R/recursive-acronym.html">递归缩写</a>。）格式，这种格式对机器和人类都很友好。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">意思是，路由可以正常使用，不过对应的页面现在还不能访问。例如，/users/1/edit 交由用户控制器的 <code>edit</code> 动作处理，但现在还没编写 <code>edit</code> 动作，如果访问这个地址会看到一个错误页面。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">在印度教中，Avatar 是神的化身，可以是一个人，也可以是一种动物。由此引申到其他领域，特别是在虚拟世界中，Avatar 代表一个人。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">这段代码中有个 <code>.gravatar_edit</code> 类，<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>会用到。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">如果你想了解真伪令牌的细节，可以查看 <a href="http://stackoverflow.com/questions/941594/understand-rails-authenticity-token">Stack Overflow 中的这个问题</a>。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">译者注：其实 <code>private</code> 是方法，不是关键字，参见《<a href="http://book.douban.com/subject/2337297/">The Ruby Programming Language</a>》。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">之所以知道要引入 <code>ActionView::Helpers::TextHelper</code> 模块，是因为我在 <a href="http://api.rubyonrails.org/v4.2.2/classes/ActionView/Helpers/TextHelper.html#method-i-pluralize">Rails API</a> 中查了 <code>pluralize</code> 的文档。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">其实我们要使用的是 <code>flash.now</code>，现在暂且不管二者之间的细微差别。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">严格来说，SSL 现在叫 TLS（Transport Layer Security，传输层安全），不过我认识的人都继续用“SSL”。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
+<li id="fn-13">为了确保代码行短于 80 列，<a href="#listing-production-webserver-config">代码清单 7.29</a> 稍微修改了一下排版。 <a href="#fn-ref-13" class="symbol">&#8617;</a></li>
+<li id="fn-14">本章没有修改数据模型，所以在 Heroku 中不执行迁移也行。因为有些读者反馈遇到了问题，所以以防万一，我在最后添加了一步，执行 <code>heroku run rake db:migrate</code> 命令。 <a href="#fn-ref-14" class="symbol">&#8617;</a></li>
+<li id="fn-15">例如，我花了好几个小时在本地电脑中安装 Ruby 2.1.4，一直不成功，然后发现 Ruby 2.1.5 前一天发布了。再尝试安装 2.1.5，仍然失败。 <a href="#fn-ref-15" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -1708,19 +1708,19 @@ help_url  -&gt; 'http://www.example.com/help'
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">感谢读者 <a href="https://twitter.com/colmtuite">Colm Tuite</a> 帮忙把原来的演示应用用 Bootstrap 框架重写。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">书中的所有构思图都是使用 <a href="http://gomockingbird.com/">Mockingbird</a> 这个在线应用制作的。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">CSS 中的类和 Ruby 中的类完全没有关系。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">你看到的空格数量可能有所不同，这没关系，因为空白在 HTML 中没有特殊意义（<a href="chapter3.html#testing-titles">3.4.1 节</a>说过）。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">如果你的 OS X 中有 <a href="http://brew.sh/">Homebrew</a>，可以执行 <code>brew install curl</code> 命令安装 <code>curl</code>。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">你可能会注意到，<code>img</code> 标签的格式不是 <code>&lt;img&gt;…​&lt;/img&gt;</code>，而是 <code>&lt;img …​ /&gt;</code>。这种标签叫做“自关闭标签”。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">在 Asset Pipeline 中也可以使用 LESS，详见 <a href="http://rubygems.org/gems/less-rails-bootstrap"><code>less-rails-bootstrap</code></a> gem。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">如果你觉得这一步很难理解，先照做吧，我完全是按照这个 gem 的<a href="https://github.com/twbs/bootstrap-sass#a-ruby-on-rails">安装说明</a>做的。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">很多 Rails 程序员使用 <code>shared</code> 文件夹存放在不同视图中共用的局部视图。我倾向于在 <code>shared</code> 文件夹中存放辅助的局部视图，而把每个页面中都会用到的局部视图放在`layouts` 目录中。（我们会在<a href="chapter7.html#sign-up">第 7 章</a>创建 <code>shared</code> 文件夹。）在我看来，这种方式比较符合逻辑，不过，都放在 <code>shared</code> 文件夹里也完全可行。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">你可能想知道为什么要使用 <code>footer</code> 标签和 <code>.footer</code> 类。理由是，这样的标签对于人类来说更容易理解，而 Bootstrap 也使用这个类名。用 <code>div</code> 标签代替 <code>footer</code> 也可以。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">本节内容根据 Michael Erasmus 写的文章《The Rails 3 Asset Pipeline in (about) 5 Minutes》组织。更多信息参见 Rails 指南中的文章《<a href="http://guides.rubyonrails.org/asset_pipeline.html">Asset Pipeline</a>》。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">Sass 仍然支持以前的 <code>.sass</code> 格式，这个格式相对来说更简洁，花括号更少，但是对现有项目不太友好，已经熟悉 CSS 的人学习难度也相对更大。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">有些开发者坚持不在一个测试中编写多个断言。我觉得这种习惯会把问题变得复杂，而且，如果每个测试运行前都要设置一样的背景，就要编写更多的代码，所以完全没必要这么做。一个好的测试应该讲述连贯的故事，把测试分成多个片段会打断叙述过程。因此，我十分倾向于在一个测试中编写多个断言，让 Ruby（通过 MiniTest）告诉我到底哪一个断言失败了。 <a href="#fn-ref-13">&#8617;</a></li>
+<li id="fn-1">感谢读者 <a href="https://twitter.com/colmtuite">Colm Tuite</a> 帮忙把原来的演示应用用 Bootstrap 框架重写。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">书中的所有构思图都是使用 <a href="http://gomockingbird.com/">Mockingbird</a> 这个在线应用制作的。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">CSS 中的类和 Ruby 中的类完全没有关系。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">你看到的空格数量可能有所不同，这没关系，因为空白在 HTML 中没有特殊意义（<a href="chapter3.html#testing-titles">3.4.1 节</a>说过）。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">如果你的 OS X 中有 <a href="http://brew.sh/">Homebrew</a>，可以执行 <code>brew install curl</code> 命令安装 <code>curl</code>。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">你可能会注意到，<code>img</code> 标签的格式不是 <code>&lt;img&gt;…​&lt;/img&gt;</code>，而是 <code>&lt;img …​ /&gt;</code>。这种标签叫做“自关闭标签”。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">在 Asset Pipeline 中也可以使用 LESS，详见 <a href="http://rubygems.org/gems/less-rails-bootstrap"><code>less-rails-bootstrap</code></a> gem。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">如果你觉得这一步很难理解，先照做吧，我完全是按照这个 gem 的<a href="https://github.com/twbs/bootstrap-sass#a-ruby-on-rails">安装说明</a>做的。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">很多 Rails 程序员使用 <code>shared</code> 文件夹存放在不同视图中共用的局部视图。我倾向于在 <code>shared</code> 文件夹中存放辅助的局部视图，而把每个页面中都会用到的局部视图放在`layouts` 目录中。（我们会在<a href="chapter7.html#sign-up">第 7 章</a>创建 <code>shared</code> 文件夹。）在我看来，这种方式比较符合逻辑，不过，都放在 <code>shared</code> 文件夹里也完全可行。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">你可能想知道为什么要使用 <code>footer</code> 标签和 <code>.footer</code> 类。理由是，这样的标签对于人类来说更容易理解，而 Bootstrap 也使用这个类名。用 <code>div</code> 标签代替 <code>footer</code> 也可以。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">本节内容根据 Michael Erasmus 写的文章《The Rails 3 Asset Pipeline in (about) 5 Minutes》组织。更多信息参见 Rails 指南中的文章《<a href="http://guides.rubyonrails.org/asset_pipeline.html">Asset Pipeline</a>》。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">Sass 仍然支持以前的 <code>.sass</code> 格式，这个格式相对来说更简洁，花括号更少，但是对现有项目不太友好，已经熟悉 CSS 的人学习难度也相对更大。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
+<li id="fn-13">有些开发者坚持不在一个测试中编写多个断言。我觉得这种习惯会把问题变得复杂，而且，如果每个测试运行前都要设置一样的背景，就要编写更多的代码，所以完全没必要这么做。一个好的测试应该讲述连贯的故事，把测试分成多个片段会打断叙述过程。因此，我十分倾向于在一个测试中编写多个断言，让 Ruby（通过 MiniTest）告诉我到底哪一个断言失败了。 <a href="#fn-ref-13" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

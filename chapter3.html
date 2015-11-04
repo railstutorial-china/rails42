@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -63,7 +63,7 @@
 </pre></div>
 </div>
 <p>（和 <a href="chapter2.html#planning-the-application">2.1 节</a>一样，如果使用云端 IDE，可以在同一个工作空间中创建这个应用，没必要再新建一个工作空间。）</p>
-<p>类似 <a href="chapter2.html#planning-the-application">2.1 节</a>，接下来我们要用文本编辑器打开并编辑 <code>Gemfile</code>，写入应用所需的 gem。<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 与<a href="chapter1.html#listing-gemfile-sqlite-version">代码清单 1.5</a> 和<a href="chapter1.html#listing-demo-gemfile-sqlite-version-redux">代码清单 2.1</a> 一样，不过 <code>test</code> 组中的 gem 有所不同，稍后会做进一步设置（<a href="#advanced-testing-setup">3.7 节</a>）。注意，如果现在你想安装这个应用使用的所有 gem，要写入<a href="chapter11.html#listing-final-gemfile">[chapter11#listing-final-gemfile]</a> 中的内容。</p>
+<p>类似 <a href="chapter2.html#planning-the-application">2.1 节</a>，接下来我们要用文本编辑器打开并编辑 <code>Gemfile</code>，写入应用所需的 gem。<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 与<a href="chapter1.html#listing-gemfile-sqlite-version">代码清单 1.5</a> 和<a href="chapter1.html#listing-demo-gemfile-sqlite-version-redux">代码清单 2.1</a> 一样，不过 <code>test</code> 组中的 gem 有所不同，稍后会做进一步设置（<a href="#advanced-testing-setup">3.7 节</a>）。注意，如果现在你想安装这个应用使用的所有 gem，要写入<a href="chapter11.html#listing-final-gemfile">代码清单 11.66</a> 中的内容。</p>
 <div id="listing-gemfile-sample-app" data-type="listing">
 <h5><span class="title-label">代码清单 3.2</span>：演示应用的 <code>Gemfile</code></h5>
 
@@ -1518,7 +1518,7 @@ spring app <span class="p">|</span> sample_app <span class="p">|</span> started 
 <div data-type="listing">
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span><span class="nb">kill</span> -9 12241
+<div class="highlight language-sh"><pre><span class="nv">$ </span><span class="nb">kill</span> -15 12241
 </pre></div>
 </div>
 <p>关闭单个进程，例如不再使用的 Rails 服务器进程（可执行 <code>ps aux | grep server</code> 命令找到 pid），我推荐使用这种方法。不过，有时最好能批量关闭进程名种包含特定文本的进程，例如关闭系统中所有的 <code>spring</code> 进程。针对 Spring，首先应该尝试使用 <code>spring</code> 命令关闭进程：</p>
@@ -1532,10 +1532,10 @@ spring app <span class="p">|</span> sample_app <span class="p">|</span> started 
 <div data-type="listing">
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span>pkill -9 -f spring
+<div class="highlight language-sh"><pre><span class="nv">$ </span>pkill -15 -f spring
 </pre></div>
 </div>
-<p>只要发现表现异常，或者进程静止了，最好执行 <code>ps aux</code> 命令看看怎么回事，然后再执行 <code>kill -9 &lt;pid&gt;</code> 或 <code>pkill -9 -f &lt;name&gt;</code> 命令关闭进程。</p>
+<p>只要发现表现异常，或者进程静止了，最好执行 <code>ps aux</code> 命令看看怎么回事，然后再执行 <code>kill -15 &lt;pid&gt;</code> 或 <code>pkill -15 -f &lt;name&gt;</code> 命令关闭进程。</p>
 </div>
 <p>配置好 Guard 之后，应该打开一个新终端窗口（和 <a href="chapter1.html#rails-server">1.3.2 节</a>启动 Rails 服务器的做法一样），在其中执行下述命令：</p>
 <div data-type="listing">
@@ -1544,7 +1544,7 @@ spring app <span class="p">|</span> sample_app <span class="p">|</span> started 
 <div class="highlight language-sh"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>guard
 </pre></div>
 </div>
-<p><a href="#listing-gitignore-spring">代码清单 3.43</a> 中的规则针对本书做了优化，例如，修改控制器后会自动运行集成测试。如果想运行所有测试，在 <code>guard&gt;</code> 终端中按回车键。（有时会看到一个错误，说连接 Spring 服务器失败。再次按回车键就能解决这个问题。）</p>
+<p><a href="#listing-guardfile">代码清单 3.42</a> 中的规则针对本书做了优化，例如，修改控制器后会自动运行集成测试。如果想运行所有测试，在 <code>guard&gt;</code> 终端中按回车键。（有时会看到一个错误，说连接 Spring 服务器失败。再次按回车键就能解决这个问题。）</p>
 <p>若想退出 Guard，按 Ctrl-D 键。如果想为 Guard 添加其他的匹配器，参照<a href="#listing-gitignore-spring">代码清单 3.43</a>，<a href="https://github.com/guard/guard#readme">Guard 的说明文件</a>和<a href="https://github.com/guard/guard/wiki">维基</a>。</p>
 </section>
 </section>
@@ -1566,21 +1566,21 @@ spring app <span class="p">|</span> sample_app <span class="p">|</span> started 
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">如果使用云端 IDE，可以使用“Goto Anything”命令，输入部分文件名就能方便地在文件系统中找到所需的文件。现在三个应用都放在同一个工作空间中，只输入文件名效果可能不很理想。例如，如果查找名为“Gemfile”的文件，会出现六个结果，因为每个应用中都有能匹配查找条件的两个文件：<code>Gemfile</code> 和 <code>Gemfile.lock</code>。因此，你可以把前两个应用删除，方法是：进入 <code>workspace</code> 文件夹，执行 <code>rm -rf hello_app/ toy_app/</code> 命令（参见<a href="chapter1.html#table-unix-commands">表 1.1</a>）。只要你之前把这两个应用推送到了 Bitbucket 中，以后再恢复都很容易。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">注意，这个参数会被 Bundler 记住，下次只需运行 <code>bundle install</code> 即可。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">现在时机还不成熟，但我建议你某一天一定要学会如何在开发环境中安装配置 PostgreSQL。届时，可以在谷歌中搜索“install configure postgresql &lt;your system&gt;”，以及“rails postgresql setup”。在云端 IDE 中，“&lt;your system&gt;”是 Ubuntu。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">详情参见 Rails 创始人 David Heinemeier Hansson 写的一篇文章：<a href="http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing</a>。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5"><a href="chapter2.html#the-users-resource">2.2 节</a>说过，在有些系统中不需要使用 <code>bundle exec</code>，其中就包括云端 IDE。不过为了表述完整，我加上了。一般情况下我都会省略 <code>bundle exec</code>，如果遇到错误，再加上试试。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">默认情况下，执行 <code>rake test</code> 任务后，如果测试失败会显示红色，但测试通过不会显示绿色。若想显示绿色，参照 <a href="#minitest-reporters">3.7.1 节</a>的说明。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">在有些系统中，可能要拖动滚动条跳过源码的错误路径——“调用跟踪”。<a href="#backtrace-silencer">3.7.2 节</a>介绍了如何过滤调用跟踪，避免显示不需要的内容。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">HTML 一直在变化，显式声明一个 doctype 可以确保未来浏览器还可以正确解析页面。<code>&lt;!DOCTYPE html&gt;</code> 这种极为简单的格式是最新的 HTML 标准 HTML5 的一个特色。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9"><a href="http://guides.rubyonrails.org/testing.html#available-assertions">Rails 指南中介绍测试的文章</a>列出了常用的 MiniTest 断言。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">书中大多数截图都使用 Google Chrome，但是这张截图使用 Safari，因为在 Chrome 没显示完整的标题。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">还有一种受欢迎的模板系统是 <a href="http://haml.info/">Haml</a>，我个人很喜欢用，不过在这样的初级教程中使用不太合适。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">经验丰富的 Rails 开发者可能觉得这里应该使用 <code>content_for</code>，可是它在 Asset Pipeline 中有点问题。<code>provide</code> 函数是替代方案。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">如果你学过 Ruby，可能会猜测 Rails 是把内容“拽入”区块中的，这么想也对。不过使用 Rails 开发应用不必知道这一点。 <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">这个练习会在 <a href="chapter5.html#contact-page">5.3.1 节</a>完成。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">这段代码既使用了单引号形式字符串，又使用了双引号形式字符串，因为 <code>rails new</code> 命令生成的文件使用单引号字符串，而 <a href="https://github.com/kern/minitest-reporters">MiniTest 报告程序的文档</a>中使用双引号。在 Ruby 代码中混用两种形式的字符串很常见，详情参见 <a href="chapter4.html#strings">4.2.2 节</a>。 <a href="#fn-ref-15">&#8617;</a></li>
+<li id="fn-1">如果使用云端 IDE，可以使用“Goto Anything”命令，输入部分文件名就能方便地在文件系统中找到所需的文件。现在三个应用都放在同一个工作空间中，只输入文件名效果可能不很理想。例如，如果查找名为“Gemfile”的文件，会出现六个结果，因为每个应用中都有能匹配查找条件的两个文件：<code>Gemfile</code> 和 <code>Gemfile.lock</code>。因此，你可以把前两个应用删除，方法是：进入 <code>workspace</code> 文件夹，执行 <code>rm -rf hello_app/ toy_app/</code> 命令（参见<a href="chapter1.html#table-unix-commands">表 1.1</a>）。只要你之前把这两个应用推送到了 Bitbucket 中，以后再恢复都很容易。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">注意，这个参数会被 Bundler 记住，下次只需运行 <code>bundle install</code> 即可。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">现在时机还不成熟，但我建议你某一天一定要学会如何在开发环境中安装配置 PostgreSQL。届时，可以在谷歌中搜索“install configure postgresql &lt;your system&gt;”，以及“rails postgresql setup”。在云端 IDE 中，“&lt;your system&gt;”是 Ubuntu。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">详情参见 Rails 创始人 David Heinemeier Hansson 写的一篇文章：<a href="http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html">TDD is dead. Long live testing</a>。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5"><a href="chapter2.html#the-users-resource">2.2 节</a>说过，在有些系统中不需要使用 <code>bundle exec</code>，其中就包括云端 IDE。不过为了表述完整，我加上了。一般情况下我都会省略 <code>bundle exec</code>，如果遇到错误，再加上试试。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">默认情况下，执行 <code>rake test</code> 任务后，如果测试失败会显示红色，但测试通过不会显示绿色。若想显示绿色，参照 <a href="#minitest-reporters">3.7.1 节</a>的说明。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">在有些系统中，可能要拖动滚动条跳过源码的错误路径——“调用跟踪”。<a href="#backtrace-silencer">3.7.2 节</a>介绍了如何过滤调用跟踪，避免显示不需要的内容。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">HTML 一直在变化，显式声明一个 doctype 可以确保未来浏览器还可以正确解析页面。<code>&lt;!DOCTYPE html&gt;</code> 这种极为简单的格式是最新的 HTML 标准 HTML5 的一个特色。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9"><a href="http://guides.rubyonrails.org/testing.html#available-assertions">Rails 指南中介绍测试的文章</a>列出了常用的 MiniTest 断言。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">书中大多数截图都使用 Google Chrome，但是这张截图使用 Safari，因为在 Chrome 没显示完整的标题。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">还有一种受欢迎的模板系统是 <a href="http://haml.info/">Haml</a>，我个人很喜欢用，不过在这样的初级教程中使用不太合适。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">经验丰富的 Rails 开发者可能觉得这里应该使用 <code>content_for</code>，可是它在 Asset Pipeline 中有点问题。<code>provide</code> 函数是替代方案。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
+<li id="fn-13">如果你学过 Ruby，可能会猜测 Rails 是把内容“拽入”区块中的，这么想也对。不过使用 Rails 开发应用不必知道这一点。 <a href="#fn-ref-13" class="symbol">&#8617;</a></li>
+<li id="fn-14">这个练习会在 <a href="chapter5.html#contact-page">5.3.1 节</a>完成。 <a href="#fn-ref-14" class="symbol">&#8617;</a></li>
+<li id="fn-15">这段代码既使用了单引号形式字符串，又使用了双引号形式字符串，因为 <code>rails new</code> 命令生成的文件使用单引号字符串，而 <a href="https://github.com/kern/minitest-reporters">MiniTest 报告程序的文档</a>中使用双引号。在 Ruby 代码中混用两种形式的字符串很常见，详情参见 <a href="chapter4.html#strings">4.2.2 节</a>。 <a href="#fn-ref-15" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -611,7 +611,7 @@
 <p>虽然 Web 应用最终都是处理字符串，但也需要其他的数据类型来生成字符串。本节介绍一些对开发 Rails 应用很重要的其他 Ruby 数据类型。</p>
 <section data-type="sect2" id="arrays-and-ranges">
 <h2><span class="title-label">4.3.1</span> 数组和值域</h2>
-<p>数组是一组具有特定顺序的元素。前面还没用过数组，不过理解数组对理解哈希有很大帮助（<a href="#hashes-and-symbols">4.3.3 节</a>），也有助于理解 Rails 中的数据模型（例如 <a href="chapter2.html#a-user-has-many-microposts">2.3.3 节</a>用到的 <code>has_many</code> 关联，<a href="chapter11.html#user-micropost-associations">[chapter11#user-micropost-associations]</a>会做详细介绍）。</p>
+<p>数组是一组具有特定顺序的元素。前面还没用过数组，不过理解数组对理解哈希有很大帮助（<a href="#hashes-and-symbols">4.3.3 节</a>），也有助于理解 Rails 中的数据模型（例如 <a href="chapter2.html#a-user-has-many-microposts">2.3.3 节</a>用到的 <code>has_many</code> 关联，<a href="chapter11.html#user-micropost-associations">11.1.3 节</a>会做详细介绍）。</p>
 <p>目前，我们已经花了很多时间理解字符串，从字符串过渡到数组可以从 <code>split</code> 方法开始：</p>
 <div data-type="listing">
 
@@ -1573,23 +1573,23 @@
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">如果辅助方法是针对某个特定控制器的，应该把它放进该控制器对应的辅助文件中。例如，为静态页面控制器创建的辅助方法一般放在 <code>app/helper/static_pages_helper.rb</code> 中。在这个例子中，我们想在所有页面中都使用 <code>full_title</code> 方法，所以要放在一个特殊的辅助文件中，即 <code>app/helper/application_helper.rb</code>。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">译者注：写完后，在命令行中按 Ctrl-W 键保存，然后按回车键确认保存在指定的文件中，最后按 Ctrl-E 键退出 <code>nano</code>。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">关于“foo”和“bar”，以及不太相关的“foobar”和“FUBAR”的起源，请查看 <a href="http://www.catb.org/jargon/html/F/foo.html">Jargon File 中介绍“foo”的文章</a>。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">熟悉 Perl 或 PHP 的编程人员，可以把这个功能与自动插值美元符号开头的变量相对应，例如 <code>"foo $bar"</code>。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">很抱歉，本章在“函数”和“方法”两个称呼之间随意变换。在 Ruby 中这二者是同一个概念：所有方法都是函数，所有函数也都是方法，因为一切皆对象。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">其实还有一个地方我们不理解，那就是 Rails 是怎么把这些联系在一起的：把 URL 映射到动作上，让 <code>full_title</code> 辅助方法可以在视图中使用，等等。这是个很有意思的话题，我建议你以后好好了解一下。不过使用 Rails 并不需要完全了解 Rails 的运作机理。（若想深入了解 Rails，我推荐阅读 Obie Fernandez 写的《The Rails 4 Way》。） <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">这里你可能想使用字符串插值，起始本书前几版使用的都是插值，但 <code>provide</code> 方法会把字符串转换成 <code>SafeBuffer</code> 对象，而不是普通的字符串。插入视图模板的 HTML 会过度转义，把“Help’s on the way”转换成“Help&amp;#39;s on the way”。（感谢读者 Jeremy Fleischman 指出这个小问题。） <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">这段代码中使用的 <code>second</code> 方法不是 Ruby 定义的，而是 Rails 添加的。在这里可以使用这个方法是因为，Rails 控制台会自动加载 Rails 对 Ruby 的扩展。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">块是闭包（closure），知道这一点对资深编程人员可能会有些帮助。闭包是一种匿名函数，其中附带了一些数据。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">在 Ruby 1.9 及以后的版本中，其实会按照元素输入时的顺序保存哈希，不过依赖特定的顺序显然是不明智的。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">没有约束的好处是，符号很容易进行比较，字符串要按照字母一个一个的比较，而符号只需比较一次。这就使得符号成为哈希键的最佳选择。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">其实有些细微差别，<code>p</code> 返回打印的对象，而 <code>puts</code> 始终返回 <code>nil</code>。感谢读者 Katarzyna Siwek 指出这一点。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">换行符在一行的结尾处，开始新的一行。在代码中，换行符用 <code>\n</code> 表示。 <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">数列数会让你发疯的，所以很多文本编辑器都提供了一个视觉标识。例如，如果再看一下<a href="chapter1.html#fig-cloud9-gemfile">图 1.5</a> 的话，会发现右边有一条细线，它可以帮助你把一行代码控制在 80 个字符以内。云端 IDE 默认会显示这条竖线。如果使用 TextMate，可以在如下菜单中找到这个功能：View &gt; Wrap Column &gt; 78。在 Sublime Text 中是：View &gt; Ruler &gt; 78，或：View &gt; Ruler &gt; 80。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">返回值可能由于 Ruby 版本的不同而有所不同。这个例子假设你使用的是 Ruby 1.9.3 或以上版本。 <a href="#fn-ref-15">&#8617;</a></li>
-<li id="fn-16">关于 Ruby 类和 <code>self</code> 关键字，请阅读 <a href="http://railstips.org/">RailsTips</a> 中的《<a href="http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/">Class and Instance Variables in Ruby</a>》一文。 <a href="#fn-ref-16">&#8617;</a></li>
-<li id="fn-17">你没必要知道继承关系中每个类的作用。我也不知道它们都是干什么的，而我从 2005 年就开始使用 Ruby on Rails 了。这可能意味着以下两个问题中的一个：第一，我是个废柴；第二，不需要知道所有内部知识也能成为熟练的 Rails 开发者。我们当然都希望是第二点。 <a href="#fn-ref-17">&#8617;</a></li>
+<li id="fn-1">如果辅助方法是针对某个特定控制器的，应该把它放进该控制器对应的辅助文件中。例如，为静态页面控制器创建的辅助方法一般放在 <code>app/helper/static_pages_helper.rb</code> 中。在这个例子中，我们想在所有页面中都使用 <code>full_title</code> 方法，所以要放在一个特殊的辅助文件中，即 <code>app/helper/application_helper.rb</code>。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">译者注：写完后，在命令行中按 Ctrl-W 键保存，然后按回车键确认保存在指定的文件中，最后按 Ctrl-E 键退出 <code>nano</code>。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">关于“foo”和“bar”，以及不太相关的“foobar”和“FUBAR”的起源，请查看 <a href="http://www.catb.org/jargon/html/F/foo.html">Jargon File 中介绍“foo”的文章</a>。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">熟悉 Perl 或 PHP 的编程人员，可以把这个功能与自动插值美元符号开头的变量相对应，例如 <code>"foo $bar"</code>。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">很抱歉，本章在“函数”和“方法”两个称呼之间随意变换。在 Ruby 中这二者是同一个概念：所有方法都是函数，所有函数也都是方法，因为一切皆对象。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">其实还有一个地方我们不理解，那就是 Rails 是怎么把这些联系在一起的：把 URL 映射到动作上，让 <code>full_title</code> 辅助方法可以在视图中使用，等等。这是个很有意思的话题，我建议你以后好好了解一下。不过使用 Rails 并不需要完全了解 Rails 的运作机理。（若想深入了解 Rails，我推荐阅读 Obie Fernandez 写的《The Rails 4 Way》。） <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">这里你可能想使用字符串插值，起始本书前几版使用的都是插值，但 <code>provide</code> 方法会把字符串转换成 <code>SafeBuffer</code> 对象，而不是普通的字符串。插入视图模板的 HTML 会过度转义，把“Help’s on the way”转换成“Help&amp;#39;s on the way”。（感谢读者 Jeremy Fleischman 指出这个小问题。） <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">这段代码中使用的 <code>second</code> 方法不是 Ruby 定义的，而是 Rails 添加的。在这里可以使用这个方法是因为，Rails 控制台会自动加载 Rails 对 Ruby 的扩展。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">块是闭包（closure），知道这一点对资深编程人员可能会有些帮助。闭包是一种匿名函数，其中附带了一些数据。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">在 Ruby 1.9 及以后的版本中，其实会按照元素输入时的顺序保存哈希，不过依赖特定的顺序显然是不明智的。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">没有约束的好处是，符号很容易进行比较，字符串要按照字母一个一个的比较，而符号只需比较一次。这就使得符号成为哈希键的最佳选择。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">其实有些细微差别，<code>p</code> 返回打印的对象，而 <code>puts</code> 始终返回 <code>nil</code>。感谢读者 Katarzyna Siwek 指出这一点。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
+<li id="fn-13">换行符在一行的结尾处，开始新的一行。在代码中，换行符用 <code>\n</code> 表示。 <a href="#fn-ref-13" class="symbol">&#8617;</a></li>
+<li id="fn-14">数列数会让你发疯的，所以很多文本编辑器都提供了一个视觉标识。例如，如果再看一下<a href="chapter1.html#fig-cloud9-gemfile">图 1.5</a> 的话，会发现右边有一条细线，它可以帮助你把一行代码控制在 80 个字符以内。云端 IDE 默认会显示这条竖线。如果使用 TextMate，可以在如下菜单中找到这个功能：View &gt; Wrap Column &gt; 78。在 Sublime Text 中是：View &gt; Ruler &gt; 78，或：View &gt; Ruler &gt; 80。 <a href="#fn-ref-14" class="symbol">&#8617;</a></li>
+<li id="fn-15">返回值可能由于 Ruby 版本的不同而有所不同。这个例子假设你使用的是 Ruby 1.9.3 或以上版本。 <a href="#fn-ref-15" class="symbol">&#8617;</a></li>
+<li id="fn-16">关于 Ruby 类和 <code>self</code> 关键字，请阅读 <a href="http://railstips.org/">RailsTips</a> 中的《<a href="http://railstips.org/blog/archives/2006/11/18/class-and-instance-variables-in-ruby/">Class and Instance Variables in Ruby</a>》一文。 <a href="#fn-ref-16" class="symbol">&#8617;</a></li>
+<li id="fn-17">你没必要知道继承关系中每个类的作用。我也不知道它们都是干什么的，而我从 2005 年就开始使用 Ruby on Rails 了。这可能意味着以下两个问题中的一个：第一，我是个废柴；第二，不需要知道所有内部知识也能成为熟练的 Rails 开发者。我们当然都希望是第二点。 <a href="#fn-ref-17" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

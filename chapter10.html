@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -1908,7 +1908,7 @@ your password will stay as it is.
 
   <span class="k">def</span> <span class="nf">update</span>
 <span class="hll">    <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:password</span><span class="o">].</span><span class="n">empty?</span>
-</span>      <span class="n">flash</span><span class="o">.</span><span class="n">now</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s2">"Password can't be empty"</span>
+</span>      <span class="vi">@user</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:password</span><span class="p">,</span> <span class="s2">"can't be empty"</span><span class="p">)</span>
       <span class="n">render</span> <span class="s1">'edit'</span>
 <span class="hll">    <span class="k">elsif</span> <span class="vi">@user</span><span class="o">.</span><span class="n">update_attributes</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
 </span>      <span class="n">log_in</span> <span class="vi">@user</span>
@@ -2056,8 +2056,7 @@ your password will stay as it is.
           <span class="ss">email</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
           <span class="ss">user</span><span class="p">:</span> <span class="p">{</span> <span class="ss">password</span><span class="p">:</span>              <span class="s2">""</span><span class="p">,</span>
                   <span class="ss">password_confirmation</span><span class="p">:</span> <span class="s2">""</span> <span class="p">}</span>
-    <span class="n">assert_not</span> <span class="n">flash</span><span class="o">.</span><span class="n">empty?</span>
-    <span class="n">assert_template</span> <span class="s1">'password_resets/edit'</span>
+    <span class="n">assert_select</span> <span class="s1">'div#error_explanation'</span>
     <span class="c1"># 密码和密码确认有效</span>
     <span class="n">patch</span> <span class="n">password_reset_path</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">reset_token</span><span class="p">),</span>
           <span class="ss">email</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
@@ -2097,7 +2096,7 @@ your password will stay as it is.
 <section data-type="sect1" id="email-in-production">
 <h1><span class="title-label">10.3</span> 在生产环境中发送邮件</h1>
 <p>我们已经成功实现了账户激活和密码重设功能，本节要配置应用，让它在生产环境中能真正地发送邮件。我们首先搭建一个免费的邮件服务，然后配置应用，最后再部署。</p>
-<p>我们要在生产环境中使用 SendGrid 服务发送邮件。这个服务是 Heroku 的扩展，只有通过认证的账户才能使用。（要在 Heroku 的账户中填写信用卡信息，不过认证不收费。）对我们的应用来说，入门套餐（免费，但每天最多只能发送 200 封邮件）就够了。我们可以使用下面的命令添加这个扩展：</p>
+<p>我们要在生产环境中使用 SendGrid 服务发送邮件。这个服务是 Heroku 的扩展，只有通过认证的账户才能使用。（要在 Heroku 的账户中填写信用卡信息，不过认证不收费。）对我们的应用来说，入门套餐（免费，写作本书时限制每天最多只能发送 400 封邮件）就够了。我们可以使用下面的命令添加这个扩展：</p>
 <div data-type="listing">
 
 
@@ -2133,7 +2132,7 @@ your password will stay as it is.
 <span class="k">end</span>
 </pre></div>
 </div>
-<p><a href="#listing-sendgrid-config">代码清单 10.56</a> 中设置了 SendGrid 账户的用户名（<code>user_name</code>）和密码（<code>password</code>），但是注意，这两个值是从 <code>ENV</code> 环境变量中获取的，而没有直接写入代码。这是生产环境应用的最佳实践，为了安全，绝不能在源码中写入敏感信息，例如原始密码。这两个值由 SendGrid 扩展自动设置，<a href="chapter11.html#image-upload-in-production">[chapter11#image-upload-in-production]</a>会介绍如何自己定义。如果好奇，可以使用下面的命令查看这两个环境变量的值：</p>
+<p><a href="#listing-sendgrid-config">代码清单 10.56</a> 中设置了 SendGrid 账户的用户名（<code>user_name</code>）和密码（<code>password</code>），但是注意，这两个值是从 <code>ENV</code> 环境变量中获取的，而没有直接写入代码。这是生产环境应用的最佳实践，为了安全，绝不能在源码中写入敏感信息，例如原始密码。这两个值由 SendGrid 扩展自动设置，<a href="chapter11.html#image-upload-in-production">11.4.4 节</a>会介绍如何自己定义。如果好奇，可以使用下面的命令查看这两个环境变量的值：</p>
 <div data-type="listing">
 
 
@@ -2168,7 +2167,7 @@ your password will stay as it is.
 </section>
 <section data-type="sect1" id="account-activation-and-password-reset-conclusion">
 <h1><span class="title-label">10.4</span> 小结</h1>
-<p>实现账户激活和密码重设功能后，我们的演示应用已经完整实现了“注册-登录-退出”机制，而且是专业级的。本书剩下的章节以此为基础，实现类似 Twitter 的微博（<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>）和所关注用户发布的微博列表（<a href="chapter12.html#following-users">[chapter12#following-users]</a>）。在实现的过程中，我们会学到一些 Rails 提供的强大功能，例如使用 <code>has_many</code> 和 <code>has_many :through</code> 实现的高级数据模型。</p>
+<p>实现账户激活和密码重设功能后，我们的演示应用已经完整实现了“注册-登录-退出”机制，而且是专业级的。本书剩下的章节以此为基础，实现类似 Twitter 的微博（<a href="chapter11.html#user-microposts">第 11 章</a>）和所关注用户发布的微博列表（<a href="chapter12.html#following-users">第 12 章</a>）。在实现的过程中，我们会学到一些 Rails 提供的强大功能，例如使用 <code>has_many</code> 和 <code>has_many :through</code> 实现的高级数据模型。</p>
 <section data-type="sect2" id="account-activation-and-password-reset-learned">
 <h2><span class="title-label">10.4.1</span> 读完本章学到了什么</h2>
 <ul>
@@ -2207,7 +2206,7 @@ your password will stay as it is.
 <p>填写<a href="#listing-password-reset-expire-test">代码清单 10.57</a> 中缺少的代码，为<a href="#listing-password-reset-update-action">代码清单 10.52</a> 中的密码重设超时失效分支编写集成测试。（<a href="#listing-password-reset-expire-test">代码清单 10.57</a> 用到了 <code>response.body</code>，用来获取返回页面中的 HTML。）检查是否过期有很多方法，<a href="#listing-password-reset-expire-test">代码清单 10.57</a> 使用的方法是，检查响应主体中是否包含单词“expired”（不区分大小写）。</p>
 </li>
 <li>
-<p>现在，用户列表页面会显示所有用户，而且各用户还可以通过 /users/:id 查看。不过，更合理的做法是只显示已激活的用户。填写<a href="#listing-show-only-active-users-exercise">代码清单 10.58</a> 中缺少的代码，实现这一需求。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>（这段代码中使用了 Active Record 提供的 <code>where</code> 方法，<a href="chapter11.html#a-proto-feed">[chapter11#a-proto-feed]</a>会详细介绍。）附加题：为 /users 和 /users/:id 编写集成测试。</p>
+<p>现在，用户列表页面会显示所有用户，而且各用户还可以通过 /users/:id 查看。不过，更合理的做法是只显示已激活的用户。填写<a href="#listing-show-only-active-users-exercise">代码清单 10.58</a> 中缺少的代码，实现这一需求。<sup>[<a id="fn-ref-9" href="#fn-9">9</a>]</sup>（这段代码中使用了 Active Record 提供的 <code>where</code> 方法，<a href="chapter11.html#a-proto-feed">11.3.3 节</a>会详细介绍。）附加题：为 /users 和 /users/:id 编写集成测试。</p>
 </li>
 <li>
 <p>在<a href="#listing-user-model-password-reset">代码清单 10.42</a> 中，<code>activate</code> 和 <code>create_reset_digest</code> 方法中都调用了两次 <code>update_attribute</code> 方法，每一次调用都要单独执行一个数据库事务（transaction）。填写<a href="#listing-update-columns">代码清单 10.59</a> 中缺少的代码，把两个 <code>update_attribute</code> 调用换成一个 <code>update_columns</code> 调用，这样修改后每个方法只会和数据库交互一次。然后再运行测试组件，确保仍能通过。</p>
@@ -2603,22 +2602,22 @@ your password will stay as it is.
                     
                     
                         <div class="pull-right">
-                            <a class="next" href="next.html" title="接下来">接下来 &raquo; </a>
+                            <a class="next" href="chapter11.html" title="第 11 章 用户的微博">第 11 章 用户的微博 &raquo; </a>
                         </div>
                     
                 </div>
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">严格来说，用户可以使用 <a href="chapter9.html#updating-users">9.1 节</a>实现的个人资料更新功能，把电子邮件地址改为不正确的地址。不过目前的实现方式无需过多工作就能验证电子邮件地址。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">也可以使用用户的 ID，因为应用的 URL 已经暴露了 ID，但是电子邮件地址更灵活，说不定以后你想隐藏 ID 呢（例如，防止竞争对手知道你的应用中有多少用户）。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">或许在 <code>update</code> 动作中处理更合理，但是激活链接要在邮件中发送，应该是个普通的点击操作，发送的是 <code>GET</code> 请求，而不是向 <code>update</code> 动作发送 <code>PATCH</code> 请求。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">虽然我们要使用 <code>edit</code> 动作，但如果在命令行中指定 <code>edit</code>，就会生成相应的视图和测试文件，而我们并不需要这两个文件。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">例如，如果攻击者能访问数据库，就能激活新注册的用户，然后以这个用户的身份登录，接着修改密码，获取控制权。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">URL 中可以有多个查询参数，多个键值对之间使用 <code>&amp;</code> 符号连接，例如 <code>/edit?name=Foo%20Bar&amp;email=foo%40example.com</code>。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">为了查明该怎么做，可以在谷歌中搜索“ruby rails escape url”。你会找到<a href="http://stackoverflow.com/questions/6714196/ruby-url-encoding-string">两种主要方法</a>：<code>URI::encode(str)</code> 和 <code>CGI.escape(str)</code>。一一试过之后，会发现需要的是第二个方法。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">只需处理密码为空值的情况，因为如果密码确认为空，密码确认字段的验证（如果密码为空，会跳过这个验证）会捕获这个问题，并显示相关的错误消息。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">注意，<a href="#listing-show-only-active-users-exercise">代码清单 10.58</a> 中使用的是 <code>and</code> 而不是 <code>&amp;&amp;</code>。二者作用基本一样，但 <code>&amp;&amp;</code> 的<a href="http://en.wikipedia.org/wiki/Order_of_operations#Programming_languages">优先级</a>较高，和 <code>root_url</code> 绑定的太紧。我们也可以把 <code>redirect_to root_url</code> 放在括号里，不过习惯写法是使用 <code>and</code>。 <a href="#fn-ref-9">&#8617;</a></li>
+<li id="fn-1">严格来说，用户可以使用 <a href="chapter9.html#updating-users">9.1 节</a>实现的个人资料更新功能，把电子邮件地址改为不正确的地址。不过目前的实现方式无需过多工作就能验证电子邮件地址。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">也可以使用用户的 ID，因为应用的 URL 已经暴露了 ID，但是电子邮件地址更灵活，说不定以后你想隐藏 ID 呢（例如，防止竞争对手知道你的应用中有多少用户）。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">或许在 <code>update</code> 动作中处理更合理，但是激活链接要在邮件中发送，应该是个普通的点击操作，发送的是 <code>GET</code> 请求，而不是向 <code>update</code> 动作发送 <code>PATCH</code> 请求。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">虽然我们要使用 <code>edit</code> 动作，但如果在命令行中指定 <code>edit</code>，就会生成相应的视图和测试文件，而我们并不需要这两个文件。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">例如，如果攻击者能访问数据库，就能激活新注册的用户，然后以这个用户的身份登录，接着修改密码，获取控制权。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">URL 中可以有多个查询参数，多个键值对之间使用 <code>&amp;</code> 符号连接，例如 <code>/edit?name=Foo%20Bar&amp;email=foo%40example.com</code>。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">为了查明该怎么做，可以在谷歌中搜索“ruby rails escape url”。你会找到<a href="http://stackoverflow.com/questions/6714196/ruby-url-encoding-string">两种主要方法</a>：<code>URI::encode(str)</code> 和 <code>CGI.escape(str)</code>。一一试过之后，会发现需要的是第二个方法。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">只需处理密码为空值的情况，因为如果密码确认为空，密码确认字段的验证（如果密码为空，会跳过这个验证）会捕获这个问题，并显示相关的错误消息。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">注意，<a href="#listing-show-only-active-users-exercise">代码清单 10.58</a> 中使用的是 <code>and</code> 而不是 <code>&amp;&amp;</code>。二者作用基本一样，但 <code>&amp;&amp;</code> 的<a href="http://en.wikipedia.org/wiki/Order_of_operations#Programming_languages">优先级</a>较高，和 <code>root_url</code> 绑定的太紧。我们也可以把 <code>redirect_to root_url</code> 放在括号里，不过习惯写法是使用 <code>and</code>。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

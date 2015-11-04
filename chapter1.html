@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -49,7 +49,7 @@
                     <section data-type="chapter" id="from-zero-to-deploy">
 <h1><span class="title-label">第 1 章</span> 从零开始，完成一次部署</h1>
 <p>欢迎阅读《Ruby on Rails 教程：通过 Rails 学习 Web 开发》。本书的目的是教你如何开发 Web 应用，而我们选择的工具是流行的 <a href="http://rubyonrails.org">Ruby on Rails</a> Web 框架。如果你刚接触这一领域，本书会向你详细介绍 Web 应用开发的方方面面，包括 Ruby、Rails、HTML 和 CSS、数据库、版本控制、测试，以及部署的基本知识。学会这些知识足够为你赢得一份 Web 开发者的工作，或者还可以让你成为一名技术创业者。如果你已经了解 Web 开发，阅读本书能快速学会 Rails 框架的基础，包括 MVC 和 REST、生成器、迁移、路由，以及嵌入式 Ruby。不管怎样，读完本书之后，以你所掌握的知识，已经能够阅读讨论更高级话题的图书和博客，或者观看视频。这些都是旺盛的编程教学生态圈的一部分。<sup>[<a id="fn-ref-1" href="#fn-1">1</a>]</sup></p>
-<p>本书采用一种综合式方法讲授 Web 开发，在学习的过程中我们要开发三个演示应用：第一个最简单，叫 <code>hello_app</code>（<a href="#the-first-application">1.3 节</a>）；第二个功能多一些，叫 <code>toy_app</code>（<a href="chapter2.html#a-toy-app">第 2 章</a>），第三个是真正的演示程序，叫 <code>sample_app</code>（<a href="chapter3.html#mostly-static-pages">第 3 章</a>到<a href="chapter12.html#following-users">[chapter12#following-users]</a>）。从这三个应用的名字可以看出，书中开发的应用不限定于某种特定类型的网站。不过，最后一个演示应用有点儿类似某个流行的<a href="https://twitter.com">社会化微博网站</a>（很巧，这个网站一开始也是使用 Rails 开发的）。本书的重点是介绍通用原则，所以不管你想开发什么样的 Web 应用，读完本书后，都能建立扎实的基础。</p>
+<p>本书采用一种综合式方法讲授 Web 开发，在学习的过程中我们要开发三个演示应用：第一个最简单，叫 <code>hello_app</code>（<a href="#the-first-application">1.3 节</a>）；第二个功能多一些，叫 <code>toy_app</code>（<a href="chapter2.html#a-toy-app">第 2 章</a>），第三个是真正的演示程序，叫 <code>sample_app</code>（<a href="chapter3.html#mostly-static-pages">第 3 章</a>到<a href="chapter12.html#following-users">第 12 章</a>）。从这三个应用的名字可以看出，书中开发的应用不限定于某种特定类型的网站。不过，最后一个演示应用有点儿类似某个流行的<a href="https://twitter.com">社会化微博网站</a>（很巧，这个网站一开始也是使用 Rails 开发的）。本书的重点是介绍通用原则，所以不管你想开发什么样的 Web 应用，读完本书后，都能建立扎实的基础。</p>
 <p>人们经常会问，我要具备多少背景知识才能阅读本书学习 Web 开发。<a href="#prerequisites">1.1.1 节</a>对此做了详细分析。Web 开发是个具有挑战性的学科，对没有任何背景知识的初学者来说挑战更大。我最初为本书设定的阅读对象是已经具有一定编程和 Web 开发经验的开发者，但后来发现读者中有很多都刚开始接触开发。所以，现在你看到的本书第三版做出了很多努力，尽量降低了入门 Rails 的门槛。</p>
 <div data-type="sidebar" id="aside-barrier" class="sidebar">
 <h5><span class="title-label">旁注 1.1</span>：降低门槛</h5>
@@ -78,7 +78,7 @@
 </div>
 <p>这第一章，我们要安装 Ruby on Rails 以及需要的所有软件，而且还要架设开发环境（<a href="#up-and-running">1.2 节</a>）。然后创建第一个 Rails 应用，<code>hello_app</code>。本书旨在介绍优秀的软件开发习惯，所以在创建第一个应用之后，我们会立即将它纳入版本控制系统 Git 中（<a href="#version-control-with-git">1.4 节</a>）。你可能不相信，在这一章，我们还要部署这个应用（<a href="#deploying">1.5 节</a>），把它放到外网上。</p>
 <p><a href="chapter2.html#a-toy-app">第 2 章</a>会创建第二个项目，演示 Rails 应用的一些基本操作。为了速度，我们会使用脚手架（<a href="#aside-scaffolding">旁注 1.2</a>）创建这个应用（名为 <code>toy_app</code>）。因为生成的代码很丑也很复杂，所以<a href="chapter2.html#a-toy-app">第 2 章</a>将集中精力在浏览器中，使用 URI（经常称为 URL）<sup>[<a id="fn-ref-2" href="#fn-2">2</a>]</sup>和这个应用交互。</p>
-<p>本书剩下的章节将集中精力开发一个真实的大型演示应用（名为 <code>sample_app</code>），所有代码都从零开始编写。在开发这个应用的过程中，我们会用到模拟技术，“测试驱动开发”（Test-driven Development，简称 TDD）理念，以及“集成测试”（integration test）。<a href="chapter3.html#mostly-static-pages">第 3 章</a>创建静态页面，然后增加一些动态内容。<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会简要介绍一下 Rails 使用的 Ruby 程序语言。<a href="chapter5.html#filling-in-the-layout">第 5 章</a>到<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>将逐步完善这个应用的低层结构，包括网站的布局，用户数据模型，完整的注册和认证系统（含有账户激活和密码重设功能）。最后，<a href="chapter11.html#user-microposts">[chapter11#user-microposts]</a>和<a href="chapter12.html#following-users">[chapter12#following-users]</a>将添加微博和社交功能，最终开发出一个可以正常运行的演示网站。</p>
+<p>本书剩下的章节将集中精力开发一个真实的大型演示应用（名为 <code>sample_app</code>），所有代码都从零开始编写。在开发这个应用的过程中，我们会用到模拟技术，“测试驱动开发”（Test-driven Development，简称 TDD）理念，以及“集成测试”（integration test）。<a href="chapter3.html#mostly-static-pages">第 3 章</a>创建静态页面，然后增加一些动态内容。<a href="chapter4.html#rails-flavored-ruby">第 4 章</a>会简要介绍一下 Rails 使用的 Ruby 程序语言。<a href="chapter5.html#filling-in-the-layout">第 5 章</a>到<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>将逐步完善这个应用的低层结构，包括网站的布局，用户数据模型，完整的注册和认证系统（含有账户激活和密码重设功能）。最后，<a href="chapter11.html#user-microposts">第 11 章</a>和<a href="chapter12.html#following-users">第 12 章</a>将添加微博和社交功能，最终开发出一个可以正常运行的演示网站。</p>
 <div data-type="sidebar" id="aside-scaffolding" class="sidebar">
 <h5><span class="title-label">旁注 1.2</span>：脚手架——更快，更简单，更诱人</h5>
 <p>Rails 出现伊始就吸引了众多目光，特别是 Rails 创始人 David Heinemeier Hansson 录制的著名的“<a href="http://v.youku.com/v_show/id_XNzg5MjUwOTU2.html">15分钟开发一个博客程序</a>”视频。这个视频及其衍生版本是窥探 Rails 强大功能一种很好的方式，我推荐你看一下这些视频。不过事先提醒一下，这些视频中的演示能控制在 15 分钟以内，得益于一种叫做“脚手架”（scaffold）的功能，通过 Rails 命令 <code>generate scaffold</code> 生成大量的代码。</p>
@@ -1029,7 +1029,19 @@ create mode <span class="m">100644</span> README.md
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>注意，我们还添加了 <code>rails_12factor</code>，Heroku 使用这个 gem 伺服静态资源，例如图片和样式表。最终得到的 <code>Gemfile</code> 如<a href="#listing-gemfile-pg-gem">代码清单 1.14</a> 所示。</p>
+<p>注意，我们还添加了 <code>rails_12factor</code>，Heroku 使用这个 gem 伺服静态资源，例如图片和样式表。另外，要加入<a href="#listing-gemfile-sqlite-version">代码清单 1.5</a> 所做的改动，避免在生产环境安装 <code>sqlite3</code> gem，这是因为 Heroku 不支持 SQLite。</p>
+<div data-type="listing">
+
+
+<div class="highlight language-ruby"><pre><span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'sqlite3'</span><span class="p">,</span>     <span class="s1">'1.3.9'</span>
+  <span class="n">gem</span> <span class="s1">'byebug'</span><span class="p">,</span>      <span class="s1">'3.4.0'</span>
+  <span class="n">gem</span> <span class="s1">'web-console'</span><span class="p">,</span> <span class="s1">'2.0.0.beta3'</span>
+  <span class="n">gem</span> <span class="s1">'spring'</span><span class="p">,</span>      <span class="s1">'1.1.3'</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>最终得到的 <code>Gemfile</code> 如<a href="#listing-gemfile-pg-gem">代码清单 1.14</a> 所示。</p>
 <div id="listing-gemfile-pg-gem" data-type="listing">
 <h5><span class="title-label">代码清单 1.14</span>：增加 gem 后的 <code>Gemfile</code></h5>
 
@@ -1207,24 +1219,24 @@ jhyicevg.herokuapp.com
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">本书最新版可以在本书网站上获取，地址是 <a href="http://railstutorial-china.org">http://railstutorial-china.org</a>。如果你看的是离线版，一定要访问在线版，获取最近的更新。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">URI 是“统一资源标识符”（Uniform Resource Identifier）的简称，较少使用的 URL 是“统一资源定位符”（Uniform Resource Locator）的简称。在实际使用中，URL 一般和浏览器地址栏中的内容一样。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">译者注：Rails 指南已由本书译者翻译成中文，电子书购买地址：<a href="https://selfstore.io/products/13">https://selfstore.io/products/13</a>。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">就算这样，我还是要提醒 Windows 用户，InstallRails 推荐使用的 Rails 安装包往往版本过旧，可能跟本书的教程不兼容。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">例如，要想找到 <code>foo</code> 函数的定义体，可以全局搜索“def foo”。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6">Cloud9 目前提供的 Rails 版本有点儿旧，和本书不兼容，所以才要自己动手安装。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">如<a href="chapter3.html#table-shortcuts">表 3.1</a>所示，可以省略 <code>install</code>，因为 <code>bundle</code> 是 <code>bundle install</code> 的别名。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">一般情况下，网站使用 80 端口，但这个端口需要特别的权限。所以，为了方便，开发服务器最好使用没有限制的大数端口。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9">译者注：中文版在线阅读地址：<a href="http://git-scm.com/book/zh">http://git-scm.com/book/zh</a>。也可以阅读译者制作的电子书：<a href="https://selfstore.io/products/46">https://selfstore.io/products/46</a>。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">本书基本不会修改这个文件，不过 <a href="chapter3.html#advanced-testing-setup">3.7 节</a>的高级测试配置中演示了如何修改。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">如果想形象化的查看 Git 仓库，可以使用 Atlassian 开发的应用 <a href="http://www.sourcetreeapp.com/:">SourceTree</a>。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">详情参阅《Pro Git》书中“<a href="http://git-scm.com/book/zh/Git-%E5%88%86%E6%94%AF">Git 分支</a>”一章。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">如果你担心不小心公开了应用，可以参照 <a href="#heroku-commands">1.5.4 节</a>中的做法。不过对本书开发应用来说，这份担心是多余的。 <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">读作“Engine X”。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">读作 post-gres-cue-ell，经常简称 Postgres。 <a href="#fn-ref-15">&#8617;</a></li>
-<li id="fn-16">一般来说，开发环境和生产环境要尽量一致，包括使用相同的数据库。但在本书中，本地一直使用 SQLite，生产环境则使用 PostgreSQL。详情参见 <a href="chapter3.html#sample-app-setup">3.1 节</a>。 <a href="#fn-ref-16">&#8617;</a></li>
-<li id="fn-17">英文原版的网站托管在 Heroku 中，你现在阅读的中文版托管在 Github Pages 中，地址是 <a href="http://railstutorial-china.org%E3%80%82" class="bare">http://railstutorial-china.org。</a> <a href="#fn-ref-17">&#8617;</a></li>
-<li id="fn-18">在你的编辑器中可能会显示一个消息，提示“invalid multibyte character”（无效的多字节字符），别去管它。如果你想让这个消息消失，可以<a href="http://lmgtfy.com/?q=invalid+multibyte+character">在谷歌中搜索这个错误消息</a>。 <a href="#fn-ref-18">&#8617;</a></li>
+<li id="fn-1">本书最新版可以在本书网站上获取，地址是 <a href="http://railstutorial-china.org">http://railstutorial-china.org</a>。如果你看的是离线版，一定要访问在线版，获取最近的更新。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">URI 是“统一资源标识符”（Uniform Resource Identifier）的简称，较少使用的 URL 是“统一资源定位符”（Uniform Resource Locator）的简称。在实际使用中，URL 一般和浏览器地址栏中的内容一样。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">译者注：Rails 指南已由本书译者翻译成中文，电子书购买地址：<a href="https://selfstore.io/products/13">https://selfstore.io/products/13</a>。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">就算这样，我还是要提醒 Windows 用户，InstallRails 推荐使用的 Rails 安装包往往版本过旧，可能跟本书的教程不兼容。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">例如，要想找到 <code>foo</code> 函数的定义体，可以全局搜索“def foo”。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6">Cloud9 目前提供的 Rails 版本有点儿旧，和本书不兼容，所以才要自己动手安装。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">如<a href="chapter3.html#table-shortcuts">表 3.1</a>所示，可以省略 <code>install</code>，因为 <code>bundle</code> 是 <code>bundle install</code> 的别名。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">一般情况下，网站使用 80 端口，但这个端口需要特别的权限。所以，为了方便，开发服务器最好使用没有限制的大数端口。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9">译者注：中文版在线阅读地址：<a href="http://git-scm.com/book/zh">http://git-scm.com/book/zh</a>。也可以阅读译者制作的电子书：<a href="https://selfstore.io/products/46">https://selfstore.io/products/46</a>。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">本书基本不会修改这个文件，不过 <a href="chapter3.html#advanced-testing-setup">3.7 节</a>的高级测试配置中演示了如何修改。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">如果想形象化的查看 Git 仓库，可以使用 Atlassian 开发的应用 <a href="http://www.sourcetreeapp.com/:">SourceTree</a>。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">详情参阅《Pro Git》书中“<a href="http://git-scm.com/book/zh/Git-%E5%88%86%E6%94%AF">Git 分支</a>”一章。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
+<li id="fn-13">如果你担心不小心公开了应用，可以参照 <a href="#heroku-commands">1.5.4 节</a>中的做法。不过对本书开发应用来说，这份担心是多余的。 <a href="#fn-ref-13" class="symbol">&#8617;</a></li>
+<li id="fn-14">读作“Engine X”。 <a href="#fn-ref-14" class="symbol">&#8617;</a></li>
+<li id="fn-15">读作 post-gres-cue-ell，经常简称 Postgres。 <a href="#fn-ref-15" class="symbol">&#8617;</a></li>
+<li id="fn-16">一般来说，开发环境和生产环境要尽量一致，包括使用相同的数据库。但在本书中，本地一直使用 SQLite，生产环境则使用 PostgreSQL。详情参见 <a href="chapter3.html#sample-app-setup">3.1 节</a>。 <a href="#fn-ref-16" class="symbol">&#8617;</a></li>
+<li id="fn-17">英文原版的网站托管在 Heroku 中，你现在阅读的中文版托管在 Github Pages 中，地址是 <a href="http://railstutorial-china.org%E3%80%82" class="bare">http://railstutorial-china.org。</a> <a href="#fn-ref-17" class="symbol">&#8617;</a></li>
+<li id="fn-18">在你的编辑器中可能会显示一个消息，提示“invalid multibyte character”（无效的多字节字符），别去管它。如果你想让这个消息消失，可以<a href="http://lmgtfy.com/?q=invalid+multibyte+character">在谷歌中搜索这个错误消息</a>。 <a href="#fn-ref-18" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>

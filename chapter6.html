@@ -9,7 +9,7 @@
     <meta name="keywords" content="ruby, rails, tutorial"/>
     <meta name="author" content="Michael Hartl"/>
     <meta name="translator" content="安道"/>
-    <meta name="generator" content="persie 0.0.1.alpha.5"/>
+    <meta name="generator" content="persie 0.0.1.beta.3"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="assets/style.css"/>
@@ -1551,27 +1551,27 @@
 
                 <div class="footnotes">
 <ol>
-<li id="fn-1">Active Record 这个名字来自“Active Record 模式”，出自 Martin Fowler 写的《企业应用架构模式》一书。 <a href="#fn-ref-1">&#8617;</a></li>
-<li id="fn-2">SQL 读作“ess-cue-ell”，不过也经常读作“sequel”。 <a href="#fn-ref-2">&#8617;</a></li>
-<li id="fn-3">把电子邮件地址作为用户名，以后如果需要和用户联系就方便了（参见<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>）。 <a href="#fn-ref-3">&#8617;</a></li>
-<li id="fn-4">别管 <code>t</code> 对象是怎么实现的，这抽象层的东西，我们无需知道。你只要相信 <code>t</code> 能完成指定的工作就行了。 <a href="#fn-ref-4">&#8617;</a></li>
-<li id="fn-5">SQLite 读作“ess-cue-ell-ite”，不过倒是经常使用错误的读音“sequel-ite”。 <a href="#fn-ref-5">&#8617;</a></li>
-<li id="fn-6"><a href="chapter12.html#subselects">[chapter12#subselects]</a>是个例外。 <a href="#fn-ref-6">&#8617;</a></li>
-<li id="fn-7">你可能对 <code>"2014-07-24 00:57:46"</code> 这个时间感到好奇，为什么作者半夜还在写书呢？其实不然，这个时间戳是<a href="http://dwz.cn/uFS7b">协调世界时</a>（Coordinated Universal Time，简称 UTC），作用类似于<a href="http://dwz.cn/uFSfF">格林尼治标准时间</a>（Greenwich Mean Time，简称 GMT）。以下内容摘自<a href="http://www.nist.gov/pml/div688/utcnist.cfm#cut">美国国家标准技术研究所时间和频率司的常见问题解答页面</a>。问：为什么协调世界时的缩写是 UTC 而不是 CUT？答：协调世界时是在 1970 年由国际电信联盟（ITU）的专家顾问团设计的，ITU 觉得应该使用一个通用的缩写以避免混淆，因为各方无法达成共识，最终 ITU 没有采用英文缩写 CUT 或法文缩写 TUC ，而是折中选择了 UTC。 <a href="#fn-ref-7">&#8617;</a></li>
-<li id="fn-8">异常和异常处理是 Ruby 语言相对高级的功能，本书基本不会用到。不过异常是 Ruby 语言很重要的一部分，建议你阅读 <a href="chapter12.html#guide-to-further-resources">[chapter12#guide-to-further-resources]</a>推荐的书籍学习。 <a href="#fn-ref-8">&#8617;</a></li>
-<li id="fn-9"><code>update_attributes</code> 方法是 <code>update</code> 方法的别名，但我喜欢使用前者，因为它和单数形式 <code>update_attribute</code> 对应。 <a href="#fn-ref-9">&#8617;</a></li>
-<li id="fn-10">如果结果不难想象，我们会省略在控制台中执行命令得到的结果，例如 <code>User.new</code> 的返回值。 <a href="#fn-ref-10">&#8617;</a></li>
-<li id="fn-11">你知道吗，根据标准，<code>"Michael Hartl"@example.com</code> 虽有引号和空格，但也是有效的电子邮件地址，很不可思议吧。 <a href="#fn-ref-11">&#8617;</a></li>
-<li id="fn-12">如果你和我一样觉得 Rubular 很有用，我建议你向作者 <a href="http://lovitt.net/">Michael Lovitt</a> 适当<a href="http://dwz.cn/uJ09K">捐献一些钱</a>，感谢他的辛勤劳动。 <a href="#fn-ref-12">&#8617;</a></li>
-<li id="fn-13">如前所述，这里就要使用专门的测试数据库 <code>db/test.sqlite3</code>。 <a href="#fn-ref-13">&#8617;</a></li>
-<li id="fn-14">严格来说，只有域名部分不区分大小写，<code>foo@bar.com</code> 和 <code>Foo@bar.com</code> 其实是不同的地址。但在实际使用中，千万别依赖这个规则，<a href="http://email.about.com/od/emailbehindthescenes/f/email_case_sens.htm">about.com</a> 中的文章说道，“区分大小写的电子邮件地址会带来很多麻烦，不易互换使用，也不利传播，所以要求输入正确的大小写是很愚蠢的。几乎没有电子邮件服务提供商或 ISP 强制要求使用区分大小写的电子邮件地址，也不会提示收件人的大小写错了（例如，要全部大写）。”感谢读者 Riley Moses 指正这个问题。 <a href="#fn-ref-14">&#8617;</a></li>
-<li id="fn-15">当然，我们可以直接编辑创建 <code>users</code> 表的迁移文件（<a href="#listing-users-migration">代码清单 6.2</a>），不过，需要先回滚再迁移。这不是 Rails 的风格，正确的做法是每次修改数据结构都要使用迁移。 <a href="#fn-ref-15">&#8617;</a></li>
-<li id="fn-16">Rails 支持的回调参见 <a href="http://api.rubyonrails.org/v4.2.2/classes/ActiveRecord/Callbacks.html">Rails API</a>。 <a href="#fn-ref-16">&#8617;</a></li>
-<li id="fn-17">“虚拟”的意思是模型对象中有属性，但数据库中没有对应的列。 <a href="#fn-ref-17">&#8617;</a></li>
-<li id="fn-18">“密码哈希摘要”经常称作“加密密码”，这种叫法是错误的。<a href="https://github.com/rails/rails/blob/master/activemodel/lib/active_model/secure_password.rb">Rails 源码</a>和本书前两版都犯了这个错误。“加密密码”之所以不对，是因为从设计角度看，加密是可逆的——能加密，也能解密。而计算密码哈希摘要的目的是实现不可逆，由摘要很难推出原始密码。感谢读者 Andy Philips 指出这个问题，并建议我使用正确的术语。 <a href="#fn-ref-18">&#8617;</a></li>
-<li id="fn-19">如果出现问题，可以使用这个方法还原数据库：1）退出控制台；2）在命令行中执行 <code>$ rm -f development.sqlite3</code> 命令，删除数据库（<a href="chapter7.html#sign-up">第 7 章</a>会介绍一种更优雅的做法）；3）执行 <code>$ bundle exec rake db:migrate</code> 命令，重新运行迁移；4）重启控制台。 <a href="#fn-ref-19">&#8617;</a></li>
-<li id="fn-20">bcrypt 算法计算哈希值时会<a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">加盐</a>，能避免两种重要的破解方式，分别是<a href="https://en.wikipedia.org/wiki/Dictionary_attack">字典破解</a>和<a href="https://en.wikipedia.org/wiki/Rainbow_table">彩虹表破解</a>。 <a href="#fn-ref-20">&#8617;</a></li>
-<li id="fn-21"><a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>说过，<code>!!</code> 会把对象转换成相应的布尔值。 <a href="#fn-ref-21">&#8617;</a></li>
+<li id="fn-1">Active Record 这个名字来自“Active Record 模式”，出自 Martin Fowler 写的《企业应用架构模式》一书。 <a href="#fn-ref-1" class="symbol">&#8617;</a></li>
+<li id="fn-2">SQL 读作“ess-cue-ell”，不过也经常读作“sequel”。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
+<li id="fn-3">把电子邮件地址作为用户名，以后如果需要和用户联系就方便了（参见<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>）。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
+<li id="fn-4">别管 <code>t</code> 对象是怎么实现的，这抽象层的东西，我们无需知道。你只要相信 <code>t</code> 能完成指定的工作就行了。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
+<li id="fn-5">SQLite 读作“ess-cue-ell-ite”，不过倒是经常使用错误的读音“sequel-ite”。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-6"><a href="chapter12.html#subselects">12.3.3 节</a>是个例外。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
+<li id="fn-7">你可能对 <code>"2014-07-24 00:57:46"</code> 这个时间感到好奇，为什么作者半夜还在写书呢？其实不然，这个时间戳是<a href="http://dwz.cn/uFS7b">协调世界时</a>（Coordinated Universal Time，简称 UTC），作用类似于<a href="http://dwz.cn/uFSfF">格林尼治标准时间</a>（Greenwich Mean Time，简称 GMT）。以下内容摘自<a href="http://www.nist.gov/pml/div688/utcnist.cfm#cut">美国国家标准技术研究所时间和频率司的常见问题解答页面</a>。问：为什么协调世界时的缩写是 UTC 而不是 CUT？答：协调世界时是在 1970 年由国际电信联盟（ITU）的专家顾问团设计的，ITU 觉得应该使用一个通用的缩写以避免混淆，因为各方无法达成共识，最终 ITU 没有采用英文缩写 CUT 或法文缩写 TUC ，而是折中选择了 UTC。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
+<li id="fn-8">异常和异常处理是 Ruby 语言相对高级的功能，本书基本不会用到。不过异常是 Ruby 语言很重要的一部分，建议你阅读 <a href="chapter12.html#guide-to-further-resources">12.4.1 节</a>推荐的书籍学习。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>
+<li id="fn-9"><code>update_attributes</code> 方法是 <code>update</code> 方法的别名，但我喜欢使用前者，因为它和单数形式 <code>update_attribute</code> 对应。 <a href="#fn-ref-9" class="symbol">&#8617;</a></li>
+<li id="fn-10">如果结果不难想象，我们会省略在控制台中执行命令得到的结果，例如 <code>User.new</code> 的返回值。 <a href="#fn-ref-10" class="symbol">&#8617;</a></li>
+<li id="fn-11">你知道吗，根据标准，<code>"Michael Hartl"@example.com</code> 虽有引号和空格，但也是有效的电子邮件地址，很不可思议吧。 <a href="#fn-ref-11" class="symbol">&#8617;</a></li>
+<li id="fn-12">如果你和我一样觉得 Rubular 很有用，我建议你向作者 <a href="http://lovitt.net/">Michael Lovitt</a> 适当<a href="http://dwz.cn/uJ09K">捐献一些钱</a>，感谢他的辛勤劳动。 <a href="#fn-ref-12" class="symbol">&#8617;</a></li>
+<li id="fn-13">如前所述，这里就要使用专门的测试数据库 <code>db/test.sqlite3</code>。 <a href="#fn-ref-13" class="symbol">&#8617;</a></li>
+<li id="fn-14">严格来说，只有域名部分不区分大小写，<code>foo@bar.com</code> 和 <code>Foo@bar.com</code> 其实是不同的地址。但在实际使用中，千万别依赖这个规则，<a href="http://email.about.com/od/emailbehindthescenes/f/email_case_sens.htm">about.com</a> 中的文章说道，“区分大小写的电子邮件地址会带来很多麻烦，不易互换使用，也不利传播，所以要求输入正确的大小写是很愚蠢的。几乎没有电子邮件服务提供商或 ISP 强制要求使用区分大小写的电子邮件地址，也不会提示收件人的大小写错了（例如，要全部大写）。”感谢读者 Riley Moses 指正这个问题。 <a href="#fn-ref-14" class="symbol">&#8617;</a></li>
+<li id="fn-15">当然，我们可以直接编辑创建 <code>users</code> 表的迁移文件（<a href="#listing-users-migration">代码清单 6.2</a>），不过，需要先回滚再迁移。这不是 Rails 的风格，正确的做法是每次修改数据结构都要使用迁移。 <a href="#fn-ref-15" class="symbol">&#8617;</a></li>
+<li id="fn-16">Rails 支持的回调参见 <a href="http://api.rubyonrails.org/v4.2.2/classes/ActiveRecord/Callbacks.html">Rails API</a>。 <a href="#fn-ref-16" class="symbol">&#8617;</a></li>
+<li id="fn-17">“虚拟”的意思是模型对象中有属性，但数据库中没有对应的列。 <a href="#fn-ref-17" class="symbol">&#8617;</a></li>
+<li id="fn-18">“密码哈希摘要”经常称作“加密密码”，这种叫法是错误的。<a href="https://github.com/rails/rails/blob/master/activemodel/lib/active_model/secure_password.rb">Rails 源码</a>和本书前两版都犯了这个错误。“加密密码”之所以不对，是因为从设计角度看，加密是可逆的——能加密，也能解密。而计算密码哈希摘要的目的是实现不可逆，由摘要很难推出原始密码。感谢读者 Andy Philips 指出这个问题，并建议我使用正确的术语。 <a href="#fn-ref-18" class="symbol">&#8617;</a></li>
+<li id="fn-19">如果出现问题，可以使用这个方法还原数据库：1）退出控制台；2）在命令行中执行 <code>$ rm -f development.sqlite3</code> 命令，删除数据库（<a href="chapter7.html#sign-up">第 7 章</a>会介绍一种更优雅的做法）；3）执行 <code>$ bundle exec rake db:migrate</code> 命令，重新运行迁移；4）重启控制台。 <a href="#fn-ref-19" class="symbol">&#8617;</a></li>
+<li id="fn-20">bcrypt 算法计算哈希值时会<a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">加盐</a>，能避免两种重要的破解方式，分别是<a href="https://en.wikipedia.org/wiki/Dictionary_attack">字典破解</a>和<a href="https://en.wikipedia.org/wiki/Rainbow_table">彩虹表破解</a>。 <a href="#fn-ref-20" class="symbol">&#8617;</a></li>
+<li id="fn-21"><a href="chapter4.html#objects-and-message-passing">4.2.3 节</a>说过，<code>!!</code> 会把对象转换成相应的布尔值。 <a href="#fn-ref-21" class="symbol">&#8617;</a></li>
 </ol>
 </div>
             </div>
