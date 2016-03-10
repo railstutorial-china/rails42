@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="following-users">
 <h1><span class="title-label">第 12 章</span> 关注用户</h1>
@@ -1000,7 +1003,7 @@
 
 <span class="l-Scalar-Plain">two</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">follower</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">michael</span>
-  <span class="l-Scalar-Plain">followed</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mallory</span>
+  <span class="l-Scalar-Plain">followed</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">malory</span>
 
 <span class="l-Scalar-Plain">three</span><span class="p-Indicator">:</span>
   <span class="l-Scalar-Plain">follower</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">lana</span>
@@ -1011,7 +1014,7 @@
   <span class="l-Scalar-Plain">followed</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">michael</span>
 </pre></div>
 </div>
-<p>在这些固件中，Michael 关注了 Lana 和 Mallory，Lana 和 Archer 关注了 Michael。为了测试数量，我们可以使用检查资料页面中微博数量的 <code>assert_match</code> 方法（<a href="chapter11.html#listing-user-profile-test">代码清单 11.27</a>）。然后再检查页面中有没有正确的链接，如<a href="#listing-following-tests">代码清单 12.28</a> 所示。</p>
+<p>在这些固件中，Michael 关注了 Lana 和 Malory，Lana 和 Archer 关注了 Michael。为了测试数量，我们可以使用检查资料页面中微博数量的 <code>assert_match</code> 方法（<a href="chapter11.html#listing-user-profile-test">代码清单 11.27</a>）。然后再检查页面中有没有正确的链接，如<a href="#listing-following-tests">代码清单 12.28</a> 所示。</p>
 <div id="listing-following-tests" data-type="listing">
 <h5><span class="title-label">代码清单 12.28</span>：测试我关注的用户列表页面和关注我的用户列表页面 <span class="green">GREEN</span></h5>
 

@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="sign-up">
 <h1><span class="title-label">第 7 章</span> 注册</h1>
@@ -1071,7 +1074,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>添加<a href="#listing-f-error-messages">代码清单 7.18</a> 和<a href="#listing-errors-partial">代码清单 7.19</a> 中的代码，以及<a href="#listing-error-messages-css">代码清单 7.20</a> 中的 SCSS 之后，提交无效的注册信息后，会显示一些有用的错误消息，如<a href="#fig-signup-error-messages">图 7.18</a> 所示。因为错误消息是由模型验证生成的，所以如果以后修改了验证规则，例如电子邮件地址的格式，或者密码的最短长度，错误消息会自动变化。</p>
+<p>添加<a href="#listing-f-error-messages">代码清单 7.18</a> 和<a href="#listing-errors-partial">代码清单 7.19</a> 中的代码，以及<a href="#listing-error-messages-css">代码清单 7.20</a> 中的 SCSS 之后，提交无效的注册信息后，会显示一些有用的错误消息，如<a href="#fig-signup-error-messages">图 7.18</a> 所示。因为错误消息是由模型验证生成的，所以如果以后修改了验证规则，例如电子邮件地址的格式，或者密码的最短长度，错误消息会自动变化。（注意，因为我们添加了存在性验证，而且 <code>has_secure_password</code> 方法会验证是否有密码（密码是否为 <code>nil</code>），所以，如果用户没有输入密码，目前会出现重复的错误消息。我们可以直接处理错误消息，去掉重复的消息，不过，<a href="chapter9.html#successful-edits">9.1.4 节</a>添加 <code>allow_nil: true</code> 之后，会自动解决这个问题。）</p>
 <div id="fig-signup-error-messages" class="figure"><img src="images/chapter7/signup_error_messages_3rd_edition.png" alt="signup error messages 3rd edition" /><div class="figcaption"><span class="title-label">图 7.18</span>：注册失败后显示的错误消息</div></div>
 </section>
 <section data-type="sect2" id="a-test-for-invalid-submission">

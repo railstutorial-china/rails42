@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="log-in-log-out">
 <h1><span class="title-label">第 8 章</span> 登录和退出</h1>
@@ -166,7 +169,7 @@ edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">
 <section data-type="sect2" id="login-form">
 <h2><span class="title-label">8.1.2</span> 登录表单</h2>
 <p>定义好相关的控制器和路由之后，我们要编写新建会话的视图，也就是登录表单。比较<a href="#fig-login-mockup">图 8.1</a> 和<a href="chapter7.html#fig-signup-mockup">图 7.11</a> 之后发现，登录表单和注册表单的外观类似，只不过登录表单只有两个输入框（电子邮件地址和密码）。</p>
-<p>如<a href="#fig-login-failure-mockup">图 8.2</a> 所示，如果提交的登录信息无效，我们想重新渲染登录页面，并显示一个错误消息。在 <a href="cchapter7.html#signup-error-messages">7.3.3 节</a>，我们使用错误消息局部视图显示错误消息，但是那些消息由 Active Record 自动提供，所以错误消息局部视图不能显示创建会话时的错误，因为会话不是 Active Record 对象，因此我们要使用闪现消息渲染登录时的错误消息。</p>
+<p>如<a href="#fig-login-failure-mockup">图 8.2</a> 所示，如果提交的登录信息无效，我们想重新渲染登录页面，并显示一个错误消息。在 <a href="chapter7.html#signup-error-messages">7.3.3 节</a>，我们使用错误消息局部视图显示错误消息，但是那些消息由 Active Record 自动提供，所以错误消息局部视图不能显示创建会话时的错误，因为会话不是 Active Record 对象，因此我们要使用闪现消息渲染登录时的错误消息。</p>
 <div id="fig-login-failure-mockup" class="figure"><img src="images/chapter8/login_failure_mockup.png" alt="login failure mockup" /><div class="figcaption"><span class="title-label">图 8.2</span>：登录失败后显示的页面构思图</div></div>
 <p><a href="chapter7.html#listing-signup-form">代码清单 7.13</a> 中的注册表单使用 <code>form_for</code> 辅助方法，并且把表示用户实例的 <code>@user</code> 变量作为参数传给 <code>form_for</code>：</p>
 <div data-type="listing">
@@ -1237,7 +1240,7 @@ x    =   x   /   2      -&gt;     x     /=   2
 <section data-type="sect2" id="remember-token-and-digest">
 <h2><span class="title-label">8.4.1</span> 记忆令牌和摘要</h2>
 <p><a href="#logging-in">8.2 节</a>使用 Rails 中的 <code>session</code> 方法存储用户的 ID，但是浏览器关闭后这个信息就不见了。本节，我们迈出实现持久会话的第一步：生成使用 <code>cookies</code> 方法创建持久 cookie 所需的“记忆令牌”，以及认证令牌所需的安全记忆摘要。</p>
-<p><a href="#the-log-in-method">8.2.1 节</a>说过，使用 <code>session</code> 方法存储的信息默认情况下就是安全的，但使用 <code>cookies</code> 方法存储的信息则不然。具体而言，持久 cookie 有被<a href="http://en.wikipedia.org/wiki/Session_hijacking">会话劫持</a>的风险，攻击者可以使用盗取的记忆令牌以某个用户的身份登录。盗取 cookie 中的信息主要有四种方法：（1）使用<a href="https://en.wikipedia.org/wiki/Packet_analyzer">包嗅探</a>工具截获不安全网络中传输的 cookie；<sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup>（2）获取包含记忆令牌的数据库；（3）使用“跨站脚本”（Cross-Site Scripting，简称 XSS）攻击；（4）获取已登录用户的设备访问权。我们在 <a href="chapter7.html#professional-grade-deployment">7.5 节</a>启用了全站 SSL，避免嗅探网络中传输的数据，因此解决了第一个问题。为了解决第二个问题，我们不会存储记忆令牌本身，而是存储令牌的哈希摘要——这种方法和 <a href="chapter6.html#adding-a-secure-password">6.3 节</a>一样，不存储原始密码，而是存储密码摘要。Rails 会转义插入视图模板中的内容，所以自动解决了第三个问题。对于最后一个问题，虽然没有万无一失的方法能避免攻击者获取已登录用户电脑的访问权，不过我们可以在每次用户退出后修改令牌，以及签名加密存储在浏览器中的敏感信息，尽量减少第三个问题发生的几率。</p>
+<p><a href="#the-log-in-method">8.2.1 节</a>说过，使用 <code>session</code> 方法存储的信息默认情况下就是安全的，但使用 <code>cookies</code> 方法存储的信息则不然。具体而言，持久 cookie 有被<a href="http://en.wikipedia.org/wiki/Session_hijacking">会话劫持</a>的风险，攻击者可以使用盗取的记忆令牌以某个用户的身份登录。盗取 cookie 中的信息主要有四种方法：（1）使用<a href="https://en.wikipedia.org/wiki/Packet_analyzer">包嗅探</a>工具截获不安全网络中传输的 cookie；<sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup>（2）获取包含记忆令牌的数据库；（3）使用“跨站脚本”（Cross-Site Scripting，简称 XSS）攻击；（4）获取已登录用户的设备访问权。我们在 <a href="chapter7.html#professional-grade-deployment">7.5 节</a>启用了全站 SSL，避免嗅探网络中传输的数据，因此解决了第一个问题。为了解决第二个问题，我们不会存储记忆令牌本身，而是存储令牌的哈希摘要——这种方法和 <a href="chapter6.html#adding-a-secure-password">6.3 节</a>一样，不存储原始密码，而是存储密码摘要。Rails 会转义插入视图模板中的内容，所以自动解决了第三个问题。对于最后一个问题，虽然没有万无一失的方法能避免攻击者获取已登录用户电脑的访问权，不过我们可以在每次用户退出后修改令牌，以及签名加密存储在浏览器中的敏感信息，尽量减少第四个问题发生的几率。</p>
 <p>经过上述分析，我们计划按照下面的方式实现持久会话：</p>
 <ol class="arabic">
 <li>

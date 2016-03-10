@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="filling-in-the-layout">
 <h1><span class="title-label">第 5 章</span> 完善布局</h1>
@@ -239,11 +242,11 @@
 </pre></div>
 </div>
 <p><code>div</code> 标签的 CSS 类 <code>jumbotron</code> 在 Bootstrap 中有特殊的意义，注册按钮的 <code>btn</code>、<code>btn-lg</code> 和 <code>btn-primary</code> 也是一样。</p>
-<p>第二个 <code>link_to</code> 用到了 <code>image_tag</code> 辅助方法，第一个参数是图片的路径；第二个参数可选，是一个哈希，本例中这个哈希参数使用一个符号键设置图片的 <code>alt</code> 属性。为了能正确显示图片，应用中必须有个名为 <code>rails.png</code> 的图片。这个图片可以从 Ruby on Rails 网站的首页下载，地址是 <a href="http://rubyonrails.org/images/rails.png">http://rubyonrails.org/images/rails.png</a>。下载后把这个图片放在 <code>app/assets/images/</code> 文件夹中。如果使用云端 IDE 或 Unix 类系统，可以使用 <code>curl</code> 完成这个操作，如下所示：<sup>[<a id="fn-ref-5" href="#fn-5">5</a>]</sup></p>
+<p>第二个 <code>link_to</code> 用到了 <code>image_tag</code> 辅助方法，第一个参数是图片的路径；第二个参数可选，是一个哈希，本例中这个哈希参数使用一个符号键设置图片的 <code>alt</code> 属性。为了能正确显示图片，应用中必须有个名为 <code>rails.png</code> 的图片。这个图片可以从本书的网站中下载，地址是 <a href="http://railstutorial-china.org/assets/images/rails.png">http://railstutorial-china.org/assets/images/rails.png</a>。下载后把这个图片放在 <code>app/assets/images/</code> 文件夹中。如果使用云端 IDE 或 Unix 类系统，可以使用 <code>curl</code> 完成这个操作，如下所示：<sup>[<a id="fn-ref-5" href="#fn-5">5</a>]</sup></p>
 <div data-type="listing">
 
 
-<div class="highlight language-sh"><pre><span class="nv">$ </span>curl -O http://rubyonrails.org/images/rails.png
+<div class="highlight language-sh"><pre><span class="nv">$ </span>curl -O http://railstutorial-china.org/assets/images/rails.png
 <span class="nv">$ </span>mv rails.png app/assets/images/
 </pre></div>
 </div>
@@ -1631,7 +1634,7 @@ help_url  -&gt; 'http://www.example.com/help'
 <p>在<a href="#listing-layout-links-test">代码清单 5.25</a> 所示的集成测试中添加一些代码，使用 <code>get</code> 方法访问“注册”页面，确认这个页面有正确的标题。</p>
 </li>
 <li>
-<p>像<a href="#listing-test-helper-application-helper">代码清单 5.36</a> 那样在测试辅助文件中引入应用的辅助方法，就能在测试中使用 <code>full_title</code> 辅助方法。然后可以使用<a href="#listing-layout-links-test-signup-full-title-helper">代码清单 5.37</a> 中的测试检查页面的标题（在前一个练习的基础上编写）。不过这么做有个缺点，如果标题的公共部分有错别字（例如“Ruby on Rails Tutoial”），测试组件不能发现。所以要为 <code>full_title</code> 辅助方法编写一个测试：新建一个测试，专门用来测试应用的辅助方法，然后把<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 中的 <code>FILL_IN</code> 改成具体的代码。（<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 使用 <code>assert_equal</code> 方法通过 <code>==</code> 操作符检查两个值是否相等。）</p>
+<p>像<a href="#listing-test-helper-application-helper">代码清单 5.36</a> 那样在测试辅助文件中引入应用的辅助方法后，能在测试中使用 <code>full_title</code> 辅助方法。然后可以使用<a href="#listing-layout-links-test-signup-full-title-helper">代码清单 5.37</a> 中的测试检查页面的标题（在前一个练习的基础上编写）。不过这么做有个缺点，如果标题的公共部分有错别字（例如“Ruby on Rails Tutoial”），测试组件不能发现。所以要为 <code>full_title</code> 辅助方法编写一个测试：新建一个测试，专门用来测试应用的辅助方法，然后把<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 中的 <code>FILL_IN</code> 改成具体的代码。（<a href="#listing-full-title-helper-tests">代码清单 5.38</a> 使用 <code>assert_equal</code> 方法通过 <code>==</code> 操作符检查两个值是否相等。）</p>
 </li>
 </ol>
 <div id="listing-test-helper-application-helper" data-type="listing">

@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="account-activation-and-password-reset">
 <h1><span class="title-label">第 10 章</span> 账户激活和密码重设</h1>
@@ -341,8 +344,8 @@
 <span class="hll">  <span class="l-Scalar-Plain">activated</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
 </span><span class="hll">  <span class="l-Scalar-Plain">activated_at</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= Time.zone.now %&gt;</span>
 </span>
-<span class="l-Scalar-Plain">mallory</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mallory Archer</span>
+<span class="l-Scalar-Plain">malory</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Malory Archer</span>
   <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">boss@example.gov</span>
   <span class="l-Scalar-Plain">password_digest</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= User.digest('password') %&gt;</span>
 <span class="hll">  <span class="l-Scalar-Plain">activated</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
@@ -2010,6 +2013,7 @@ your password will stay as it is.
 <div class="highlight language-ruby"><pre><span class="nb">require</span> <span class="s1">'test_helper'</span>
 
 <span class="k">class</span> <span class="nc">PasswordResetsTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
+
   <span class="k">def</span> <span class="nf">setup</span>
     <span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">deliveries</span><span class="o">.</span><span class="n">clear</span>
     <span class="vi">@user</span> <span class="o">=</span> <span class="n">users</span><span class="p">(</span><span class="ss">:michael</span><span class="p">)</span>

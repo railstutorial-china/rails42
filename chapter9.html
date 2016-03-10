@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="updating-showing-and-deleting-users">
 <h1><span class="title-label">第 9 章</span> 更新，显示和删除用户</h1>
@@ -407,7 +410,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>你可能担心这么改用户注册时可以把密码设为空值，其实不然，<a href="chapter6.html#minimum-password-standards">6.3.3 节</a>说过，创建对象时，<code>has_secure_password</code> 会执行存在性验证。</p>
+<p>你可能担心这么改用户注册时可以把密码设为空值，其实不然，<a href="chapter6.html#minimum-password-standards">6.3.3 节</a>说过，创建对象时，<code>has_secure_password</code> 会执行存在性验证，捕获密码为 <code>nil</code> 的情况。（密码为 <code>nil</code> 时能通过存在性验证，可是会被 <code>has_secure_password</code> 方法的验证捕获，因此修正了 <a href="chapter7.html#signup-error-messages">7.3.3 节</a>提到的错误消息重复问题。）</p>
 <p>至此，用户编辑页面应该可以正常使用了，如<a href="#fig-edit-form-working">图 9.5</a> 所示。你也可以运行测试组件确认一下，应该可以通过：</p>
 <div data-type="listing">
 <h5><span class="title-label">代码清单 9.11</span>：<strong class="green">GREEN</strong></h5>
@@ -524,7 +527,7 @@
 <span class="k">end</span>
 </pre></div>
 </div>
-<p>事前过滤器应用在指定的各个动作上，因此我们要在用户控制器的测试中编写相应的测试。我们计划使用正确的请求方法访问 <code>edit</code> 和 <code>update</code> 动作，然后确认把用户重定向到了登录地址。由<a href="chapter.html#table-restful-users">表 7.1</a> 得知，正确的请求方法分别是 <code>GET</code> 和 <code>PATCH</code>，所以在测试中要使用 <code>get</code> 和 <code>patch</code>，如<a href="#listing-edit-update-redirect-tests">代码清单 9.17</a> 所示。</p>
+<p>事前过滤器应用在指定的各个动作上，因此我们要在用户控制器的测试中编写相应的测试。我们计划使用正确的请求方法访问 <code>edit</code> 和 <code>update</code> 动作，然后确认把用户重定向到了登录地址。由<a href="chapter7.html#table-restful-users">表 7.1</a> 得知，正确的请求方法分别是 <code>GET</code> 和 <code>PATCH</code>，所以在测试中要使用 <code>get</code> 和 <code>patch</code>，如<a href="#listing-edit-update-redirect-tests">代码清单 9.17</a> 所示。</p>
 <div id="listing-edit-update-redirect-tests" data-type="listing">
 <h5><span class="title-label">代码清单 9.17</span>：测试 <code>edit</code> 和 <code>update</code> 动作是受保护的 <span class="red">RED</span></h5>
 
@@ -1129,7 +1132,7 @@
 <section data-type="sect2" id="sample-users">
 <h2><span class="title-label">9.3.2</span> 示例用户</h2>
 <p>本节，我们要为应用添加更多的用户。为了让用户列表看上去像个“列表”，我们可以在浏览器中访问注册页面，一个一个地注册用户，不过还有更好的方法，让 Ruby（和 Rake）为我们创建用户。</p>
-<p>首先，我们要在 <code>Gemfile</code> 中加入 <code>faker</code> gem，如<a href="#listing-faker-gemfile">代码清单 9.38</a> 所示。这个 gem 会使用半真实的名字和电子邮件地址创建示例用户。</p>
+<p>首先，我们要在 <code>Gemfile</code> 中加入 <code>faker</code> gem，如<a href="#listing-faker-gemfile">代码清单 9.38</a> 所示。这个 gem 会使用半真实的名字和电子邮件地址创建示例用户。（通常，可能只需在开发环境中安装 <code>faker</code> gem，但是对这个演示应用来说，生产环境也要使用 <code>faker</code>，参见 <a href="#updating-showing-and-deleting-users-conclusion">9.5 节</a>。）</p>
 <div id="listing-faker-gemfile" data-type="listing">
 <h5><span class="title-label">代码清单 9.38</span>：在 <code>Gemfile</code> 中加入 <code>faker</code></h5>
 
@@ -1138,9 +1141,9 @@
 
 <span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                <span class="s1">'4.2.2'</span>
 <span class="n">gem</span> <span class="s1">'bcrypt'</span><span class="p">,</span>               <span class="s1">'3.1.7'</span>
-<span class="n">gem</span> <span class="s1">'faker'</span><span class="p">,</span>                <span class="s1">'1.4.2'</span>
-<span class="hll"><span class="o">.</span>
+<span class="hll"><span class="n">gem</span> <span class="s1">'faker'</span><span class="p">,</span>                <span class="s1">'1.4.2'</span>
 </span><span class="o">.</span>
+<span class="o">.</span>
 <span class="o">.</span>
 </pre></div>
 </div>
@@ -1182,7 +1185,7 @@
 <span class="nv">$ </span>bundle <span class="nb">exec </span>rake db:seed
 </pre></div>
 </div>
-<p>向数据库中添加数据的操作可能很慢，在某些系统中可能要花上几分钟。</p>
+<p>向数据库中添加数据的操作可能很慢，在某些系统中可能要花上几分钟。此外，有些读者反馈说，Rails 服务器运行的过程中无法执行 <code>reset</code> 命令，因此，可能要先停止服务器，然后再执行上述命令。</p>
 <p>执行完 <code>db:seed</code> Rake 任务后，我们的应用中就有 100 个用户了，如<a href="#fig-user-index-all">图 9.10</a> 所示。（可能要重启服务器才能看到效果。）我牺牲了一点个人时间，为前几个用户上传了头像，这样就不会都显示默认的 Gravatar 头像了。</p>
 <div id="fig-user-index-all" class="figure"><img src="images/chapter9/user_index_all_3rd_edition.png" alt="user index all 3rd edition" /><div class="figcaption"><span class="title-label">图 9.10</span>：用户列表页面，显示了 100 个示例用户</div></div>
 </section>
@@ -1199,10 +1202,10 @@
 <span class="n">gem</span> <span class="s1">'rails'</span><span class="p">,</span>                   <span class="s1">'4.2.2'</span>
 <span class="n">gem</span> <span class="s1">'bcrypt'</span><span class="p">,</span>                  <span class="s1">'3.1.7'</span>
 <span class="n">gem</span> <span class="s1">'faker'</span><span class="p">,</span>                   <span class="s1">'1.4.2'</span>
-<span class="n">gem</span> <span class="s1">'will_paginate'</span><span class="p">,</span>           <span class="s1">'3.0.7'</span>
-<span class="hll"><span class="n">gem</span> <span class="s1">'bootstrap-will_paginate'</span><span class="p">,</span> <span class="s1">'0.0.10'</span>
-</span><span class="hll"><span class="o">.</span>
+<span class="hll"><span class="n">gem</span> <span class="s1">'will_paginate'</span><span class="p">,</span>           <span class="s1">'3.0.7'</span>
+</span><span class="hll"><span class="n">gem</span> <span class="s1">'bootstrap-will_paginate'</span><span class="p">,</span> <span class="s1">'0.0.10'</span>
 </span><span class="o">.</span>
+<span class="o">.</span>
 <span class="o">.</span>
 </pre></div>
 </div>
@@ -1298,8 +1301,8 @@
   <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hands@example.gov</span>
   <span class="l-Scalar-Plain">password_digest</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= User.digest('password') %&gt;</span>
 
-<span class="l-Scalar-Plain">mallory</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mallory Archer</span>
+<span class="l-Scalar-Plain">malory</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Malory Archer</span>
   <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">boss@example.gov</span>
   <span class="l-Scalar-Plain">password_digest</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= User.digest('password') %&gt;</span>
 
@@ -1624,8 +1627,8 @@
   <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hands@example.gov</span>
   <span class="l-Scalar-Plain">password_digest</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= User.digest('password') %&gt;</span>
 
-<span class="l-Scalar-Plain">mallory</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mallory Archer</span>
+<span class="l-Scalar-Plain">malory</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Malory Archer</span>
   <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">boss@example.gov</span>
   <span class="l-Scalar-Plain">password_digest</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= User.digest('password') %&gt;</span>
 
@@ -1816,10 +1819,10 @@
 <p>编写一个集成测试，测试布局中的所有链接，以及登录后和登录前应该看到哪些链接。提示：把这个测试添加到<a href="chapter5.html#listing-layout-links-test">代码清单 5.25</a> 中，使用 <code>log_in_as</code> 辅助方法。</p>
 </li>
 <li>
-<p>参照<a href="#listing-forbidden-admin-test">代码清单 9.59</a>，直接向 <code>update</code> 动作发送 <code>PATCH</code> 请求，确认无法修改 <code>admin</code> 属性。为了确保测试写得正确，首先应该把 <code>admin</code> 添加到允许修改的参数列表 <code>user_params</code> 中，因此添加这个测试前测试组件无法通过。</p>
+<p>参照<a href="#listing-forbidden-admin-test">代码清单 9.59</a>，直接向 <code>update</code> 动作发送 <code>PATCH</code> 请求，确认无法修改 <code>admin</code> 属性。为了确保测试写得正确，首先应该把 <code>admin</code> 添加到允许修改的参数列表 <code>user_params</code> 中，所以在此之前测试组件无法通过。</p>
 </li>
 <li>
-<p>使用<a href="#listing-new-edit-partial">代码清单 9.60</a> 中的局部视图重构 <code>new.html.erb</code> 和 <code>edit.html.erb</code> 视图中的表单，重构后的代码如<a href="#listing-new-user-with-partial">代码清单 9.61</a> 和<a href="#listing-edit-user-with-partial">代码清单 9.62</a> 所示。注意这里使用 <code>provide</code> 方法（<a href="#layouts-and-embedded-ruby">3.4.3 节</a>用过）避免布局中有重复。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup></p>
+<p>使用<a href="#listing-new-edit-partial">代码清单 9.60</a> 中的局部视图重构 <code>new.html.erb</code> 和 <code>edit.html.erb</code> 视图中的表单，重构后的代码如<a href="#listing-new-user-with-partial">代码清单 9.61</a> 和<a href="#listing-edit-user-with-partial">代码清单 9.62</a> 所示。注意这里使用 <code>provide</code> 方法（<a href="chapter3.html#layouts-and-embedded-ruby">3.4.3 节</a>用过）避免布局中有重复。<sup>[<a id="fn-ref-12" href="#fn-12">12</a>]</sup></p>
 </li>
 </ol>
 <div id="listing-forbidden-admin-test" data-type="listing">

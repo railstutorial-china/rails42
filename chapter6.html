@@ -45,11 +45,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="modeling-users">
 <h1><span class="title-label">第 6 章</span> 用户模型</h1>
-<p><a href="chapter5.html#filling-in-the-layout">第 5 章</a>末尾创建了一个临时的用户注册页面（<a href="chapter5.html#user-signup-a-first-step">5.4 节</a>）。本书接下来的五章会逐步在这个页面中添加功能。本章我们要迈出关键的一步，创建网站中用户的数据模型，并实现存储数据的方式。<a href="chapter7.html#sign-up">第 7 章</a>会实现用户注册功能，并创建用户资料页面。用户能注册后，我们要实现登录和退出功能（<a href="chapter8.html#log-in-log-out">第 8 章</a>）。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>（<a href="chapter9.html#requiring-logged-in-users">9.2.1 节</a>）会介绍如何保护页面，禁止无权限的用户访问。最后，在<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>实现账户激活（从而确认电子邮件地址有效）和密码重设功能。第 6 章到第 10 章的内容结合在一起，为 Rails 应用开发一个功能完整的登录和认证系统。或许你知道已经有很多开发好的 Rails 认证方案，<a href="aside.html#roll-your-own">旁注 6.1</a>解释了为什么，至少在初学阶段，最好自己动手实现。</p>
-<div data-type="sidebar" id="roll-your-own" class="sidebar">
+<p><a href="chapter5.html#filling-in-the-layout">第 5 章</a>末尾创建了一个临时的用户注册页面（<a href="chapter5.html#user-signup-a-first-step">5.4 节</a>）。本书接下来的五章会逐步在这个页面中添加功能。本章我们要迈出关键的一步，创建网站中用户的数据模型，并实现存储数据的方式。<a href="chapter7.html#sign-up">第 7 章</a>会实现用户注册功能，并创建用户资料页面。用户能注册后，我们要实现登录和退出功能（<a href="chapter8.html#log-in-log-out">第 8 章</a>）。<a href="chapter9.html#updating-showing-and-deleting-users">第 9 章</a>（<a href="chapter9.html#requiring-logged-in-users">9.2.1 节</a>）会介绍如何保护页面，禁止无权限的用户访问。最后，在<a href="chapter10.html#account-activation-and-password-reset">第 10 章</a>实现账户激活（从而确认电子邮件地址有效）和密码重设功能。第 6 章到第 10 章的内容结合在一起，为 Rails 应用开发一个功能完整的登录和认证系统。或许你知道已经有很多开发好的 Rails 认证方案，<a href="#aside-roll-your-own">旁注 6.1</a>解释了为什么，至少在初学阶段，最好自己动手实现。</p>
+<div data-type="sidebar" id="aside-roll-your-own" class="sidebar">
 <h5><span class="title-label">旁注 6.1</span>：自己开发认证系统</h5>
 <p>基本上所有 Web 应用都需要某种登录和认证系统。为此，大多数 Web 框架都提供了多种实现方式，Rails 也不例外。为 Rails 开发的认证和权限系统有 <a href="http://github.com/thoughtbot/clearance">Clearance</a>、<a href="http://github.com/binarylogic/authlogic">Authlogic</a>、<a href="http://github.com/plataformatec/devise">Devise</a> 和 <a href="http://railscasts.com/episodes/192-authorization-with-cancan">CanCan</a>。除此之外，还有一些不是 Rails 专用的方案，基于 <a href="http://en.wikipedia.org/wiki/OpenID">OpenID</a> 和 <a href="http://en.wikipedia.org/wiki/Oauth">OAuth</a> 实现。所以你肯定会问，为什么我们要重复制造轮子，为什么不直接使用现成的方案，而要自己开发呢？</p>
 <p>首先，实践已经证明，大多数网站的认证系统都要对第三方代码库做一些定制和修改，这往往比重新开发一个工作量还大。再者，现成的方案就像一个“黑盒”，你无法了解其中到底有些什么功能，而自己开发的话能更好地理解实现的过程。而且，Rails 最近的更新（参见 <a href="#adding-a-secure-password">6.3 节</a>），让开发认证系统变得很简单。最后，如果以后要用第三方系统的话，因为自己开发过，所以能更好地理解实现过程，便于定制功能。</p>
@@ -1293,7 +1296,7 @@
 <div class="highlight language-ruby"><pre><span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">length</span><span class="p">:</span> <span class="p">{</span> <span class="ss">minimum</span><span class="p">:</span> <span class="mi">6</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>在上述代码的基础上，还要加上存在性验证，得出的用户模型如<a href="#listing-password-implementation">代码清单 6.39</a> 所示。（<code>has_secure_password</code> 方法本身会验证存在性，但是只在创建新记录时才验证，因此更新用户时存在漏洞。）</p>
+<p>在上述代码的基础上，还要加上存在性验证，得出的用户模型如<a href="#listing-password-implementation">代码清单 6.39</a> 所示。（<code>has_secure_password</code> 方法本身会验证存在性，但是可惜，只会验证有没有密码，因此用户可以创建 “      ”（6 个空格）这样的无效密码。）</p>
 <div id="listing-password-implementation" data-type="listing">
 <h5><span class="title-label">代码清单 6.39</span>：实现安全密码的全部代码 <span class="green">GREEN</span></h5>
 

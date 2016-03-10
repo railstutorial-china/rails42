@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="user-microposts">
 <h1><span class="title-label">第 11 章</span> 用户的微博</h1>
@@ -178,7 +181,7 @@
 
   <span class="k">def</span> <span class="nf">setup</span>
     <span class="vi">@user</span> <span class="o">=</span> <span class="n">users</span><span class="p">(</span><span class="ss">:michael</span><span class="p">)</span>
-    <span class="no">Micropost</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">content</span><span class="p">:</span> <span class="s2">"Lorem ipsum"</span><span class="p">,</span> <span class="ss">user_id</span><span class="p">:</span> <span class="vi">@user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="vi">@micropost</span> <span class="o">=</span> <span class="no">Micropost</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">content</span><span class="p">:</span> <span class="s2">"Lorem ipsum"</span><span class="p">,</span> <span class="ss">user_id</span><span class="p">:</span> <span class="vi">@user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
   <span class="k">end</span>
 
   <span class="nb">test</span> <span class="s2">"should be valid"</span> <span class="k">do</span>
@@ -612,7 +615,7 @@
 <div class="highlight language-erb"><pre><span class="cp">&lt;%=</span> <span class="n">will_paginate</span> <span class="vi">@microposts</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 </div>
-<p>如果和用户列表页面的代码（<a href="#listing-will-paginate-index-view">代码清单 9.41</a>）比较的话，会发现之前使用的代码是：</p>
+<p>如果和用户列表页面的代码（<a href="chapter9.html#listing-will-paginate-index-view">代码清单 9.41</a>）比较的话，会发现之前使用的代码是：</p>
 <div data-type="listing">
 
 
@@ -1714,7 +1717,7 @@
 <span class="n">gem</span> <span class="s1">'faker'</span><span class="p">,</span>                   <span class="s1">'1.4.2'</span>
 <span class="hll"><span class="n">gem</span> <span class="s1">'carrierwave'</span><span class="p">,</span>             <span class="s1">'0.10.0'</span>
 </span><span class="hll"><span class="n">gem</span> <span class="s1">'mini_magick'</span><span class="p">,</span>             <span class="s1">'3.8.0'</span>
-</span><span class="hll"><span class="n">gem</span> <span class="s1">'fog'</span><span class="p">,</span>                     <span class="s1">'1.26.0'</span>
+</span><span class="hll"><span class="n">gem</span> <span class="s1">'fog'</span><span class="p">,</span>                     <span class="s1">'1.36.0'</span>
 </span><span class="n">gem</span> <span class="s1">'will_paginate'</span><span class="p">,</span>           <span class="s1">'3.0.7'</span>
 <span class="n">gem</span> <span class="s1">'bootstrap-will_paginate'</span><span class="p">,</span> <span class="s1">'0.0.10'</span>
 <span class="o">.</span>
@@ -2034,7 +2037,7 @@
 </li>
 </ol>
 <p>关于这些步骤的详细说明，参见 <a href="http://aws.amazon.com/documentation/s3/">S3 的文档</a>。（如果需要还可以搜索。）</p>
-<p>创建并配置好 S3 账户后，创建 CarrierWave 配置文件，写入<a href="#listing-carrier-wave-configuration">代码清单 11.65</a> 中的内容。</p>
+<p>创建并配置好 S3 账户后，创建 CarrierWave 配置文件，写入<a href="#listing-carrier-wave-configuration">代码清单 11.65</a> 中的内容。注意：如果做了这些设置之后连不上 S3，可能是区域位置的问题。有些用户要在 fog 的配置中添加 <code>:region =&gt; ENV['S3_REGION']</code>，然后在命令行中执行 <code>heroku config:set S3_REGION=&lt;bucket_region&gt;</code>，其中 <code>bucket_region</code> 是你所在的区域，例如 <code>'eu-central-1'</code>。如果想找到你所在的区域，请查看 <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html">Amazon AWS 的文档</a>。</p>
 <div id="listing-carrier-wave-configuration" data-type="listing">
 <h5><span class="title-label">代码清单 11.65</span>：配置 CarrierWave 使用 S3</h5>
 
@@ -2239,7 +2242,7 @@
     <span class="n">get</span> <span class="n">root_path</span>
     <span class="n">assert_match</span> <span class="s2">"</span><span class="si">#{</span><span class="no">FILL_IN</span><span class="si">}</span><span class="s2"> microposts"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span>
     <span class="c1"># 这个用户没有发布微博</span>
-    <span class="n">other_user</span> <span class="o">=</span> <span class="n">users</span><span class="p">(</span><span class="ss">:mallory</span><span class="p">)</span>
+    <span class="n">other_user</span> <span class="o">=</span> <span class="n">users</span><span class="p">(</span><span class="ss">:malory</span><span class="p">)</span>
     <span class="n">log_in_as</span><span class="p">(</span><span class="n">other_user</span><span class="p">)</span>
     <span class="n">get</span> <span class="n">root_path</span>
     <span class="n">assert_match</span> <span class="s2">"0 microposts"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">body</span>
@@ -2360,7 +2363,7 @@
 <li id="fn-2"><code>Faker::Lorem.sentence</code> 生成 lorem ipsum 文本。<a href="chapter6.html#modeling-users">第 6 章</a>说过，lorem ipsum 的<a href="http://www.straightdope.com/columns/read/2290/what-does-the-filler-text-lorem-ipsum-mean">背景故事很有趣</a>。 <a href="#fn-ref-2" class="symbol">&#8617;</a></li>
 <li id="fn-3">Faker 生成的 lorem ipsum 文本是随机的，所以你看到的示例微博可能和我的不一样。 <a href="#fn-ref-3" class="symbol">&#8617;</a></li>
 <li id="fn-4">为了方便，<a href="#listing-micropost-css">代码清单 11.25</a> 实际上包含了本章用到的所有 CSS。 <a href="#fn-ref-4" class="symbol">&#8617;</a></li>
-<li id="fn-5">如果想使用 <code>full_title</code> 重构其他测试，例如<a href="#listing-base-title-test">代码清单 3.38</a>，应该在 <code>test_helper.rb</code> 中引入 <code>ApplicationHelper</code> 模块。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
+<li id="fn-5">如果想使用 <code>full_title</code> 重构其他测试，例如<a href="chapter3.html#listing-base-title-test">代码清单 3.38</a>，应该在 <code>test_helper.rb</code> 中引入 <code>ApplicationHelper</code> 模块。 <a href="#fn-ref-5" class="symbol">&#8617;</a></li>
 <li id="fn-6"><code>where</code> 及其他相关方法的详细介绍参见 Rails Guides 中《<a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>》一文。 <a href="#fn-ref-6" class="symbol">&#8617;</a></li>
 <li id="fn-7">对应 HTTP 规范中的 <code>HTTP_REFERER</code>。注意，“REFERER”不是错误拼写，规范中就是这么写的。Rails 更正了这个错误，写成“referrer”。 <a href="#fn-ref-7" class="symbol">&#8617;</a></li>
 <li id="fn-8">我没有立即想到如何在 Rails 应用中获取这个 URL，所以在谷歌中搜索“rails request previous url”，找到了 <a href="http://stackoverflow.com/questions/4652084/ruby-on-rails-how-do-you-get-the-previous-url">Stack Overflow 中的这个问答</a>。 <a href="#fn-ref-8" class="symbol">&#8617;</a></li>

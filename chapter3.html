@@ -45,6 +45,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8">
+                <div class="alert alert-warning">
+                    <p>在线版的内容可能落后于电子书，如果想及时获得更新，请<a href="http://railstutorial-china.org/#purchase" title="购买电子书">购买电子书</a>。</p>
+                </div>
                 <article class="article">
                     <section data-type="chapter" id="mostly-static-pages">
 <h1><span class="title-label">第 3 章</span> 基本静态的页面</h1>
@@ -63,7 +66,7 @@
 </pre></div>
 </div>
 <p>（和 <a href="chapter2.html#planning-the-application">2.1 节</a>一样，如果使用云端 IDE，可以在同一个工作空间中创建这个应用，没必要再新建一个工作空间。）</p>
-<p>类似 <a href="chapter2.html#planning-the-application">2.1 节</a>，接下来我们要用文本编辑器打开并编辑 <code>Gemfile</code>，写入应用所需的 gem。<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 与<a href="chapter1.html#listing-gemfile-sqlite-version">代码清单 1.5</a> 和<a href="chapter1.html#listing-demo-gemfile-sqlite-version-redux">代码清单 2.1</a> 一样，不过 <code>test</code> 组中的 gem 有所不同，稍后会做进一步设置（<a href="#advanced-testing-setup">3.7 节</a>）。注意，如果现在你想安装这个应用使用的所有 gem，要写入<a href="chapter11.html#listing-final-gemfile">代码清单 11.66</a> 中的内容。</p>
+<p>类似 <a href="chapter2.html#planning-the-application">2.1 节</a>，接下来我们要用文本编辑器打开并编辑 <code>Gemfile</code>，写入应用所需的 gem。<a href="#listing-gemfile-sample-app">代码清单 3.2</a> 与<a href="chapter1.html#listing-gemfile-sqlite-version">代码清单 1.5</a> 和<a href="chapter2.html#listing-demo-gemfile-sqlite-version-redux">代码清单 2.1</a> 一样，不过 <code>test</code> 组中的 gem 有所不同，稍后会做进一步设置（<a href="#advanced-testing-setup">3.7 节</a>）。注意，如果现在你想安装这个应用使用的所有 gem，要写入<a href="chapter11.html#listing-final-gemfile">代码清单 11.66</a> 中的内容。</p>
 <div id="listing-gemfile-sample-app" data-type="listing">
 <h5><span class="title-label">代码清单 3.2</span>：演示应用的 <code>Gemfile</code></h5>
 
@@ -164,7 +167,7 @@ by [Michael Hartl](http://www.michaelhartl.com/).
 <span class="nv">$ </span>git push heroku master
 </pre></div>
 </div>
-<p>（和 <a href="chapter1.html#deploying">1.5 节</a>一样，你可能会看到一些警告消息，现在暂且不管，<a href="chapter7.html#professional-grade-deployment">7.5 节</a>会解决。）除了 Heroku 为应用分配的地址之外，看到的页面应该和<a href="chapter1.html#fig-heroku-app">图 1.18</a> 一样。</p>
+<p>（和 <a href="chapter1.html#deploying">1.5 节</a>一样，你可能会看到一些警告消息，现在暂且不管，<a href="chapter7.html#professional-grade-deployment">7.5 节</a>会解决。）除了 Heroku 为应用分配的地址之外，看到的页面应该和<a href="chapter1.html#fig-heroku-app">图 1.18</a> 一样。注意：有些读者反馈说，遇到了与 spring gem 有关的问题，你可以在命令行中执行 <code>spring binstub</code> 命令，看能不能解决。</p>
 <p>在阅读本书的过程中，我建议你定期推送和部署，这样不仅能在远程仓库中备份，而且还能尽早发现在生产环境中可能出现的问题。如果遇到和 Heroku 有关的问题，可以查看生产环境中的日志，试着找出问题所在：</p>
 <div data-type="listing">
 
@@ -1261,14 +1264,14 @@ The action <span class="s1">'about'</span> could not be found <span class="k">fo
 <p>（为了继续后面的开发，最后一步只切换到主分支，但不合并，以免和正文产生冲突。）在后面的章节中，使用的分支和提交消息有所不同，但基本思想是一致的。</p>
 <ol class="arabic">
 <li>
-<p>你可能注意到了，静态页面控制的测试（<a href="#listing-title-tests">代码清单 3.22</a>）中有些重复，每个标题测试中都有“Ruby on Rails Tutorial Sample App”。我们要使用特殊的函数 <code>setup</code> 去除重复。这个函数在每个测试运行之前执行。请你确认<a href="#listing-base-title-test">代码清单 3.38</a> 中的测试仍能通过。（<a href="#listing-base-title-test">代码清单 3.38</a> 中使用了一个实例变量，<a href="chapter2.html#mvc-in-action">2.2.2 节</a>简单介绍过，<a href="chapter4.html#a-user-class">4.4.5 节</a>会进一步介绍。这段代码中还使用了字符串插值操作，<a href="chapter4.html#strings">4.2.2 节</a>会做介绍。）</p>
+<p>你可能注意到了，静态页面控制器的测试（<a href="#listing-title-tests">代码清单 3.22</a>）中有些重复，每个标题测试中都有“Ruby on Rails Tutorial Sample App”。我们要使用特殊的函数 <code>setup</code> 去除重复。这个函数在每个测试运行之前执行。请你确认<a href="#listing-base-title-test">代码清单 3.38</a> 中的测试仍能通过。（<a href="#listing-base-title-test">代码清单 3.38</a> 中使用了一个实例变量，<a href="chapter2.html#mvc-in-action">2.2.2 节</a>简单介绍过，<a href="chapter4.html#a-user-class">4.4.5 节</a>会进一步介绍。这段代码中还使用了字符串插值操作，<a href="chapter4.html#strings">4.2.2 节</a>会做介绍。）</p>
 </li>
 <li>
 <p>为这个演示应用添加一个“联系”页面。<sup>[<a id="fn-ref-14" href="#fn-14">14</a>]</sup>参照<a href="#listing-about-test">代码清单 3.13</a>，先编写一个测试，检查页面的标题是否为 “Contact | Ruby on Rails Tutorial Sample App”，从而确定 /static_pages/contact 对应的页面是否存在。把<a href="#listing-proposed-contact-page">代码清单 3.39</a> 中的内容写入“联系”页面的视图，让测试通过。注意，这个练习是独立的，所以<a href="#listing-proposed-contact-page">代码清单 3.39</a> 中的代码不会影响<a href="#listing-base-title-test">代码清单 3.38</a> 中的测试。</p>
 </li>
 </ol>
 <div id="listing-base-title-test" data-type="listing">
-<h5><span class="title-label">代码清单 3.38</span>：使用了通用标题的静态页面控制器测试 <span class="green">GREEN</span></h5>
+<h5><span class="title-label">代码清单 3.38</span>：使用通用标题的静态页面控制器测试 <span class="green">GREEN</span></h5>
 
 <div class="source-file">test/controllers/static_pages_controller_test.rb</div>
 
